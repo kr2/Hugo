@@ -10,7 +10,7 @@ include <metric.scad>
 use <teardrop.scad>
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
+mode = "inspect";
 
 outline           = [56.33, 47.41, 41.712];   // absolute outline [x,y,z]
 
@@ -310,7 +310,7 @@ module z_stop()
 	z_stop_width=10;
 	z_stop_height=1.8;
 	z_stop_length = outline[0];
-	z_stop_holderOffset = 5;
+	z_stop_holderOffset =7;
 
 	//spring
 	difference() {
