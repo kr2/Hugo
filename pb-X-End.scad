@@ -47,6 +47,12 @@ motor_holes_centerDist = 43.841/2; // distace of the motor holes from the motor 
 motor_holes_diameter   = 3; // motor hole diameter
 
 
+/*------------------------------------elongated hole--------------------------*/
+// lower hole could be elongeteded to compensate inaccuracies, which ouccour by the fact that the carriage beearing holes are printed in the other direction
+
+elongHole_addDia = 0.5;
+
+
 
 /******************************************************************************/ 
 /*                                  implementation                            */
@@ -58,7 +64,7 @@ X_BlockSize = [min(Z_nutTrap_pos[0]-m8_nut_diameter/2,Z_bearingHole_pos[0]-Z_bea
 
 
 
-module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false) {
+module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
 
 	//x belt
 	xb_r1=X_RodHoles_pos[0][1]; // bottom
@@ -151,9 +157,24 @@ module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z
 				roundEdge(_a=-90,_r=X_BlockSize[0],_l=outline[2],_fn=100);
 
 			// x rod holes
-			for (i=X_RodHoles_pos) 
-			translate([i[0], -OS, i[1]])  rotate(a=-90,v=X) 
-				cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+			if (!elongetededLowerHole) {
+				for (i=X_RodHoles_pos) 
+				translate([i[0], -OS, i[1]])  rotate(a=-90,v=X) 
+					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+				
+			} else {
+				translate([X_RodHoles_pos[1][0], -OS, X_RodHoles_pos[1][1]])  rotate(a=-90,v=X) 
+					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+
+				// elongetated one
+				translate([X_RodHoles_pos[0][0], -OS, X_RodHoles_pos[0][1]-elongHole_addDia/2])  rotate(a=-90,v=X) 
+					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+				translate([X_RodHoles_pos[0][0], -OS, X_RodHoles_pos[0][1]+elongHole_addDia/2])  rotate(a=-90,v=X) 
+					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+				translate([X_RodHoles_pos[0][0]-X_Rod_dia/2, -OS, X_RodHoles_pos[0][1]-elongHole_addDia/2])
+					cube(size=[X_Rod_dia, X_Rod_depth, elongHole_addDia], center=false);
+			}
+
 
 			if (isIdle) {
 				//idler coutout
@@ -201,11 +222,11 @@ if (mode == "inspect") {
 }
 module pb_x_End_print() {
 	translate([-outline[1]/2, 0, 0]) 
-	pb_x_End(isMotor=true,adjustable_z_stop=true);
+	pb_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
 
 	translate([-outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
-		pb_x_End(isIdle=true);
+		pb_x_End(isIdle=true,elongetededLowerHole = true);
 }
 if (mode == "print") 
 	pb_x_End_print();
