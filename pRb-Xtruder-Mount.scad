@@ -1,4 +1,4 @@
-/* pb-Xtruder-Mount
+/* pRb-Xtruder-Mount
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -7,12 +7,12 @@
 
 include <units.scad>
 use <teardrop.scad>
-use <pb-X-End.scad>
+use <pRb-X-End.scad>
 
 
 /*------------------------------------general---------------------------------*/
-//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-mode = "inspect";
+mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//mode = "inspect";
 
 outline           = [68, 33.1, 27.9];   // absolute outline [x,y,z]
 

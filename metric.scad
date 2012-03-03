@@ -7,8 +7,6 @@
 // http://www.reprap.org/wiki/Prusa_Mendel
 // http://github.com/prusajr/PrusaMendel
 
-// DONT CHANGE THIS FILE! ALTER VALUES IN CONFIGURATION.SCAD INSTEAD
-
 // RODS
 
 threaded_rod_diameter = 8.2;
