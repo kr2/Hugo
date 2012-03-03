@@ -6,6 +6,7 @@
  */
 
 include <units.scad>
+include <metric.scad>
 use <teardrop.scad>
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
@@ -57,18 +58,21 @@ X_BlockSize = [min(Z_nutTrap_pos[0]-m8_nut_diameter/2,Z_bearingHole_pos[0]-Z_bea
 
 
 
-module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false) {
+module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false) {
 
 	//x belt
 	xb_r1=X_RodHoles_pos[0][1]; // bottom
 	xb_r2=outline[2]-X_RodHoles_pos[1][1]; // top
 
+
+	if (adjustable_z_stop) {
+		translate([0, outline[1]+5, 0]) 
+			z_stop();
+	}
+
 	intersection() {
 		cube(size=outline, center=false);
 		
-		
-		
-
 		difference()
 		{
 			union ()
@@ -123,6 +127,7 @@ module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false) {
 					cube(size=[X_RodHoles_pos[0][0], outline[1], X_RodHoles_pos[0][1]], center=false);
 	
 				}
+				
 			}
 
 			//nut Rod hole.
@@ -191,12 +196,12 @@ module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false) {
 if (mode == "inspect") {
 	translate([outline[0]/2, outline[1]/2, 0]) 
 		%import_stl("pb-X-Motor-v2.stl", convexity = 5);
-	pb_x_End();
+	pb_x_End(isMotor=true,,adjustable_z_stop=true);
 
 }
 module pb_x_End_print() {
 	translate([-outline[1]/2, 0, 0]) 
-	pb_x_End(isMotor=true);
+	pb_x_End(isMotor=true,adjustable_z_stop=true);
 
 	translate([-outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
@@ -274,3 +279,77 @@ function angle(a,b,c) = acos((a*a+b*b-c*c)/(2*a*b));
 
 function rotated(a)=[cos(a),sin(a),0];
 
+
+
+nema17_width=1.7*25.4;
+thickness=9;
+motor_mount_translation=[44-thickness,8,23.5-4.7-12+24.5];
+module z_stop()
+{
+	z_stop_width=10;
+	z_stop_height=1.8;
+	z_stop_length = outline[0];
+	z_stop_holderOffset = 5;
+
+	//spring
+	difference() {
+		union(){
+			translate([z_stop_length- z_stop_width, -z_stop_holderOffset, 0]) 
+			cube(size=[z_stop_width, z_stop_holderOffset+z_stop_width, z_stop_height], center=false);
+			translate([z_stop_width/2,0,0])
+			cube([z_stop_length-z_stop_width/2,z_stop_width,z_stop_height]);
+
+			translate([z_stop_length- z_stop_width+OS, OS, 0]) 
+				roundEdge(_a=180,_r=z_stop_width/2,_l=z_stop_height,_fn=100);
+		}
+		union(){
+			translate([z_stop_length, z_stop_width, -OS]) 
+				roundEdge(_a=180,_r=z_stop_width,_l=z_stop_height+2*OS,_fn=100);
+		}
+	}
+	
+	
+
+	translate([z_stop_width/2,z_stop_width/2,0])
+	difference()
+	{
+		cylinder(r=z_stop_width/2,h=z_stop_height*2,$fn=32);
+	}
+
+
+	difference()
+	{
+		union()
+		{
+			//screw connector
+			//translate([0,-5,8])
+			translate([8.75/2,5,0])
+			translate([0,0,8])
+			rotate(a=30,v=[0,0,1]) 
+			translate([-(m3_nut_wallDist+2)/2, -(z_stop_width/2+z_stop_holderOffset+z_stop_holderOffset), 0]) 
+				cube([m3_nut_wallDist+2,z_stop_width/2+z_stop_holderOffset*2,15.8-8]);
+
+			// screw counter holder
+			translate([8.75/2,5,2*z_stop_height+0.8])
+				cylinder(r=m3_nut_diameter/2+1.28,h=15.8-2*z_stop_height-0.8-7.8-0.8,$fn=6);
+			
+			translate([8.75/2,5,0])
+				cylinder(r=m3_nut_diameter/2+0.3*2.1,h=15.8-1,$fn=6);
+			
+			translate([8.75/2,5,8])
+				cylinder(r=m3_nut_diameter/2+1.28,h=7.8,$fn=6);
+		}
+
+		translate([8.75/2,5,0])
+		cylinder(r=m3_diameter/2,h=8,$fn=16);
+
+		translate([8.75/2,5,8+2+0.4])
+		cylinder(r=m3_diameter/2,h=10,$fn=16);
+
+		translate([8.75/2,5,z_stop_height])
+		cylinder(r=m3_nut_diameter/2,h=8+2-z_stop_height,$fn=6);
+
+		translate([8.75/2,5,15.8-2])
+		cylinder(r=m3_nut_diameter/2,h=3,$fn=6);
+	}
+}
