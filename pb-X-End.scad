@@ -10,13 +10,13 @@ include <metric.scad>
 use <teardrop.scad>
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-mode = "inspect";
+//mode = "inspect";
 
 outline           = [56.33, 47.41, 41.712];   // absolute outline [x,y,z]
 
 Z_nutTrap_pos     = [23.27, (45.45+30.56)/2]; //[x,y] // pos of the vertical nutrap with spring thing
 Z_bearingHole_pos = [23.27, 9.69]; //[x,y] // pos of the vertical bearing holder
-Z_bearingHole_dia = 15.59; // bearing hole diameter
+Z_bearingHole_dia = 15; // bearing hole diameter
 
 X_RodHoles_pos    = [ // x direction rod hole positions 
 					   [8.08, 8.34],//[x,z] // bottom// reference
@@ -27,7 +27,7 @@ X_Rod_depth       = 37.5; // x direction rode hole depth
 
 
 m8_diameter       = 9; // m8 rod diameter
-m8_nut_diameter   = 16.4; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
+//m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
 thin_wall         = 3; // thin wall for different walls
 corection         = 1.17; //correction factor for the nuttrap
 
@@ -44,7 +44,7 @@ motor_xdirBar_size     = [4.22, 5.39]; //[y,z] // size of the suport bares betwe
 motor_plate_thick      = 3; // motor plate thickness
 motor_cutout_diameter  = 24; // diameter of the coutout around the motoraxis
 motor_holes_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
-motor_holes_diameter   = 3; // motor hole diameter
+motor_holes_diameter   = 3.2; // motor hole diameter
 
 
 /*------------------------------------elongated hole--------------------------*/
