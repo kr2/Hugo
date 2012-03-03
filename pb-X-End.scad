@@ -30,6 +30,8 @@ m8_nut_diameter   = 16.4; // m8 nut diameter (one vertical edge to the other) !!
 thin_wall         = 3; // thin wall for different walls
 corection         = 1.17; //correction factor for the nuttrap
 
+overhang_angle    = 20;
+
 /*------------------------------------idler-----------------------------------*/
 
 idle_hole_pos   = [outline[1]/2, 14]; //[y,z] // postion of the idler hole
@@ -55,7 +57,7 @@ X_BlockSize = [min(Z_nutTrap_pos[0]-m8_nut_diameter/2,Z_bearingHole_pos[0]-Z_bea
 
 
 
-module pb_x_End(isIdle = false, isMotor = false) {
+module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false) {
 
 	//x belt
 	xb_r1=X_RodHoles_pos[0][1]; // bottom
@@ -115,7 +117,11 @@ module pb_x_End(isIdle = false, isMotor = false) {
 					for (y=[motor_xdirBar_size[0]/2,outline[1]-motor_xdirBar_size[0]/2]) 
 					translate([outline[0]-motor_plate_thick, y,0])
 						cylinder(r=motor_xdirBar_size[0]/2, h=outline[1], center=false, $fn=24);
-					  
+				}
+
+				if (!bottomRounded) {
+					cube(size=[X_RodHoles_pos[0][0], outline[1], X_RodHoles_pos[0][1]], center=false);
+	
 				}
 			}
 
@@ -169,6 +175,13 @@ module pb_x_End(isIdle = false, isMotor = false) {
 					rotate(a=90,v=Y) 
 						cylinder(r=motor_holes_diameter/2, h=motor_plate_thick+2, center=false, $fn=12);
 				}
+				
+			}
+			if (!bottomRounded) {
+				translate([tan(overhang_angle)*X_RodHoles_pos[0][1], 0, 0]) 
+				rotate(a=-overhang_angle+180,v=Y) 
+				translate([0, 0, - X_RodHoles_pos[0][1]*2]) 
+					cube(size=[outline[0], outline[1], X_RodHoles_pos[0][1]*4], center=false);
 				
 			}
 			
