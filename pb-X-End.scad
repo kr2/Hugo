@@ -8,6 +8,7 @@
 include <units.scad>
 include <metric.scad>
 use <teardrop.scad>
+include <roundEdges.scad>
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
@@ -245,20 +246,6 @@ module ring(r,w,h,center=false){
 	}
 }
 
-module roundEdge(_a=0,_r=1,_l=1,_fn=100){
-	rotate (a=[0,0,_a]){
-		translate(v=[_r,_r,0]){
-			rotate (a=[0,0,0]) rotate (a=[0,0,180]){
-				difference() {
-					translate (v=[-OS/2,-OS/2,-OS/2])
-						cube (size = [_r+OS,_r+OS,_l+OS],center=false );
-					translate (v=[0,0,-OS*2/2])
-						cylinder (h = _l+OS*2, r=_r, center = false, $fn=_fn);
-				}
-			}
-		}
-	}
-}
 
 
 module barbell (r1,r2,r3,r4,separation) 
