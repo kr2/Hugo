@@ -17,7 +17,7 @@ outline           = [56.33, 47.41, 41.712];   // absolute outline [x,y,z]
 
 Z_nutTrap_pos     = [23.27, (45.45+30.56)/2]; //[x,y] // pos of the vertical nutrap with spring thing
 Z_bearingHole_pos = [23.27, 9.69]; //[x,y] // pos of the vertical bearing holder
-Z_bearingHole_dia = 15; // bearing hole diameter
+Z_bearingHole_dia = 15.35; // bearing hole diameter
 
 X_RodHoles_pos    = [ // x direction rod hole positions 
 					   [8.08, 8.34],//[x,z] // bottom// reference
@@ -27,7 +27,7 @@ X_Rod_dia         = 8; // x direction diameter
 X_Rod_depth       = 37.5; // x direction rode hole depth
 
 
-m8_diameter       = 9; // m8 rod diameter
+m8_diameter       = 9.2; // m8 rod diameter
 //m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
 thin_wall         = 3; // thin wall for different walls
 corection         = 1.17; //correction factor for the nuttrap
@@ -37,7 +37,7 @@ overhang_angle    = 20;
 /*------------------------------------idler-----------------------------------*/
 
 idle_hole_pos   = [outline[1]/2, 14]; //[y,z] // postion of the idler hole
-idle_hole_dia   = 8; // diameter of the idler hole
+idle_hole_dia   = 8.1; // diameter of the idler hole
 idle_hole_depth = 17.5; // depth of the idler hole
 
 /*------------------------------------motorholder-----------------------------*/
@@ -180,7 +180,7 @@ module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z
 			if (isIdle) {
 				//idler coutout
 				translate([Z_bearingHole_pos[0]+Z_bearingHole_dia/2+thin_wall+OS, idle_hole_pos[0], idle_hole_pos[1]])  rotate(a=-90,v=Y) 
-					cylinder(r=idle_hole_dia/2, h=idle_hole_depth, center=false, $fn=24);
+					cylinder(r=idle_hole_dia/2, h=idle_hole_depth, center=false, $fn=8);
 			}
 
 			if (isMotor) {
