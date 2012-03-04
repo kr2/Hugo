@@ -51,7 +51,7 @@ motor_holes_diameter   = 3.2; // motor hole diameter
 /*------------------------------------elongated hole--------------------------*/
 // lower hole could be elongeteded to compensate inaccuracies, which ouccour by the fact that the carriage beearing holes are printed in the other direction
 
-elongHole_addDia = 0.75;
+elongHole_addDia = 1.0;
 
 
 
