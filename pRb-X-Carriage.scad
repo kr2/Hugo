@@ -15,7 +15,7 @@ $fn=50;
 diameterBearingHole = 15;
 depthBearingHole    = 24;
 
-axisDistance        = 25;
+axisDistance        = 25.38;
 
 notchInnerWidth     = 5.4;
 notchDepth          = 1.2;

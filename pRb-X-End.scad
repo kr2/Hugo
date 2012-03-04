@@ -37,7 +37,7 @@ overhang_angle    = 20;
 /*------------------------------------idler-----------------------------------*/
 
 idle_hole_pos   = [outline[1]/2, 14]; //[y,z] // postion of the idler hole
-idle_hole_dia   = 8.1; // diameter of the idler hole
+idle_hole_dia   = 8.3; // diameter of the idler hole
 idle_hole_depth = 17.5; // depth of the idler hole
 
 /*------------------------------------motorholder-----------------------------*/
@@ -51,7 +51,7 @@ motor_holes_diameter   = 3.2; // motor hole diameter
 /*------------------------------------elongated hole--------------------------*/
 // lower hole could be elongeteded to compensate inaccuracies, which ouccour by the fact that the carriage beearing holes are printed in the other direction
 
-elongHole_addDia = 0.5;
+elongHole_addDia = 0.75;
 
 
 
