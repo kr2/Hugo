@@ -16,17 +16,18 @@ use <pRb-Y-beltClamp.scad>
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
+//$fn=96;
 
 axis_dist = 25.38;
 genWallThickness = 2.5;
 strongWallThickness = 5;
 
-horizontalSuportThickness = 0.4;
+horizontalSuportThickness = 0.3;
 verticalSupportThickness = 0.5;
 
 /*------------------------------------linear bearings-------------------------*/
 lber_length = 24;
-lber_diam = 15;
+lber_diam = 15.3;
 
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
@@ -154,9 +155,9 @@ module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 							rotate(a=90,v=Y) 
 								cylinder(r=m3_diameter/2, h=beltClamp_width+OS*2, center=false,$fn=12);
 							// eleongeteated nuttraps
-							translate([-beltClamp_beltHole[0]-beltClamp_center_height/4-m3_nut_heigth/2, c, i+beltClamp_depth/2])
+							translate([-beltClamp_beltHole[0]-beltClamp_center_height/4-m3_elongNtt_height/2, c, i+beltClamp_depth/2])
 							rotate(a=90,v=Y) 
-								cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6); 
+								cylinder(r=m3_elongNtt_diameter/2, h=m3_elongNtt_height, center=false,$fn=6); 
 							
 						}
 
@@ -173,8 +174,8 @@ module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 					// elengeteated nuttraps
 					for (i=[-OS,zdir-beltClamp_depth/2]) 
 					for (c=[-(beltClamp_width-beltClamp_depth)/2,(beltClamp_width-beltClamp_depth)/2])// center screws
-					translate([-beltClamp_beltHole[0]-beltClamp_center_height/4-m3_nut_heigth/2, c- m3_nut_wallDist/2, i]) 
-						cube(size=[m3_nut_heigth, m3_nut_wallDist, beltClamp_depth], center=false);
+					translate([-beltClamp_beltHole[0]-beltClamp_center_height/4-m3_elongNtt_height/2, c- m3_elongNtt_wallDist/2, i]) 
+						cube(size=[m3_elongNtt_height, m3_elongNtt_wallDist, beltClamp_depth], center=false);
 				}
 				
 				
