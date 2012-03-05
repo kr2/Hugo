@@ -8,11 +8,12 @@
 include <units.scad>
 use <teardrop.scad>
 use <pRb-X-End.scad>
+use <pRb-X-Carriage.scad>
 
 
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
+mode = "inspect";
 
 outline           = [68, 33.1, 27.9];   // absolute outline [x,y,z]
 
