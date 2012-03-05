@@ -9,6 +9,7 @@ include <units.scad>
 include <metric.scad>
 use <teardrop.scad>
 include <roundEdges.scad>
+include <barbell.scad>
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
@@ -247,45 +248,6 @@ module ring(r,w,h,center=false){
 }
 
 
-
-module barbell (r1,r2,r3,r4,separation) 
-{
-	x1=[0,0];
-	x2=[separation,0];
-	x3=triangulate (x1,x2,r1+r3,r2+r3);
-	x4=triangulate (x2,x1,r2+r4,r1+r4);
-	render()
-	difference ()
-	{
-		union()
-		{
-			translate(x1)
-			circle (r=r1);
-			translate(x2)
-			circle(r=r2);
-			polygon (points=[x1,x3,x2,x4]);
-		}
-		translate(x3)
-		circle(r=r3,$fa=5);
-		translate(x4)
-		circle(r=r4,$fa=5);
-	}
-}
-
-
-function triangulate (point1, point2, length1, length2) = 
-point1 + 
-length1*rotated(
-atan2(point2[1]-point1[1],point2[0]-point1[0])+
-angle(distance(point1,point2),length1,length2));
-
-function distance(point1,point2)=
-sqrt((point1[0]-point2[0])*(point1[0]-point2[0])+
-(point1[1]-point2[1])*(point1[1]-point2[1]));
-
-function angle(a,b,c) = acos((a*a+b*b-c*c)/(2*a*b)); 
-
-function rotated(a)=[cos(a),sin(a),0];
 
 
 
