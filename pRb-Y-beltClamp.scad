@@ -26,7 +26,7 @@ belt_tolerance = [2,1,1]; //x,y,z
 strongWallThickness = 10;
 genWallThickness = 2;
 
-
+nutSlotTolerance = 0.4;
 
 module pRb_yBeltClam() {
 	y_mainLength = m3_diameter+genWallThickness+strongWallThickness+belt_tolerance[0]+belt_thickness;
@@ -105,11 +105,11 @@ module pRb_yBeltClam() {
 				rotate(a=-90,v=X) 
 					cylinder(r=m3_diameter/2, h=y_mainLength- m3_nut_diameter-2*genWallThickness, center=false,$fn=48); 
 				//nuttraps
-				translate([0, genWallThickness+m3_nut_diameter/2-m3_nut_heigth, 0]) 
+				translate([0, genWallThickness+m3_nut_diameter/2-m3_nut_heigth-nutSlotTolerance/2, 0]) 
 				rotate(a=-90,v=X) 
-					cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6);
+					cylinder(r=(m3_nut_diameter+nutSlotTolerance)/2, h=m3_nut_heigth+nutSlotTolerance, center=false,$fn=6);
 				translate([-(strongWallThickness/2+OS)/2, genWallThickness+m3_nut_diameter/2+m3_nut_heigth/2-m3_nut_heigth, 0]) 
-				cube(size=[strongWallThickness/2+OS, m3_nut_heigth, m3_nut_wallDist], center=true);
+				cube(size=[strongWallThickness/2+OS, m3_nut_heigth+nutSlotTolerance, m3_nut_wallDist+nutSlotTolerance], center=true);
 			}
 
 			//oblique edge
