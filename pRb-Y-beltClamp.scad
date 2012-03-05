@@ -13,7 +13,7 @@ include <roundEdges.scad>
 
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
+mode = "inspect";
 
 /*------------------------------------belt------------------------------------*/
 belt_thickness = 2.5;
@@ -47,7 +47,12 @@ module pRb_yBeltClam() {
 			//belt holder
 			for (i=[belt_teethDist/4:belt_teethDist:strongWallThickness])
 			translate([i, -belt_teethDepth, 0]) 
+			difference() {
 				cube(size=[belt_teethDist/2, belt_teethDepth, belt_width+belt_tolerance[2]], center=false); 
+				translate([0, 0, belt_width+belt_tolerance[2]]) 
+				rotate(a=90,v=Y) 
+					roundEdge(_a=0,_r=belt_teethDepth,_l=belt_teethDist/2+2*OS,_fn=4);
+			}	
 
 			// bootom plate
 			translate([0, 0, -genWallThickness]){ 
@@ -76,9 +81,20 @@ module pRb_yBeltClam() {
 
 			// support rounded edge
 			translate([0, y_mainLength,  belt_width+belt_tolerance[2]+belt_topOffset-genWallThickness]) {
-				cube(size=[2*strongWallThickness+belt_thickness+belt_tolerance[0], belt_topOffset/3*2, genWallThickness], center=false);
-				rotate(a=90,v=Y) 
-					roundEdge(_a=0,_r=belt_topOffset/3*2,_l=2*strongWallThickness+belt_thickness+belt_tolerance[0],_fn=4);
+				intersection() {
+					union() {
+						cube(size=[2*strongWallThickness+belt_thickness+belt_tolerance[0], belt_topOffset/3*2, genWallThickness], center=false);
+						rotate(a=90,v=Y) 
+							roundEdge(_a=0,_r=belt_topOffset/3*2,_l=2*strongWallThickness+belt_thickness+belt_tolerance[0],_fn=4);
+
+					}
+					union() {
+						for (i=[strongWallThickness/2,strongWallThickness + belt_thickness+belt_tolerance[0] + strongWallThickness/2]) 
+						translate([i, 0, -(belt_topOffset)]) 
+						scale([1, (belt_topOffset/3*2)/(strongWallThickness/2), 1]) 
+							cylinder(r=strongWallThickness/2, h=belt_topOffset+genWallThickness, center=false,$fn=48);
+					}
+				}
 			}
 		}
 		union(){
@@ -114,9 +130,15 @@ module pRb_yBeltClam() {
 
 			//oblique edge
 			translate([0, 0, m3_diameter+belt_width+belt_tolerance[2] + genWallThickness]) 
-			rotate(a=-35,v=X) 
-			translate([-OS, -(y_mainLength- strongWallThickness),0]) 
-			cube(size=[strongWallThickness+2*OS, y_mainLength- strongWallThickness, belt_topOffset], center=false);
+			rotate(a=-25,v=X) 
+			translate([-OS, -(y_mainLength- strongWallThickness),0]) {
+				difference() {
+					cube(size=[strongWallThickness+2*OS, y_mainLength- strongWallThickness, belt_topOffset], center=false);
+					translate([strongWallThickness/2, y_mainLength- strongWallThickness, 0]) 
+					scale([1, 0.25, 1]) 
+						cylinder(r=strongWallThickness/2, h=belt_topOffset*4, center=true);
+				}
+			}
 		}
 	}
 	
