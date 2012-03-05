@@ -122,7 +122,7 @@ module pRb_yBeltClam() {
 	
 }
 
-module beltProtector() {
+module yBeltClamp_beltProtector() {
 	difference() {
 		cylinder(r=m3_nut_diameter/2, h= belt_width, center=false,$fn=48);
 		translate([-m3_nut_diameter/4, 0, (belt_width)/2]) 
@@ -158,7 +158,7 @@ module beltClamp() {
 if (mode == "inspect") {
 	pRb_yBeltClam();
 	translate([strongWallThickness+1,  genWallThickness+m3_nut_diameter/2, +belt_tolerance[2]/2]) 
-	beltProtector();
+	yBeltClamp_beltProtector();
 	translate([strongWallThickness/2, -belt_thickness, (belt_width+belt_tolerance[2])/2]) 
 	rotate(a=90,v=X) 
 	beltClamp();
@@ -172,7 +172,7 @@ module pRb_yBeltClam_print() {
 
 	translate([strongWallThickness, m3_nut_diameter/2+belt_thickness, 0]) 
 	rotate(a=-90,v=Y) 
-	beltProtector();
+	yBeltClamp_beltProtector();
 }
 if (mode == "print") 
 	pRb_yBeltClam_print();
