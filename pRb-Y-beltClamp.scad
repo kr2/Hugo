@@ -13,7 +13,7 @@ include <roundEdges.scad>
 
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-mode = "inspect";
+//mode = "inspect";
 
 /*------------------------------------belt------------------------------------*/
 belt_thickness = 2.5;
