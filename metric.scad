@@ -21,6 +21,7 @@ m8_nut_diameter = 15.25;
 
 m4_diameter = 4.5;
 m4_nut_diameter = 9;
+m4_nut_heigth = 3.2;
 
 m3_diameter = 3.6;
 m3_nut_diameter = 6.45;
