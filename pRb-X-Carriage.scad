@@ -230,7 +230,7 @@ module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 		// lower coutout suport
 		intersection() {
 			union() {
-				for (i=[-lber_diam/2- genWallThickness,lber_diam/2+genWallThickness]) 
+				for (i=[-lber_diam/2- genWallThickness:genWallThickness*2: lber_diam/2+genWallThickness]) 
 				translate([xdir/4, i, matCoutout_rounded_r*matCoutout_scale/2]) 
 					cube(size=[matCoutout_rounded_r, verticalSupportThickness, matCoutout_rounded_r*matCoutout_scale], center=true);
 			}
@@ -249,6 +249,17 @@ module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 				cylinder(r=matCoutout_rounded_r, h=lber_diam+2*genWallThickness +2*verticalSupportThickness, center=true,$fn=48);
 				cylinder(r=matCoutout_rounded_r- horizontalSuportThickness/matCoutout_scale, h=lber_diam+2*genWallThickness +2*verticalSupportThickness+2*OS, center=true,$fn=48);
 			}
+		}
+
+		// top nuttrap for belt tentner support
+		translate([-(axis_dist/2+belt_axisZdir_offset), -(belt_axisYdir_dist+belt_width/2), 0]) {  // center belt
+		translate([-(beltClamp_center_height)/2-beltClamp_beltHole[0], 0, zdir- beltClamp_depth]){
+			translate([0, 0, m3_nut_heigth]) 
+				cylinder(r=m3_nut_diameter/2 + OS, h=horizontalSuportThickness, center=false); 
+			
+			cylinder(r=m3_nut_diameter*0.6, h=verticalSupportThickness, center=false);
+		}
+
 		}
 	}
 }
