@@ -129,14 +129,15 @@ module pRb_yBeltClam() {
 			}
 
 			//oblique edge
-			translate([0, 0, m3_diameter+belt_width+belt_tolerance[2] + genWallThickness]) 
-			rotate(a=-25,v=X) 
-			translate([-OS, -(y_mainLength- strongWallThickness),0]) {
+			translate([0, 0,  m3_diameter/2+belt_width+belt_tolerance[2]]) 
+			rotate(a=-30,v=X)  {
 				difference() {
+					translate([-OS, -(y_mainLength- strongWallThickness),0])
 					cube(size=[strongWallThickness+2*OS, y_mainLength- strongWallThickness, belt_topOffset], center=false);
-					translate([strongWallThickness/2, y_mainLength- strongWallThickness, 0]) 
-					scale([1, 0.25, 1]) 
-						cylinder(r=strongWallThickness/2, h=belt_topOffset*4, center=true);
+					
+					translate([strongWallThickness/2, 0, 0]) 
+					scale([1, 0.55, 1]) 
+						cylinder(r=strongWallThickness/2, h=belt_topOffset*4, center=true,$fn=24);
 				}
 			}
 		}
