@@ -40,7 +40,7 @@ notchLength       = 24 + 2.5;
 
 
 module pb_Xtruder_mount() {
-	ext_cutout_r = ext_hole_yoff- extM_genWallThickness*2;
+	ext_cutout_r = ext_hole_yoff- extM_genWallThickness;
 	ext_cutout_scal = (ext_hole_xoff-extM_genWallThickness*1.5)/ext_cutout_r;
 	extM_remainingPeeksXdir = (outline[0]-ext_cutout_r*ext_cutout_scal*2)/2;
 
