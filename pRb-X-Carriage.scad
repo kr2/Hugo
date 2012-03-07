@@ -15,7 +15,7 @@ use <pRb-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
+mode = "inspect";
 //$fn=96;
 
 axis_dist = 25.38;
@@ -61,20 +61,21 @@ beltClamp_center_height = genWallThickness+m3_nut_wallDist;
 beltClamp_width = belt_width+belt_tolerance[1]+m3_diameter*2+m3_nut_diameter;
 beltClamp_heigth = belt_thickness+belt_tolerance[0]+genWallThickness+m3_nut_wallDist;
 
+xdir = axis_dist+lber_diam+2*genWallThickness;
+ydir = lber_diam+2*genWallThickness;
+zdir = lber_length*2+genWallThickness;
+
+matCoutout_scale = (lber_length/2)/(axis_dist/2+lber_diam/2+genWallThickness); // material coutout scale
+matCoutout_rounded_r = xdir/2;
+
+
+belt_axisDist = distance1D(belt_axisYdir_dist+belt_width/2,belt_axisZdir_offset+(beltClamp_center_height+beltClamp_beltHole[0])/2);
+belt_holder_angle = atan((belt_axisZdir_offset+(beltClamp_center_height+beltClamp_beltHole[0])/2)/(belt_axisYdir_dist+belt_width/2));
 
 
 
 module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
-	xdir = axis_dist+lber_diam+2*genWallThickness;
-	ydir = lber_diam+2*genWallThickness;
-	zdir = lber_length*2+genWallThickness;
 
-	matCoutout_scale = (lber_length/2)/(axis_dist/2+lber_diam/2+genWallThickness); // material coutout scale
-	matCoutout_rounded_r = xdir/2;
-
-
-	belt_axisDist = distance1D(belt_axisYdir_dist+belt_width/2,belt_axisZdir_offset+(beltClamp_center_height+beltClamp_beltHole[0])/2);
-	belt_holder_angle = atan((belt_axisZdir_offset+(beltClamp_center_height+beltClamp_beltHole[0])/2)/(belt_axisYdir_dist+belt_width/2));
 	
 	difference() {
 		union(){
@@ -282,9 +283,20 @@ module _bearingStop() {
 if (mode == "inspect") {
 	pRb_x_Carriage(hasSupport = false);
 
-	translate([-26, -33, 5]) 
-	rotate(a=90,v=Y) 
-	carr_beltClamp();
+	translate([-(axis_dist/2+belt_axisZdir_offset), -(belt_axisYdir_dist+belt_width/2), 0]){//belt center bottom
+		for (i=[0,zdir- beltClamp_depth]) 
+		translate([-beltClamp_width/2-beltClamp_beltHole[0]- belt_thickness, 0, i+beltClamp_depth/2])
+		rotate(a=90,v=Y) 
+			carr_beltClamp();
+
+		for (i=[[beltClamp_depth+1,0],[zdir-beltClamp_depth-1,180]]) 
+		translate([-beltClamp_center_height, 0, i[0]]) 
+		rotate(a=i[1],v=X) 
+		rotate(a=90,v=Z) 
+		translate([belt_width/2, 0, 0])//centerd 
+		rotate(a=-90,v=Y) 
+			yBeltClamp_beltProtector();
+	}
 }
 module pRb_x_Carriage_print() {
 	pRb_x_Carriage();
