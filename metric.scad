@@ -16,6 +16,9 @@ smooth_bar_diameter = 8;
 // For all nuttraps and screw holse 
 m8_diameter = 8.9;
 m8_nut_diameter = 15.25;
+m8_nut_diameter = 14.7;
+m8_nut_wallDist = _wallDistFromDia(m8_nut_diameter);
+m8_nut_heigth = 6.3;
 
 m4_diameter = 4.5;
 m4_nut_diameter = 8.1;
