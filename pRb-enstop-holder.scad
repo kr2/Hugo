@@ -41,7 +41,8 @@ end_edgeRadius             = 10; // availiable ony if perpendicular
 
 // holeOffset is the distance form the center of the axis in the clamp to the center the hole
 // nuttraps [clamp, switch connector]  0: off, -1 one side 1 other side
-module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-40,30,5], nuttraps = [1,1]) {
+module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-34,14,5], nuttraps = [1,1]) {
+	_end_edgeRadius = min(end_edgeRadius,(holeOffset[1]-3*genWallThickness));
 	difference() {
 		union(){	
 			rotate(a=180,v=Z) 
@@ -80,10 +81,10 @@ module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-40,30,5], nuttraps 
 			if (isPerpendicular != 0) {
 				if (holeOffset[0]>0) {
 					translate([end_wallWidth/2, holeOffset[1]-end_wallWidth/2, 0]) 
-						roundEdge(_a=-90,_r=end_edgeRadius- end_wallWidth/2,_l=end_height,_fn=48);
+						roundEdge(_a=-90,_r=_end_edgeRadius- end_wallWidth/2,_l=end_height,_fn=48);
 				}else{
 					translate([-end_wallWidth/2, holeOffset[1]-end_wallWidth/2, 0]) 
-						roundEdge(_a=180,_r=end_edgeRadius- end_wallWidth/2,_l=end_height,_fn=48);
+						roundEdge(_a=180,_r=_end_edgeRadius- end_wallWidth/2,_l=end_height,_fn=48);
 				}
 			}
 			
@@ -123,10 +124,10 @@ module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-40,30,5], nuttraps 
 			if (isPerpendicular != 0) {
 				if (holeOffset[0]>0) {
 					translate([-end_wallWidth/2, holeOffset[1]+end_wallWidth/2, 0]) 
-						roundEdge(_a=-90,_r=end_edgeRadius+end_wallWidth/2,_l=end_height,_fn=48);
+						roundEdge(_a=-90,_r=_end_edgeRadius+end_wallWidth/2,_l=end_height,_fn=48);
 				}else{
 					translate([end_wallWidth/2, holeOffset[1]+end_wallWidth/2, 0]) 
-						roundEdge(_a=180,_r=end_edgeRadius+ end_wallWidth/2,_l=end_height,_fn=48);
+						roundEdge(_a=180,_r=_end_edgeRadius+ end_wallWidth/2,_l=end_height,_fn=48);
 				}
 			}
 		}
@@ -157,7 +158,7 @@ module _clamp(holeOffset,nuttrap) {
 
 			linear_extrude(height=end_height)
 			rotate(a=-90,v=Z) 
-				barbell(r1=(rod_diam+2*end_wallWidth)/2,r2=end_wallWidth/2,r3=end_wallWidth*4,r4=end_wallWidth*4,separation=min(20,holeOffset[1]));
+				barbell(r1=(rod_diam+2*end_wallWidth)/2,r2=end_wallWidth/2,r3=end_wallWidth*4,r4=end_wallWidth*4,separation=min(end_edgeRadius,holeOffset[1]-3*genWallThickness));
 		}
 		union(){
 			// rod coutout
