@@ -17,23 +17,24 @@ mode = "print";  // can be print or inspect [overlays the model with the origina
 //mode = "inspect";
 //$fn=96;
 
-genWallThickness = 2.5;
-strongWallThickness = 5;
+genWallThickness           = 2.5;
+strongWallThickness        = 5;
 
-horizontalSuportThickness = 0.3;
-verticalSupportThickness = 0.5;
+horizontalSuportThickness  = 0.3;
+verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-rod_diam = 8.5;
+rod_diam                   = 8.5;
 
 /*------------------------------------enstop----------------------------------*/
-end_height = 9;
-end_wallWidth = 4;
-end_slotWidth = rod_diam*0.7;
-end_slotDepth = 20.5;
-end_clampHole_offset = 15;
-end_addLengthHole = 5.5;
-end_edgeRadius = 10; // availiable ony if perpendicular
+end_height                 = 9;
+end_wallWidth              = 4;
+end_slotWidth              = rod_diam*0.7;
+end_slotDepth              = 20.5;
+end_clampHole_offset       = 15;
+end_elongetatedHole_length = 10;
+end_addLengthHole          = 5.5 + end_elongetatedHole_length;
+end_edgeRadius             = 10; // availiable ony if perpendicular
 
 
 
@@ -66,7 +67,8 @@ module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-40,30,5], nuttraps 
 
 			// nuttrap outline
 			if (nuttraps[1]!= 0) {
-				translate([holeOffset[0], holeOffset[1], end_height/2]) 
+				for (i=[0:m3_nut_diameter/2:end_elongetatedHole_length]) 
+				translate([holeOffset[0]+i*holeOffset[0]/abs(holeOffset[0]), holeOffset[1], end_height/2]) 
 				rotate(a=90*isPerpendicular,v=Z)
 				rotate(a=-90,v=Y)
 				translate([0, 0, end_wallWidth/2*nuttraps[1]]) 
@@ -91,10 +93,28 @@ module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-40,30,5], nuttraps 
 			translate([holeOffset[0], holeOffset[1], end_height/2]) 
 			rotate(a=90*isPerpendicular,v=Z)
 			rotate(a=-90,v=Y){
-				cylinder(r=m3_diameter/2, h=end_wallWidth+2*OS, center=true,$fn=24);
+				
+
+				
+				difference() {
+					union() {
+						for (i=[0,end_elongetatedHole_length]) 
+						translate([0, -i*holeOffset[0]/abs(holeOffset[0]), 0 ]) 
+							cylinder(r=m3_diameter/2, h=end_wallWidth+2*OS, center=true,$fn=24);
+						translate([0, end_elongetatedHole_length/2, -OS]) 
+							cube(size=[  m3_diameter, end_elongetatedHole_length, end_wallWidth+2*OS], center=true);
+					}
+					union(){
+						translate([0, end_elongetatedHole_length/2, -OS]) 
+						for (i=[-end_elongetatedHole_length/2+m3_diameter/2:m3_diameter:end_elongetatedHole_length/2]) 
+						translate([0, i, 0]) 
+							cube(size=[  m3_diameter, verticalSupportThickness, end_wallWidth+2*OS], center=true);
+					}
+				}
 				
 				if (nuttraps[1]!= 0) {
-					translate([0, 0, (end_wallWidth/2+OS)*nuttraps[1] ]) 
+					for (i=[0:m3_nut_diameter/2:end_elongetatedHole_length]) 
+					translate([0, -i*holeOffset[0]/abs(holeOffset[0]), (end_wallWidth/2+OS)*nuttraps[1] ]) 
 					rotate(a=30,v=Z) 
 						cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth+OS, center=true,$fn=6);
 				}	
