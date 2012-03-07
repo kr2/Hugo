@@ -14,10 +14,10 @@ include <barbell.scad>
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
 
-outline           = [56.33, 47.41, 41.712];   // absolute outline [x,y,z]
+outline           = [56.33, 49, 41.712];   // absolute outline [x,y,z]
 
-Z_nutTrap_pos     = [23.27, (45.45+30.56)/2]; //[x,y] // pos of the vertical nutrap with spring thing
-Z_bearingHole_pos = [23.27, 9.69]; //[x,y] // pos of the vertical bearing holder
+Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertical nutrap with spring thing
+Z_bearingHole_pos = [23.27, 9.69+1]; //[x,y] // pos of the vertical bearing holder
 Z_bearingHole_dia = 15.3; // bearing hole diameter
 
 X_RodHoles_pos    = [ // x direction rod hole positions 
@@ -28,9 +28,9 @@ X_Rod_dia         = 8; // x direction diameter
 X_Rod_depth       = 37.5; // x direction rode hole depth
 
 
-m8_diameter       = 9.2; // m8 rod diameter
+m8_diameter       = 8.5; // m8 rod diameter
 //metric.scad: m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
-thin_wall         = 3; // thin wall for different walls
+thin_wall         = 3.25; // thin wall for different walls
 corection         = 1.17; //correction factor for the nuttrap
 
 overhang_angle    = 20;
