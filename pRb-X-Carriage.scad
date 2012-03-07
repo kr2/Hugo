@@ -15,12 +15,14 @@ use <pRb-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-mode = "inspect";
+//mode = "inspect";
 //$fn=96;
 
 axis_dist = 25.38;
 genWallThickness = 2.5;
 strongWallThickness = 5;
+
+slot_width = 5;
 
 horizontalSuportThickness = 0.3;
 verticalSupportThickness = 0.7;
@@ -28,6 +30,7 @@ verticalSupportThickness = 0.7;
 /*------------------------------------linear bearings-------------------------*/
 lber_length = 24;
 lber_diam = 15.3;
+
 
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
@@ -182,17 +185,21 @@ module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 				
 			}
 
+			// slot
+			translate([0, 0, zdir/2])
+				cube(size=[axis_dist, slot_width, zdir+2*OS], center=true); 
+
 			//bearin coutout
 			translate([-axis_dist/2, 0, -OS])
 				difference() {
 					cylinder(r=lber_diam/2, h=lber_length*2+genWallThickness+2*OS, center=false);
-				 	translate([0, 0, lber_length])
+				 	*translate([0, 0, lber_length])
 				 		_bearingStop(); 
 				} 
 			translate([axis_dist/2, 0, -OS])
 				difference() {
 					cylinder(r=lber_diam/2, h=lber_length*2+genWallThickness+2*OS, center=false);
-				 	translate([0, 0, lber_length/2])
+				 	*translate([0, 0, lber_length/2])
 				 		_bearingStop(); 
 				} 
 
