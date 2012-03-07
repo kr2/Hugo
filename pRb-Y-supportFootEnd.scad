@@ -29,9 +29,7 @@ verticalSupportThickness   = 0.5;
 roughRod_diam                   = 8.5;
 
 /*------------------------------------supportFootEnd--------------------------*/
-sFooEnd_size = [8.267+roughRod_diam*1.5+1,8.267+roughRod_diam*1.5+1,strongWallThickness];
-
-
+sFooEnd_size = [(8.267+9.25)*2,(8.267+9.25)*2,strongWallThickness];
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
