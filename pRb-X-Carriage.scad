@@ -251,16 +251,21 @@ module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 			}
 		}
 
+		// bottom plate for better sticking of the vertikal support
+		translate([0, -lber_diam/2- genWallThickness, 0])  
+			cube(size=[matCoutout_rounded_r, lber_diam+2*genWallThickness, horizontalSuportThickness], center=false);
+
 		// top nuttrap for belt tentner support
 		translate([-(axis_dist/2+belt_axisZdir_offset), -(belt_axisYdir_dist+belt_width/2), 0]) {  // center belt
-		translate([-(beltClamp_center_height)/2-beltClamp_beltHole[0], 0, zdir- beltClamp_depth]){
-			translate([0, 0, m3_nut_heigth]) 
-				cylinder(r=m3_nut_diameter/2 + OS, h=horizontalSuportThickness, center=false); 
-			
-			cylinder(r=m3_nut_diameter*0.6, h=verticalSupportThickness, center=false);
+			translate([-(beltClamp_center_height)/2-beltClamp_beltHole[0], 0, zdir- beltClamp_depth]){
+				translate([0, 0, m3_nut_heigth]) 
+					cylinder(r=m3_nut_diameter/2 + OS, h=horizontalSuportThickness, center=false); 
+				
+				cylinder(r=m3_nut_diameter*0.6, h=verticalSupportThickness, center=false);
+			}
 		}
 
-		}
+
 	}
 }
 
