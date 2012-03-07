@@ -68,10 +68,11 @@ module pRb_Z_end() {
 
 			// x dir support
 			translate([0, 0, roughRod_diam/2+genWallThickness]) 
+
 			intersection() {
 				rotate(a=90,v=X) 
-				rotate_extrude(convexity = 10)
-					barbell (r1=_support_radius,r2=_support_radius,r3=_xDir*1,r4=_xDir*1,separation=_xDir-_support_radius); 
+				cylinder(r=_xDir, h=_support_radius*2, center=true);
+					//barbell (r1=_support_radius,r2=_support_radius,r3=_xDir*1,r4=_xDir*1,separation=_xDir-_support_radius); 
 				translate([0, -(roughRod_diam+2*genWallThickness)/2, 0]) 
 					cube(size=[_xDir, roughRod_diam+2*genWallThickness, _xDir], center=false);
 			}
@@ -127,4 +128,10 @@ module pRb_endstop_print() {
 }
 if (mode == "print") {
 	pRb_Z_end();
+}
+
+
+module _triangle2hg(height,ground)
+{
+    polygon(points=[[-ground/2,0],[ground/2,0],[0,height]], paths=[[0,1,2]]);
 }
