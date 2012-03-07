@@ -23,7 +23,7 @@ genWallThickness = 2.5;
 strongWallThickness = 5;
 
 horizontalSuportThickness = 0.3;
-verticalSupportThickness = 0.5;
+verticalSupportThickness = 0.7;
 
 /*------------------------------------linear bearings-------------------------*/
 lber_length = 24;
