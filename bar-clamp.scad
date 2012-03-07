@@ -8,7 +8,7 @@
 // http://www.reprap.org/wiki/Prusa_Mendel
 // http://github.com/prusajr/PrusaMendel
 
-include <configuration.scad>
+include <metric.scad>
 use <teardrop.scad>
 
 /**
