@@ -199,21 +199,21 @@ module _motorHolder(holeDist = 31.2) {
 	_coutoff_angle = 90-atan((holeDist/2)/((holeDist/2 - _circelDepth)));
 
 
-	_support_outer_r = _outer_r+ _outer_r- _inner_r;
+	_support_outer_r = _outer_r+ _outer_r- _inner_r+10;
 	_support_inner_r = _outer_r;
 	_support_y = holeDist/2- m3_diameter/2 - b_genWallThickness  + _support_outer_r;
 	
 	intersection() {
 		
 		translate([0, 0, b_xDirWall_size[2]/2]) 
-		cube(size=[(_circelDepth+b_genWallThickness*1.5)*2, _outer_r*2.5, b_xDirWall_size[2]], center=true);	
+			cube(size=[(_circelDepth+b_genWallThickness*1.5)*2, _outer_r*5, b_xDirWall_size[2]], center=true);	
 
 		difference() {
 			union(){
 				//motor holes
 				for (i=[-holeDist/2,holeDist/2]) 
 				translate([0, i, 0]) 
-					cylinder(r=m3_diameter/2+b_genWallThickness, h=b_xDirWall_size[2], center=false);
+					cylinder(r=m3_diameter/2+b_genWallThickness*2, h=b_xDirWall_size[2], center=false);
 
 				translate([-(holeDist/2 - _circelDepth+b_genWallThickness/2), 0, 0]) 
 					cylinder(r=_outer_r, h=b_xDirWall_size[2], center=false);
@@ -242,7 +242,7 @@ module _motorHolder(holeDist = 31.2) {
 					//motor holes
 					for (i=[-holeDist/2,holeDist/2]) 
 					translate([0, i, 0]) 
-						cylinder(r=m3_diameter/2+b_genWallThickness, h=b_xDirWall_size[2], center=false);
+						cylinder(r=m3_diameter/2+b_genWallThickness*2, h=b_xDirWall_size[2], center=false);
 
 				}
 
@@ -258,7 +258,7 @@ module _motorHolder(holeDist = 31.2) {
 		}
 	}
 }
-//!_motorHolder();
+//_motorHolder();
 
 if (b_mode == "inspect") {
 	 H_base();
