@@ -14,7 +14,7 @@ use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 //$fn=96;
