@@ -1,4 +1,4 @@
-/* A-X-Carriage [Xc]
+/* H-X-Carriage [Xc]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -76,7 +76,7 @@ Xc_belt_holder_angle       = atan((Xc_belt_axisXc_zdir_offset+(Xc_beltClamp_cent
 
 
 
-module A_x_Carriage(hasSupport = true, hasBeltConnector = true) {
+module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 
 	
 	difference() {
@@ -287,7 +287,7 @@ module _bearingStop() {
 
 
 if (Xc_mode == "inspect") {
-	A_x_Carriage(hasSupport = false);
+	H_x_Carriage(hasSupport = false);
 
 	translate([-(Xc_axis_dist/2+Xc_belt_axisXc_zdir_offset), -(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2), 0]){//belt center bottom
 		for (i=[0,Xc_zdir- Xc_beltClamp_depth]) 
@@ -304,11 +304,11 @@ if (Xc_mode == "inspect") {
 			yBeltClamp_beltProtector();
 	}
 }
-module A_x_Carriage_print() {
-	A_x_Carriage();
+module H_x_Carriage_print() {
+	H_x_Carriage();
 }
 if (Xc_mode == "print") {
-	A_x_Carriage_print();
+	H_x_Carriage_print();
 
 	for (i=[0, Xc_beltClamp_depth+1]) 
 	translate([Xc_belt_width+i, -Xc_lber_diam*2-3, 0]){

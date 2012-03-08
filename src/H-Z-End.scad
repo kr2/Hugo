@@ -1,4 +1,4 @@
-/* A-Z-end [Ze]
+/* H-Z-end [Ze]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -19,40 +19,40 @@ Ze_mode = "print";  // can be print or inspect [overlays the Ze_model with the o
 //$fn=48;
 
 Ze_thinWallThickness         = 1;
-Ze_genWallThickness           = 2.5;
-Ze_strongWallThickness        = 9;
+Ze_genWallThickness          = 2.5;
+Ze_strongWallThickness       = 9;
 
-Ze_horizontalSuportThickness  = 0.3;
-Ze_verticalSupportThickness   = 0.5;
+Ze_horizontalSuportThickness = 0.3;
+Ze_verticalSupportThickness  = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-Ze_smoothRod_diam                   = 8.0;
-Ze_roughRod_diam                   = 8.5;
+Ze_smoothRod_diam      = 8.0;
+Ze_roughRod_diam       = 8.5;
 
 /*------------------------------------zEnd------------------------------------*/
-Ze_zEnd_rodsDist = 28.315;
-Ze_zEnd_heigt = 35;
+Ze_zEnd_rodsDist       = 28.315;
+Ze_zEnd_heigt          = 35;
 Ze_zEnd_nuttrap_offset = 12;
 
 /*------------------------------------bearing---------------------------------*/
-Ze_bear_diam = 22.6;
-Ze_bear_heigth = 7;
+Ze_bear_diam           = 22.6;
+Ze_bear_heigth         = 7;
 
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
 /******************************************************************************/
-_Ze_zDir = Ze_zEnd_heigt;
-_Ze_xDir = _Ze_zDir-(Ze_genWallThickness+Ze_smoothRod_diam/2);
+_Ze_zDir                      = Ze_zEnd_heigt;
+_Ze_xDir                      = _Ze_zDir-(Ze_genWallThickness+Ze_smoothRod_diam/2);
 
-_Ze_support_radius = (Ze_smoothRod_diam/2+Ze_genWallThickness)*0.6;
-_Ze_support_coutout_r = circel_radius3Points([Ze_thinWallThickness,0],[_Ze_support_radius+Ze_thinWallThickness,_Ze_xDir],[_Ze_support_radius+Ze_thinWallThickness,-_Ze_xDir]);
+_Ze_support_radius            = (Ze_smoothRod_diam/2+Ze_genWallThickness)*0.6;
+_Ze_support_coutout_r         = circel_radius3Points([Ze_thinWallThickness,0],[_Ze_support_radius+Ze_thinWallThickness,_Ze_xDir],[_Ze_support_radius+Ze_thinWallThickness,-_Ze_xDir]);
 
-_Ze_crosBr_bearing_dist = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
+_Ze_crosBr_bearing_dist       = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
 _Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness/2;
 
-module A_Z_end(hasCrossBrace = true) {
-	_bearSuppCoutout_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2)/(_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness);
+module H_Z_end(hasCrossBrace = true) {
+	_bearSuppCoutout_scale           = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2)/(_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness);
 	_bearSuppCoutout_crosBrace_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2+_Ze_crosBr_bearing_noseLength)/(_Ze_zDir- m8_nut_diameter);
 	
 	difference() {
@@ -161,13 +161,13 @@ module A_Z_end(hasCrossBrace = true) {
 
 
 if (Ze_mode == "inspect") {
-	A_Z_end();
+	H_Z_end();
 }
-module A_endstop_print() {
-	A_Z_end();
+module H_endstop_print() {
+	H_Z_end();
 }
 if (Ze_mode == "print") {
-	A_Z_end();
+	H_Z_end();
 }
 
 

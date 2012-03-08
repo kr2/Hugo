@@ -1,4 +1,3 @@
-teardrop();
 
 module teardrop (r=4.5,h=20,top_and_bottom=false)
 {

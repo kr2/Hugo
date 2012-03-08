@@ -1,4 +1,4 @@
-/* A-X-End [Xe]
+/* H-X-End [Xe]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -20,10 +20,10 @@ Xe_Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertica
 Xe_Z_bearingHole_pos = [23.27, 9.69+1]; //[x,y] // pos of the vertical bearing holder
 Xe_Z_bearingHole_dia = 15.3; // bearing hole diameter
 
-Xe_X_RodHoles_pos    = [ // x direction rod hole positions 
-					   [8.08, 8.34],//[x,z] // bottom// reference
-					   [8.08, 33.72]//[x,z] // top
-				    ];
+Xe_X_RodHoles_pos    =  [ // x direction rod hole positions 
+						   [8.08, 8.34],//[x,z] // bottom// reference
+						   [8.08, 33.72]//[x,z] // top
+				    	];
 Xe_X_Rod_dia         = 8; // x direction diameter
 Xe_X_Rod_depth       = 37.5; // x direction rode hole depth
 
@@ -66,7 +66,7 @@ Xe_X_BlockSize = [min(Xe_Z_nutTrap_pos[0]-m8_nut_diameter/2,Xe_Z_bearingHole_pos
 
 
 
-module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
+module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
 
 	//x belt
 	xb_r1=Xe_X_RodHoles_pos[0][1]; // bottom
@@ -219,19 +219,19 @@ module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z
 if (Xe_mode == "inspect") {
 	translate([Xe_outline[0]/2, Xe_outline[1]/2, 0]) 
 		%import_stl("pb-X-Motor-v2.stl", convexity = 5);
-	pb_x_End(isMotor=true,,adjustable_z_stop=true);
+	H_x_End(isMotor=true,,adjustable_z_stop=true);
 
 }
-module pb_x_End_print() {
+module H_x_End_print() {
 	translate([-Xe_outline[1]/2, 0, 0]) 
-	pb_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
+	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
 
 	translate([-Xe_outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
-		pb_x_End(isIdle=true,elongetededLowerHole = true);
+		H_x_End(isIdle=true,elongetededLowerHole = true);
 }
 if (Xe_mode == "print") 
-	pb_x_End_print();
+	H_x_End_print();
 
 
 // ring with inner radius r and w as witth and h as heigt
