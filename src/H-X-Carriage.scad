@@ -14,7 +14,7 @@ use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-//Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 //$fn=96;
@@ -237,32 +237,34 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 
 	if (hasSupport) {
 		// lower coutout suport
-		intersection() {
-			union() {
-				for (i=[-Xc_lber_diam/2- Xc_genWallThickness:Xc_genWallThickness*2: Xc_lber_diam/2+Xc_genWallThickness]) 
-				translate([Xc_xdir/4, i, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
-					cube(size=[Xc_matCoutout_rounded_r, Xc_verticalSupportThickness, Xc_matCoutout_rounded_r*Xc_matCoutout_scale], center=true);
+		translate([Xc_horizontalSuportThickness*1.5, 0, 0]) {
+			intersection() {
+				union() {
+					for (i=[-Xc_lber_diam/2- Xc_genWallThickness:Xc_genWallThickness*2: Xc_lber_diam/2+Xc_genWallThickness]) 
+					translate([Xc_xdir/4, i, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
+						cube(size=[Xc_matCoutout_rounded_r, Xc_verticalSupportThickness, Xc_matCoutout_rounded_r*Xc_matCoutout_scale], center=true);
+				}
+				translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, 0])
+						scale([1, 1, Xc_matCoutout_scale])
+						rotate(a=90,v=X) 
+							cylinder(r=Xc_matCoutout_rounded_r, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness+2*OS, center=true,$fn=48); 			
 			}
-			translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, 0])
-					scale([1, 1, Xc_matCoutout_scale])
-					rotate(a=90,v=X) 
-						cylinder(r=Xc_matCoutout_rounded_r, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness+2*OS, center=true,$fn=48); 			
-		}
-		intersection() {
-			translate([Xc_xdir/4, 0, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
-				cube(size=[Xc_matCoutout_rounded_r, Xc_ydir+2*OS, Xc_matCoutout_rounded_r*Xc_matCoutout_scale], center=true);
-			translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, 0])
-			scale([1, 1, Xc_matCoutout_scale])
-			rotate(a=90,v=X) 
-			difference() {
-				cylinder(r=Xc_matCoutout_rounded_r, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness, center=true,$fn=48);
-				cylinder(r=Xc_matCoutout_rounded_r- Xc_horizontalSuportThickness/Xc_matCoutout_scale, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness+2*OS, center=true,$fn=48);
+			intersection() {
+				translate([Xc_xdir/4, 0, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
+					cube(size=[Xc_matCoutout_rounded_r, Xc_ydir+2*OS, Xc_matCoutout_rounded_r*Xc_matCoutout_scale], center=true);
+				translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, 0])
+				scale([1, 1, Xc_matCoutout_scale])
+				rotate(a=90,v=X) 
+				difference() {
+					cylinder(r=Xc_matCoutout_rounded_r, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness, center=true,$fn=48);
+					cylinder(r=Xc_matCoutout_rounded_r- Xc_horizontalSuportThickness/Xc_matCoutout_scale, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness+2*OS, center=true,$fn=48);
+				}
 			}
-		}
 
-		// bottom plate for better sticking of the vertikal support
-		translate([0, -Xc_lber_diam/2- Xc_genWallThickness, 0])  
-			cube(size=[Xc_matCoutout_rounded_r, Xc_lber_diam+2*Xc_genWallThickness, Xc_horizontalSuportThickness], center=false);
+			// bottom plate for better sticking of the vertikal support
+			translate([0, -Xc_lber_diam/2- Xc_genWallThickness, 0])  
+				cube(size=[Xc_matCoutout_rounded_r, Xc_lber_diam+2*Xc_genWallThickness, Xc_horizontalSuportThickness], center=false);
+		}
 
 		// top nuttrap for belt tentner support
 		translate([-(Xc_axis_dist/2+Xc_belt_axisXc_zdir_offset), -(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2), 0]) {  // center belt
