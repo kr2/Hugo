@@ -1,4 +1,4 @@
-/* pRb-Y-beltDivert
+/* A-Y-beltDivert
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -48,7 +48,7 @@ bear_washer_diam = 12;
 _bear_holder_diam = m8_nut_diameter + 2*genWallThickness;
 _xdir_holder_size = [beltDiv_xdirRods_dist+roughRod_diam+genWallThickness*2,strongWallThickness,beltDiv_height];
 
-module pRb_Y_beltDivert() {
+module A_Y_beltDivert() {
 	difference() {
 		union(){ 
 			translate([-beldDiv_bearingDist/2, 0, 0]) 
@@ -104,13 +104,13 @@ module pRb_Y_beltDivert() {
 
 
 if (mode == "inspect") {
-	pRb_Y_beltDivert();
+	A_Y_beltDivert();
 }
-module pRb_Y_beltDivert_print() {
+module A_Y_beltDivert_print() {
 	
 }
 if (mode == "print") {
-	pRb_Y_beltDivert_print();
+	A_Y_beltDivert_print();
 }
 
 

@@ -1,4 +1,4 @@
-/* pRb-base
+/* A-base
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -75,7 +75,7 @@ lber_zAxisXdirDist        = xDirWall_size[0]-genWallThickness- lber_diam/2 - zDi
 _xdir_bb_r = m8_nut_diameter*0.75;
 _xdirRods_holes_zdist = (xdirRods_holes_altitude[1]-xdirRods_holes_altitude[0]);
 
-module  pRb_base(hasYMotorMount = true, hasSupport = true) {
+module  A_base(hasYMotorMount = true, hasSupport = true) {
 	difference() {
 		union(){
 			translate([0, 0, zDirWall_size[2]-zdirRod_hole_depth- genWallThickness]) {
@@ -257,21 +257,21 @@ module _motorHolder(holeDist = 31.2) {
 //!_motorHolder();
 
 if (mode == "inspect") {
-	 pRb_base();
+	 A_base();
 }
-module pRb_base_print() {
+module A_base_print() {
 	translate([-zdirM_hole_zAxisDist-2*genWallThickness, 0, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -zDirWall_size[2]])  
-		pRb_base(hasYMotorMount = true, hasSupport = true);
+		A_base(hasYMotorMount = true, hasSupport = true);
 	translate([zdirM_hole_zAxisDist+2*genWallThickness, 0, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -zDirWall_size[2]])  
-		pRb_base(hasYMotorMount = false, hasSupport = true);
+		A_base(hasYMotorMount = false, hasSupport = true);
 }
 if (mode == "print") {
-	pRb_base_print();
+	A_base_print();
 }
 
 

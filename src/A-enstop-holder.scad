@@ -1,4 +1,4 @@
-/* pRb-endstop-holder
+/* A-endstop-holder
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -41,7 +41,7 @@ end_edgeRadius             = 10; // availiable ony if perpendicular
 
 // holeOffset is the distance form the center of the axis in the clamp to the center the hole
 // nuttraps [clamp, switch connector]  0: off, -1 one side 1 other side
-module pRb_endstop_holder(isPerpendicular= 1, holeOffset = [-34,14,5], nuttraps = [1,1]) {
+module A_endstop_holder(isPerpendicular= 1, holeOffset = [-34,14,5], nuttraps = [1,1]) {
 	_end_edgeRadius = min(end_edgeRadius,(holeOffset[1]-3*genWallThickness));
 	difference() {
 		union(){	
@@ -189,11 +189,11 @@ module _clamp(holeOffset,nuttrap) {
 
 
 if (mode == "inspect") {
-	pRb_endstop_holder();
+	A_endstop_holder();
 }
-module pRb_endstop_print() {
-	pRb_endstop_holder();
+module A_endstop_print() {
+	A_endstop_holder();
 }
 if (mode == "print") {
-	pRb_endstop_print();
+	A_endstop_print();
 }

@@ -1,4 +1,4 @@
-/* pRb-Y-supportFootEnd
+/* A-Y-supportFootEnd
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -38,7 +38,7 @@ _acrossStrive_angle = atan(sFooEnd_size[0]/sFooEnd_size[1]);
 _acrossStrive_diam = min(sFooEnd_size[0],sFooEnd_size[1])/4;
 _acrossStrive_length = distance1D(sFooEnd_size[0],sFooEnd_size[1])-_acrossStrive_diam*2.4;
 
-module  pRb_Y_supportFootEnd() {
+module  A_Y_supportFootEnd() {
 	difference() {
 		union(){
 			translate([0, 0, -OS]) 
@@ -66,13 +66,13 @@ module  pRb_Y_supportFootEnd() {
 
 
 if (mode == "inspect") {
-	 pRb_Y_supportFootEnd();
+	 A_Y_supportFootEnd();
 }
-module pRb_Y_supportFootEnd_print() {
-	pRb_Y_supportFootEnd();
+module A_Y_supportFootEnd_print() {
+	A_Y_supportFootEnd();
 }
 if (mode == "print") {
-	pRb_Y_supportFootEnd_print();
+	A_Y_supportFootEnd_print();
 }
 
 

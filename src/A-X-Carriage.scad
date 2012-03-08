@@ -1,4 +1,4 @@
-/* pRb-X-Carriage
+/* A-X-Carriage
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -11,7 +11,7 @@ include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
 include <barbell.scad>
-use <pRb-Y-beltClamp.scad>
+use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
@@ -77,7 +77,7 @@ belt_holder_angle = atan((belt_axisZdir_offset+(beltClamp_center_height+beltClam
 
 
 
-module pRb_x_Carriage(hasSupport = true, hasBeltConnector = true) {
+module A_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 
 	
 	difference() {
@@ -288,7 +288,7 @@ module _bearingStop() {
 
 
 if (mode == "inspect") {
-	pRb_x_Carriage(hasSupport = false);
+	A_x_Carriage(hasSupport = false);
 
 	translate([-(axis_dist/2+belt_axisZdir_offset), -(belt_axisYdir_dist+belt_width/2), 0]){//belt center bottom
 		for (i=[0,zdir- beltClamp_depth]) 
@@ -305,11 +305,11 @@ if (mode == "inspect") {
 			yBeltClamp_beltProtector();
 	}
 }
-module pRb_x_Carriage_print() {
-	pRb_x_Carriage();
+module A_x_Carriage_print() {
+	A_x_Carriage();
 }
 if (mode == "print") {
-	pRb_x_Carriage_print();
+	A_x_Carriage_print();
 
 	for (i=[0, beltClamp_depth+1]) 
 	translate([belt_width+i, -lber_diam*2-3, 0]){

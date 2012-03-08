@@ -1,4 +1,4 @@
-/* pRb-Y-beltClamp
+/* A-Y-beltClamp
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -28,7 +28,7 @@ genWallThickness = 2;
 
 nutSlotTolerance = 0.4;
 
-module pRb_yBeltClam() {
+module A_yBeltClam() {
 	y_mainLength = m3_diameter+genWallThickness+strongWallThickness+belt_tolerance[0]+belt_thickness;
 
 	difference() {
@@ -179,17 +179,17 @@ module beltClamp() {
 
 
 if (mode == "inspect") {
-	pRb_yBeltClam();
+	A_yBeltClam();
 	translate([strongWallThickness+1,  genWallThickness+m3_nut_diameter/2, +belt_tolerance[2]/2]) 
 	yBeltClamp_beltProtector();
 	translate([strongWallThickness/2, -belt_thickness, (belt_width+belt_tolerance[2])/2]) 
 	rotate(a=90,v=X) 
 	beltClamp();
 }
-module pRb_yBeltClam_print() {
+module A_yBeltClam_print() {
 	rotate(a=180,v=X) 
 	translate([0, 0, -(belt_topOffset+ belt_width+belt_tolerance[2])]) 
-	pRb_yBeltClam();
+	A_yBeltClam();
 	translate([strongWallThickness*1.6, strongWallThickness/3, 0]) 
 	beltClamp();
 
@@ -198,5 +198,5 @@ module pRb_yBeltClam_print() {
 	yBeltClamp_beltProtector();
 }
 if (mode == "print") 
-	pRb_yBeltClam_print();
+	A_yBeltClam_print();
 

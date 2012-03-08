@@ -1,4 +1,4 @@
-/* pRb-Z-end
+/* A-Z-end [Ze]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -14,144 +14,144 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
+Ze_mode = "print";  // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
+//Ze_mode = "inspect";
 //$fn=48;
 
-thinWallThickness         = 1;
-genWallThickness           = 2.5;
-strongWallThickness        = 9;
+Ze_thinWallThickness         = 1;
+Ze_genWallThickness           = 2.5;
+Ze_strongWallThickness        = 9;
 
-horizontalSuportThickness  = 0.3;
-verticalSupportThickness   = 0.5;
+Ze_horizontalSuportThickness  = 0.3;
+Ze_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-smoothRod_diam                   = 8.0;
-roughRod_diam                   = 8.5;
+Ze_smoothRod_diam                   = 8.0;
+Ze_roughRod_diam                   = 8.5;
 
 /*------------------------------------zEnd------------------------------------*/
-zEnd_rodsDist = 28.315;
-zEnd_heigt = 35;
-zEnd_nuttrap_offset = 12;
+Ze_zEnd_rodsDist = 28.315;
+Ze_zEnd_heigt = 35;
+Ze_zEnd_nuttrap_offset = 12;
 
 /*------------------------------------bearing---------------------------------*/
-bear_diam = 22.6;
-bear_heigth = 7;
+Ze_bear_diam = 22.6;
+Ze_bear_heigth = 7;
 
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
 /******************************************************************************/
-_zDir = zEnd_heigt;
-_xDir = _zDir-(genWallThickness+smoothRod_diam/2);
+_Ze_zDir = Ze_zEnd_heigt;
+_Ze_xDir = _Ze_zDir-(Ze_genWallThickness+Ze_smoothRod_diam/2);
 
-_support_radius = (smoothRod_diam/2+genWallThickness)*0.6;
-_support_coutout_r = circel_radius3Points([thinWallThickness,0],[_support_radius+thinWallThickness,_xDir],[_support_radius+thinWallThickness,-_xDir]);
+_Ze_support_radius = (Ze_smoothRod_diam/2+Ze_genWallThickness)*0.6;
+_Ze_support_coutout_r = circel_radius3Points([Ze_thinWallThickness,0],[_Ze_support_radius+Ze_thinWallThickness,_Ze_xDir],[_Ze_support_radius+Ze_thinWallThickness,-_Ze_xDir]);
 
-_crosBr_bearing_dist = bear_diam/2+strongWallThickness+ m8_nut_diameter/2;
-_crosBr_bearing_noseLength = _crosBr_bearing_dist + m8_nut_diameter/2+genWallThickness- strongWallThickness/2;
+_Ze_crosBr_bearing_dist = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
+_Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness/2;
 
-module pRb_Z_end(hasCrossBrace = true) {
-	_bearSuppCoutout_scale = (zEnd_rodsDist+bear_diam/2+genWallThickness- smoothRod_diam/2 - genWallThickness/2)/(_zDir- bear_heigth -genWallThickness);
-	_bearSuppCoutout_crosBrace_scale = (zEnd_rodsDist+bear_diam/2+genWallThickness- smoothRod_diam/2 - genWallThickness/2+_crosBr_bearing_noseLength)/(_zDir- m8_nut_diameter);
+module A_Z_end(hasCrossBrace = true) {
+	_bearSuppCoutout_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2)/(_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness);
+	_bearSuppCoutout_crosBrace_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2+_Ze_crosBr_bearing_noseLength)/(_Ze_zDir- m8_nut_diameter);
 	
 	difference() {
 		union(){
-			cylinder(r=smoothRod_diam/2 + genWallThickness, h=_zDir, center=false);
+			cylinder(r=Ze_smoothRod_diam/2 + Ze_genWallThickness, h=_Ze_zDir, center=false);
 
 			// bearing holder
-			translate([-zEnd_rodsDist, 0, 0]) 
-			cylinder(r=bear_diam/2 +genWallThickness, h=bear_heigth+genWallThickness, center=false);
+			translate([-Ze_zEnd_rodsDist, 0, 0]) 
+			cylinder(r=Ze_bear_diam/2 +Ze_genWallThickness, h=Ze_bear_heigth+Ze_genWallThickness, center=false);
 
 			//connector
-			translate([-zEnd_rodsDist, 0, 0]) 
-			linear_extrude(height=_zDir)
-				barbell (r1=bear_diam/2+genWallThickness,r2=smoothRod_diam/2+genWallThickness,r3=zEnd_rodsDist/3,r4=zEnd_rodsDist/3,separation=zEnd_rodsDist); 
+			translate([-Ze_zEnd_rodsDist, 0, 0]) 
+			linear_extrude(height=_Ze_zDir)
+				barbell (r1=Ze_bear_diam/2+Ze_genWallThickness,r2=Ze_smoothRod_diam/2+Ze_genWallThickness,r3=Ze_zEnd_rodsDist/3,r4=Ze_zEnd_rodsDist/3,separation=Ze_zEnd_rodsDist); 
 
 			// x dir rod
-			translate([0, 0, roughRod_diam/2+genWallThickness]) 
+			translate([0, 0, Ze_roughRod_diam/2+Ze_genWallThickness]) 
 			rotate(a=180,v=X) 
-				teardrop (r=roughRod_diam/2+genWallThickness,h=_xDir,top_and_bottom=false);
+				teardrop (r=Ze_roughRod_diam/2+Ze_genWallThickness,h=_Ze_xDir,top_and_bottom=false);
 
 			// x dir support
-			translate([0, 0, roughRod_diam/2+genWallThickness]) 
+			translate([0, 0, Ze_roughRod_diam/2+Ze_genWallThickness]) 
 			intersection() {
 				difference() {
 					rotate(a=90,v=X) 
-						cylinder(r=_xDir, h=_support_radius*2, center=true);
+						cylinder(r=_Ze_xDir, h=_Ze_support_radius*2, center=true);
 					for (i=[1,-1]) 
-					translate([0, i*(-_support_coutout_r- thinWallThickness), 0]) 
-						sphere(r=_support_coutout_r,$fn=150); 
+					translate([0, i*(-_Ze_support_coutout_r- Ze_thinWallThickness), 0]) 
+						sphere(r=_Ze_support_coutout_r,$fn=150); 
 				}
-				translate([0, -(roughRod_diam+2*genWallThickness)/2, 0]) 
-					cube(size=[_xDir, roughRod_diam+2*genWallThickness, _xDir], center=false);
+				translate([0, -(Ze_roughRod_diam+2*Ze_genWallThickness)/2, 0]) 
+					cube(size=[_Ze_xDir, Ze_roughRod_diam+2*Ze_genWallThickness, _Ze_xDir], center=false);
 			}
 			
 			if (hasCrossBrace) {
 				//connector
-				translate([-zEnd_rodsDist, 0, 0]) 
+				translate([-Ze_zEnd_rodsDist, 0, 0]) 
 				rotate(a=180,v=Z) 
-				linear_extrude(height=_zDir)
-					barbell (r1=bear_diam/2+genWallThickness,r2=strongWallThickness/2,r3=_crosBr_bearing_noseLength*.8,r4=_crosBr_bearing_noseLength*0.8,separation=_crosBr_bearing_noseLength); 
+				linear_extrude(height=_Ze_zDir)
+					barbell (r1=Ze_bear_diam/2+Ze_genWallThickness,r2=Ze_strongWallThickness/2,r3=_Ze_crosBr_bearing_noseLength*.8,r4=_Ze_crosBr_bearing_noseLength*0.8,separation=_Ze_crosBr_bearing_noseLength); 
 
 				//screw holde
-				translate([-zEnd_rodsDist- _crosBr_bearing_dist, 0, m8_nut_diameter/2])
+				translate([-Ze_zEnd_rodsDist- _Ze_crosBr_bearing_dist, 0, m8_nut_diameter/2])
 				rotate(a=90,v=X) 
-					cylinder(r=m8_nut_diameter/2, h=strongWallThickness, center=true); 
+					cylinder(r=m8_nut_diameter/2, h=Ze_strongWallThickness, center=true); 
 			}
 
 		}
 		union(){
-			translate([0, 0, genWallThickness]) 
-				cylinder(r=smoothRod_diam/2, h=_zDir+2*OS, center=false);
+			translate([0, 0, Ze_genWallThickness]) 
+				cylinder(r=Ze_smoothRod_diam/2, h=_Ze_zDir+2*OS, center=false);
 			// bearing holder
-			translate([-zEnd_rodsDist, 0, -OS]) {
+			translate([-Ze_zEnd_rodsDist, 0, -OS]) {
 				if (hasCrossBrace) {					
-					cylinder(r=bear_diam/2, h=m8_nut_diameter, center=false);
+					cylinder(r=Ze_bear_diam/2, h=m8_nut_diameter, center=false);
 				} else {
-					cylinder(r=bear_diam/2, h=bear_heigth+OS, center=false);
+					cylinder(r=Ze_bear_diam/2, h=Ze_bear_heigth+OS, center=false);
 				}
 			// rod coutput
-			translate([0, 0, bear_heigth+horizontalSuportThickness])
-				cylinder(r=roughRod_diam/2, h=_zDir, center=false); 
+			translate([0, 0, Ze_bear_heigth+Ze_horizontalSuportThickness])
+				cylinder(r=Ze_roughRod_diam/2, h=_Ze_zDir, center=false); 
 			}
 
 			//barebel holder support coutout
 			if (hasCrossBrace) {
-				translate([-(zEnd_rodsDist+bear_diam/2+genWallThickness+_crosBr_bearing_noseLength), 0, _zDir])
+				translate([-(Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness+_Ze_crosBr_bearing_noseLength), 0, _Ze_zDir])
 				scale([_bearSuppCoutout_crosBrace_scale, 1, 1]) 
 				rotate(a=90,v=X) 
-					cylinder(r=_zDir- m8_nut_diameter  , h=bear_diam+2*genWallThickness+2*OS, center=true); 
+					cylinder(r=_Ze_zDir- m8_nut_diameter  , h=Ze_bear_diam+2*Ze_genWallThickness+2*OS, center=true); 
 			} else {
-				translate([-(zEnd_rodsDist+bear_diam/2+genWallThickness), 0, _zDir])
+				translate([-(Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness), 0, _Ze_zDir])
 				scale([_bearSuppCoutout_scale, 1, 1]) 
 				rotate(a=90,v=X) 
-					cylinder(r=_zDir- bear_heigth -genWallThickness, h=bear_diam+2*genWallThickness+2*OS, center=true); 
+					cylinder(r=_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness, h=Ze_bear_diam+2*Ze_genWallThickness+2*OS, center=true); 
 			}
 
 			// x dir rod
 			difference() {
-				translate([0, OS, roughRod_diam/2+genWallThickness]) 
-				teardrop (r=roughRod_diam/2,h=_xDir+2*OS,top_and_bottom=false);
+				translate([0, OS, Ze_roughRod_diam/2+Ze_genWallThickness]) 
+				teardrop (r=Ze_roughRod_diam/2,h=_Ze_xDir+2*OS,top_and_bottom=false);
 
-				cylinder(r=smoothRod_diam/2 + genWallThickness, h=_zDir, center=false);
+				cylinder(r=Ze_smoothRod_diam/2 + Ze_genWallThickness, h=_Ze_zDir, center=false);
 			}
 			
 
 			//nuttrap
-			translate([_xDir-zEnd_nuttrap_offset, 0, roughRod_diam/2+genWallThickness]) {
+			translate([_Ze_xDir-Ze_zEnd_nuttrap_offset, 0, Ze_roughRod_diam/2+Ze_genWallThickness]) {
 				rotate(a=90,v=Y) 
 				rotate(a=30,v=Z) 
-					cylinder(r=max(m8_nut_diameter/2 +1,roughRod_diam/2+genWallThickness)+OS, h=m8_nut_heigth, center=true);
+					cylinder(r=max(m8_nut_diameter/2 +1,Ze_roughRod_diam/2+Ze_genWallThickness)+OS, h=m8_nut_heigth, center=true);
 			}
 
 			if (hasCrossBrace) {
 				//screw holde
-				translate([-zEnd_rodsDist- _crosBr_bearing_dist, -strongWallThickness, m8_nut_diameter/2])
+				translate([-Ze_zEnd_rodsDist- _Ze_crosBr_bearing_dist, -Ze_strongWallThickness, m8_nut_diameter/2])
 				rotate(a=90,v=Z)
 				rotate(a=180,v=X) 
-					teardrop (r=roughRod_diam/2,h=strongWallThickness*2+2*OS,top_and_bottom=false); 
-					//cylinder(r=roughRod_diam/2, h=strongWallThickness*2+2*OS, center=true); 
+					teardrop (r=Ze_roughRod_diam/2,h=Ze_strongWallThickness*2+2*OS,top_and_bottom=false); 
+					//cylinder(r=Ze_roughRod_diam/2, h=Ze_strongWallThickness*2+2*OS, center=true); 
 			}
 		}	
 	}
@@ -160,14 +160,14 @@ module pRb_Z_end(hasCrossBrace = true) {
 
 
 
-if (mode == "inspect") {
-	pRb_Z_end();
+if (Ze_mode == "inspect") {
+	A_Z_end();
 }
-module pRb_endstop_print() {
-	pRb_Z_end();
+module A_endstop_print() {
+	A_Z_end();
 }
-if (mode == "print") {
-	pRb_Z_end();
+if (Ze_mode == "print") {
+	A_Z_end();
 }
 
 

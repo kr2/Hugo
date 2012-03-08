@@ -1,4 +1,4 @@
-/* pRb-assembly
+/* A-assembly
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -8,9 +8,9 @@
 include <units.scad>;
 include <metric.scad>
 
-use <pRb-X-End.scad>
-use <pRb-X-Carriage.scad>
-use <pRb-Xtruder-Mount.scad>
+use <A-X-End.scad>
+use <A-X-Carriage.scad>
+use <A-Xtruder-Mount.scad>
 
 use <bearing-guide.scad>
 use <motors.scad>
@@ -40,7 +40,7 @@ module xAxis(axisLenth = 100) {
 	translate([7, -25, 20]) 
 	rotate(a=-90,v=X) 
 	rotate(a=90,v=[0,0,1]) 
-	pRb_x_Carriage(hasSupport = false, hasBeltConnector = true);
+	A_x_Carriage(hasSupport = false, hasBeltConnector = true);
 
 	// bearing
 	color("gray")

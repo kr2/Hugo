@@ -1,4 +1,4 @@
-/* pRb-Xtruder-Mount
+/* A-Xtruder-Mount
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -7,8 +7,8 @@
 
 include <units.scad>
 use <teardrop.scad>
-use <pRb-X-End.scad>
-use <pRb-X-Carriage.scad>
+use <A-X-End.scad>
+use <A-X-Carriage.scad>
 include <roundEdges.scad>
 
 

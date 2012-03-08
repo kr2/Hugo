@@ -1,4 +1,4 @@
-/* pRb-Y-BarEnd
+/* A-Y-BarEnd
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -45,7 +45,7 @@ _screwHole_offset = smoothRod_diam/2+thinWallThickness+m3_diameter/2;
 _con_size = [smoothRod_diam/2+genWallThickness+m3_diameter/2+genWallThickness,barEnd_yAxis_offset+smoothRod_diam/2+genWallThickness,barEnd_heigth];
 _bb_rotAngle = atan(barEnd_yAxis_offset/(_con_size[0]/2));
 _bb_length = distance1D(barEnd_yAxis_offset,_con_size[0]/2);
-module pRb_Y_BarEnd() {
+module A_Y_BarEnd() {
 	difference() {
 		union(){
 			cylinder(r=smoothRod_diam/2+genWallThickness, h=barEnd_heigth, center=false);
@@ -97,20 +97,20 @@ module pRb_Y_BarEnd() {
 
 
 if (mode == "inspect") {
-	pRb_Y_BarEnd();
+	A_Y_BarEnd();
 }
-module pRb_Y_BarEnd_print() {
+module A_Y_BarEnd_print() {
 	for (i=[[-_con_size[1]/2-1,-smoothRod_diam/4],[_con_size[1]/2+1,smoothRod_diam/4]]) 
 	translate([i[1], i[0], 0]) {
 		translate([smoothRod_diam/2, -barEnd_yAxis_offset/2, 0]) 
-		pRb_Y_BarEnd();
+		A_Y_BarEnd();
 		translate([-smoothRod_diam/2, barEnd_yAxis_offset/2, 0]) 
 		rotate(a=180,v=Z) 
-		pRb_Y_BarEnd();
+		A_Y_BarEnd();
 	}
 }
 if (mode == "print") {
-	pRb_Y_BarEnd_print();
+	A_Y_BarEnd_print();
 }
 
 
