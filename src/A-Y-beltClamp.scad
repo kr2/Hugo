@@ -1,4 +1,4 @@
-/* A-Y-beltClamp
+/* A-Y-beltClamp [Ybc]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -7,7 +7,6 @@
 
 include <units.scad>
 include <metric.scad>
-include <nuts_and_bolts.scad>
 include <roundEdges.scad>
 
 

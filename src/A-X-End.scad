@@ -1,4 +1,4 @@
-/* A-X-End
+/* A-X-End [Xe]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -11,48 +11,48 @@ use <teardrop.scad>
 include <roundEdges.scad>
 include <barbell.scad>
 /*------------------------------------general---------------------------------*/
-mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
+Xe_mode = "print";  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
+//Xe_mode = "inspect";
 
-outline           = [56.33, 49, 41.712];   // absolute outline [x,y,z]
+Xe_outline           = [56.33, 49, 41.712];   // absolute Xe_outline [x,y,z]
 
-Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertical nutrap with spring thing
-Z_bearingHole_pos = [23.27, 9.69+1]; //[x,y] // pos of the vertical bearing holder
-Z_bearingHole_dia = 15.3; // bearing hole diameter
+Xe_Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertical nutrap with spring thing
+Xe_Z_bearingHole_pos = [23.27, 9.69+1]; //[x,y] // pos of the vertical bearing holder
+Xe_Z_bearingHole_dia = 15.3; // bearing hole diameter
 
-X_RodHoles_pos    = [ // x direction rod hole positions 
+Xe_X_RodHoles_pos    = [ // x direction rod hole positions 
 					   [8.08, 8.34],//[x,z] // bottom// reference
 					   [8.08, 33.72]//[x,z] // top
 				    ];
-X_Rod_dia         = 8; // x direction diameter
-X_Rod_depth       = 37.5; // x direction rode hole depth
+Xe_X_Rod_dia         = 8; // x direction diameter
+Xe_X_Rod_depth       = 37.5; // x direction rode hole depth
 
 
-m8_diameter       = 8.5; // m8 rod diameter
+Xe_m8_diameter       = 8.5; // m8 rod diameter
 //metric.scad: m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
-thin_wall         = 3.25; // thin wall for different walls
-corection         = 1.17; //correction factor for the nuttrap
+Xe_thin_wall         = 3.25; // thin wall for different walls
+Xe_corection         = 1.17; //correction factor for the nuttrap
 
-overhang_angle    = 20;
+Xe_overhang_angle    = 20;
 
 /*------------------------------------idler-----------------------------------*/
 
-idle_hole_pos   = [outline[1]/2, 14]; //[y,z] // postion of the idler hole
-idle_hole_dia   = 8.3; // diameter of the idler hole
-idle_hole_depth = 17.5; // depth of the idler hole
+Xe_idle_hole_pos   = [Xe_outline[1]/2, 14]; //[y,z] // postion of the idler hole
+Xe_idle_hole_dia   = 8.3; // diameter of the idler hole
+Xe_idle_hole_depth = 17.5; // depth of the idler hole
 
 /*------------------------------------motorholder-----------------------------*/
-motor_xdirBar_size     = [4.22, 5.39]; //[y,z] // size of the suport bares betwen the x end and the motor plate
-motor_plate_thick      = 3; // motor plate thickness
-motor_cutout_diameter  = 24; // diameter of the coutout around the motoraxis
-motor_holes_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
-motor_holes_diameter   = 3.2; // motor hole diameter
+Xe_motor_xdirBar_size     = [4.22, 5.39]; //[y,z] // size of the suport bares betwen the x end and the motor plate
+Xe_motor_plate_thick      = 3; // motor plate Xe_thickness
+Xe_motor_cutout_diameter  = 24; // diameter of the coutout around the motoraxis
+Xe_motor_holes_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
+Xe_motor_holes_diameter   = 3.2; // motor hole diameter
 
 
 /*------------------------------------elongated hole--------------------------*/
 // lower hole could be elongeteded to compensate inaccuracies, which ouccour by the fact that the carriage beearing holes are printed in the other direction
 
-elongHole_addDia = 1.0;
+Xe_elongHole_addDia = 1.0;
 
 
 
@@ -61,7 +61,7 @@ elongHole_addDia = 1.0;
 /******************************************************************************/
 
 
-X_BlockSize = [min(Z_nutTrap_pos[0]-m8_nut_diameter/2,Z_bearingHole_pos[0]-Z_bearingHole_dia/2),outline[1],outline[2]];
+Xe_X_BlockSize = [min(Xe_Z_nutTrap_pos[0]-m8_nut_diameter/2,Xe_Z_bearingHole_pos[0]-Xe_Z_bearingHole_dia/2),Xe_outline[1],Xe_outline[2]];
 
 
 
@@ -69,70 +69,70 @@ X_BlockSize = [min(Z_nutTrap_pos[0]-m8_nut_diameter/2,Z_bearingHole_pos[0]-Z_bea
 module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
 
 	//x belt
-	xb_r1=X_RodHoles_pos[0][1]; // bottom
-	xb_r2=outline[2]-X_RodHoles_pos[1][1]; // top
+	xb_r1=Xe_X_RodHoles_pos[0][1]; // bottom
+	xb_r2=Xe_outline[2]-Xe_X_RodHoles_pos[1][1]; // top
 
 
 	if (adjustable_z_stop) {
-		translate([0, outline[1]+5, 0]) 
+		translate([0, Xe_outline[1]+5, 0]) 
 			z_stop();
 	}
 
 	intersection() {
-		cube(size=outline, center=false);
+		cube(size=Xe_outline, center=false);
 		
 		difference()
 		{
 			union ()
 			{
 				//Nut Trap
-				translate([Z_nutTrap_pos[0],Z_nutTrap_pos[1],0]) 
-					cylinder(h=outline[2],r=m8_nut_diameter/2+thin_wall*corection,$fn=6);
+				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],0]) 
+					cylinder(h=Xe_outline[2],r=m8_nut_diameter/2+Xe_thin_wall*Xe_corection,$fn=6);
 
 				// z rod hole
-				translate(Z_bearingHole_pos) 
-					cylinder(r=Z_bearingHole_dia/2+thin_wall,h=outline[2],center=false,$fn=48);
+				translate(Xe_Z_bearingHole_pos) 
+					cylinder(r=Xe_Z_bearingHole_dia/2+Xe_thin_wall,h=Xe_outline[2],center=false,$fn=48);
 
 				// x rod solid
-				translate([X_RodHoles_pos[0][0], outline[1], X_RodHoles_pos[0][1]])  rotate(a=90,v=X)  rotate(a=90,v=Z) linear_extrude(height=outline[1])
-					barbell(xb_r1,xb_r2,20,50,abs(X_RodHoles_pos[0][1]-X_RodHoles_pos[1][1]));
+				translate([Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]])  rotate(a=90,v=X)  rotate(a=90,v=Z) linear_extrude(height=Xe_outline[1])
+					barbell(xb_r1,xb_r2,20,50,abs(Xe_X_RodHoles_pos[0][1]-Xe_X_RodHoles_pos[1][1]));
 				
 				difference() {
-					translate([X_RodHoles_pos[0][0], 0, 0]) 
-						cube(size=[Z_bearingHole_pos[0]-X_RodHoles_pos[0][0], outline[1], outline[2]], center=false);
-					translate([Z_bearingHole_pos[0], outline[1]/2, -OS])
-						cylinder(r=Z_bearingHole_pos[0]-xb_r1*2, h=outline[2]+OS, center=false); 
+					translate([Xe_X_RodHoles_pos[0][0], 0, 0]) 
+						cube(size=[Xe_Z_bearingHole_pos[0]-Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_outline[2]], center=false);
+					translate([Xe_Z_bearingHole_pos[0], Xe_outline[1]/2, -OS])
+						cylinder(r=Xe_Z_bearingHole_pos[0]-xb_r1*2, h=Xe_outline[2]+OS, center=false); 
 				}
 
 				if (isIdle) {
-					//idler outline
-					translate([Z_bearingHole_pos[0]+Z_bearingHole_dia/2+thin_wall-idle_hole_depth/2, idle_hole_pos[0], idle_hole_pos[1]]) 
-						cube(size=[idle_hole_depth, abs(X_RodHoles_pos[0][1]-X_RodHoles_pos[1][1]), idle_hole_dia+2*thin_wall], center=true);
-						//cylinder(r=idle_hole_dia/2+thin_wall, h=idle_hole_depth, center=false);
+					//idler Xe_outline
+					translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall-Xe_idle_hole_depth/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]]) 
+						cube(size=[Xe_idle_hole_depth, abs(Xe_X_RodHoles_pos[0][1]-Xe_X_RodHoles_pos[1][1]), Xe_idle_hole_dia+2*Xe_thin_wall], center=true);
+						//cylinder(r=Xe_idle_hole_dia/2+Xe_thin_wall, h=Xe_idle_hole_depth, center=false);
 				}
 				
 
 				if (isMotor) {
 					// x dir bars
-					for (y=[0,outline[1]-motor_xdirBar_size[0]]) {
-						for (z=[0,outline[2]-motor_xdirBar_size[1]]) {
-							translate([+X_RodHoles_pos[0][0], y, z]) 
-								cube(size=[outline[0]-X_RodHoles_pos[0][0], motor_xdirBar_size[0], motor_xdirBar_size[1]], center=false);
+					for (y=[0,Xe_outline[1]-Xe_motor_xdirBar_size[0]]) {
+						for (z=[0,Xe_outline[2]-Xe_motor_xdirBar_size[1]]) {
+							translate([+Xe_X_RodHoles_pos[0][0], y, z]) 
+								cube(size=[Xe_outline[0]-Xe_X_RodHoles_pos[0][0], Xe_motor_xdirBar_size[0], Xe_motor_xdirBar_size[1]], center=false);
 						}
 					}
 
 					// motor plate
-					translate([outline[0]-motor_plate_thick, 0, 0])
-						cube(size=[motor_plate_thick, outline[1], outline[2]], center=false);
+					translate([Xe_outline[0]-Xe_motor_plate_thick, 0, 0])
+						cube(size=[Xe_motor_plate_thick, Xe_outline[1], Xe_outline[2]], center=false);
 
 					// suport cylinder
-					for (y=[motor_xdirBar_size[0]/2,outline[1]-motor_xdirBar_size[0]/2]) 
-					translate([outline[0]-motor_plate_thick, y,0])
-						cylinder(r=motor_xdirBar_size[0]/2, h=outline[1], center=false, $fn=24);
+					for (y=[Xe_motor_xdirBar_size[0]/2,Xe_outline[1]-Xe_motor_xdirBar_size[0]/2]) 
+					translate([Xe_outline[0]-Xe_motor_plate_thick, y,0])
+						cylinder(r=Xe_motor_xdirBar_size[0]/2, h=Xe_outline[1], center=false, $fn=24);
 				}
 
 				if (!bottomRounded) {
-					cube(size=[X_RodHoles_pos[0][0], outline[1], X_RodHoles_pos[0][1]], center=false);
+					cube(size=[Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]], center=false);
 	
 				}
 				
@@ -141,96 +141,96 @@ module pb_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z
 			//nut Rod hole.
 			difference()
 			{
-				translate([Z_nutTrap_pos[0],Z_nutTrap_pos[1],39.5]) 
+				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],39.5]) 
 					cylinder(h=90,r=m8_nut_diameter/2,$fn=6,center=true);
-				translate([Z_nutTrap_pos[0],Z_nutTrap_pos[1],8.5]) 
-					cylinder(h=4,r=m8_nut_diameter/2+thin_wall,$fn=6,center=true);
+				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],8.5]) 
+					cylinder(h=4,r=m8_nut_diameter/2+Xe_thin_wall,$fn=6,center=true);
 			}
-			translate([Z_nutTrap_pos[0],Z_nutTrap_pos[1],52]) 
-				cylinder(h=90,r=m8_diameter/2,$fn=9,center=true);
+			translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],52]) 
+				cylinder(h=90,r=Xe_m8_diameter/2,$fn=9,center=true);
 
 			// z rod hole
-			translate(Z_bearingHole_pos-[0,0,OS]) 
-				cylinder(r=Z_bearingHole_dia/2,h=outline[2]+2*OS,center=false);
+			translate(Xe_Z_bearingHole_pos-[0,0,OS]) 
+				cylinder(r=Xe_Z_bearingHole_dia/2,h=Xe_outline[2]+2*OS,center=false);
 
 			// x block rounded edges
-			roundEdge(_a=0,_r=X_Rod_dia/2,_l=outline[2],_fn=100);
-			translate([0, outline[1], 0]) 
-				roundEdge(_a=-90,_r=X_BlockSize[0],_l=outline[2],_fn=100);
+			roundEdge(_a=0,_r=Xe_X_Rod_dia/2,_l=Xe_outline[2],_fn=100);
+			translate([0, Xe_outline[1], 0]) 
+				roundEdge(_a=-90,_r=Xe_X_BlockSize[0],_l=Xe_outline[2],_fn=100);
 
 			// x rod holes
 			if (!elongetededLowerHole) {
-				for (i=X_RodHoles_pos) 
+				for (i=Xe_X_RodHoles_pos) 
 				translate([i[0], -OS, i[1]])  rotate(a=-90,v=X) 
-					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+					cylinder(r=Xe_X_Rod_dia/2, h=Xe_X_Rod_depth, center=false,$fn=48);
 				
 			} else {
-				translate([X_RodHoles_pos[1][0], -OS, X_RodHoles_pos[1][1]])  rotate(a=-90,v=X) 
-					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
+				translate([Xe_X_RodHoles_pos[1][0], -OS, Xe_X_RodHoles_pos[1][1]])  rotate(a=-90,v=X) 
+					cylinder(r=Xe_X_Rod_dia/2, h=Xe_X_Rod_depth, center=false,$fn=48);
 
 				// elongetated one
-				translate([X_RodHoles_pos[0][0], -OS, X_RodHoles_pos[0][1]-elongHole_addDia/2])  rotate(a=-90,v=X) 
-					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
-				translate([X_RodHoles_pos[0][0], -OS, X_RodHoles_pos[0][1]+elongHole_addDia/2])  rotate(a=-90,v=X) 
-					cylinder(r=X_Rod_dia/2, h=X_Rod_depth, center=false,$fn=48);
-				translate([X_RodHoles_pos[0][0]-X_Rod_dia/2, -OS, X_RodHoles_pos[0][1]-elongHole_addDia/2])
-					cube(size=[X_Rod_dia, X_Rod_depth, elongHole_addDia], center=false);
+				translate([Xe_X_RodHoles_pos[0][0], -OS, Xe_X_RodHoles_pos[0][1]-Xe_elongHole_addDia/2])  rotate(a=-90,v=X) 
+					cylinder(r=Xe_X_Rod_dia/2, h=Xe_X_Rod_depth, center=false,$fn=48);
+				translate([Xe_X_RodHoles_pos[0][0], -OS, Xe_X_RodHoles_pos[0][1]+Xe_elongHole_addDia/2])  rotate(a=-90,v=X) 
+					cylinder(r=Xe_X_Rod_dia/2, h=Xe_X_Rod_depth, center=false,$fn=48);
+				translate([Xe_X_RodHoles_pos[0][0]-Xe_X_Rod_dia/2, -OS, Xe_X_RodHoles_pos[0][1]-Xe_elongHole_addDia/2])
+					cube(size=[Xe_X_Rod_dia, Xe_X_Rod_depth, Xe_elongHole_addDia], center=false);
 			}
 
 
 			if (isIdle) {
 				//idler coutout
-				translate([Z_bearingHole_pos[0]+Z_bearingHole_dia/2+thin_wall+OS, idle_hole_pos[0], idle_hole_pos[1]])  rotate(a=-90,v=Y) 
-					cylinder(r=idle_hole_dia/2, h=idle_hole_depth, center=false, $fn=8);
+				translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  rotate(a=-90,v=Y) 
+					cylinder(r=Xe_idle_hole_dia/2, h=Xe_idle_hole_depth, center=false, $fn=8);
 			}
 
 			if (isMotor) {
 				// motor ceter coutout
-				translate(outline/2+[outline[1]/2,0,0]) 
-					teardrop (r=motor_cutout_diameter/2,h=motor_plate_thick+2,top_and_bottom=false);
+				translate(Xe_outline/2+[Xe_outline[1]/2,0,0]) 
+					teardrop (r=Xe_motor_cutout_diameter/2,h=Xe_motor_plate_thick+2,top_and_bottom=false);
 
 				// rounded edges
-				translate([outline[0], 0, 0]) 
-					roundEdge(_a=90,_r=motor_plate_thick,_l=outline[2]+OS,_fn=100);
-				translate([outline[0], outline[1], 0]) 
-					roundEdge(_a=180,_r=motor_plate_thick,_l=outline[2],_fn=100);
+				translate([Xe_outline[0], 0, 0]) 
+					roundEdge(_a=90,_r=Xe_motor_plate_thick,_l=Xe_outline[2]+OS,_fn=100);
+				translate([Xe_outline[0], Xe_outline[1], 0]) 
+					roundEdge(_a=180,_r=Xe_motor_plate_thick,_l=Xe_outline[2],_fn=100);
 
 				// motor holes
 				for (a=[45:90:350]) {
-					translate(outline/2+[outline[1]/2,0,0]) 
+					translate(Xe_outline/2+[Xe_outline[1]/2,0,0]) 
 					rotate(a=a,v=X) 
-					translate([0, motor_holes_centerDist, 0]) 
+					translate([0, Xe_motor_holes_centerDist, 0]) 
 					rotate(a=90,v=Y) 
-						cylinder(r=motor_holes_diameter/2, h=motor_plate_thick+2, center=false, $fn=12);
+						cylinder(r=Xe_motor_holes_diameter/2, h=Xe_motor_plate_thick+2, center=false, $fn=12);
 				}
 				
 			}
 			if (!bottomRounded) {
-				translate([tan(overhang_angle)*X_RodHoles_pos[0][1], 0, 0]) 
-				rotate(a=-overhang_angle+180,v=Y) 
-				translate([0, 0, - X_RodHoles_pos[0][1]*2]) 
-					cube(size=[outline[0], outline[1], X_RodHoles_pos[0][1]*4], center=false);
+				translate([tan(Xe_overhang_angle)*Xe_X_RodHoles_pos[0][1], 0, 0]) 
+				rotate(a=-Xe_overhang_angle+180,v=Y) 
+				translate([0, 0, - Xe_X_RodHoles_pos[0][1]*2]) 
+					cube(size=[Xe_outline[0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]*4], center=false);
 				
 			}
 			
 		}
 	}
 }
-if (mode == "inspect") {
-	translate([outline[0]/2, outline[1]/2, 0]) 
+if (Xe_mode == "inspect") {
+	translate([Xe_outline[0]/2, Xe_outline[1]/2, 0]) 
 		%import_stl("pb-X-Motor-v2.stl", convexity = 5);
 	pb_x_End(isMotor=true,,adjustable_z_stop=true);
 
 }
 module pb_x_End_print() {
-	translate([-outline[1]/2, 0, 0]) 
+	translate([-Xe_outline[1]/2, 0, 0]) 
 	pb_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
 
-	translate([-outline[1]/2,-3, 0]) 
+	translate([-Xe_outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
 		pb_x_End(isIdle=true,elongetededLowerHole = true);
 }
-if (mode == "print") 
+if (Xe_mode == "print") 
 	pb_x_End_print();
 
 
@@ -251,14 +251,14 @@ module ring(r,w,h,center=false){
 
 
 
-nema17_width=1.7*25.4;
-thickness=9;
-motor_mount_translation=[44-thickness,8,23.5-4.7-12+24.5];
+Xe_nema17_width            = 1.7*25.4;
+Xe_thickness               = 9;
+Xe_motor_mount_translation = [44-Xe_thickness,8,23.5-4.7-12+24.5];
 module z_stop()
 {
 	z_stop_width=10;
 	z_stop_height=1.8;
-	z_stop_length = outline[0];
+	z_stop_length = Xe_outline[0];
 	z_stop_holderOffset =7;
 
 	//spring
