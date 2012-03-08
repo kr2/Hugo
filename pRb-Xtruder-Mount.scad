@@ -9,6 +9,7 @@ include <units.scad>
 use <teardrop.scad>
 use <pRb-X-End.scad>
 use <pRb-X-Carriage.scad>
+include <roundEdges.scad>
 
 
 /*------------------------------------general---------------------------------*/
@@ -97,17 +98,22 @@ module pb_Xtruder_mount() {
 				translate([i*(outline[0]-extM_genWallThickness), Zdir_edge_r, 0]) 
 					cube(size=[extM_genWallThickness, outline[1]-Zdir_edge_r, outline[2]], center=false);
 
+				_xdirSupport();
 				
 			}
 			union(){
 				// z dir edges
-				for (i=[Zdir_edge_r,outline[0]-Zdir_edge_r]) 
-				translate([i, Zdir_edge_r, extM_tabelThickness]) 
-					cylinder(r=Zdir_edge_r - extM_genWallThickness, h=outline[2], center=false);
+				difference() {
+					for (i=[Zdir_edge_r,outline[0]-Zdir_edge_r]) 
+					translate([i, Zdir_edge_r, extM_tabelThickness]) 
+						cylinder(r=Zdir_edge_r - extM_genWallThickness, h=outline[2], center=false);
+					_xdirSupport();
+				}
 
 				// ext cutout
-				translate([outline[0]/2, ext_hole_yoff, -OS]) scale([ext_cutout_scal, 1, 1])
-					cylinder(r=ext_cutout_r, h=extM_tabelThickness+2*OS, center=false,,$fn=48);
+				translate([outline[0]/2, ext_hole_yoff, -OS]) 
+				scale([ext_cutout_scal, 1, 1])
+					cylinder(r=ext_cutout_r, h=outline[2]+2*OS, center=false,,$fn=48);
 				translate([outline[0]/2, ext_hole_yoff+(outline[1]-ext_hole_yoff)/2 +OS, extM_tabelThickness/2-OS]) scale([ext_cutout_scal, 1, 1]) 
 					cube(size=[ext_cutout_r*2, abs((outline[1]-ext_hole_yoff))+OS, extM_tabelThickness+2*OS], center=true);
 
@@ -148,8 +154,28 @@ module pb_Xtruder_mount() {
 			}
 		}
 		
+	}	
+}
+module _xdirSupport() {
+	zdirScale = (carr_hole_zoff- extM_tabelThickness)/(carr_hole_xoff+ carr_hole_dia*1.5);
+	// reinfocment
+	difference() {
+		union(){
+			translate([0, extM_genWallThickness, extM_tabelThickness]) 
+			rotate(a=90,v=Y) 
+				roundEdge(_a=90,_r=carr_hole_zoff- extM_tabelThickness,_l=outline[0]-extM_genWallThickness,_fn=4);
+		}
+		union(){
+			roundEdge(_a=0,_r=Zdir_edge_r,_l=outline[2],_fn=100);
+			translate([outline[0], 0, 0]) 
+			roundEdge(_a=90,_r=Zdir_edge_r,_l=outline[2],_fn=100);
+			
+			translate([outline[0]/2, 0, carr_hole_zoff])
+			scale([1, 1, zdirScale]) 
+			rotate(a=-90,v=X) 
+				cylinder(r=carr_hole_xoff+ carr_hole_dia*1.5, h=outline[1], center=false);
+		}
 	}
-	
 }
 
 if (mode == "inspect") {
