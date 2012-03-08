@@ -52,11 +52,11 @@ module barclampCross(a=15) {
 					}
 
 
-					#cylinder(h=clamp_height*2,r=m8_diameter/2,$fn=18,center=true);
+					cylinder(h=clamp_height*2,r=m8_diameter/2,$fn=18,center=true);
 
 					translate([axe_dist+m8_diameter,0,0]) 
 					rotate([90-a,0,0]) 
-					#cylinder(h=(clamp_width/cos(a))*2,r=m8_diameter/2,$fn=20,center=true);
+						cylinder(h=(clamp_width/cos(a))*2,r=m8_diameter/2,$fn=20,center=true);
 			 	}
 		 	}
 	 	}
@@ -66,4 +66,4 @@ module barclampCross(a=15) {
  	
  	
 }
-barclampCross(a=15);
+//barclampCross(a=15);

@@ -7,12 +7,15 @@
 
 include <units.scad>
 include <metric.scad>
-use <teardrop.scad>
+include <teardrop.scad>
 include <roundEdges.scad>
 include <barbell.scad>
+
 /*------------------------------------general---------------------------------*/
-Xe_mode = "print";  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
+Xe_mode = "-";
+//Xe_mode = "print";  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "inspect";
+//Xe_mode = "assembly";
 
 Xe_outline           = [56.33, 49, 41.712];   // absolute Xe_outline [x,y,z]
 
@@ -216,11 +219,9 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 		}
 	}
 }
-if (Xe_mode == "inspect") {
-	translate([Xe_outline[0]/2, Xe_outline[1]/2, 0]) 
-		%import_stl("pb-X-Motor-v2.stl", convexity = 5);
-	H_x_End(isMotor=true,,adjustable_z_stop=true);
 
+if (Xe_mode == "inspect") {
+	H_x_End(isMotor=true,,adjustable_z_stop=true);
 }
 module H_x_End_print() {
 	translate([-Xe_outline[1]/2, 0, 0]) 
@@ -232,6 +233,52 @@ module H_x_End_print() {
 }
 if (Xe_mode == "print") 
 	H_x_End_print();
+
+
+/*------------------------------------assembly--------------------------------*/
+include <basicMetalParts.scad>
+include <bearing-guide.scad>
+include <motors.scad>
+
+module H_x_End_idle_assembly() {
+	translate([-Xe_Z_bearingHole_pos[1],-Xe_Z_bearingHole_pos[0], 0]) 
+	rotate(a=90,v=Z) 
+	mirror([0, 1, 0]) {
+		H_x_End(isIdle=true,elongetededLowerHole = true);
+
+		translate([2 + 7 + 2 + m8_nut_heigth + Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
+		rotate(a=-90,v=Y) 
+			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false);
+
+		translate([1.5+Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
+		rotate(a=90,v=Y) 
+			bearGuid_ass();
+	}
+}
+
+module H_x_End_motor_assembly() {
+	rotate(a=90,v=Z) 
+	translate([-Xe_Z_bearingHole_pos[0],-Xe_Z_bearingHole_pos[1], 0]) 
+	{
+		H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
+
+		translate([Xe_outline[0], Xe_outline[1]/2, Xe_outline[2]/2]) 
+		rotate(a=-90,v=Y) 
+		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
+	}
+}
+
+if (Xe_mode == "assembly"){
+	//H_x_End_idle_assembly();
+	H_x_End_motor_assembly();
+}
+
+
+
+
+/******************************************************************************/ 
+/*                                  helper foo                                */
+/******************************************************************************/
 
 
 // ring with inner radius r and w as witth and h as heigt

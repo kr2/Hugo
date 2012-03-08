@@ -4,6 +4,7 @@
 
 mm_per_inch = 25.4;
 
+
 //generates a motor mount for the specified nema standard #.
 module stepper_motor_mount(nema_standard,slide_distance=0, mochup=true, tolerance=0) {
 	//dimensions from:
@@ -82,15 +83,17 @@ module _stepper_motor_mount(
 	//motor box
 	if (mochup == true)
 	{
-		%translate([0,0,-5]) cylinder(h = 5, r = pilot_diameter/2);
-		%translate(v=[0,0,-motor_length/2])
-		{
-			cube(size=[bolt_hole_distance+bolt_hole_size+5,bolt_hole_distance+bolt_hole_size+5,motor_length], center = true);
-		}
-		//shaft
-		%translate(v=[0,0,-(motor_length-motor_shaft_length-2)/2])
-		{
-			%cylinder(r=motor_shaft_diameter/2,h=motor_length+motor_shaft_length--1, center = true);
+		color("DimGray"){
+			translate([0,0,-5]) cylinder(h = 5, r = pilot_diameter/2);
+			translate(v=[0,0,-motor_length/2])
+			{
+				cube(size=[bolt_hole_distance+bolt_hole_size+5,bolt_hole_distance+bolt_hole_size+5,motor_length], center = true);
+			}
+			//shaft
+			translate(v=[0,0,-(motor_length-motor_shaft_length-2)/2])
+			{
+				cylinder(r=motor_shaft_diameter/2,h=motor_length+motor_shaft_length--1, center = true);
+			}
 		}
 	}
 	}

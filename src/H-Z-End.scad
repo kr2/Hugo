@@ -14,8 +14,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ze_mode = "print";  // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
+Ze_mode = "-";
+//Ze_mode = "print";  // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
 //Ze_mode = "inspect";
+//Ze_mode = "assembly";
 //$fn=48;
 
 Ze_thinWallThickness         = 1;
@@ -169,6 +171,40 @@ module H_endstop_print() {
 if (Ze_mode == "print") {
 	H_Z_end();
 }
+
+
+/*------------------------------------assembly--------------------------------*/
+include <basicMetalParts.scad>
+
+module _H_Z_end_assembly(hasCrossBrace = false) {
+	translate([0, 0, Ze_roughRod_diam/2+Ze_genWallThickness]){
+		rotate(a=180,v=X) 
+		H_Z_end(hasCrossBrace = hasCrossBrace);
+		translate([-Ze_zEnd_rodsDist, 0, -Ze_bear_heigth]) 
+			bear608ZZ();
+	}
+}
+
+
+module H_Z_endLeft_assembly() {
+	_H_Z_end_assembly(hasCrossBrace = false);
+}
+module H_Z_endReight_assembly() {
+	rotate(a=180,v=Z) 
+	_H_Z_end_assembly(hasCrossBrace = true);
+
+	translate([Ze_zEnd_rodsDist + _Ze_crosBr_bearing_dist, 0, 0]) 
+	rotate(a=90,v=X) 
+	threadedRod(r=4, h=100+50, center=true);  // todo
+}
+
+if (Ze_mode == "assembly"){
+	//H_Z_endLeft_assembly();
+	H_Z_endReight_assembly();
+}
+
+
+
 
 
 module _triangle2hg(height,ground)

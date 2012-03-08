@@ -13,8 +13,10 @@ include <barbell.scad>
 use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
-Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+Xc_mode = "-"; 
+//Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
+//Xc_mode = "assembly";
 //$fn=96;
 
 Xc_axis_dist                 = 25.38;
@@ -319,6 +321,37 @@ if (Xc_mode == "print") {
 	}
 }
 
+/*------------------------------------assembly--------------------------------*/
+include <basicMetalParts.scad>
+include <toothedLinearBearing.scad>
+
+module H_x_Carriage_assembly() {
+	rotate(a=180,v=Z) 
+	translate([-Xc_xdir/2- Xc_genWallThickness, 0, -Xc_axis_dist/2]) 
+	rotate(a=90,v=Y) {
+		H_x_Carriage(hasSupport = false);
+
+		translate([-(Xc_axis_dist/2+Xc_belt_axisXc_zdir_offset), -(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2), 0]){//belt center bottom
+			for (i=[0,Xc_zdir- Xc_beltClamp_depth]) 
+			translate([-Xc_beltClamp_width/2-Xc_beltClamp_beltHole[0]- Xc_belt_thickness, 0, i+Xc_beltClamp_depth/2])
+			rotate(a=90,v=Y) 
+				carr_beltClamp();
+
+			for (i=[[Xc_beltClamp_depth+1,0],[Xc_zdir-Xc_beltClamp_depth-1,180]]) 
+			translate([-Xc_beltClamp_center_height, 0, i[0]]) 
+			rotate(a=i[1],v=X) 
+			rotate(a=90,v=Z) 
+			translate([Xc_belt_width/2, 0, 0])//centerd 
+			rotate(a=-90,v=Y) 
+				yBeltClamp_beltProtector();
+		}
+	}
+}
+
+if (Xc_mode == "assembly"){
+	H_x_Carriage_assembly();
+}
+
 
 
 module triangle(l,h){
@@ -353,3 +386,15 @@ module carr_beltClamp() {
 
 }
 //!beltClamp();
+
+
+module yBeltClamp_beltProtector() {
+	difference() {
+		cylinder(r=m3_nut_diameter/2, h= Xc_belt_width, center=false,$fn=48);
+		translate([-m3_nut_diameter/4, 0, (Xc_belt_width)/2]) 
+			cube(size=[m3_nut_diameter/2+OS, m3_nut_diameter+2*OS, Xc_belt_width+2*OS], center=true);
+		translate([0, 0, (Xc_belt_width)/2]) 
+		rotate(a=90,v=Y) 
+			cylinder(r=m3_diameter/2, h=(m3_nut_diameter)/2-1, center=false,$fn=8);
+	}
+}

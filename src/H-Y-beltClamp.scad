@@ -11,8 +11,10 @@ include <roundEdges.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ybc_mode = "print";  // can be print or inspect [overlays the Ybc_model with the original Ybc_model] (uncomment next line)
+Ybc_mode = "-";
+//Ybc_mode = "print";  // can be print or inspect [overlays the Ybc_model with the original Ybc_model] (uncomment next line)
 //Ybc_mode = "inspect";
+//Ybc_mode = "assembly";
 
 /*------------------------------------belt------------------------------------*/
 Ybc_belt_thickness = 2.5;
@@ -199,3 +201,31 @@ module H_yBeltClam_print() {
 if (Ybc_mode == "print") 
 	H_yBeltClam_print();
 
+
+
+/*------------------------------------assembly--------------------------------*/
+module _H_yBeltClam_assembly() {
+	translate([-Ybc_strongWallThickness -(Ybc_belt_thickness+Ybc_belt_tolerance[0])/2, -4, -( Ybc_belt_width+Ybc_belt_tolerance[2]+Ybc_belt_topOffset)]) {
+		H_yBeltClam();
+		translate([Ybc_strongWallThickness+1,  Ybc_genWallThickness+m3_nut_diameter/2, +Ybc_belt_tolerance[2]/2]) 
+		yBeltClamp_beltProtector();
+		translate([Ybc_strongWallThickness/2, -Ybc_belt_thickness, (Ybc_belt_width+Ybc_belt_tolerance[2])/2]) 
+		rotate(a=90,v=X) 
+		beltClamp();
+	}
+}
+
+module H_yBeltClamBack_assembly() {
+	rotate(a=180,v=Z) 
+	_H_yBeltClam_assembly();
+}
+
+module H_yBeltClamFront_assembly() {
+	mirror([1, 0, 0])  
+	_H_yBeltClam_assembly();
+}
+
+if (Ybc_mode == "assembly"){
+	//H_yBeltClam_assembly();
+	H_yBeltClamBack_assembly();
+}

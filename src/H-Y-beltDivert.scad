@@ -14,8 +14,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ybd_mode = "print";  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-Ybd_mode = "inspect";
+Ybd_mode = "-";  
+//Ybd_mode = "print";  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//Ybd_mode = "inspect";
+//Ybd_mode = "assembly";
 $fn=48;
 
 Ybd_thinWallThickness          = 1;
@@ -30,7 +32,7 @@ Ybd_roughRod_diam                   = 8.5;
 
 /*------------------------------------beltDivert------------------------------*/
 Ybd_beltDiv_xdirRods_dist = 60.901;
-Ybd_beldDiv_bearingDist = 31.134;
+Ybd_beldDiv_bearingDist = 31.134+2;
 
 Ybd_beltDiv_height = Ybd_roughRod_diam+2*Ybd_genWallThickness;
 
@@ -114,3 +116,23 @@ if (Ybd_mode == "print") {
 }
 
 
+
+
+/*------------------------------------assembly--------------------------------*/
+include <bearing-guide.scad>
+
+
+module H_Y_beltDivert_assembly() {
+	translate([-22.2/2-0.5, 0, -Ybd_beltDiv_height/2]) 
+	rotate(a=90,v=Z){ 
+		H_Y_beltDivert();
+
+		for (i=[-Ybd_beldDiv_bearingDist/2,Ybd_beldDiv_bearingDist/2])
+		translate([i, 0, Ybd_beltDiv_height+2])  
+			bearGuid_ass();
+	}
+}
+
+if (Ybd_mode == "assembly"){
+	H_Y_beltDivert_assembly();
+}

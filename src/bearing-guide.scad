@@ -52,17 +52,28 @@ module outer()
 }
 
 
+
+/*------------------------------------assembly-------------------------------*/
+include <basicMetalParts.scad>
+
 module bearGuid_ass() {
 	inner();
 
-	translate([0,0,3.5+height])
+
+	translate([0,0,height+slope_thickness+ edge_thickness])
 	rotate(a=180,v=[1,0,0]) 
 	outer();
 
+	translate([0, 0, slope_thickness/2 + edge_thickness]) 
+	bear608ZZ();
+
 }
-bearGuid_ass();
+//bearGuid_ass();
 
-inner();
+module bearingGuid_print() {
+	inner();
 
-translate([34,0,0])
-outer();
+	translate([34,0,0])
+	outer();
+}
+

@@ -1,9 +1,10 @@
-/* A-base [b]
+/* H-base [b]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * original desing by abdrumm for the PrintrBot
  */
+include <config.scad>
 
 include <units.scad>;
 include <metric.scad>
@@ -14,8 +15,11 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-b_mode = "print";  // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+b_mode = "-";
+//b_mode = "print";  // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "inspect";
+//b_mode = "assembly";
+
 $fn=48;
 
 b_thinWallThickness         = 1;
@@ -75,7 +79,7 @@ b_lber_zAxisXdirDist        = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam
 _b_xdir_bb_r = m8_nut_diameter*0.75;
 _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitude[0]);
 
-module  A_base(hasYMotorMount = true, hasSupport = false) {
+module  H_base(hasYMotorMount = true, hasSupport = false) {
 	difference() {
 		union(){
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth- b_genWallThickness]) {
@@ -257,21 +261,48 @@ module _motorHolder(holeDist = 31.2) {
 //!_motorHolder();
 
 if (b_mode == "inspect") {
-	 A_base();
+	 H_base();
 }
-module A_base_print() {
+module H_base_print() {
 	translate([-b_zdirM_hole_zAxisDist-2*b_genWallThickness, 0, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-		A_base(hasYMotorMount = true, hasSupport = false);
+		H_base(hasYMotorMount = true, hasSupport = false);
 	translate([b_zdirM_hole_zAxisDist+2*b_genWallThickness, 0, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-		A_base(hasYMotorMount = false, hasSupport = false);
+		H_base(hasYMotorMount = false, hasSupport = false);
 }
 if (b_mode == "print") {
-	A_base_print();
+	H_base_print();
 }
 
+
+/*------------------------------------assembly--------------------------------*/
+include <motors.scad>
+
+module H_baseLeft_assembly() {
+	H_base(hasYMotorMount = true, hasSupport = false);
+
+	translate([-(b_zdirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
+
+	translate([(b_ydirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
+}
+
+module H_baseReight_assembly() {
+	rotate(a=180,v=Z) {
+		H_base(hasYMotorMount = false, hasSupport = false);
+
+		translate([-(b_zdirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+			stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
+	}
+}
+
+if (b_mode == "assembly"){
+	//H_baseLeft_assembly();
+	H_baseReight_assembly();
+}
 
