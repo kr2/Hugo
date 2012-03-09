@@ -7,8 +7,8 @@
 */
 
 bg_mode = "-";
-bg_mode = "print";  $fn=24*4; 
-bg_mode = "printSet";  $fn=24*4; 
+//bg_mode = "print";  $fn=24*4; 
+//bg_mode = "printSet";  $fn=24*4; 
 
 layer_height=0.4;
 perimeter_w_over_t=2;

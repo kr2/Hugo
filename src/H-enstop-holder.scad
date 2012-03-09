@@ -15,8 +15,8 @@ include <barbell.scad>
 
 /*------------------------------------general---------------------------------*/
 eh_mode = "-";
-eh_mode = "print";  $fn=24*4;// can be print or inspect [overlays the model with the original model] (uncomment next line)
-eh_mode = "printSet";  $fn=24*4;
+e//h_mode = "print";  $fn=24*4;// can be print or inspect [overlays the model with the original model] (uncomment next line)
+//eh_mode = "printSet";  $fn=24*4;
 //eh_mode = "inspect";
 //eh_mode = "assembly";
 
