@@ -263,12 +263,16 @@ module _motorHolder(holeDist = 31.2) {
 if (b_mode == "inspect") {
 	 H_base();
 }
+
+/*------------------------------------print-----------------------------------*/
+
 module H_base_print() {
-	translate([-b_zdirM_hole_zAxisDist-2*b_genWallThickness, 0, 0]) 
+	translate([-b_zdirM_hole_zAxisDist-b_genWallThickness, b_zdirM_hole_dist/4, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = true, hasSupport = false);
-	translate([b_zdirM_hole_zAxisDist+2*b_genWallThickness, 0, 0]) 
+
+	translate([b_zdirM_hole_zAxisDist+b_genWallThickness, -b_zdirM_hole_dist/4, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
