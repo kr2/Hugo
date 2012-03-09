@@ -17,6 +17,7 @@ include <H-Z-End.scad>
 include <bar-clamp-cross.scad>
 include <H-Y-beltDivert.scad>
 include <H-Y-beltClamp.scad>
+include <H-enstop-holder.scad>
 
 include <basicMetalParts.scad>
 
@@ -61,6 +62,19 @@ module _xAxis_assembly() {
 	translate([a_act_pos[0], 0, Xe_X_RodHoles_pos[1][1]]) 
 	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
 		H_Xtruder_mount_assembly();
+
+	// endstops
+	translate([-c_x_axis_length/2, 0, Xe_X_RodHoles_pos[0][1]]) 
+		H_endstop_xl_assembly();
+
+	translate([c_x_axis_length/2, 0, Xe_X_RodHoles_pos[0][1]]) 
+		H_endstop_xr_assembly();
+
+
+	//belt
+	color("white")
+	translate([0, Xc_belt_axisXc_ydir_dist + 3,Xe_X_RodHoles_pos[1][1]+ Xc_belt_axisXc_zdir_offset + 1.5]) 
+		cube(size=[_a_xAxis_real_length, 6, 3], center=true);
 }
 
 /*------------------------------------y axis----------------------------------*/
@@ -121,7 +135,7 @@ module _zAxis_assembly() {
 	translate([0, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){ 
 		translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 			H_baseLeft_assembly();
-		translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
+		*translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 			H_baseReight_assembly();
 
 		// z Rods
@@ -133,7 +147,7 @@ module _zAxis_assembly() {
 		}
 
 		// z ends
-		translate([0, 0, _a_zAxis_smoothReal_length + (b_zDirWall_size[2]-b_zdirRod_hole_depth)]) {
+		*translate([0, 0, _a_zAxis_smoothReal_length + (b_zDirWall_size[2]-b_zdirRod_hole_depth)]) {
 			translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 				H_Z_endLeft_assembly();
 			translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
@@ -156,10 +170,23 @@ module _zAxis_assembly() {
 		// diverter
 		translate([0, 0, b_xdirRods_holes_altitude[1]]) 
 		H_Y_beltDivert_assembly();
+
+		// z dir enstops
+		translate([-_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2] + 10]) 
+			H_endstop_zb_assembly();
+
+		translate([-_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2]+ c_z_axis_length + 10]) 
+			H_endstop_zt_assembly();
+
+		// x dir enstops
+		translate([-_a_yAxis_dist/2 + 15, -b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
+			H_endstop_yf_assembly();
+		translate([-_a_yAxis_dist/2 + 15, +b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
+			H_endstop_yb_assembly();
 	}
 
 	// TODO
-	translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
+	*translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
 		// cross brace 
 		translate([-9, -b_xdirRods_holes_zAxisDist-15, 0]) //todo
 		rotate(a=-(90-_a_zAxis_crossBrace_angle[1]),v=X) 
@@ -197,7 +224,7 @@ module _zAxis_assembly() {
 
 
 module H_assembly() {
-	translate([0, 0, a_act_pos[2]]) 
+	*translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
 	translate([0, a_act_pos[1], 0]) 
@@ -206,7 +233,7 @@ module H_assembly() {
 	_zAxis_assembly();
 
 	// basement
-	color("Lavender")
+	*color("Lavender")
 	translate([0, 0, -_a_basement_tabelOffset-2.5]) 
 		cube(size=[c_x_axis_length*2, c_y_axis_length*2, 5], center=true);
 

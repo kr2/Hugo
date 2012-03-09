@@ -14,9 +14,9 @@ include <barbell.scad>
 
 /*------------------------------------general---------------------------------*/
 eh_mode = "-";
-eh_mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//eh_mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //eh_mode = "inspect";
-eh_mode = "assembly";
+//eh_mode = "assembly";
 //$fn=96;
 
 eh_genWallThickness           = 2.5;
@@ -44,9 +44,9 @@ eh_holeOffsets = [
 					[-34,14,5], // z bottom  nuttraps = [-1,1]
 					[-15,14,5], // z top  nuttraps = [-1,1]
 
-					[-15,14,5], // y front/back  nuttraps = [-1,0]
+					[-7,14,5], // y front/back  nuttraps = [-1,0]
 
-					[-30,14,5] // x left/reight nuttraps = [-1,1]
+					[-9,14,5] // x left/reight nuttraps = [-1,1]
 				];
 
 
@@ -259,7 +259,7 @@ module H_endstop_yb_assembly() {
 	 	H_endstop_yf_assembly();
 	}
 }
-//!H_endstop_yb_assembly();
+!H_endstop_yb_assembly();
 
 module H_endstop_xl_assembly() {
 	translate([eh_end_height/2,  switchSize[2] + eh_holeOffsets[3][1] +eh_end_wallWidth/2,  abs(eh_holeOffsets[3][0]) +eh_end_elongetatedHole_length/2 ]) 
