@@ -13,8 +13,10 @@ include <barbell.scad>
 
 
 /*------------------------------------general---------------------------------*/
+eh_mode = "-";
 eh_mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //eh_mode = "inspect";
+eh_mode = "assembly";
 //$fn=96;
 
 eh_genWallThickness           = 2.5;
@@ -36,12 +38,21 @@ eh_end_elongetatedHole_length = 10;
 eh_end_addLengthHole          = 5.5 + eh_end_elongetatedHole_length;
 eh_end_edgeRadius             = 10; // availiable ony if perpendicular
 
+/*------------------------------------K----------------------------*/
 
+eh_holeOffsets = [
+					[-34,14,5], // z bottom  nuttraps = [-1,1]
+					[-15,14,5], // z top  nuttraps = [-1,1]
+
+					[-15,14,5], // y front/back  nuttraps = [-1,0]
+
+					[-30,14,5] // x left/reight nuttraps = [-1,1]
+				];
 
 
 // holeOffset is the distance form the center of the axis in the clamp to the center the hole
 // nuttraps [clamp, switch connector]  0: off, -1 one side 1 other side
-module H_endstop_holder(isPerpendicular= 1, holeOffset = [-34,14,5], nuttraps = [1,1]) {
+module H_endstop_holder(isPerpendicular= 1, holeOffset = [-30,14,5], nuttraps = [-1,1]) {
 	_end_edgeRadius = min(eh_end_edgeRadius,(holeOffset[1]-3*eh_genWallThickness));
 	difference() {
 		union(){	
@@ -102,13 +113,13 @@ module H_endstop_holder(isPerpendicular= 1, holeOffset = [-34,14,5], nuttraps = 
 						for (i=[0,eh_end_elongetatedHole_length]) 
 						translate([0, -i*holeOffset[0]/abs(holeOffset[0]), 0 ]) 
 							cylinder(r=m3_diameter/2, h=eh_end_wallWidth+2*OS, center=true,$fn=24);
-						translate([0, eh_end_elongetatedHole_length/2, -OS]) 
+						translate([0, eh_end_elongetatedHole_length/2 * holeOffset[0]/abs(holeOffset[0])*-1 -OS,0]) 
 							cube(size=[  m3_diameter, eh_end_elongetatedHole_length, eh_end_wallWidth+2*OS], center=true);
 					}
 					union(){
-						translate([0, eh_end_elongetatedHole_length/2, -OS]) 
+						translate([0, eh_end_elongetatedHole_length/2 * holeOffset[0]/abs(holeOffset[0])*-1, -OS]) 
 						for (i=[-eh_end_elongetatedHole_length/2+m3_diameter/2:m3_diameter:eh_end_elongetatedHole_length/2]) 
-						translate([0, i, 0]) 
+						translate([0, i * holeOffset[0]/abs(holeOffset[0])*-1, 0]) 
 							cube(size=[  m3_diameter, eh_verticalSupportThickness, eh_end_wallWidth+2*OS], center=true);
 					}
 				}
@@ -188,6 +199,7 @@ module _clamp(holeOffset,nuttrap) {
 
 
 
+
 if (eh_mode == "inspect") {
 	H_endstop_holder();
 }
@@ -195,5 +207,79 @@ module H_endstop_print() {
 	H_endstop_holder();
 }
 if (eh_mode == "print") {
-	H_endstop_print();
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
+
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
+}
+
+
+/*------------------------------------assembly--------------------------------*/
+include <RapSwitch.scad>
+
+//switchSize[2]
+module H_endstop_zb_assembly() {
+	translate([eh_holeOffsets[0][0] - eh_end_elongetatedHole_length/2,-eh_holeOffsets[0][1] -switchSize[2]- eh_end_wallWidth/2, eh_end_height/2]) 
+	rotate(a=90,v=X) 
+	rotate(a=180,v=Y) 
+		rapSwitch_ass();
+
+	mirror([0, 1, 0])  
+		H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]);
+}
+//!H_endstop_zb_assembly();
+
+module H_endstop_zt_assembly() {
+	translate([eh_holeOffsets[1][0] - eh_end_elongetatedHole_length/2,-eh_holeOffsets[1][1] -switchSize[2]- eh_end_wallWidth/2, eh_end_height/2]) 
+	mirror([0, 0, 1])  
+	rotate(a=90,v=X) 
+	rotate(a=180,v=Y) 
+		rapSwitch_ass();
+
+	mirror([0, 1, 0])  
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]);
+}
+//! H_endstop_zt_assembly();
+
+module H_endstop_yf_assembly() {
+	translate([eh_end_height/2, eh_holeOffsets[2][0] -eh_end_elongetatedHole_length/2, eh_holeOffsets[2][1] +eh_end_wallWidth/2]) 
+	rotate(a=180,v=Z) 
+		rapSwitch_ass();
+
+	rotate(a=90,v=X) 
+	rotate(a=90,v=Y) 
+		H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]);
+}
+//!H_endstop_yf_assembly();
+
+module H_endstop_yb_assembly() {
+	mirror([0, 1, 0])  {
+	 	H_endstop_yf_assembly();
+	}
+}
+//!H_endstop_yb_assembly();
+
+module H_endstop_xl_assembly() {
+	translate([eh_end_height/2,  switchSize[2] + eh_holeOffsets[3][1] +eh_end_wallWidth/2,  abs(eh_holeOffsets[3][0]) +eh_end_elongetatedHole_length/2 ]) 
+	mirror([0, 0, 1])  
+	rotate(a=90,v=Y) 
+	rotate(a=90,v=X) 
+	rapSwitch_ass();
+
+	rotate(a=90,v=Y) 
+		H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]);
+}
+//!H_endstop_xl_assembly();
+
+module H_endstop_xr_assembly() {
+	mirror([1, 0, 0]) 
+	H_endstop_xl_assembly() ; 
+}
+//!H_endstop_xr_assembly();
+
+if (eh_mode == "assembly"){
+	//H_baseLeft_assembly();
+	H_endstop_zb_assembly();
 }
