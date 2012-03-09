@@ -53,6 +53,7 @@ module bear608ZZ() {
 
 module table(size = [10,10,1],center = true) {
 	bomEcho("Table",[["width",size[0]],["length",size[1]],["thickness",size[2]]]);
+	color("Gainsboro")
 	cube(size=size, center=center);
 }
 //table();

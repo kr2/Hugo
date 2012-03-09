@@ -137,7 +137,7 @@ module _zAxis_assembly() {
 	translate([0, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){ 
 		translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 			H_baseLeft_assembly();
-		*translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
+		translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 			H_baseReight_assembly();
 
 		// z Rods
@@ -149,7 +149,7 @@ module _zAxis_assembly() {
 		}
 
 		// z ends
-		*translate([0, 0, _a_zAxis_smoothReal_length + (b_zDirWall_size[2]-b_zdirRod_hole_depth)]) {
+		translate([0, 0, _a_zAxis_smoothReal_length + (b_zDirWall_size[2]-b_zdirRod_hole_depth)]) {
 			translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 				H_Z_endLeft_assembly();
 			translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
@@ -203,7 +203,7 @@ module _zAxis_assembly() {
 	}
 
 	// TODO
-	*translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
+	translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
 		// cross brace 
 		translate([-9, -b_xdirRods_holes_zAxisDist-15, 0]) //todo
 		rotate(a=-(90-_a_zAxis_crossBrace_angle[1]),v=X) 
@@ -241,7 +241,7 @@ module _zAxis_assembly() {
 
 
 module H_assembly() {
-	*translate([0, 0, a_act_pos[2]]) 
+	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
 	translate([0, a_act_pos[1], 0]) 
