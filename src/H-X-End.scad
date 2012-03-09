@@ -12,10 +12,12 @@ include <roundEdges.scad>
 include <barbell.scad>
 
 /*------------------------------------general---------------------------------*/
-mode = "-";
-//mode = "print";  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
-//mode = "inspect";
-//mode = "assembly";
+Xe_mode = "-";
+//Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
+//Xe_mode = "print Left"; $fn=24*4;
+//Xe_mode = "print Reight"; $fn=24*4;
+//Xe_mode = "inspect";
+//Xe_mode = "assembly";
 
 Xe_outline           = [56.33, 49, 41.712];   // absolute Xe_outline [x,y,z]
 
@@ -220,7 +222,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 	}
 }
 
-if (mode == "inspect") {
+if (Xe_mode == "inspect") {
 	H_x_End(isMotor=true,,adjustable_z_stop=true);
 }
 module H_x_End_print() {
@@ -231,9 +233,16 @@ module H_x_End_print() {
 	mirror([0, 1, 0]) 
 		H_x_End(isIdle=true,elongetededLowerHole = true);
 }
-if (mode == "print") 
+if (Xe_mode == "printSet") 
 	H_x_End_print();
 
+if (Xe_mode == "print Left") {
+	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
+}
+if (Xe_mode == "print Reight") {
+	mirror([0, 1, 0]) 
+		H_x_End(isIdle=true,elongetededLowerHole = true);
+}
 
 /*------------------------------------assembly--------------------------------*/
 include <basicMetalParts.scad>
@@ -268,7 +277,7 @@ module H_x_End_motor_assembly() {
 	}
 }
 
-if (mode == "assembly"){
+if (Xe_mode == "assembly"){
 	//H_x_End_idle_assembly();
 	H_x_End_motor_assembly();
 }

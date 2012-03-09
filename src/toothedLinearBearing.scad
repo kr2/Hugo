@@ -8,7 +8,8 @@
 include <units.scad>
 
 mode = "-";
-//mode = "print";
+//mode = "print"; $fn=24*4;
+//mode = "printSet"; $fn=24*4;
 
 /**
 * @brief   Toothed Linear Bearing (TLB).
@@ -107,6 +108,7 @@ module TLB_test() {
 							toothRatio       = 0.6
 						);
 }
+
 //TLB_test();
 
 
@@ -140,9 +142,12 @@ module TLB_print(s = 4) {
 		}
 	}
 }
-//TLB_print(s = 4);
+if (mode == "printSet") {
+	TLB_print(s = 4);
+}
 
 if (mode == "print") {
+	translate([0, 0, 12]) 
 	TLB_linearBearing(
 							inner_d          = 8, 
 							outer_d          = 15,

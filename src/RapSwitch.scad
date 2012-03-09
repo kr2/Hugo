@@ -6,8 +6,9 @@
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
-mode = "-";
-//mode = "print";
+rs_mode = "-";
+//rs_mode = "print";  $fn=24*4; 
+//rs_mode = "printSet";  $fn=24*4; 
 
 OS = 0.01;
 
@@ -147,9 +148,24 @@ module rapSwitch_ass() {
 		rapSwitch();
 }
 
-if (mode == "print") {
+if (rs_mode == "print") {
 	rapSwitch();
 }
+
+module _rapSwichtPair() {
+	translate([-15, -3.5, 0]) 
+	rapSwitch();
+	translate([15, 3.5, 0]) 
+	rotate(a=180,v=[0,0,1]) 
+	rapSwitch();
+}
+if (rs_mode == "printSet") {
+	_rapSwichtPair();
+	for (i=[[18.5,-16,0],[-18.5,16,0]]) 
+	translate(i) 
+	_rapSwichtPair();
+}
+
 
 
 

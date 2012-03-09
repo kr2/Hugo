@@ -1,4 +1,4 @@
-/* H-bar-clamp-cross
+/* H-bar-clamp-cross [bcc]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -9,10 +9,10 @@
 include <metric.scad>
 use <teardrop.scad>
 
-mode = "-";
-//mode = "print"; $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "printSet";  $fn=24*4;
-//mode = "inspect";
+bcc_mode = "-";
+//bcc_mode = "print"; $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//bcc_mode = "printSet";  $fn=24*4;
+//bcc_mode = "inspect";
 //$fn=48;
 
 module barclampCross(a=15) {
@@ -72,7 +72,7 @@ module barclampCross(a=15) {
 }
 //barclampCross(a=15);
 
-if (mode == "print") {
+if (bcc_mode == "print") {
 	barclampCross(a=90-75);	
 }
 
@@ -82,6 +82,6 @@ module H_barClampCross_printSet() {
 	translate([x, y, 0]) 
 	barclampCross(a=90-75);	
 }
-if (mode ==  "printSet") {
+if (bcc_mode ==  "printSet") {
 	H_barClampCross_printSet();
 }

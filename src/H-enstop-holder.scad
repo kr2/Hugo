@@ -14,11 +14,11 @@ include <barbell.scad>
 
 
 /*------------------------------------general---------------------------------*/
-
-//mode = "-";
-mode = "print";// can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
-//mode = "assembly";
+eh_mode = "-";
+eh_mode = "print";  $fn=24*4;// can be print or inspect [overlays the model with the original model] (uncomment next line)
+eh_mode = "printSet";  $fn=24*4;
+//eh_mode = "inspect";
+//eh_mode = "assembly";
 
 eh_genWallThickness           = 2.5;
 eh_strongWallThickness        = 5;
@@ -201,22 +201,33 @@ module _clamp(holeOffset,nuttrap) {
 
 
 
-if (mode == "inspect") {
+if (eh_mode == "inspect") {
 	H_endstop_holder();
 }
-if (mode == "print") {
+if (eh_mode == "print") {
 	H_endstop_holder();
 }
 module H_endstop_printSet() {
+	translate([40, 20, 0]) 
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
+
+	translate([20, 10, 0]) 
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
 
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	
+	translate([-40, 25, 0]) 
+	rotate(a=90,v=[0,0,1]) 
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	
+	translate([-20, -10, 0]) 
+	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
 
+	translate([-40, -20, 0]) 
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
 }
-if (mode == "printSet") {
-	H_endstop_holder();
+if (eh_mode == "printSet") {
+	H_endstop_printSet();
 }
 
 
@@ -279,11 +290,11 @@ module H_endstop_xl_assembly() {
 
 module H_endstop_xr_assembly() {
 	mirror([1, 0, 0]) 
-	H_endstop_xl_assembly() ; 
+	H_endstop_xl_assembly(); 
 }
 //!H_endstop_xr_assembly();
 
-if (mode == "assembly"){
+if (eh_mode == "assembly"){
 	//H_baseLeft_assembly();
-	H_endstop_zb_assembly();
+	H_endstop_xl_assembly();
 }

@@ -14,10 +14,11 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-mode = "-"; 
-//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
-//mode = "assembly";
+Ybe_mode = "-"; 
+Ybe_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//Ybe_mode = "print";  $fn=24*4;  
+//Ybe_mode = "inspect";
+//Ybe_mode = "assembly";
 $fn=48;
 
 Ybe_thinWallThickness          = 1;
@@ -99,7 +100,7 @@ module H_Y_BarEnd() {
 
 
 
-if (mode == "inspect") {
+if (Ybe_mode == "inspect") {
 	H_Y_BarEnd();
 }
 module H_Y_BarEnd_print() {
@@ -112,8 +113,12 @@ module H_Y_BarEnd_print() {
 		H_Y_BarEnd();
 	}
 }
-if (mode == "print") {
+if (Ybe_mode == "printSet") {
 	H_Y_BarEnd_print();
+}
+
+if (Ybe_mode == "print") {
+	H_Y_BarEnd();
 }
 
 
@@ -131,7 +136,7 @@ module H_Y_BarEnd_reight_assembly() {
 	H_Y_BarEnd();
 }
 
-if (mode == "assembly"){
+if (Ybe_mode == "assembly"){
 	//H_Y_BarEnd_reight_assembly();
 	H_Y_BarEnd_left_assembly();
 }

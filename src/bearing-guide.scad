@@ -6,8 +6,9 @@
 *@categoryPrinted
 */
 
-mode = "-";
-//mode = "print";
+bg_mode = "-";
+bg_mode = "print";  $fn=24*4; 
+bg_mode = "printSet";  $fn=24*4; 
 
 layer_height=0.4;
 perimeter_w_over_t=2;
@@ -79,6 +80,14 @@ module bearingGuid_print() {
 	translate([34,0,0])
 	outer();
 }
-if (mode == "print") {
+if (bg_mode == "print") {
 	bearingGuid_print();
 }
+
+if (bg_mode == "printSet") {
+	translate([-17, 0, 0]) 
+	for (i=[-1:1]) 
+	translate([-17*i, -29*i, 0]) 
+	bearingGuid_print();
+}
+

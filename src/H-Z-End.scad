@@ -14,13 +14,16 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 Ze_mode = "-";
-//Ze_mode = "print";  // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
+//Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
+//Ze_mode = "printSet2";  $fn=24*4;
+//e_mode = "print Left";  $fn=24*4;
+//Ze_mode = "print Reight";  $fn=24*4;
 //Ze_mode = "inspect";
 //Ze_mode = "assembly";
 //$fn=48;
 
 Ze_thinWallThickness         = 1;
-Ze_genWallThickness          = 2.5;
+Ze_genWallThickness          = 3;
 Ze_strongWallThickness       = 9;
 
 Ze_horizontalSuportThickness = 0.3;
@@ -50,7 +53,7 @@ _Ze_support_radius            = (Ze_smoothRod_diam/2+Ze_genWallThickness)*0.6;
 _Ze_support_coutout_r         = circel_radius3Points([Ze_thinWallThickness,0],[_Ze_support_radius+Ze_thinWallThickness,_Ze_xDir],[_Ze_support_radius+Ze_thinWallThickness,-_Ze_xDir]);
 
 _Ze_crosBr_bearing_dist       = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
-_Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness/2;
+_Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness;
 
 module H_Z_end(hasCrossBrace = true) {
 	_bearSuppCoutout_scale           = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2)/(_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness);
@@ -93,12 +96,12 @@ module H_Z_end(hasCrossBrace = true) {
 				translate([-Ze_zEnd_rodsDist, 0, 0]) 
 				rotate(a=180,v=Z) 
 				linear_extrude(height=_Ze_zDir)
-					barbell (r1=Ze_bear_diam/2+Ze_genWallThickness,r2=Ze_strongWallThickness/2,r3=_Ze_crosBr_bearing_noseLength*.8,r4=_Ze_crosBr_bearing_noseLength*0.8,separation=_Ze_crosBr_bearing_noseLength); 
+					barbell (r1=Ze_bear_diam/2+Ze_genWallThickness,r2=Ze_strongWallThickness,r3=_Ze_crosBr_bearing_noseLength*.8,r4=_Ze_crosBr_bearing_noseLength*0.8,separation=_Ze_crosBr_bearing_noseLength); 
 
 				//screw holde
 				translate([-Ze_zEnd_rodsDist- _Ze_crosBr_bearing_dist, 0, m8_nut_diameter/2])
 				rotate(a=90,v=X) 
-					cylinder(r=m8_nut_diameter/2, h=Ze_strongWallThickness, center=true); 
+					cylinder(r=m8_nut_diameter/2, h=Ze_strongWallThickness*2, center=true); 
 			}
 
 		}
@@ -109,12 +112,15 @@ module H_Z_end(hasCrossBrace = true) {
 			translate([-Ze_zEnd_rodsDist, 0, -OS]) {
 				if (hasCrossBrace) {					
 					cylinder(r=Ze_bear_diam/2, h=m8_nut_diameter, center=false);
+					// rod coutput
+					translate([0, 0, m8_nut_diameter+Ze_horizontalSuportThickness])
+						cylinder(r=Ze_roughRod_diam/2, h=_Ze_zDir, center=false); 
 				} else {
 					cylinder(r=Ze_bear_diam/2, h=Ze_bear_heigth+OS, center=false);
+					// rod coutput
+					translate([0, 0, Ze_bear_heigth+Ze_horizontalSuportThickness])
+						cylinder(r=Ze_roughRod_diam/2, h=_Ze_zDir, center=false); 
 				}
-			// rod coutput
-			translate([0, 0, Ze_bear_heigth+Ze_horizontalSuportThickness])
-				cylinder(r=Ze_roughRod_diam/2, h=_Ze_zDir, center=false); 
 			}
 
 			//barebel holder support coutout
@@ -167,9 +173,27 @@ if (Ze_mode == "inspect") {
 module H_Z_end_print() {
 	H_Z_end();
 }
-if (Ze_mode == "print") {
-	H_Z_end_print();
+if (Ze_mode == "printSet1") {
+	translate([10, 12, 0]) 
+	H_Z_end(hasCrossBrace = true);
+	translate([-10, -12, 0]) 
+	rotate(a=180,v=[0,0,1]) 
+	H_Z_end(hasCrossBrace = false);
 }
+if (Ze_mode == "printSet2") {
+	translate([10, 12, 0]) 
+	H_Z_end(hasCrossBrace = false);
+	translate([-10, -12, 0]) 
+	rotate(a=180,v=[0,0,1]) 
+	H_Z_end(hasCrossBrace = false);
+}
+if (Ze_mode == "print Left") {
+	H_Z_end(hasCrossBrace = false);
+}
+if (Ze_mode == "print Reight") {
+	H_Z_end(hasCrossBrace = true);
+}
+
 
 
 /*------------------------------------assembly--------------------------------*/

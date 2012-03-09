@@ -13,10 +13,10 @@ include <barbell.scad>
 use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
-mode = "-"; 
-//mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-//mode = "inspect";
-//mode = "assembly";
+Xc_mode = "-"; 
+//Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//Xc_mode = "inspect";
+//Xc_mode = "assembly";
 
 Xc_axis_dist                 = 25.38;
 Xc_genWallThickness          = 2.5;
@@ -289,7 +289,7 @@ module _bearingStop() {
 //!union(){_bearingStop();}
 
 
-if (mode == "inspect") {
+if (Xc_mode == "inspect") {
 	H_x_Carriage(hasSupport = false);
 
 	translate([-(Xc_axis_dist/2+Xc_belt_axisXc_zdir_offset), -(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2), 0]){//belt center bottom
@@ -317,7 +317,7 @@ module H_x_Carriage_print() {
 		yBeltClamp_beltProtector();
 	}
 }
-if (mode == "print") {
+if (Xc_mode == "print") {
 	H_x_Carriage_print();
 
 	
@@ -350,7 +350,7 @@ module H_x_Carriage_assembly() {
 	}
 }
 
-if (mode == "assembly"){
+if (Xc_mode == "assembly"){
 	H_x_Carriage_assembly();
 }
 

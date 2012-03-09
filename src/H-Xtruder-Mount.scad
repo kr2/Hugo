@@ -11,10 +11,10 @@ include <roundEdges.scad>
 
 
 /*------------------------------------general---------------------------------*/
-mode = "-"; 
-//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//mode = "inspect";
-//mode = "assembly";
+Xm_mode = "-"; 
+Xm_mode = "print";  $fn=24*4; // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//Xm_mode = "inspect";
+//Xm_mode = "assembly";
 
 Xm_outline           = [68, 33.1, 27.9];   // absolute Xm_outline [x,y,z]
 
@@ -178,14 +178,14 @@ module _xdirSupport() {
 	}
 }
 
-if (mode == "inspect") {
+if (Xm_mode == "inspect") {
 	H_Xtruder_mount();
 }
 module H_Xtruder_mount_print() {
 	translate([-Xm_outline[1], 0, 0]) 
 		H_Xtruder_mount(isMotor=true);
 }
-if (mode == "print") 
+if (Xm_mode == "print") 
 	H_Xtruder_mount_print();
 
 
@@ -198,7 +198,7 @@ module H_Xtruder_mount_assembly() {
 	H_Xtruder_mount();
 }
 
-if (mode == "assembly"){
+if (Xm_mode == "assembly"){
 	H_Xtruder_mount_assembly();
 }
 

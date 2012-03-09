@@ -15,12 +15,12 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-mode = "-";
-//mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
-//mode = "print Left"; $fn=24*4; 
-//mode = "print Reight"; $fn=24*4; 
-//mode = "inspect";
-//mode = "assembly";
+b_mode = "-";
+//b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+//b_mode = "print Left"; $fn=24*4; 
+//b_mode = "print Reight"; $fn=24*4; 
+//b_mode = "inspect";
+//b_mode = "assembly";
 
 b_thinWallThickness         = 1;
 b_genWallThickness          = 2.5;
@@ -260,7 +260,7 @@ module _motorHolder(holeDist = 31.2) {
 }
 //_motorHolder();
 
-if (mode == "inspect") {
+if (b_mode == "inspect") {
 	 H_base();
 }
 
@@ -278,15 +278,15 @@ module H_base_print() {
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = false, hasSupport = false);
 }
-if (mode == "printSet") {
+if (b_mode == "printSet") {
 	H_base_print();
 }
-if (mode == "print Left") {
+if (b_mode == "print Left") {
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
 	H_base(hasYMotorMount = true, hasSupport = false);
 }
-if (mode == "print Reight") {
+if (b_mode == "print Reight") {
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
@@ -317,7 +317,7 @@ module H_baseReight_assembly() {
 	}
 }
 
-if (mode == "assembly"){
+if (b_mode == "assembly"){
 	//H_baseLeft_assembly();
 	H_baseReight_assembly();
 }

@@ -11,9 +11,9 @@
 include <metric.scad>
 use <teardrop.scad>
 
-mode = "-";
-//mode = "print";  $fn=24*4;
-//mode = "printSet";  $fn=24*4;
+bc_mode = "-";
+//bc_mode = "print";  $fn=24*4;
+//bc_mode = "printSet";  $fn=24*4;
 
 module barclamp()
 {
@@ -49,13 +49,17 @@ module barclamp()
 	}
 }
 
-if (mode == "print") {
+if (bc_mode == "print") {
 	barclamp();
 }
 
-if (mode ==  "printSet") {
+
+module H_barClamp_printSet() {
 	translate([0, -7.3-1, 0]) 
 	barclamp();
 	translate([0, 7.3+1, 0]) 
 	barclamp();
+}
+if (bc_mode ==  "printSet") {	
+	H_barClamp_printSet();
 }

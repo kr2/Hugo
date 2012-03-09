@@ -15,10 +15,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-mode = "-";  
-//mode = "print";  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-//mode = "inspect";
-//mode = "assembly";
+Ybd_mode = "-";  
+//Ybd_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//Ybd_mode = "inspect";
+//Ybd_mode = "assembly";
 $fn=48;
 
 Ybd_thinWallThickness          = 1;
@@ -106,13 +106,13 @@ module H_Y_beltDivert() {
 
 
 
-if (mode == "inspect") {
+if (Ybd_mode == "inspect") {
 	H_Y_beltDivert();
 }
 module H_Y_beltDivert_print() {
 	H_Y_beltDivert();
 }
-if (mode == "print") {
+if (Ybd_mode == "print") {
 	H_Y_beltDivert_print();
 }
 
@@ -134,6 +134,6 @@ module H_Y_beltDivert_assembly() {
 	}
 }
 
-if (mode == "assembly"){
+if (Ybd_mode == "assembly"){
 	H_Y_beltDivert_assembly();
 }

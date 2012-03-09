@@ -19,6 +19,7 @@ include <barbell.scad>
 mode = "print";// can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
 //mode = "assembly";
+echo(mode);
 
 eh_genWallThickness           = 2.5;
 eh_strongWallThickness        = 5;
@@ -221,7 +222,7 @@ if (mode == "printSet") {
 
 
 /*------------------------------------assembly--------------------------------*/
-include <RapSwitch.scad>
+//include <RapSwitch.scad>
 
 //switchSize[2]
 module H_endstop_zb_assembly() {
