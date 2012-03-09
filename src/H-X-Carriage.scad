@@ -310,10 +310,6 @@ if (Xc_mode == "inspect") {
 }
 module H_x_Carriage_print() {
 	H_x_Carriage();
-}
-if (Xc_mode == "print") {
-	H_x_Carriage_print();
-
 	for (i=[0, Xc_beltClamp_depth+1]) 
 	translate([Xc_belt_width+i, -Xc_lber_diam*2-3, 0]){
 		carr_beltClamp();
@@ -321,6 +317,11 @@ if (Xc_mode == "print") {
 		rotate(a=-90,v=Y) 
 		yBeltClamp_beltProtector();
 	}
+}
+if (Xc_mode == "print") {
+	H_x_Carriage_print();
+
+	
 }
 
 /*------------------------------------assembly--------------------------------*/

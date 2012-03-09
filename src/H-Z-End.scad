@@ -165,7 +165,7 @@ module H_Z_end(hasCrossBrace = true) {
 if (Ze_mode == "inspect") {
 	H_Z_end();
 }
-module H_endstop_print() {
+module H_Z_end() {
 	H_Z_end();
 }
 if (Ze_mode == "print") {

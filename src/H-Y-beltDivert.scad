@@ -109,7 +109,7 @@ if (Ybd_mode == "inspect") {
 	H_Y_beltDivert();
 }
 module H_Y_beltDivert_print() {
-	
+	H_Y_beltDivert();
 }
 if (Ybd_mode == "print") {
 	H_Y_beltDivert_print();
