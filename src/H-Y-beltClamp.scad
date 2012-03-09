@@ -1,8 +1,9 @@
 /* H-Y-beltClamp [Ybc]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * 
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * and
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
 include <units.scad>
@@ -11,10 +12,10 @@ include <roundEdges.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ybc_mode = "-";
-//Ybc_mode = "print";  // can be print or inspect [overlays the Ybc_model with the original Ybc_model] (uncomment next line)
-//Ybc_mode = "inspect";
-//Ybc_mode = "assembly";
+mode = "-";
+//mode = "print";  // can be print or inspect [overlays the Ybc_model with the original Ybc_model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 
 /*------------------------------------belt------------------------------------*/
 Ybc_belt_thickness = 2.5;
@@ -179,7 +180,7 @@ module beltClamp() {
 }
 
 
-if (Ybc_mode == "inspect") {
+if (mode == "inspect") {
 	H_yBeltClam();
 	translate([Ybc_strongWallThickness+1,  Ybc_genWallThickness+m3_nut_diameter/2, +Ybc_belt_tolerance[2]/2]) 
 	yBeltClamp_beltProtector();
@@ -198,7 +199,7 @@ module H_yBeltClam_print() {
 	rotate(a=-90,v=Y) 
 	yBeltClamp_beltProtector();
 }
-if (Ybc_mode == "print") 
+if (mode == "print") 
 	H_yBeltClam_print();
 
 
@@ -225,7 +226,7 @@ module H_yBeltClamFront_assembly() {
 	_H_yBeltClam_assembly();
 }
 
-if (Ybc_mode == "assembly"){
+if (mode == "assembly"){
 	//H_yBeltClam_assembly();
 	H_yBeltClamBack_assembly();
 }

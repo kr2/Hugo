@@ -2,7 +2,7 @@
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * derivative of the original design by abdrumm for the PrintrBot
  */
 
 include <units.scad>;
@@ -13,11 +13,10 @@ include <barbell.scad>
 use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
-Xc_mode = "-"; 
-//Xc_mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-//Xc_mode = "inspect";
-//Xc_mode = "assembly";
-//$fn=96;
+mode = "-"; 
+//mode = "print";  // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 
 Xc_axis_dist                 = 25.38;
 Xc_genWallThickness          = 2.5;
@@ -290,7 +289,7 @@ module _bearingStop() {
 //!union(){_bearingStop();}
 
 
-if (Xc_mode == "inspect") {
+if (mode == "inspect") {
 	H_x_Carriage(hasSupport = false);
 
 	translate([-(Xc_axis_dist/2+Xc_belt_axisXc_zdir_offset), -(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2), 0]){//belt center bottom
@@ -318,7 +317,7 @@ module H_x_Carriage_print() {
 		yBeltClamp_beltProtector();
 	}
 }
-if (Xc_mode == "print") {
+if (mode == "print") {
 	H_x_Carriage_print();
 
 	
@@ -351,7 +350,7 @@ module H_x_Carriage_assembly() {
 	}
 }
 
-if (Xc_mode == "assembly"){
+if (mode == "assembly"){
 	H_x_Carriage_assembly();
 }
 

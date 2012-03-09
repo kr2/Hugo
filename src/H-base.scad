@@ -2,7 +2,7 @@
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * derivative of the original desing by abdrumm for the PrintrBot
  */
 include <config.scad>
 
@@ -15,10 +15,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-b_mode = "-";
-//b_mode = "print";  // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
-//b_mode = "inspect";
-//b_mode = "assembly";
+mode = "-";
+//mode = "print";  // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 
 $fn=48;
 
@@ -260,7 +260,7 @@ module _motorHolder(holeDist = 31.2) {
 }
 //_motorHolder();
 
-if (b_mode == "inspect") {
+if (mode == "inspect") {
 	 H_base();
 }
 
@@ -278,7 +278,7 @@ module H_base_print() {
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = false, hasSupport = false);
 }
-if (b_mode == "print") {
+if (mode == "print") {
 	H_base_print();
 }
 
@@ -305,7 +305,7 @@ module H_baseReight_assembly() {
 	}
 }
 
-if (b_mode == "assembly"){
+if (mode == "assembly"){
 	//H_baseLeft_assembly();
 	H_baseReight_assembly();
 }

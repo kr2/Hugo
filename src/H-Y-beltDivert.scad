@@ -1,8 +1,9 @@
 /* H-Y-beltDivert [Ybd]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * 
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * and
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
 include <units.scad>;
@@ -14,10 +15,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ybd_mode = "-";  
-//Ybd_mode = "print";  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-//Ybd_mode = "inspect";
-//Ybd_mode = "assembly";
+mode = "-";  
+//mode = "print";  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 $fn=48;
 
 Ybd_thinWallThickness          = 1;
@@ -105,13 +106,13 @@ module H_Y_beltDivert() {
 
 
 
-if (Ybd_mode == "inspect") {
+if (mode == "inspect") {
 	H_Y_beltDivert();
 }
 module H_Y_beltDivert_print() {
 	H_Y_beltDivert();
 }
-if (Ybd_mode == "print") {
+if (mode == "print") {
 	H_Y_beltDivert_print();
 }
 
@@ -133,6 +134,6 @@ module H_Y_beltDivert_assembly() {
 	}
 }
 
-if (Ybd_mode == "assembly"){
+if (mode == "assembly"){
 	H_Y_beltDivert_assembly();
 }

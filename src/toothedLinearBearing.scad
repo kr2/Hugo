@@ -3,10 +3,12 @@
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * and
- * GPL v2 or later [http://www.gnu.org/licenses/].
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 include <units.scad>
- 
+
+mode = "-";
+//mode = "print";
 
 /**
 * @brief   Toothed Linear Bearing (TLB).
@@ -139,3 +141,15 @@ module TLB_print(s = 4) {
 	}
 }
 //TLB_print(s = 4);
+
+if (mode == "print") {
+	TLB_linearBearing(
+							inner_d          = 8, 
+							outer_d          = 15,
+							h                = 24,
+							stringWidth      = 0.5,
+							minWallThickness = 0.85, 
+							tooths           = 16, 
+							toothRatio       = 0.25
+						);
+}

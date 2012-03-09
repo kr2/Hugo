@@ -2,7 +2,6 @@
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
  */
 
 include <units.scad>;
@@ -14,11 +13,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ysf_mode = "-";  
-//sf_mode = "print";  // can be print or inspect [overlays the Ysf_model with the original Ysf_model] (uncomment next line)
-//Ysf_mode = "inspect";
-//Ysf_mode = "assembly";
-$fn=48;
+mode = "-";  
+//mode = "print";  // can be print or inspect [overlays the Ysf_model with the original Ysf_model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 
 Ysf_thinWallThickness          = 1;
 Ysf_genWallThickness           = 2.5;
@@ -86,13 +84,13 @@ module  H_Y_supportFootEnd() {
 }
 
 
-if (Ysf_mode == "inspect") {
+if (mode == "inspect") {
 	H_Y_supportFootEnd();
 }
 module H_Y_supportFootEnd_print() {
 	H_Y_supportFootEnd();
 }
-if (Ysf_mode == "print") {
+if (mode == "print") {
 	H_Y_supportFootEnd_print();
 }
 
@@ -106,6 +104,6 @@ module H_Y_supportFootEnd_assembly() {
 	H_Y_supportFootEnd();
 }
 
-if (Ysf_mode == "assembly"){
+if (mode == "assembly"){
 	H_Y_supportFootEnd_assembly();
 }

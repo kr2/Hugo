@@ -1,13 +1,16 @@
-/* bar-clamp-cross
+/* H-bar-clamp-cross
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * 
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
+ * and
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
 include <metric.scad>
 use <teardrop.scad>
 
-mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+mode = "-";
+//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
 //$fn=48;
 
@@ -67,3 +70,7 @@ module barclampCross(a=15) {
  	
 }
 //barclampCross(a=15);
+
+if (mode = "print") {
+	barclampCross(a=25);	
+}

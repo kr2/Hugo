@@ -2,7 +2,7 @@
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * derivative of the original design by abdrumm for the PrintrBot
  */
 
 include <units.scad>
@@ -12,10 +12,10 @@ include <roundEdges.scad>
 include <barbell.scad>
 
 /*------------------------------------general---------------------------------*/
-Xe_mode = "-";
-//Xe_mode = "print";  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
-//Xe_mode = "inspect";
-//Xe_mode = "assembly";
+mode = "-";
+//mode = "print";  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 
 Xe_outline           = [56.33, 49, 41.712];   // absolute Xe_outline [x,y,z]
 
@@ -220,7 +220,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 	}
 }
 
-if (Xe_mode == "inspect") {
+if (mode == "inspect") {
 	H_x_End(isMotor=true,,adjustable_z_stop=true);
 }
 module H_x_End_print() {
@@ -231,7 +231,7 @@ module H_x_End_print() {
 	mirror([0, 1, 0]) 
 		H_x_End(isIdle=true,elongetededLowerHole = true);
 }
-if (Xe_mode == "print") 
+if (mode == "print") 
 	H_x_End_print();
 
 
@@ -268,7 +268,7 @@ module H_x_End_motor_assembly() {
 	}
 }
 
-if (Xe_mode == "assembly"){
+if (mode == "assembly"){
 	//H_x_End_idle_assembly();
 	H_x_End_motor_assembly();
 }

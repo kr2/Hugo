@@ -1,8 +1,9 @@
 /* H-endstop-holder [eh]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * 
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * and
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
 include <units.scad>;
@@ -13,10 +14,10 @@ include <barbell.scad>
 
 
 /*------------------------------------general---------------------------------*/
-eh_mode = "-";
-//eh_mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//eh_mode = "inspect";
-//eh_mode = "assembly";
+mode = "-";
+//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 //$fn=96;
 
 eh_genWallThickness           = 2.5;
@@ -200,13 +201,13 @@ module _clamp(holeOffset,nuttrap) {
 
 
 
-if (eh_mode == "inspect") {
+if (mode == "inspect") {
 	H_endstop_holder();
 }
 module H_endstop_print() {
 	H_endstop_holder();
 }
-if (eh_mode == "print") {
+if (mode == "print") {
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
 
@@ -279,7 +280,7 @@ module H_endstop_xr_assembly() {
 }
 //!H_endstop_xr_assembly();
 
-if (eh_mode == "assembly"){
+if (mode == "assembly"){
 	//H_baseLeft_assembly();
 	H_endstop_zb_assembly();
 }

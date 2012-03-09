@@ -6,6 +6,9 @@
 *@categoryPrinted
 */
 
+mode = "-";
+//mode = "print";
+
 layer_height=0.4;
 perimeter_w_over_t=2;
 
@@ -76,4 +79,6 @@ module bearingGuid_print() {
 	translate([34,0,0])
 	outer();
 }
-
+if (mode == "print") {
+	bearingGuid_print();
+}

@@ -18,6 +18,8 @@ use <teardrop.scad>
  * @using 2 m8washer
  */ 
 
+ //mode = "print";
+
 module barclamp()
 {
 	outer_radius=m8_diameter/2+3.3;
@@ -52,4 +54,6 @@ module barclamp()
 	}
 }
 
-//barclamp();
+if (mode == "print") {
+	barclamp();
+}

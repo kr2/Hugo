@@ -3,10 +3,11 @@
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * and
- * GPL v2 or later [http://www.gnu.org/licenses/].
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
-$fn = 50;
+mode = "-";
+//mode = "print";
 
 OS = 0.01;
 
@@ -144,6 +145,10 @@ module rapSwitch() {
 module rapSwitch_ass() {
 	translate([-(springR*2+genWallT+screwHoleD/2), springR*1.5, 0])
 		rapSwitch();
+}
+
+if (mode == "print") {
+	rapSwitch();
 }
 
 

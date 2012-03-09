@@ -2,7 +2,7 @@
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * contains derivative parts originally designed by abdrumm for the PrintrBot
  */
 include <units.scad>
 
@@ -11,8 +11,6 @@ include <H-X-End.scad>
 include <H-X-Carriage.scad>
 include <H-base.scad>
 include <H-Y-beltDivert.scad>
-
-$fn = 48*2;
 
 %cube(size=[150, 150, 1], center=true);
 

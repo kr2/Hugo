@@ -2,7 +2,7 @@
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * original desing by abdrumm for the PrintrBot
+ * derivative of the original design by abdrumm for the PrintrBot
  */
 
 include <units.scad>;
@@ -14,10 +14,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ybe_mode = "-"; 
-//Ybe_mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//Ybe_mode = "inspect";
-//Ybe_mode = "assembly";
+mode = "-"; 
+//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//mode = "inspect";
+//mode = "assembly";
 $fn=48;
 
 Ybe_thinWallThickness          = 1;
@@ -99,7 +99,7 @@ module H_Y_BarEnd() {
 
 
 
-if (Ybe_mode == "inspect") {
+if (mode == "inspect") {
 	H_Y_BarEnd();
 }
 module H_Y_BarEnd_print() {
@@ -112,7 +112,7 @@ module H_Y_BarEnd_print() {
 		H_Y_BarEnd();
 	}
 }
-if (Ybe_mode == "print") {
+if (mode == "print") {
 	H_Y_BarEnd_print();
 }
 
@@ -131,7 +131,7 @@ module H_Y_BarEnd_reight_assembly() {
 	H_Y_BarEnd();
 }
 
-if (Ybe_mode == "assembly"){
+if (mode == "assembly"){
 	//H_Y_BarEnd_reight_assembly();
 	H_Y_BarEnd_left_assembly();
 }

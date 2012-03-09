@@ -13,29 +13,29 @@ module stepper_motor_mount(nema_standard,slide_distance=0, mochup=true, toleranc
 	{
 		_stepper_motor_mount(
 			motor_shaft_diameter = 0.1968*mm_per_inch,
-			motor_shaft_length = 0.945*mm_per_inch,
-			pilot_diameter = 0.866*mm_per_inch,
-			pilot_length = 0.80*mm_per_inch,
+			motor_shaft_length   = 0.945*mm_per_inch,
+			pilot_diameter       = 0.866*mm_per_inch,
+			pilot_length         = 0.80*mm_per_inch,
 			mounting_bolt_circle = 1.725*mm_per_inch,
-			bolt_hole_size = 3.5,
-			bolt_hole_distance = 1.220*mm_per_inch,
-			slide_distance = slide_distance,
-			mochup = mochup,
-			tolerance=tolerance);
+			bolt_hole_size       = 3.5,
+			bolt_hole_distance   = 1.220*mm_per_inch,
+			slide_distance       = slide_distance,
+			mochup               = mochup,
+			tolerance            =tolerance);
 	}
 	if (nema_standard == 23)
 	{
 		_stepper_motor_mount(
 			motor_shaft_diameter = 0.250*mm_per_inch,
-			motor_shaft_length = 0.81*mm_per_inch,
-			pilot_diameter = 1.500*mm_per_inch,
-			pilot_length = 0.062*mm_per_inch,
+			motor_shaft_length   = 0.81*mm_per_inch,
+			pilot_diameter       = 1.500*mm_per_inch,
+			pilot_length         = 0.062*mm_per_inch,
 			mounting_bolt_circle = 2.625*mm_per_inch,
-			bolt_hole_size = 0.195*mm_per_inch,
-			bolt_hole_distance = 1.856*mm_per_inch,
-			slide_distance = slide_distance,
-			mochup = mochup,
-			tolerance=tolerance);
+			bolt_hole_size       = 0.195*mm_per_inch,
+			bolt_hole_distance   = 1.856*mm_per_inch,
+			slide_distance       = slide_distance,
+			mochup               = mochup,
+			tolerance            =tolerance);
 	}
 	
 }
