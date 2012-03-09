@@ -15,7 +15,7 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 Ybe_mode = "-"; 
-Ybe_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//Ybe_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //Ybe_mode = "print";  $fn=24*4;  
 //Ybe_mode = "inspect";
 //Ybe_mode = "assembly";

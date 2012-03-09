@@ -12,7 +12,7 @@ include <roundEdges.scad>
 
 /*------------------------------------general---------------------------------*/
 Xm_mode = "-"; 
-Xm_mode = "print";  $fn=24*4; // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//Xm_mode = "print";  $fn=24*4; // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //Xm_mode = "inspect";
 //Xm_mode = "assembly";
 
