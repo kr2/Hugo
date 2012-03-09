@@ -71,6 +71,6 @@ module barclampCross(a=15) {
 }
 //barclampCross(a=15);
 
-if (mode = "print") {
+if (mode == "print") {
 	barclampCross(a=25);	
 }

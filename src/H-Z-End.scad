@@ -164,11 +164,11 @@ module H_Z_end(hasCrossBrace = true) {
 if (Ze_mode == "inspect") {
 	H_Z_end();
 }
-module H_Z_end() {
+module H_Z_end_print() {
 	H_Z_end();
 }
 if (Ze_mode == "print") {
-	H_Z_end();
+	H_Z_end_print();
 }
 
 

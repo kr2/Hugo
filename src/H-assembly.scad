@@ -14,12 +14,12 @@ include <H-X-Carriage.scad>
 include <H-base.scad>
 include <H-Y-BarEnd.scad>
 include <H-Z-End.scad>
-include <bar-clamp-cross.scad>
+include <H-bar-clamp-cross.scad>
 include <H-Y-beltDivert.scad>
 include <H-Y-beltClamp.scad>
 include <H-enstop-holder.scad>
 include <H-Y-supportFootEnd.scad>
-include <bar-clamp.scad>
+include <H-bar-clamp.scad>
 
 include <basicMetalParts.scad>
 
