@@ -25,6 +25,7 @@ module barclamp()
 	clamp_height=2*outer_radius;
 	slot_width=5;
 
+	translate([-outer_radius, -outer_radius, 0]) 
 	difference()
 	{
 		union()
@@ -44,11 +45,11 @@ module barclamp()
 		cube([clamp_length+1,slot_width,clamp_height+2]);
 
 		translate([outer_radius, outer_radius,-1]) 
-		#cylinder(h=clamp_height+2,r=m8_diameter/2,$fn=18);
+		cylinder(h=clamp_height+2,r=m8_diameter/2,$fn=18);
 
 		translate([17,outer_radius*2+1,outer_radius]) rotate([90,0,0]) 
-		#cylinder(h=outer_radius*2+2,r=m8_diameter/2,$fn=20);
+		cylinder(h=outer_radius*2+2,r=m8_diameter/2,$fn=20);
 	}
 }
 
-barclamp();
+//barclamp();

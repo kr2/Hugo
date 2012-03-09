@@ -14,8 +14,10 @@ use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/
-Ysf_mode = "print";  // can be print or inspect [overlays the Ysf_model with the original Ysf_model] (uncomment next line)
-Ysf_mode = "inspect";
+Ysf_mode = "-";  
+//sf_mode = "print";  // can be print or inspect [overlays the Ysf_model with the original Ysf_model] (uncomment next line)
+//Ysf_mode = "inspect";
+//Ysf_mode = "assembly";
 $fn=48;
 
 Ysf_thinWallThickness          = 1;
@@ -76,3 +78,15 @@ if (Ysf_mode == "print") {
 }
 
 
+
+/*------------------------------------assembly--------------------------------*/
+
+module H_Y_supportFootEnd_assembly() {
+	translate([0, Ysf_sFooEnd_size[2]/2, 0]) 
+	rotate(a=90,v=X) 
+	H_Y_supportFootEnd();
+}
+
+if (Ysf_mode == "assembly"){
+	H_Y_supportFootEnd_assembly();
+}

@@ -18,6 +18,8 @@ include <bar-clamp-cross.scad>
 include <H-Y-beltDivert.scad>
 include <H-Y-beltClamp.scad>
 include <H-enstop-holder.scad>
+include <H-Y-supportFootEnd.scad>
+include <bar-clamp.scad>
 
 include <basicMetalParts.scad>
 
@@ -183,6 +185,21 @@ module _zAxis_assembly() {
 			H_endstop_yf_assembly();
 		translate([-_a_yAxis_dist/2 + 15, +b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
 			H_endstop_yb_assembly();
+
+		// y dir stabaliser
+		for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
+		translate([7.3, y, b_xdirRods_holes_altitude[0]]) 
+		rotate(a=-90,v=Y) 
+			barclamp();
+
+		translate([0, 0, b_xdirRods_holes_altitude[0]+9]){ 
+			rotate(a=90,v=X) 
+				threadedRod(r=4, h=_a_yAxis_real_length/3*2, center=true);
+
+			for (i=[_a_yAxis_real_length/3-10,-_a_yAxis_real_length/3+10])
+			translate([0, i, 0])  
+			H_Y_supportFootEnd_assembly();
+		}
 	}
 
 	// TODO
@@ -233,7 +250,7 @@ module H_assembly() {
 	_zAxis_assembly();
 
 	// basement
-	*color("Lavender")
+	color("Lavender")
 	translate([0, 0, -_a_basement_tabelOffset-2.5]) 
 		cube(size=[c_x_axis_length*2, c_y_axis_length*2, 5], center=true);
 
