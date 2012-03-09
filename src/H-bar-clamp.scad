@@ -11,14 +11,9 @@
 include <metric.scad>
 use <teardrop.scad>
 
-/**
- * @name Bar clamp
- * @category Printed
- * @using 2 m8nut
- * @using 2 m8washer
- */ 
-
- //mode = "print";
+mode = "-";
+//mode = "print";  $fn=24*4;
+//mode = "printSet";  $fn=24*4;
 
 module barclamp()
 {
@@ -55,5 +50,12 @@ module barclamp()
 }
 
 if (mode == "print") {
+	barclamp();
+}
+
+if (mode ==  "printSet") {
+	translate([0, -7.3-1, 0]) 
+	barclamp();
+	translate([0, 7.3+1, 0]) 
 	barclamp();
 }

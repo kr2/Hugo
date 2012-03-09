@@ -14,11 +14,11 @@ include <barbell.scad>
 
 
 /*------------------------------------general---------------------------------*/
-mode = "-";
-//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+
+//mode = "-";
+mode = "print";// can be print or inspect [overlays the model with the original model] (uncomment next line)
 //mode = "inspect";
 //mode = "assembly";
-//$fn=96;
 
 eh_genWallThickness           = 2.5;
 eh_strongWallThickness        = 5;
@@ -53,7 +53,7 @@ eh_holeOffsets = [
 
 // holeOffset is the distance form the center of the axis in the clamp to the center the hole
 // nuttraps [clamp, switch connector]  0: off, -1 one side 1 other side
-module H_endstop_holder(isPerpendicular= 1, holeOffset = [-30,14,5], nuttraps = [-1,1]) {
+module H_endstop_holder(isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [-1,1]) {
 	_end_edgeRadius = min(eh_end_edgeRadius,(holeOffset[1]-3*eh_genWallThickness));
 	difference() {
 		union(){	
@@ -204,16 +204,19 @@ module _clamp(holeOffset,nuttrap) {
 if (mode == "inspect") {
 	H_endstop_holder();
 }
-module H_endstop_print() {
+if (mode == "print") {
 	H_endstop_holder();
 }
-if (mode == "print") {
+module H_endstop_printSet() {
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
 
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
 
 	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
+}
+if (mode == "printSet") {
+	H_endstop_holder();
 }
 
 

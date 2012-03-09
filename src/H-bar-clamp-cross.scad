@@ -10,7 +10,8 @@ include <metric.scad>
 use <teardrop.scad>
 
 mode = "-";
-//mode = "print";  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//mode = "print"; $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
+//mode = "printSet";  $fn=24*4;
 //mode = "inspect";
 //$fn=48;
 
@@ -72,5 +73,15 @@ module barclampCross(a=15) {
 //barclampCross(a=15);
 
 if (mode == "print") {
-	barclampCross(a=25);	
+	barclampCross(a=90-75);	
+}
+
+module H_barClampCross_printSet() {
+	for (x=[-25,8]) 
+	for (y=[-9,10]) 
+	translate([x, y, 0]) 
+	barclampCross(a=90-75);	
+}
+if (mode ==  "printSet") {
+	H_barClampCross_printSet();
 }

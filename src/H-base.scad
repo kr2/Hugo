@@ -16,11 +16,11 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 mode = "-";
-//mode = "print";  // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+//mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+//mode = "print Left"; $fn=24*4; 
+//mode = "print Reight"; $fn=24*4; 
 //mode = "inspect";
 //mode = "assembly";
-
-$fn=48;
 
 b_thinWallThickness         = 1;
 b_genWallThickness          = 2.5;
@@ -278,9 +278,21 @@ module H_base_print() {
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = false, hasSupport = false);
 }
-if (mode == "print") {
+if (mode == "printSet") {
 	H_base_print();
 }
+if (mode == "print Left") {
+	rotate(a=180,v=Y) 
+	translate([0, 0, -b_zDirWall_size[2]])  
+	H_base(hasYMotorMount = true, hasSupport = false);
+}
+if (mode == "print Reight") {
+	rotate(a=180,v=Z) 
+	rotate(a=180,v=Y) 
+	translate([0, 0, -b_zDirWall_size[2]])  
+	H_base(hasYMotorMount = false, hasSupport = false);
+}
+
 
 
 /*------------------------------------assembly--------------------------------*/
