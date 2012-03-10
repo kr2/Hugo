@@ -24,6 +24,7 @@ Some Improvements are:
 Instructions
 ============
 There is an H-assembly.scad, which is not perfect but shows an complete setup of the Printer.
+To view this  H-assembly.scad I recommend to use the actual developer release of OpenScad e.g. http://www.onewheelweb.com/static/openscad/OpenSCAD-2012.02.19-Installer.exe and to set the value for "Turn off render at ... elements" [edit->Preferences] to a higher value (I use 200000).
 
 So there are several Prebuilt stl files to discover and to put your own assembly together or you build your own via OpenSCAD.
 

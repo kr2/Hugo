@@ -16,7 +16,7 @@ Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Reight"; $fn=24*4;
-Xe_mode = "inspect";
+//Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
 Xe_outline           = [56.33, 49, 43.712];   // absolute Xe_outline [x,y,z]
