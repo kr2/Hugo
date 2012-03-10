@@ -12,13 +12,14 @@ First of I would like to thank jsturm how started this project in the first plac
 It is a derivative of the original Printrbot by abdrumm, but all parts are redesigned and improved.
 
 Some Improvements are:
-- The main parts are tested ;)
-- Nut traps everywhere
-- Optional cross braces
-- centered y belt
-- Carriage with 3 bearings
-- Belt tensioner for x and y Belts
-- Additional base in y direction
+
+-   The main parts are tested ;)
+-   Nut traps everywhere
+-   Optional cross braces
+-   centered y belt
+-   Carriage with 3 bearings
+-   Belt tensioner for x and y Belts
+-   Additional base in y direction
 
 Instructions
 ============
