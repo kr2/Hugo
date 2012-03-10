@@ -15,8 +15,8 @@ include <barbell.scad>
 Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
-Xe_mode = "print Reight"; $fn=24*4;
-//Xe_mode = "inspect";
+//Xe_mode = "print Reight"; $fn=24*4;
+Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
 Xe_outline           = [56.33, 49, 43.712];   // absolute Xe_outline [x,y,z]
@@ -49,7 +49,7 @@ Xe_idle_hole_depth = 17.5; // depth of the idler hole
 /*------------------------------------motorholder-----------------------------*/
 Xe_motor_xdirBar_size     = [4.22, 5.39]; //[y,z] // size of the suport bares betwen the x end and the motor plate
 Xe_motor_plate_thick      = 3; // motor plate Xe_thickness
-Xe_motor_cutout_diameter  = 24; // diameter of the coutout around the motoraxis
+Xe_motor_cutout_diameter  = 27.5; // diameter of the coutout around the motoraxis
 Xe_motor_holes_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
 Xe_motor_holes_diameter   = 3.2; // motor hole diameter
 
