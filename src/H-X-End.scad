@@ -19,17 +19,17 @@ Xe_mode = "print Reight"; $fn=24*4;
 //Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
-Xe_outline           = [56.33, 49, 41.712];   // absolute Xe_outline [x,y,z]
+Xe_outline           = [56.33, 49, 43.712];   // absolute Xe_outline [x,y,z]
 
 Xe_Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertical nutrap with spring thing
 Xe_Z_bearingHole_pos = [23.27, 9.69+1]; //[x,y] // pos of the vertical bearing holder
 Xe_Z_bearingHole_dia = 15.3; // bearing hole diameter
 
 Xe_X_RodHoles_pos    =  [ // x direction rod hole positions 
-						   [8.08, 8.34],//[x,z] // bottom// reference
-						   [8.08, 33.72]//[x,z] // top
+						   [9.08, 9.34],//[x,z] // bottom// reference
+						   [9.08, 34.72]//[x,z] // top
 				    	];
-Xe_X_Rod_dia         = 8; // x direction diameter
+Xe_X_Rod_dia         = 8.1; // x direction diameter
 Xe_X_Rod_depth       = 37.5; // x direction rode hole depth
 
 
