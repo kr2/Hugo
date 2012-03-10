@@ -16,7 +16,7 @@ Some Improvements are:
 -   The main parts are tested ;)
 -   Nut traps everywhere
 -   Optional cross braces
--   centered y belt
+-   Centered y belt
 -   Carriage with 3 bearings
 -   Belt tensioner for x and y Belts
 -   Additional base in y direction
