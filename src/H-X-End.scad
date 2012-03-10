@@ -15,7 +15,7 @@ include <barbell.scad>
 Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
-//Xe_mode = "print Reight"; $fn=24*4;
+Xe_mode = "print Reight"; $fn=24*4;
 //Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
@@ -43,7 +43,7 @@ Xe_overhang_angle    = 20;
 /*------------------------------------idler-----------------------------------*/
 
 Xe_idle_hole_pos   = [Xe_outline[1]/2, 14]; //[y,z] // postion of the idler hole
-Xe_idle_hole_dia   = 8.3; // diameter of the idler hole
+Xe_idle_hole_dia   = 8.25; // diameter of the idler hole
 Xe_idle_hole_depth = 17.5; // depth of the idler hole
 
 /*------------------------------------motorholder-----------------------------*/
