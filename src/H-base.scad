@@ -79,7 +79,7 @@ b_lber_zAxisXdirDist        = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam
 _b_xdir_bb_r = m8_nut_diameter*0.75;
 _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitude[0]);
 
-module  H_base(hasYMotorMount = true, hasSupport = false) {
+module  H_base(hasYMotorMount = true) {
 	difference() {
 		union(){
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth- b_genWallThickness]) {
@@ -164,15 +164,12 @@ module  H_base(hasYMotorMount = true, hasSupport = false) {
 			//linear bearing coutout
 			for (i=[b_lber_zAxisDist+b_lber_length/2,-b_lber_zAxisDist- b_lber_length/2])  
 			translate([b_lber_zAxisXdirDist, i, b_zDirWall_size[2]-b_lber_topOff+ b_lber_diam/2]) {
-				rotate(a=90,v=X) 
-					difference() {
-						cylinder(r=b_lber_diam/2, h=b_lber_length, center=true);
-						if (hasSupport) {
-							for (z=[b_lber_length/2+b_lber_length/6:b_lber_length/3:-b_lber_length/2-b_lber_length/6]) 
-							translate([0, 0, z]) 
-								cylinder(r=b_lber_diam/2, h=b_verticalSupportThickness, center=true);
-						}
-					}
+				rotate(a=90,v=Z)
+				rotate(a=180,v=X)	
+				translate([-b_lber_length/2, 0, 0]) 		  
+					teardrop (r=b_lber_diam/2,h=b_lber_length,top_and_bottom=false);
+						//#cylinder(r=b_lber_diam/2, h=b_lber_length, center=true);
+
 
 				//zip tie holes
 				rotate(a=90,v=X) 
@@ -271,13 +268,13 @@ module H_base_print() {
 	translate([-b_zdirM_hole_zAxisDist-b_genWallThickness, b_zdirM_hole_dist/4, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-		H_base(hasYMotorMount = true, hasSupport = false);
+		H_base(hasYMotorMount = true);
 
 	translate([b_zdirM_hole_zAxisDist+b_genWallThickness, -b_zdirM_hole_dist/4, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-		H_base(hasYMotorMount = false, hasSupport = false);
+		H_base(hasYMotorMount = false);
 }
 if (b_mode == "printSet") {
 	H_base_print();
@@ -285,13 +282,13 @@ if (b_mode == "printSet") {
 if (b_mode == "print Left") {
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-	H_base(hasYMotorMount = true, hasSupport = false);
+	H_base(hasYMotorMount = true);
 }
 if (b_mode == "print Reight") {
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-	H_base(hasYMotorMount = false, hasSupport = false);
+	H_base(hasYMotorMount = false);
 }
 
 
@@ -300,7 +297,7 @@ if (b_mode == "print Reight") {
 include <motors.scad>
 
 module H_baseLeft_assembly() {
-	H_base(hasYMotorMount = true, hasSupport = false);
+	H_base(hasYMotorMount = true);
 
 	translate([-(b_zdirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
@@ -311,7 +308,7 @@ module H_baseLeft_assembly() {
 
 module H_baseReight_assembly() {
 	rotate(a=180,v=Z) {
-		H_base(hasYMotorMount = false, hasSupport = false);
+		H_base(hasYMotorMount = false);
 
 		translate([-(b_zdirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 			stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
