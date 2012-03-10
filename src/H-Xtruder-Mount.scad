@@ -13,7 +13,7 @@ include <roundEdges.scad>
 /*------------------------------------general---------------------------------*/
 Xm_mode = "-"; 
 //Xm_mode = "print";  $fn=24*4; // can be print or inspect [overlays the model with the original model] (uncomment next line)
-Xm_mode = "inspect";
+//Xm_mode = "inspect";
 //Xm_mode = "assembly";
 
 Xm_outline           = [68, 33.1, 27.9];   // absolute Xm_outline [x,y,z]
