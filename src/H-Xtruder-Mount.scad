@@ -13,7 +13,7 @@ include <roundEdges.scad>
 /*------------------------------------general---------------------------------*/
 Xm_mode = "-"; 
 //Xm_mode = "print";  $fn=24*4; // can be print or inspect [overlays the model with the original model] (uncomment next line)
-//Xm_mode = "inspect";
+Xm_mode = "inspect";
 //Xm_mode = "assembly";
 
 Xm_outline           = [68, 33.1, 27.9];   // absolute Xm_outline [x,y,z]
@@ -23,7 +23,7 @@ Xm_extM_tabelThickness = 5.9;
 
 Xm_extM_genWallThickness = 4;
 
-Xm_ext_hole_diam = 4.4;
+Xm_ext_hole_diam = 4.5;
 Xm_ext_hole_xoff = 50/2;
 Xm_ext_hole_yoff = 20.55;
 
@@ -31,7 +31,7 @@ Xm_Zdir_edge_r = 15;
 
 Xm_carr_hole_zoff = Xm_outline[2]/2;
 Xm_carr_hole_xoff = 18/2;
-Xm_carr_hole_dia = 4;
+Xm_carr_hole_dia = 4.5;
 
 Xm_tchOuterWidth     = 7.3;
 Xm_notchInnerWidth   = 5.4;
