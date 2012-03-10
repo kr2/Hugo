@@ -145,16 +145,17 @@ module  H_base(hasYMotorMount = true, hasSupport = false) {
 			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
 			for (z=b_xdirRods_holes_altitude){
 				//xdir hole coutput
-				translate([0, y, z]) 
-				rotate(a=90,v=Y) 
-					cylinder(r=b_roughRod_diam/2, h=b_zDirWall_size[0]+2*OS, center=true); 
+				translate([-b_zDirWall_size[0]/2+OS, y, z]) 
+				rotate(a=180,v=X) 
+					teardrop (r=b_roughRod_diam/2,h=b_zDirWall_size[0]+2*OS,top_and_bottom=false);
+					//cylinder(r=b_roughRod_diam/2, h=b_zDirWall_size[0]+2*OS, center=true); 
 				//xdir holes nut save range
 				for (x=[-(b_zDirWall_size[0]/2+m8_nut_heigth/2),b_zDirWall_size[0]/2+m8_nut_heigth/2]) 
 				translate([x, y, z])
 				rotate(a=90,v=Y) 
-				cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=m8_nut_heigth+b_m8_nut_tolerance[1], center=true); 
+					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=m8_nut_heigth+b_m8_nut_tolerance[1], center=true); 
 
-				// top bottom coutoff
+				// top and bottom coutoff
 				for (i=[-b_zDirWall_size[2]*1.5,b_zDirWall_size[2]+ b_zDirWall_size[2]*1.5]) 
 				translate([0, 0, i]) 
 					cube(size=[b_zDirWall_size[0]*25,b_zDirWall_size[1]*3,b_zDirWall_size[2]*3], center=true);
