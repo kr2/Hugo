@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print Left"; $fn=24*4; 
 //b_mode = "print Reight"; $fn=24*4; 
-b_mode = "inspect";
+//b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness         = 1;
@@ -72,6 +72,16 @@ b_lber_zAxisDist            = b_xDirWall_size[1]/2- b_strongWallThickness- b_lbe
 b_lber_zAxisXdirDist        = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
 
 
+/*------------------------------------y dir motor-----------------------------*/
+b_ydir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
+b_ydir_motorHoles_diameter   = 3.2; // motor hole diameter
+b_ydir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
+
+/*------------------------------------z dir motor-----------------------------*/
+b_zdir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
+b_zdir_motorHoles_diameter   = 3.2; // motor hole diameter
+b_zdir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
+
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
@@ -117,13 +127,13 @@ module  H_base(hasYMotorMount = true) {
 
 			//zMotor holder
 			translate([-b_zdirM_hole_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
-				_motorHolder(holeDist = b_zdirM_hole_dist);
+				_motorHolder(holeCenterDist = b_zdir_motorHoles_centerDist, holeDiam = b_zdir_motorHoles_diameter, coutoutDiam= b_zdir_motorCoutout_diam, connectorWidth2Holes = b_zdirM_hole_zAxisDist- b_zDirWall_size[0]/2);
 
 			if (hasYMotorMount ) {
 				//yMotor holder
 				rotate(a=180,v=Z) 
 				translate([-b_ydirM_hole_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
-					_motorHolder(holeDist = b_zdirM_hole_dist);
+					_motorHolder(holeCenterDist = b_ydir_motorHoles_centerDist, holeDiam = b_ydir_motorHoles_diameter, coutoutDiam= b_ydir_motorCoutout_diam, connectorWidth2Holes = b_ydirM_hole_zAxisDist+ b_zDirWall_size[0]/2 -b_xDirWall_size[0]);
 			}
 
 			// zdir support
@@ -188,75 +198,56 @@ module  H_base(hasYMotorMount = true) {
 }
 
 
-module _motorHolder(holeDist = 31.2) {
-	_circelDepth = (holeDist/2)/3*2;
+module _motorHolder(holeCenterDist = 43.841/2, holeDiam = 3.2, coutoutDiam= 26, connectorWidth2Holes = 10) {
+	_motorCenter_off = cos(45)*holeCenterDist;
+	_heigth = b_xDirWall_size[2];
 
-	_inner_r = circel_radius3Points([0,-holeDist/2],[0,holeDist/2],[_circelDepth,0]) -m3_diameter/2- b_genWallThickness;
-	_outer_r = _inner_r + 2*b_genWallThickness + m3_diameter;
+	_centerBlock_ydir = cos(45) * coutoutDiam/2 * 2;
 
-	_coutoff_angle = 90-atan((holeDist/2)/((holeDist/2 - _circelDepth)));
+	_motorHoleSupport_r = holeCenterDist- coutoutDiam/2;
 
+	_holeYOffset = sin(45) * holeCenterDist;
+	difference() {
+		union(){
+			translate([-_motorCenter_off, 0,0]) { // motor center
+				// motor holes support
+				for (i=[-45,45]) 
+				rotate(a=i,v=Z) 
+				translate([holeCenterDist, 0,0])
+					cylinder(r=_motorHoleSupport_r, h=_heigth, center=false);
+			}
 
-	_support_outer_r = _outer_r+ _outer_r- _inner_r+10;
-	_support_inner_r = _outer_r;
-	_support_y = holeDist/2- m3_diameter/2 - b_genWallThickness  + _support_outer_r;
-	
-	intersection() {
+			// center block
+			translate([0, 0, _heigth/2]) 
+			cube(size=[(holeCenterDist- coutoutDiam/2)*2, _centerBlock_ydir, _heigth], center=true);
 		
-		translate([0, 0, b_xDirWall_size[2]/2]) 
-			cube(size=[(_circelDepth+b_genWallThickness*1.5)*2, _outer_r*5, b_xDirWall_size[2]], center=true);	
+			// connector block
+			translate([connectorWidth2Holes/2, 0, _heigth/2]) 
+				cube(size=[ connectorWidth2Holes, _holeYOffset*2 + _motorHoleSupport_r*2,_heigth], center=true);
 
-		difference() {
-			union(){
-				//motor holes
-				for (i=[-holeDist/2,holeDist/2]) 
-				translate([0, i, 0]) 
-					cylinder(r=m3_diameter/2+b_genWallThickness*2, h=b_xDirWall_size[2], center=false);
+			// rounded Connectors
+			for (i=[[-_holeYOffset-_motorHoleSupport_r,180],[_holeYOffset+_motorHoleSupport_r,90]]) 
+			translate([connectorWidth2Holes, i[0], 0]) 
+				roundEdge(_a=i[1],_r=connectorWidth2Holes,_l=_heigth,_fn=48*2);
 
-				translate([-(holeDist/2 - _circelDepth+b_genWallThickness/2), 0, 0]) 
-					cylinder(r=_outer_r, h=b_xDirWall_size[2], center=false);
-
-				for (i=[_support_y,-_support_y])
-				translate([0, i, 0]) 
-					cylinder(r=_support_outer_r, h=b_xDirWall_size[2], center=false); 
-
+		}
+		union(){
+			translate([-_motorCenter_off, 0, -OS]) { // motor center
+				//center coutout
+				cylinder(r=coutoutDiam/2, h=_heigth+2*OS, center=false);
+				
+				// motor holes
+				for (i=[-45,45]) 
+				rotate(a=i,v=Z) 
+				translate([holeCenterDist, 0, 0])
+					cylinder(r=holeDiam/2, h=_heigth+2*OS, center=false);
 			}
-			union(){
-				//motor holes
-				for (i=[-holeDist/2,holeDist/2]) 
-				translate([0, i, -OS]) 
-					cylinder(r=m3_diameter/2, h=b_xDirWall_size[2]+2*OS, center=false);
 
-				translate([-(holeDist/2 - _circelDepth+b_genWallThickness/2), 0, -OS]) 
-					cylinder(r=_inner_r, h=b_xDirWall_size[2]+2*OS, center=false);
-
-				difference() {
-					for (i=[[-holeDist/2,_coutoff_angle],[holeDist/2,-_coutoff_angle]]) 
-					translate([0, i[0], 0]) 
-					rotate(a=i[1],v=Z) 
-					translate([-_outer_r*1.5, 0, b_xDirWall_size[2]/2]) 
-						cube(size=[_outer_r*3, _outer_r*30,b_xDirWall_size[2]+2*OS], center=true);
-					
-					//motor holes
-					for (i=[-holeDist/2,holeDist/2]) 
-					translate([0, i, 0]) 
-						cylinder(r=m3_diameter/2+b_genWallThickness*2, h=b_xDirWall_size[2], center=false);
-
-				}
-
-
-				for (i=[_support_y,-_support_y])
-				translate([0, i, -OS]) 
-					cylinder(r=_support_inner_r, h=b_xDirWall_size[2]+2*OS, center=false); 
-
-				// coutofs
-				*translate([_circelDepth+b_genWallThickness*1.5, -_outer_r*15, -OS]) 
-					cube(size=[_outer_r*3, _outer_r*30,b_xDirWall_size[2]+2*OS], center=false);
-			}
+			  
 		}
 	}
 }
-//_motorHolder();
+//!_motorHolder();
 
 if (b_mode == "inspect") {
 	 H_base();
@@ -265,12 +256,12 @@ if (b_mode == "inspect") {
 /*------------------------------------print-----------------------------------*/
 
 module H_base_print() {
-	translate([-b_zdirM_hole_zAxisDist-b_genWallThickness, b_zdirM_hole_dist/4, 0]) 
+	translate([-b_zdir_motorHoles_centerDist, b_zdirM_hole_dist/4, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = true);
 
-	translate([b_zdirM_hole_zAxisDist+b_genWallThickness, -b_zdirM_hole_dist/4, 0]) 
+	translate([b_zdir_motorHoles_centerDist, -b_zdirM_hole_dist/4, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
