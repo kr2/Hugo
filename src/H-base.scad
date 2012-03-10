@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print Left"; $fn=24*4; 
 //b_mode = "print Reight"; $fn=24*4; 
-//b_mode = "inspect";
+b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness         = 1;
@@ -113,7 +113,7 @@ module  H_base(hasYMotorMount = true, hasSupport = false) {
 			rotate(a=90,v=Y) 
 			linear_extrude(height=b_zDirWall_size[0])
 			rotate(a=90,v=Z) 
-				barbell (r1=_b_xdir_bb_r,r2=_b_xdir_bb_r,r3=(_b_xdirRods_holes_zdist*2)*0.3,r4=(_b_xdirRods_holes_zdist*2)*0.3,separation=_b_xdirRods_holes_zdist);
+				barbell (r1=_b_xdir_bb_r,r2=_b_xdir_bb_r,r3=(_b_xdirRods_holes_zdist*2)*0.35,r4=(_b_xdirRods_holes_zdist*2)*0.35,separation=_b_xdirRods_holes_zdist);
 
 			//zMotor holder
 			translate([-b_zdirM_hole_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
