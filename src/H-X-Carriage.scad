@@ -14,7 +14,7 @@ use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-Xc_mode = "print"; //$fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
@@ -47,7 +47,7 @@ Xc_rod_diam                = 8.5;
 
 /*------------------------------------belt------------------------------------*/
 Xc_belt_axisXc_ydir_dist   = 30; // distece between center x axis and nerest belt edge
-Xc_belt_axisXc_zdir_offset = -5; // distece between center x axis and toothed side of the belt in z dir
+Xc_belt_axisXc_zdir_offset = -8; // distece between center x axis and toothed side of the belt in z dir
 Xc_belt_thickness          = 2.5;
 Xc_belt_width              = 6 + 1;
 Xc_belt_teethDist          = 5;
