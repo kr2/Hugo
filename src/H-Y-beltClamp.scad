@@ -19,17 +19,17 @@ Ybc_mode = "-";
 //Ybc_mode = "assembly";
 
 /*------------------------------------belt------------------------------------*/
-Ybc_belt_thickness = 2.5;
-Ybc_belt_width = 6 + 1;
-Ybc_belt_teethDist = 5;
-Ybc_belt_teethDepth = 1.5;
-Ybc_belt_topOffset =14.6;  // from top plate to the top edge of the belt
-Ybc_belt_tolerance = [2,1,1]; //x,y,z
+Ybc_belt_thickness      = 2.5;
+Ybc_belt_width          = 6 + 1;
+Ybc_belt_teethDist      = 5;
+Ybc_belt_teethDepth     = 1.5;
+Ybc_belt_topOffset      =14.6;  // from top plate to the top edge of the belt
+Ybc_belt_tolerance      = [2,1,1]; //x,y,z
 
 Ybc_strongWallThickness = 10;
-Ybc_genWallThickness = 2;
+Ybc_genWallThickness    = 2;
 
-Ybc_nutSlotTolerance = 0.4;
+Ybc_nutSlotTolerance    = 0.4;
 
 module H_yBeltClam() {
 	y_mainLength = m3_diameter+Ybc_genWallThickness+Ybc_strongWallThickness+Ybc_belt_tolerance[0]+Ybc_belt_thickness;
