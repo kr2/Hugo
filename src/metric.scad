@@ -33,10 +33,6 @@ m3_nut_diameter_horizontal = 6.1;
 // where a nut is put in an slot and inthere hits the perpendicular threadhole
 m3_elongNtt_tolerance      = [0.5,0,0.5];// additional [diameter,depth,height]  // depth is not implemented
 
-// Motors
-
-motor_shaft                = 5.5;
-
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
