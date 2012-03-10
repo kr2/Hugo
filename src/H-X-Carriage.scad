@@ -34,9 +34,9 @@ Xc_lber_diam               = 15.3;
 
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
-Xc_notch_width             = 5.4;
+Xc_notch_width             = 5.4 + 0.5;
 Xc_notch_depth             = 1.2;
-Xc_notch_lengt             = 24 + 2.5 + 0.5;
+Xc_notch_lengt             = 24 + 2.5 + 1.5;
 
 /*------------------------------------xtruder carriag holes-------------------*/
 Xc_holes_diam              = m4_diameter;
