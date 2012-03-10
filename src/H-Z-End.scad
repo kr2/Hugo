@@ -1,7 +1,9 @@
 /* H-Z-end [Ze]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * 
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
+ * and
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
 include <units.scad>;
@@ -17,10 +19,9 @@ Ze_mode = "-";
 //Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
 //Ze_mode = "printSet2";  $fn=24*4;
 //e_mode = "print Left";  $fn=24*4;
-//Ze_mode = "print Reight";  $fn=24*4;
+//Ze_mode = "print Right";  $fn=24*4;
 //Ze_mode = "inspect";
 //Ze_mode = "assembly";
-//$fn=48;
 
 Ze_thinWallThickness         = 1;
 Ze_genWallThickness          = 3;
@@ -193,7 +194,7 @@ if (Ze_mode == "printSet2") {
 if (Ze_mode == "print Left") {
 	H_Z_end(hasCrossBrace = false);
 }
-if (Ze_mode == "print Reight") {
+if (Ze_mode == "print Right") {
 	H_Z_end(hasCrossBrace = true);
 }
 
@@ -215,7 +216,7 @@ module _H_Z_end_assembly(hasCrossBrace = false) {
 module H_Z_endLeft_assembly() {
 	_H_Z_end_assembly(hasCrossBrace = false);
 }
-module H_Z_endReight_assembly() {
+module H_Z_endRight_assembly() {
 	rotate(a=180,v=Z) 
 	_H_Z_end_assembly(hasCrossBrace = true);
 
@@ -226,7 +227,7 @@ module H_Z_endReight_assembly() {
 
 if (Ze_mode == "assembly"){
 	//H_Z_endLeft_assembly();
-	H_Z_endReight_assembly();
+	H_Z_endRight_assembly();
 }
 
 
