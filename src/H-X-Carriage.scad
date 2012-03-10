@@ -14,7 +14,7 @@ use <A-Y-beltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-//Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+Xc_mode = "print"; //$fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
@@ -236,7 +236,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 
 	if (hasSupport) {
 		// lower coutout suport
-		translate([Xc_horizontalSuportThickness*1.5, 0, 0]) {
+		assign (Xc_matCoutout_rounded_r= Xc_xdir/2- Xc_horizontalSuportThickness*1.5) {
 			intersection() {
 				union() {
 					for (i=[-Xc_lber_diam/2- Xc_genWallThickness:Xc_genWallThickness*2: Xc_lber_diam/2+Xc_genWallThickness]) 
