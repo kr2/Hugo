@@ -5,7 +5,7 @@ At the moment the config.scad and metric.scad file aren’t implemented consistent
 
 Brief
 =====
-This is Hugo. Named after Hugo de Vries how introduced the term "mutation".
+This is Hugo. Named after Hugo de Vries who introduced the term "mutation".
 
 First of I would like to thank jsturm how started this project in the first place and did almost the entire testing of the parts. The entire design is done in OpenSCAD and all files are hosted on https://github.com/kr2/Hugo.
 
