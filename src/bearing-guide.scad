@@ -84,10 +84,14 @@ if (bg_mode == "print") {
 	bearingGuid_print();
 }
 
-if (bg_mode == "printSet") {
+
+module bearingGuid_printSet() {
 	translate([-17, 0, 0]) 
 	for (i=[-1:1]) 
 	translate([-17*i, -29*i, 0]) 
 	bearingGuid_print();
+}
+if (bg_mode == "printSet") {
+	bearingGuid_printSet();
 }
 

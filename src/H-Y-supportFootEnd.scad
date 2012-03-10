@@ -94,11 +94,14 @@ module H_Y_supportFootEnd_print() {
 if (Ysf_mode == "print") {
 	H_Y_supportFootEnd_print();
 }
-if (Ysf_mode == "printSet") {
+module H_Y_supportFootEnd_printSet() {
 	translate([-_Ysf_sideLength/2-1, 0, 0]) 
 	H_Y_supportFootEnd_print();
 	translate([_Ysf_sideLength/2+1, 0, 0]) 
 	H_Y_supportFootEnd_print();
+}
+if (Ysf_mode == "printSet") {
+	 H_Y_supportFootEnd_printSet();
 }
 
 

@@ -203,11 +203,13 @@ module H_yBeltClam_print() {
 if (Ybc_mode == "print") 
 	H_yBeltClam_print();
 
-if (Ybc_mode == "printSet") {
+module H_yBeltClam_printSet() {
 	H_yBeltClam_print();
 	translate([-26, 0, 0]) 
 	H_yBeltClam_print();
-
+}
+if (Ybc_mode == "printSet") {
+	H_yBeltClam_printSet();
 }
 
 

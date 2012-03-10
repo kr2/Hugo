@@ -173,12 +173,15 @@ if (Ze_mode == "inspect") {
 module H_Z_end_print() {
 	H_Z_end();
 }
-if (Ze_mode == "printSet1") {
+module H_Z_end_printSet1() {
 	translate([10, 12, 0]) 
 	H_Z_end(hasCrossBrace = true);
 	translate([-10, -12, 0]) 
 	rotate(a=180,v=[0,0,1]) 
 	H_Z_end(hasCrossBrace = false);
+}
+if (Ze_mode == "printSet1") {
+	H_Z_end_printSet1();
 }
 if (Ze_mode == "printSet2") {
 	translate([10, 12, 0]) 

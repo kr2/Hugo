@@ -1,4 +1,4 @@
-/* set1
+/* H-set1
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -11,6 +11,8 @@ include <H-X-End.scad>
 include <H-X-Carriage.scad>
 include <H-base.scad>
 include <H-Y-beltDivert.scad>
+
+$fn= 24 * 4;
 
 %cube(size=[150, 150, 1], center=true);
 
