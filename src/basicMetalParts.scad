@@ -9,15 +9,15 @@
 include <bom.scad>
 include <units.scad>
 
-module rod(r=10, h=20, center=true) {
-	bomEcho("Rod",[["diameter",r*2],["length",h]]);
+module rod(r=10, h=20, center=true,info="-") {
+	bomEcho("Rod",info,[["diameter",r*2],["length",h]]);
 	color("Gray") {
 		cylinder(r=r, h=h, center=center);
 	}
 }
 
-module threadedRod(r=4, h=100, center=true) {
-	bomEcho("threaded Rod",[["diameter",r*2],["length",h]]);
+module threadedRod(r=4, h=100, center=true,info="-") {
+	bomEcho("threaded Rod",info,[["diameter",r*2],["length",h]]);
 	threadDepth = 1;
 	threadHeight = 0.5;
 
@@ -36,8 +36,8 @@ module threadedRod(r=4, h=100, center=true) {
 }
 //threadedRod();
 
-module bear608ZZ() {
-	bomEcho("Bearing 608ZZ",[]);
+module bear608ZZ(info="-") {
+	bomEcho("Bearing 608ZZ",info,[]);
 	difference() {
 		union(){
 			color("Gray")
@@ -59,8 +59,8 @@ module bear608ZZ() {
 }
 //bear608ZZ();
 
-module table(size = [10,10,1],center = true) {
-	bomEcho("Table",[["width",size[0]],["length",size[1]],["thickness",size[2]]]);
+module table(size = [10,10,1],center = true,info="-") {
+	bomEcho("Table",info,[["width",size[0]],["length",size[1]],["thickness",size[2]]]);
 	color("Gainsboro")
 	cube(size=size, center=center);
 }

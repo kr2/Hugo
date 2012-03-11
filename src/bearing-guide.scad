@@ -69,7 +69,7 @@ module bearGuid_ass() {
 	outer();
 
 	translate([0, 0, slope_thickness/2 + edge_thickness]) 
-	bear608ZZ();
+	bear608ZZ(info="bearing guid");
 
 }
 //bearGuid_ass();

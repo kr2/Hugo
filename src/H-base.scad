@@ -18,7 +18,7 @@ use <teardrop.scad>
 b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print Left"; $fn=24*4; 
-//b_mode = "print Reight"; $fn=24*4; 
+//b_mode = "print right"; $fn=24*4; 
 //b_mode = "inspect";
 //b_mode = "assembly";
 
@@ -275,7 +275,7 @@ if (b_mode == "print Left") {
 	translate([0, 0, -b_zDirWall_size[2]])  
 	H_base(hasYMotorMount = true);
 }
-if (b_mode == "print Reight") {
+if (b_mode == "print right") {
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
@@ -297,7 +297,7 @@ module H_baseLeft_assembly() {
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 }
 
-module H_baseReight_assembly() {
+module H_baseright_assembly() {
 	rotate(a=180,v=Z) {
 		H_base(hasYMotorMount = false);
 
@@ -308,6 +308,6 @@ module H_baseReight_assembly() {
 
 if (b_mode == "assembly"){
 	//H_baseLeft_assembly();
-	H_baseReight_assembly();
+	H_baseright_assembly();
 }
 

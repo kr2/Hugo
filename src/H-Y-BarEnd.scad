@@ -129,7 +129,7 @@ module H_Y_BarEnd_left_assembly() {
 	rotate(a=90,v=X) 
 	H_Y_BarEnd();
 }
-module H_Y_BarEnd_reight_assembly() {
+module H_Y_BarEnd_right_assembly() {
 	translate([0, Ybe_barEnd_heigth, 0]) 
 	mirror([1, 0, 0])  
 	rotate(a=90,v=X) 
@@ -137,7 +137,7 @@ module H_Y_BarEnd_reight_assembly() {
 }
 
 if (Ybe_mode == "assembly"){
-	//H_Y_BarEnd_reight_assembly();
+	//H_Y_BarEnd_right_assembly();
 	H_Y_BarEnd_left_assembly();
 }
 

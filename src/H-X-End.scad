@@ -257,7 +257,7 @@ module H_x_End_idle_assembly() {
 
 		translate([2 + 7 + 2 + m8_nut_heigth + Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=-90,v=Y) 
-			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false);
+			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false,info = "x end idler bearing holder rod");
 
 		translate([1.5+Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=90,v=Y) 

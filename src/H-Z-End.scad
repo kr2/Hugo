@@ -19,7 +19,7 @@ Ze_mode = "-";
 //Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
 //Ze_mode = "printSet2";  $fn=24*4;
 //e_mode = "print Left";  $fn=24*4;
-//Ze_mode = "print Right";  $fn=24*4;
+//Ze_mode = "print right";  $fn=24*4;
 //Ze_mode = "inspect";
 //Ze_mode = "assembly";
 
@@ -194,7 +194,7 @@ if (Ze_mode == "printSet2") {
 if (Ze_mode == "print Left") {
 	H_Z_end(hasCrossBrace = false);
 }
-if (Ze_mode == "print Right") {
+if (Ze_mode == "print right") {
 	H_Z_end(hasCrossBrace = true);
 }
 
@@ -208,7 +208,7 @@ module _H_Z_end_assembly(hasCrossBrace = false) {
 		rotate(a=180,v=X) 
 		H_Z_end(hasCrossBrace = hasCrossBrace);
 		translate([-Ze_zEnd_rodsDist, 0, -Ze_bear_heigth]) 
-			bear608ZZ();
+			bear608ZZ(info = "z end");
 	}
 }
 
@@ -216,18 +216,18 @@ module _H_Z_end_assembly(hasCrossBrace = false) {
 module H_Z_endLeft_assembly() {
 	_H_Z_end_assembly(hasCrossBrace = false);
 }
-module H_Z_endRight_assembly() {
+module H_Z_endright_assembly() {
 	rotate(a=180,v=Z) 
 	_H_Z_end_assembly(hasCrossBrace = true);
 
 	translate([Ze_zEnd_rodsDist + _Ze_crosBr_bearing_dist, 0, 0]) 
 	rotate(a=90,v=X) 
-	threadedRod(r=4, h=100+50, center=true);  // todo
+	threadedRod(r=4, h=100+50, center=true,info = "z end cross brace rod connector");  // todo
 }
 
 if (Ze_mode == "assembly"){
 	//H_Z_endLeft_assembly();
-	H_Z_endRight_assembly();
+	H_Z_endright_assembly();
 }
 
 

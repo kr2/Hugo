@@ -7,9 +7,9 @@
  */
 
 bomOutput = true;
-module bomEcho(name="Unknown", param=[["none",0]]) {
+module bomEcho(name="Unknown", info="-", param=[["none",0]]) {
 	if (bomOutput) {
-		echo(str("[BOM]|", name,"|",param));
+		echo(str("[BOM]|", name, " | ",param ," | ",info));
 	}
 }
 	

@@ -49,7 +49,7 @@ module _xAxis_assembly() {
 	for (i=[Xe_X_RodHoles_pos[0][1],Xe_X_RodHoles_pos[1][1]]) 
 	translate([0, 0, i]) 
 	rotate(a=90,v=Y) 
-		rod(r=c_x_axis_smoothRod_diam/2, h=_a_xAxis_real_length, center=true);
+		rod(r=c_x_axis_smoothRod_diam/2, h=_a_xAxis_real_length, center=true,info="x axis rod");
 
 	// xends
 	translate([_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
@@ -92,18 +92,18 @@ module _yAxis_assembly() {
 
 	// table
 	translate([0, 0, -(a_heatedBed_size[2] + a_heatedBed_tabelOffset + a_tabel_thickness/2)]) 
-		table(size = [_a_yAxis_dist ,_a_yAxis_real_length ,a_tabel_thickness],center = true);
+		table(size = [_a_yAxis_dist ,_a_yAxis_real_length ,a_tabel_thickness],center = true,info="main y table");
 
 	// y axis
 	for (i=[_a_yAxis_dist/2,-_a_yAxis_dist/2]) 
 	translate([i, a_act_pos[1], -_a_yAxis_rod_topOffset]) 
 	rotate(a=90,v=X) 
-		rod(r=c_y_axis_smoothRod_diam/2, h=_a_yAxis_real_length, center=true);
+		rod(r=c_y_axis_smoothRod_diam/2, h=_a_yAxis_real_length, center=true, info="y Axis rod");
 
 	// bar conector
 	for (i=[_a_yAxis_real_length/2- Ybe_barEnd_heigth,-_a_yAxis_real_length/2]) {
 		translate([_a_yAxis_dist/2, i, -_a_yAxis_rod_topOffset]) 
-			H_Y_BarEnd_reight_assembly();
+			H_Y_BarEnd_right_assembly();
 		translate([-_a_yAxis_dist/2, i, -_a_yAxis_rod_topOffset]) 
 			H_Y_BarEnd_left_assembly();
 	}
@@ -139,65 +139,65 @@ module _zAxis_assembly() {
 		translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 			H_baseLeft_assembly();
 		translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
-			H_baseReight_assembly();
+			H_baseright_assembly();
 
 		// z Rods
 		for (i=[-1,1]) {
-			*translate([i*_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) 
-				rod(r=c_z_axis_smoothRod_diam/2, h=_a_zAxis_smoothReal_length, center=false);
+			translate([i*_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) 
+				rod(r=c_z_axis_smoothRod_diam/2, h=_a_zAxis_smoothReal_length, center=false, info="Z direction rod");
 			translate([i*(_a_xEnd_xdirBearHole_offset[0]+(Xe_Z_nutTrap_pos[1]-Xe_Z_bearingHole_pos[1])), 0, b_zDirWall_size[2] - b_xDirWall_size[2] + c_motorShaft_length]){ 
-					threadedRod(r=4, h=_a_zAxis_roughReal_length, center=false);
+					threadedRod(r=4, h=_a_zAxis_roughReal_length, center=false,info="Z direction driver threaded rod ");
 					H_Z_Coupling_assembly();
 				}
 		}
 
 		// z ends
-		*translate([0, 0, _a_zAxis_smoothReal_length + (b_zDirWall_size[2]-b_zdirRod_hole_depth)]) {
+		translate([0, 0, _a_zAxis_smoothReal_length + (b_zDirWall_size[2]-b_zdirRod_hole_depth)]) {
 			translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
 				H_Z_endLeft_assembly();
 			translate([_a_xEnd_xdirBearHole_offset[0], 0, 0]) 
-				H_Z_endReight_assembly();
+				H_Z_endright_assembly();
 
 			rotate(a=90,v=Y) 
-				threadedRod(r=4, h=_a_xEnd_xdirBearHole_offset[0]*2-(Ze_smoothRod_diam/2 + Ze_genWallThickness)*2-5, center=true);
+				threadedRod(r=4, h=_a_xEnd_xdirBearHole_offset[0]*2-(Ze_smoothRod_diam/2 + Ze_genWallThickness)*2-5, center=true,info="Top horizontal reinforcement in x direction");
 		}
 
 		// x dir rods
-		*for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist]){
+		for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist]){
 			translate([_a_zAxis_xdir_crossBrace_overcut/2+5, y, b_xdirRods_holes_altitude[0]]) 
 			rotate(a=90,v=Y) 
-				threadedRod(r=4, h=_a_zAxis_xdirRods_length + _a_zAxis_xdir_crossBrace_overcut+10, center=true);
+				threadedRod(r=4, h=_a_zAxis_xdirRods_length + _a_zAxis_xdir_crossBrace_overcut+10, center=true,info = "bottom rods in x direction ");
 			translate([0, y, b_xdirRods_holes_altitude[1]]) 
 			rotate(a=90,v=Y) 
-				threadedRod(r=4, h=_a_zAxis_xdirRods_length, center=true);
+				threadedRod(r=4, h=_a_zAxis_xdirRods_length, center=true, info = "bottom rods in x direction for right cross brace");
 		}
 
 		// diverter
-		*translate([0, 0, b_xdirRods_holes_altitude[1]]) 
+		translate([0, 0, b_xdirRods_holes_altitude[1]]) 
 			H_Y_beltDivert_assembly();
 
 		// z dir enstops
-		*translate([-_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2] + 10]) 
+		translate([-_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2] + 10]) 
 			H_endstop_zb_assembly();
 
-		*translate([-_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2]+ c_z_axis_length + 10]) 
+		translate([-_a_xEnd_xdirBearHole_offset[0], 0, b_zDirWall_size[2]+ c_z_axis_length + 10]) 
 			H_endstop_zt_assembly();
 
 		// x dir enstops
-		*translate([-_a_yAxis_dist/2 + 15, -b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
+		translate([-_a_yAxis_dist/2 + 15, -b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
 			H_endstop_yf_assembly();
-		*translate([-_a_yAxis_dist/2 + 15, +b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
+		translate([-_a_yAxis_dist/2 + 15, +b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[1]]) 
 			H_endstop_yb_assembly();
 
 		// y dir stabaliser
-		*for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
+		for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
 		translate([7.3, y, b_xdirRods_holes_altitude[0]]) 
 		rotate(a=-90,v=Y) 
 			barclamp();
 
-		*translate([0, 0, b_xdirRods_holes_altitude[0]+9]){ 
+		translate([0, 0, b_xdirRods_holes_altitude[0]+9]){ 
 			rotate(a=90,v=X) 
-				threadedRod(r=4, h=_a_yAxis_real_length/3*2, center=true);
+				threadedRod(r=4, h=_a_yAxis_real_length/3*2, center=true, info = "bottom y dir support foot");
 
 			for (i=[_a_yAxis_real_length/3-10,-_a_yAxis_real_length/3+10])
 			translate([0, i, 0])  
@@ -206,17 +206,17 @@ module _zAxis_assembly() {
 	}
 
 	// TODO
-	*translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
+	translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
 		// cross brace 
 		translate([-9, -b_xdirRods_holes_zAxisDist-15, 0]) //todo
 		rotate(a=-(90-_a_zAxis_crossBrace_angle[1]),v=X) 
 		rotate(a=-(90-_a_zAxis_crossBrace_angle[0]),v=Y) 
-			threadedRod(r=4, h=_a_zAxis_crossBrace_length+40, center=false);
+			threadedRod(r=4, h=_a_zAxis_crossBrace_length+40, center=false, info = "right cross brace rod");
 
 		translate([15, b_xdirRods_holes_zAxisDist+15, 0]) //todo
 		rotate(a=(90-_a_zAxis_crossBrace_angle[1]),v=X) 
 		rotate(a=-(90-_a_zAxis_crossBrace_angle[0]),v=Y) 
-			threadedRod(r=4, h=_a_zAxis_crossBrace_length+40, center=false);
+			threadedRod(r=4, h=_a_zAxis_crossBrace_length+40, center=false, info = "right cross brace rod");
 
 		translate([0, -b_xdirRods_holes_zAxisDist, b_xdirRods_holes_altitude[0]]) 
 		rotate(a=90,v=X) 
@@ -244,10 +244,10 @@ module _zAxis_assembly() {
 
 
 module H_assembly() {
-	*translate([0, 0, a_act_pos[2]]) 
+	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	*translate([0, a_act_pos[1], 0]) 
+	translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
 	_zAxis_assembly();
