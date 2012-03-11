@@ -133,7 +133,7 @@ _a_xdir_roughRods_zdirDist = (_a_zAxis_smoothReal_length  +  b_zDirWall_size[2]-
 _a_xdir_roughRod_delta = [_a_zAxis_xdir_crossBrace_overcut-(Ze_zEnd_rodsDist + _Ze_crosBr_bearing_dist),b_xdirRods_holes_zAxisDist*2+30]; //[x,y]
 _a_zAxis_crossBrace_length = distance3D([0,0,0],[_a_xdir_roughRod_delta[0],_a_xdir_roughRod_delta[1], _a_xdir_roughRods_zdirDist ]);
 _a_zAxis_crossBrace_angle = [atan(_a_xdir_roughRods_zdirDist/_a_xdir_roughRod_delta[0]),atan(_a_xdir_roughRods_zdirDist/_a_xdir_roughRod_delta[1])]; // [xdir,ydir]
-echo(str("Variable = ", _a_zAxis_crossBrace_angle));
+echo(str("cross brace angle [xdir,ydir] = ", _a_zAxis_crossBrace_angle));
 module _zAxis_assembly() {
 	translate([0, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){ 
 		translate([-_a_xEnd_xdirBearHole_offset[0], 0, 0]) 

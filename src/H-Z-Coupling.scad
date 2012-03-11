@@ -10,8 +10,6 @@ include <units.scad>;
 include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
-include <barbell.scad>
-use <teardrop.scad>
 
 
 /*------------------------------------general---------------------------------*/

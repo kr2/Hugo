@@ -30,5 +30,5 @@ translate([73, 40, 0])
 rotate(a=90,v=Z) 
 H_Xtruder_mount_print();
 
-translate([-35, -63, 0]) 
+translate([-35, -63.5, 0]) 
 H_Y_beltDivert_print();
