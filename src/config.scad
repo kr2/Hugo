@@ -42,3 +42,8 @@ c_yAxis_lber_diam   = c_lber_diam;
 c_zAxis_lber_length = c_lber_length;
 c_zAxis_lber_diam   = c_lber_diam;
 
+/******************************************************************************/ 
+/*                                  motor                                     */
+/******************************************************************************/
+c_motorShaft_diam = 5;
+c_motorShaft_length = 25;
