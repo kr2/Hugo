@@ -227,21 +227,21 @@ if (Xe_mode == "inspect") {
 }
 module H_x_End_print() {
 	translate([-Xe_outline[1]/2, 0, 0]) 
-	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
+	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
 
 	translate([-Xe_outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
-		H_x_End(isIdle=true,elongetededLowerHole = true);
+		H_x_End(isIdle=true,elongetededLowerHole = false);
 }
 if (Xe_mode == "printSet") 
 	H_x_End_print();
 
 if (Xe_mode == "print Left") {
-	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
+	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
 }
 if (Xe_mode == "print Reight") {
 	mirror([0, 1, 0]) 
-		H_x_End(isIdle=true,elongetededLowerHole = true);
+		H_x_End(isIdle=true,elongetededLowerHole = false);
 }
 
 /*------------------------------------assembly--------------------------------*/
@@ -253,7 +253,7 @@ module H_x_End_idle_assembly() {
 	translate([-Xe_Z_bearingHole_pos[1],-Xe_Z_bearingHole_pos[0], 0]) 
 	rotate(a=90,v=Z) 
 	mirror([0, 1, 0]) {
-		H_x_End(isIdle=true,elongetededLowerHole = true);
+		H_x_End(isIdle=true,elongetededLowerHole = false);
 
 		translate([2 + 7 + 2 + m8_nut_heigth + Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=-90,v=Y) 
@@ -269,7 +269,7 @@ module H_x_End_motor_assembly() {
 	rotate(a=90,v=Z) 
 	translate([-Xe_Z_bearingHole_pos[0],-Xe_Z_bearingHole_pos[1], 0]) 
 	{
-		H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
+		H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
 
 		translate([Xe_outline[0], Xe_outline[1]/2, Xe_outline[2]/2]) 
 		rotate(a=-90,v=Y) 
