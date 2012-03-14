@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print Left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-//b_mode = "inspect";
+b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness         = 1;
@@ -71,6 +71,8 @@ b_lber_topOff               = (b_lber_diam- b_smoothRod_diam)/2-0.5;
 b_lber_zAxisDist            = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
 b_lber_zAxisXdirDist        = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
 
+/*------------------------------------air outlet------------------------------*/
+b_airOut_diam = 3;
 
 /*------------------------------------y dir motor-----------------------------*/
 b_ydir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
@@ -151,6 +153,7 @@ module  H_base(hasYMotorMount = true) {
 			// z axis
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) 
 				cylinder(r=b_smoothRod_diam/2, h=b_zdirRod_hole_depth+OS, center=false);
+			cylinder(r=b_airOut_diam/2, h= b_zDirWall_size[2]-b_zdirRod_hole_depth + OS, center=false);
 
 			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
 			for (z=b_xdirRods_holes_altitude){
