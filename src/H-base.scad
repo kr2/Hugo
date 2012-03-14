@@ -79,8 +79,8 @@ b_ydirM_sideLength          = 42;
 b_zdir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
 b_zdir_motorHoles_diameter   = 3.2; // motor hole diameter
 b_zdir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
-b_zdirM_motorAxis_zAxisDist = 5.35+7.95 + cos(45)*b_zdir_motorHoles_centerDist;
-b_zdirM_sideLength          = 42;
+b_zdirM_motorAxis_zAxisDist  = 5.35+7.95 + cos(45)*b_zdir_motorHoles_centerDist;
+b_zdirM_sideLength           = 42;
 
 
 /******************************************************************************/ 
@@ -295,10 +295,10 @@ include <motors.scad>
 module H_baseLeft_assembly() {
 	H_base(hasYMotorMount = true);
 
-	translate([-(b_zdirM_hole_zAxisDist+ b_zdir_motorHoles_centerDist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+	translate([-b_zdirM_motorAxis_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 
-	translate([(b_ydirM_hole_zAxisDist+ b_zdir_motorHoles_centerDist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+	translate([b_ydirM_motorAxis_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 }
 
@@ -306,7 +306,7 @@ module H_baseright_assembly() {
 	rotate(a=180,v=Z) {
 		H_base(hasYMotorMount = false);
 
-		translate([-(b_zdirM_hole_zAxisDist+ b_zdir_motorHoles_centerDist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+		translate([-b_zdirM_motorAxis_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 			stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 	}
 }
