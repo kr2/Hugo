@@ -20,7 +20,7 @@ b_mode = "-";
 //b_mode = "print Left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
 //b_mode = "inspect";
-b_mode = "assembly";
+//b_mode = "assembly";
 
 b_thinWallThickness         = 1;
 b_genWallThickness          = 2.5;
@@ -93,6 +93,8 @@ b_ydirM_hole_zAxisDist      = b_ydirM_motorAxis_zAxisDist - cos(45)*b_ydir_motor
 _b_xdir_bb_r = m8_nut_diameter*0.75;
 _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitude[0]);
 
+_b_zdirM_supportThickness = b_zdirM_motorAxis_zAxisDist-(b_zdirM_sideLength/2+b_smoothRod_diam/2+ b_genWallThickness);  
+
 module  H_base(hasYMotorMount = true) {
 	difference() {
 		union(){
@@ -101,7 +103,13 @@ module  H_base(hasYMotorMount = true) {
 				cylinder(r=b_smoothRod_diam/2+b_genWallThickness, h=b_zdirRod_hole_depth+b_genWallThickness, center=false);
 				// z axis rounded end 
 				scale([1, 1, 0.5]) 
-				sphere(r=b_smoothRod_diam/2+b_genWallThickness);
+					sphere(r=b_smoothRod_diam/2+b_genWallThickness);
+
+				translate([-b_smoothRod_diam/2- b_genWallThickness, 0, _b_zdirM_supportThickness]){
+					cylinder(r=_b_zdirM_supportThickness, h=b_zdirRod_hole_depth+b_genWallThickness-_b_zdirM_supportThickness, center=false);
+					scale([1, 1, 0.5]) 
+						sphere(r=_b_zdirM_supportThickness);
+				}
 			}
 
 
