@@ -41,7 +41,7 @@ b_zDirWall_size             = [9.4,77.9,58.986];
 b_zDirSupport_r             = 6;
 
 /*------------------------------------xdir wall-------------------------------*/
-b_xDirWall_size             = [30.6,b_zDirWall_size[1],5.486];
+b_xDirWall_size             = [30.6,b_zDirWall_size[1],6];
 b_xDirWall_roundedEdge_r    = 8;
 
 /*------------------------------------motorHoles------------------------------*/
