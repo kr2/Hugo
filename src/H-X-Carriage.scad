@@ -15,14 +15,14 @@ use <A-Y-beltClamp.scad>
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
 //Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-//Xc_mode = "inspect";
+Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
 Xc_axis_dist                 = 25.38;
 Xc_genWallThickness          = 2.5;
 Xc_strongWallThickness       = 5;
 
-Xc_slot_width                = 5;
+Xc_slot_width                = 2.5;
 
 Xc_horizontalSuportThickness = 0.3;
 Xc_verticalSupportThickness  = 0.7;
