@@ -15,7 +15,7 @@ use <A-Y-beltClamp.scad>
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
 //Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-Xc_mode = "inspect";
+//Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
 Xc_axis_dist                 = 25.38;
@@ -27,16 +27,18 @@ Xc_slot_width                = 2.5;
 Xc_horizontalSuportThickness = 0.3;
 Xc_verticalSupportThickness  = 0.7;
 
+Xc_supportDistance           = 0.45; // suport distance for coutout
+
 /*------------------------------------linear bearings-------------------------*/
-Xc_lber_length             = 24;
-Xc_lber_diam               = 15.3;
+Xc_lber_length               = 24;
+Xc_lber_diam                 = 15.3;
 
 
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
-Xc_notch_width             = 5.4 + 0.5;
-Xc_notch_depth             = 1.2;
-Xc_notch_lengt             = 24 + 2.5 + 1.5;
+Xc_notch_width               = 5.4 + 0.5;
+Xc_notch_depth               = 1.2;
+Xc_notch_lengt               = 24 + 2.5 + 1.5;
 
 /*------------------------------------xtruder carriag holes-------------------*/
 Xc_holes_diam              = m4_diameter;
@@ -56,8 +58,16 @@ Xc_belt_tolerance          = [1,2,1]; //[t,w,-1]
 
 Xc_beltClamp_depth         = 10;
 
+/*------------------------------------elongetated hole------------------------*/
+//elongetated hole for the lower x axis beratin to compensate the different 
+//print directions of xEnd and this
+Xc_elongHole_addDia = 0.5; // aditional distenace
 
-/*------------------------------------internals-------------------------------*/
+
+/******************************************************************************/ 
+/*                                  internal                                  */
+/******************************************************************************/
+
 // belt connector
 Xc_beltClamp_beltHole      = [Xc_belt_thickness+Xc_belt_tolerance[0],Xc_belt_width+Xc_belt_tolerance[1],-1];
 Xc_beltClamp_center_height = Xc_genWallThickness+m3_nut_wallDist;
@@ -68,8 +78,8 @@ Xc_xdir                    = Xc_axis_dist+Xc_lber_diam+2*Xc_genWallThickness;
 Xc_ydir                    = Xc_lber_diam+2*Xc_genWallThickness;
 Xc_zdir                    = Xc_lber_length*2+Xc_genWallThickness;
 
-Xc_matCoutout_scale        = (Xc_lber_length/2)/(Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness); // material coutout scale
-Xc_matCoutout_rounded_r    = Xc_xdir/2;
+Xc_matCoutout_rounded_r    = Xc_xdir/2 + Xc_elongHole_addDia;
+Xc_matCoutout_scale        = (Xc_lber_length/2)/Xc_matCoutout_rounded_r; // material coutout scale
 
 
 Xc_belt_axisDist           = distance1D(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2,Xc_belt_axisXc_zdir_offset+(Xc_beltClamp_center_height+Xc_beltClamp_beltHole[0])/2);
@@ -82,9 +92,20 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 	
 	difference() {
 		union(){
-			for (i=[-Xc_axis_dist/2,Xc_axis_dist/2]) 
-			translate([i, 0, 0]) 
+			// top bearing holder
+			translate([-Xc_axis_dist/2, 0, 0]) 
 				cylinder(r=Xc_lber_diam/2+Xc_genWallThickness, h=Xc_lber_length*2+Xc_genWallThickness, center=false);
+			
+			// lower bearing holder // elongetated
+			translate([Xc_axis_dist/2, 0, 0]) {
+				for (i=[-Xc_elongHole_addDia/2,Xc_elongHole_addDia/2]) 
+				translate([i, 0, 0]) 
+					cylinder(r=Xc_lber_diam/2+Xc_genWallThickness, h=Xc_lber_length*2+Xc_genWallThickness, center=false);
+				translate([0, 0, Xc_zdir/2]) 
+				cube(size=[Xc_elongHole_addDia, Xc_ydir, Xc_zdir], center=true);
+			}		
+
+			// conector cube
 			translate([0, 0, Xc_lber_length+Xc_genWallThickness/2]) 
 				cube(size=[Xc_axis_dist, Xc_lber_diam+2*Xc_genWallThickness, Xc_lber_length*2+Xc_genWallThickness], center=true);
 
@@ -115,12 +136,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 						rotate(a=90,v=Y) 
 							cylinder(r=Xc_beltClamp_depth/2, h=Xc_beltClamp_width, center=false);
 					}
-				}
-				
-				
-				
-				
-			
+				}			
 			}
 		}
 		union(){
@@ -198,14 +214,20 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 				} 
 			translate([Xc_axis_dist/2, 0, -OS])
 				difference() {
-					cylinder(r=Xc_lber_diam/2, h=Xc_lber_length*2+Xc_genWallThickness+2*OS, center=false);
+					union() {
+						for (i=[-Xc_elongHole_addDia/2,Xc_elongHole_addDia/2]) 
+						translate([i, 0, 0]) 
+							cylinder(r=Xc_lber_diam/2, h=Xc_zdir+2*OS, center=false);
+						translate([0, 0, Xc_zdir/2]) 
+						cube(size=[Xc_elongHole_addDia, Xc_lber_diam, Xc_zdir+2*OS], center=true);
+					}
 				 	*translate([0, 0, Xc_lber_length/2])
 				 		_bearingStop(); 
 				} 
 
 			//material coutout
 			for (i=[0,Xc_lber_length*2+Xc_genWallThickness]){
-				translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, i])
+				translate([Xc_matCoutout_rounded_r, 0, i])
 				scale([1, 1, Xc_matCoutout_scale])
 				rotate(a=90,v=X) 
 					cylinder(r=Xc_matCoutout_rounded_r, h=Xc_lber_diam+2*Xc_genWallThickness +2*OS, center=true,$fn=48); 			
@@ -236,22 +258,23 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 
 	if (hasSupport) {
 		// lower coutout suport
-		assign (Xc_matCoutout_rounded_r= Xc_xdir/2- Xc_horizontalSuportThickness*1.5) {
+		translate([Xc_supportDistance, 0, 0]) 
+		assign (Xc_matCoutout_rounded_r= Xc_xdir/2+ Xc_elongHole_addDia- Xc_supportDistance) {
 			intersection() {
 				union() {
-					for (i=[-Xc_lber_diam/2- Xc_genWallThickness:Xc_genWallThickness*2: Xc_lber_diam/2+Xc_genWallThickness]) 
-					translate([Xc_xdir/4, i, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
+					for (i=[-Xc_ydir/2:Xc_genWallThickness*2: Xc_ydir/2]) 
+					translate([Xc_matCoutout_rounded_r/2, i, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
 						cube(size=[Xc_matCoutout_rounded_r, Xc_verticalSupportThickness, Xc_matCoutout_rounded_r*Xc_matCoutout_scale], center=true);
 				}
-				translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, 0])
+				translate([Xc_matCoutout_rounded_r, 0, 0])
 						scale([1, 1, Xc_matCoutout_scale])
 						rotate(a=90,v=X) 
 							cylinder(r=Xc_matCoutout_rounded_r, h=Xc_lber_diam+2*Xc_genWallThickness +2*Xc_verticalSupportThickness+2*OS, center=true,$fn=48); 			
 			}
 			intersection() {
-				translate([Xc_xdir/4, 0, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
+				translate([Xc_matCoutout_rounded_r/2, 0, Xc_matCoutout_rounded_r*Xc_matCoutout_scale/2]) 
 					cube(size=[Xc_matCoutout_rounded_r, Xc_ydir+2*OS, Xc_matCoutout_rounded_r*Xc_matCoutout_scale], center=true);
-				translate([Xc_axis_dist/2+Xc_lber_diam/2+Xc_genWallThickness, 0, 0])
+				translate([Xc_matCoutout_rounded_r, 0, 0])
 				scale([1, 1, Xc_matCoutout_scale])
 				rotate(a=90,v=X) 
 				difference() {
