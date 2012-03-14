@@ -19,8 +19,8 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print Left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-b_mode = "inspect";
-//b_mode = "assembly";
+//b_mode = "inspect";
+b_mode = "assembly";
 
 b_thinWallThickness         = 1;
 b_genWallThickness          = 2.5;
@@ -44,14 +44,8 @@ b_zDirSupport_r             = 6;
 b_xDirWall_size             = [30.6,b_zDirWall_size[1],6];
 b_xDirWall_roundedEdge_r    = 8;
 
-/*------------------------------------motorHoles------------------------------*/
-//z Motor
-b_zdirM_hole_dist           = 31.2;
-b_zdirM_hole_zAxisDist      = 5.35+7.95;
 
-//y Motor
-b_ydirM_hole_dist           = b_zdirM_hole_dist;
-b_ydirM_hole_zAxisDist      = 25.35+7.951;
+
 
 /*------------------------------------zdir Rod--------------------------------*/
 b_zdirRod_hole_depth        = b_zDirWall_size[2]-10;
@@ -78,16 +72,24 @@ b_airOut_diam = 3;
 b_ydir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
 b_ydir_motorHoles_diameter   = 3.2; // motor hole diameter
 b_ydir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
+b_ydirM_motorAxis_zAxisDist = 25.35+7.951 + cos(45)*b_ydir_motorHoles_centerDist;
+b_ydirM_sideLength          = 42;
 
 /*------------------------------------z dir motor-----------------------------*/
 b_zdir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
 b_zdir_motorHoles_diameter   = 3.2; // motor hole diameter
 b_zdir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
+b_zdirM_motorAxis_zAxisDist = 5.35+7.95 + cos(45)*b_zdir_motorHoles_centerDist;
+b_zdirM_sideLength          = 42;
 
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
 /******************************************************************************/
+b_zdirM_hole_zAxisDist      = b_zdirM_motorAxis_zAxisDist - cos(45)*b_zdir_motorHoles_centerDist;  // dist of the holes not the motor axsis
+b_ydirM_hole_zAxisDist      = b_ydirM_motorAxis_zAxisDist - cos(45)*b_ydir_motorHoles_centerDist;  // dist of the holes not the motor axsis
+
+
 _b_xdir_bb_r = m8_nut_diameter*0.75;
 _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitude[0]);
 
@@ -259,12 +261,12 @@ if (b_mode == "inspect") {
 /*------------------------------------print-----------------------------------*/
 
 module H_base_print() {
-	translate([-b_zdir_motorHoles_centerDist*0.875, b_zdirM_hole_dist/4, 0]) 
+	translate([-b_zdir_motorHoles_centerDist*0.875, b_zdir_motorHoles_centerDist/4, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = true);
 
-	translate([b_zdir_motorHoles_centerDist*0.875, -b_zdirM_hole_dist/4, 0]) 
+	translate([b_zdir_motorHoles_centerDist*0.875, -b_zdir_motorHoles_centerDist/4, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
@@ -293,10 +295,10 @@ include <motors.scad>
 module H_baseLeft_assembly() {
 	H_base(hasYMotorMount = true);
 
-	translate([-(b_zdirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+	translate([-(b_zdirM_hole_zAxisDist+ b_zdir_motorHoles_centerDist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 
-	translate([(b_ydirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+	translate([(b_ydirM_hole_zAxisDist+ b_zdir_motorHoles_centerDist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 }
 
@@ -304,13 +306,13 @@ module H_baseright_assembly() {
 	rotate(a=180,v=Z) {
 		H_base(hasYMotorMount = false);
 
-		translate([-(b_zdirM_hole_zAxisDist+ b_zdirM_hole_dist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+		translate([-(b_zdirM_hole_zAxisDist+ b_zdir_motorHoles_centerDist/2), 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 			stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 	}
 }
 
 if (b_mode == "assembly"){
-	//H_baseLeft_assembly();
-	H_baseright_assembly();
+	H_baseLeft_assembly();
+	//H_baseright_assembly();
 }
 
