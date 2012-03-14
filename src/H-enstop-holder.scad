@@ -38,6 +38,7 @@ eh_end_clampHole_offset       = 15;
 eh_end_elongetatedHole_length = 10;
 eh_end_addLengthHole          = 5.5 + eh_end_elongetatedHole_length;
 eh_end_edgeRadius             = 10; // availiable ony if perpendicular
+eh_end_holeSeperator_width    = 1; 
 
 /*------------------------------------K----------------------------*/
 
@@ -106,9 +107,6 @@ module H_endstop_holder(isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [
 			translate([holeOffset[0], holeOffset[1], eh_end_height/2]) 
 			rotate(a=90*isPerpendicular,v=Z)
 			rotate(a=-90,v=Y){
-				
-
-				
 				difference() {
 					union() {
 						for (i=[0,eh_end_elongetatedHole_length]) 
@@ -119,9 +117,13 @@ module H_endstop_holder(isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [
 					}
 					union(){
 						translate([0, eh_end_elongetatedHole_length/2 * holeOffset[0]/abs(holeOffset[0])*-1, -OS]) 
-						for (i=[-eh_end_elongetatedHole_length/2+m3_diameter/2:m3_diameter:eh_end_elongetatedHole_length/2]) 
-						translate([0, i * holeOffset[0]/abs(holeOffset[0])*-1, 0]) 
-							cube(size=[  m3_diameter, eh_verticalSupportThickness, eh_end_wallWidth+2*OS], center=true);
+						for (i=[0:m3_diameter:eh_end_elongetatedHole_length/2]) {
+							translate([0, i * holeOffset[0]/abs(holeOffset[0])*-1, 0]) 
+								cube(size=[  m3_diameter, eh_end_holeSeperator_width, eh_end_wallWidth+2*OS], center=true);
+							
+							translate([0, -i * holeOffset[0]/abs(holeOffset[0])*-1, 0]) 
+								cube(size=[  m3_diameter, eh_end_holeSeperator_width, eh_end_wallWidth+2*OS], center=true);
+						}
 					}
 				}
 				
