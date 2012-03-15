@@ -164,12 +164,13 @@ module _zAxis_assembly() {
 
 		// x dir rods
 		for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist]){
-			translate([_a_zAxis_xdir_crossBrace_overcut/2+5, y, b_xdirRods_holes_altitude[0]]) 
+			//translate([_a_zAxis_xdir_crossBrace_overcut/2+5, y, b_xdirRods_holes_altitude[0]]) 
+			translate([0, y, b_xdirRods_holes_altitude[0]]) 
 			rotate(a=90,v=Y) 
-				threadedRod(r=4, h=_a_zAxis_xdirRods_length + _a_zAxis_xdir_crossBrace_overcut+10, center=true,info = "bottom rods in x direction ");
+				threadedRod(r=4, h=_a_zAxis_xdirRods_length /*+ _a_zAxis_xdir_crossBrace_overcut+10*/ , center=true,info = "bottom rods in x direction ");
 			translate([0, y, b_xdirRods_holes_altitude[1]]) 
 			rotate(a=90,v=Y) 
-				threadedRod(r=4, h=_a_zAxis_xdirRods_length, center=true, info = "bottom rods in x direction for right cross brace");
+				threadedRod(r=4, h=_a_zAxis_xdirRods_length, center=true, info = "bottom rods in x direction ");
 		}
 
 		// diverter
@@ -206,7 +207,7 @@ module _zAxis_assembly() {
 	}
 
 	// TODO
-	translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
+	*translate([_a_zAxis_xdirRods_length/2+_a_zAxis_xdir_crossBrace_overcut -10, _a_xEnd_xdirBearHole_offset[1], -_a_basement_tabelOffset]){
 		// cross brace 
 		translate([-9, -b_xdirRods_holes_zAxisDist-15, 0]) //todo
 		rotate(a=-(90-_a_zAxis_crossBrace_angle[1]),v=X) 

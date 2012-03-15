@@ -221,9 +221,9 @@ module H_Z_endLeft_assembly() {
 }
 module H_Z_endright_assembly() {
 	rotate(a=180,v=Z) 
-	_H_Z_end_assembly(hasCrossBrace = true);
+	_H_Z_end_assembly(hasCrossBrace = false);
 
-	translate([Ze_zEnd_rodsDist + _Ze_crosBr_bearing_dist, 0, 0]) 
+	*translate([Ze_zEnd_rodsDist + _Ze_crosBr_bearing_dist, 0, 0]) 
 	rotate(a=90,v=X) 
 	threadedRod(r=4, h=100+50, center=true,info = "z end cross brace rod connector");  // todo
 }
