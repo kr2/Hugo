@@ -17,7 +17,7 @@ Xe_mode = "-";
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Reight"; $fn=24*4;
 //Xe_mode = "inspect";
-//Xe_mode = "assembly";
+Xe_mode = "assembly";
 
 Xe_outline           = [56.33, 49, 43.712];   // absolute Xe_outline [x,y,z]
 
@@ -191,7 +191,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 			if (isMotor) {
 				// motor ceter coutout
-				translate(Xe_outline/2+[Xe_outline[1]/2,0,0]) 
+				translate(Xe_outline/2+[Xe_outline[0]/2-Xe_motor_plate_thick-OS,0,0]) 
 					teardrop (r=Xe_motor_cutout_diameter/2,h=Xe_motor_plate_thick+2,top_and_bottom=false);
 
 				// rounded edges
@@ -202,7 +202,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 				// motor holes
 				for (a=[45:90:350]) {
-					translate(Xe_outline/2+[Xe_outline[1]/2,0,0]) 
+					translate(Xe_outline/2+[Xe_outline[0]/2-Xe_motor_plate_thick-OS,0,0]) 
 					rotate(a=a,v=X) 
 					translate([0, Xe_motor_holes_centerDist, 0]) 
 					rotate(a=90,v=Y) 
