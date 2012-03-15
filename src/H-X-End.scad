@@ -17,7 +17,7 @@ Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Reight"; $fn=24*4;
-Xe_mode = "inspect";
+//Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
 
@@ -25,40 +25,43 @@ Xe_mode = "inspect";
 Xe_m8_diameter       = m8_diameter; // m8 rod diameter
 Xe_m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
 Xe_gen_wall          = 3.25; // general  wall for different walls
+Xe_strong_wall       = 5; // strong  wall for different walls
 
 Xe_overhang_angle    = 20;
 
 
 
-
-Xe_Z_bearingHole_dia = c_zAxis_lber_diam; // bearing hole diameter
-Xe_Z_bearingHole_pos = [23.27, Xe_Z_bearingHole_dia/2+Xe_gen_wall]; //[x,y] // pos of the vertical bearing holder
-Xe_Z_nutTrap_pos     = [23.27, Xe_Z_bearingHole_pos[1]+c_z_axis_rodsDist]; //[x,y] // pos of the vertical nutrap with spring thing
+Xe_X_Rod_dia         = c_x_axis_smoothRod_diam; // x direction diameter
 
 Xe_X_RodHoles_pos    =  [ // x direction rod hole positions 
-						   [9.08, 9.34],//[x,z] // bottom// reference
-						   [9.08, 34.72]//[x,z] // top
+						   [Xe_strong_wall+ Xe_X_Rod_dia/2, Xe_strong_wall + Xe_X_Rod_dia/2],//[x,z] // bottom// reference
+						   [Xe_strong_wall+ Xe_X_Rod_dia/2, Xe_strong_wall + Xe_X_Rod_dia/2 + c_x_axis_dist]//[x,z] // top
 				    	];
-Xe_X_Rod_dia         = 8.1; // x direction diameter
-Xe_X_Rod_depth       = 37.5; // x direction rode hole depth
 
-Xe_outline           = [56.33, Xe_Z_nutTrap_pos[1]+(m8_nut_wallDist/2+Xe_gen_wall), 43.712];   // absolute Xe_outline [x,y,z]
+Xe_Z_bearingHole_dia = c_zAxis_lber_diam; // bearing hole diameter
+Xe_Z_bearingHole_pos = [Xe_X_RodHoles_pos[0][0]+Xe_strong_wall+ Xe_X_Rod_dia/2 + Xe_Z_bearingHole_dia/2, Xe_Z_bearingHole_dia/2+Xe_gen_wall]; //[x,y] // pos of the vertical bearing holder
+Xe_Z_nutTrap_pos     = [Xe_Z_bearingHole_pos[0], Xe_Z_bearingHole_pos[1]+c_z_axis_rodsDist]; //[x,y] // pos of the vertical nutrap with spring thing
+
+
+
+Xe_outline           = [Xe_X_RodHoles_pos[0][0]+c_xAxis_beltCenter_xAxisDist+c_xAxis_beltCenter_motorScrewHoleDist, Xe_Z_nutTrap_pos[1]+(m8_nut_wallDist/2+Xe_gen_wall), Xe_X_RodHoles_pos[1][1]+Xe_X_Rod_dia/2+Xe_strong_wall];   // absolute Xe_outline [x,y,z]
 
 Xe_Z_AxisDist        = c_z_axis_rodsDist;
+
+Xe_X_Rod_depth       = Xe_outline[1]- Xe_gen_wall -m8_nut_wallDist/2; // x direction rode hole depth
 
 /*------------------------------------idler-----------------------------------*/
 
 Xe_idle_hole_pos   = [Xe_outline[1]/2, 14]; //[y,z] // postion of the idler hole
 Xe_idle_hole_dia   = 8.25; // diameter of the idler hole
-Xe_idle_hole_depth = 17.5; // depth of the idler hole
-
+Xe_idle_hole_depth =  (min(Xe_Z_nutTrap_pos[0]+(m8_nut_wallDist+Xe_gen_wall)/cos(30),Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall))-(Xe_X_RodHoles_pos[0][0]+Xe_X_Rod_dia/2+Xe_strong_wall); // depth of the idler hole
 
 /*------------------------------------motorholder-----------------------------*/
-Xe_motor_xdirBar_size     = [4.22, 5.39]; //[y,z] // size of the suport bares betwen the x end and the motor plate
-Xe_motor_plate_thick      = 3; // motor plate Xe_thickness
-Xe_motor_cutout_diameter  = 27.5; // diameter of the coutout around the motoraxis
-Xe_motor_holes_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
-Xe_motor_holes_diameter   = 3.2; // motor hole diameter
+Xe_motor_xdirBar_size     = [4.5, 5.5];
+Xe_motor_plate_thick      = Xe_gen_wall; // motor plate Xe_thickness
+Xe_motor_cutout_diameter  = c_xAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
+Xe_motor_holes_centerDist = c_xAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
+Xe_motor_holes_diameter   = c_xAxis_motorScrewHole_diam; // motor hole diameter
 
 
 /*------------------------------------elongated hole--------------------------*/
@@ -109,7 +112,10 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 					cylinder(r=Xe_Z_bearingHole_dia/2+Xe_gen_wall,h=Xe_outline[2],center=false,$fn=48);
 
 				// x rod solid
-				translate([Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]])  rotate(a=90,v=X)  rotate(a=90,v=Z) linear_extrude(height=Xe_outline[1])
+				translate([Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]])  
+				rotate(a=90,v=X)  
+				rotate(a=90,v=Z) 
+				linear_extrude(height=Xe_outline[1])
 					barbell(xb_r1,xb_r2,20,50,abs(Xe_X_RodHoles_pos[0][1]-Xe_X_RodHoles_pos[1][1]));
 				
 				difference() {
@@ -233,7 +239,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 }
 
 if (Xe_mode == "inspect") {
-	H_x_End(isMotor=true,,adjustable_z_stop=true);
+	H_x_End(isMotor=true,elongetededLowerHole = false,adjustable_z_stop=true);
 }
 module H_x_End_print() {
 	translate([-Xe_outline[1]/2, 0, 0]) 

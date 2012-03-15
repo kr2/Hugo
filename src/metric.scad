@@ -9,8 +9,8 @@
 
 // RODS
 
-threaded_rod_diameter      = 8.2;
-smooth_bar_diameter        = 8;
+//threaded_rod_diameter      = 8.2;
+//smooth_bar_diameter        = 8;
 
 // Nuts and bolts
 // For all nuttraps and screw holse 

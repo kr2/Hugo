@@ -12,7 +12,9 @@
 
 /*-----------------------------------x axis-----------------------------------*/
 c_x_axis_length = 225; // usable lenth. If you use an extruder which is longer then the H-Xtruder-Mount.scad you have to add this overcut here.
-c_x_axis_smoothRod_diam = 8;
+c_x_axis_smoothRod_diam = 8.1;
+
+c_x_axis_dist = 34.72 - 9.34;
 
 /*-----------------------------------y axis-----------------------------------*/
 c_y_axis_length = 225; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
@@ -43,7 +45,53 @@ c_zAxis_lber_length = c_lber_length;
 c_zAxis_lber_diam   = c_lber_diam;
 
 /******************************************************************************/ 
+/*                                    BELT                                    */
+/******************************************************************************/
+c_belt_thickness      = 2.5;
+c_belt_width          = 6;
+c_belt_teethDist      = 5;
+c_belt_teethDepth     = 1.5;
+
+/*-----------------------------------x axis-----------------------------------*/
+c_xAxis_belt_thickness      = c_belt_thickness;
+c_xAxis_belt_width          = c_belt_width;
+c_xAxis_belt_teethDist      = c_belt_teethDist;
+c_xAxis_belt_teethDepth     = c_belt_teethDepth;
+
+c_xAxis_beltCenter_xAxisDist     = 30;
+c_xAxis_beltCenter_motorScrewHoleDist     = 20;
+
+
+c_belt_topOffset      = 14.6;  // from top plate to the top edge of the belt
+c_belt_tolerance      = [2,1]; //w,t
+
+
+/******************************************************************************/ 
 /*                                  motor                                     */
 /******************************************************************************/
-c_motorShaft_diam = 5;
-c_motorShaft_length = 25;
+c_motorShaft_diam            = 5; // motor axis diameter
+c_motorShaft_length          = 25; // motor axis length from pilot
+c_motorPilot_diam            = 27.5; // motor pilot diameter
+c_motorScrewHole_diam        = 3.2; // motor screw holde diameter
+c_motorScrewHoles_centerDist = 43.841/2; // motor holes distance from axis center
+
+/*-----------------------------------x axis-----------------------------------*/
+c_xAxis_motorShaft_diam            = c_motorShaft_diam;
+c_xAxis_motorShaft_length          = c_motorShaft_length;
+c_xAxis_motorPilot_diam            = c_motorPilot_diam ;
+c_xAxis_motorScrewHole_diam        = c_motorScrewHole_diam ;
+c_xAxis_motorScrewHoles_centerDist = c_motorScrewHoles_centerDist;
+
+/*-----------------------------------y axis-----------------------------------*/
+c_yAxis_motorShaft_diam            = c_motorShaft_diam;
+c_yAxis_motorShaft_length          = c_motorShaft_length;
+c_yAxis_motorPilot_diam            = c_motorPilot_diam ;
+c_yAxis_motorScrewHole_diam        = c_motorScrewHole_diam ;
+c_yAxis_motorScrewHoles_centerDist = c_motorScrewHoles_centerDist;
+
+/*-----------------------------------z axis-----------------------------------*/
+c_zAxis_motorShaft_diam            = c_motorShaft_diam;
+c_zAxis_motorShaft_length          = c_motorShaft_length;
+c_zAxis_motorPilot_diam            = c_motorPilot_diam ;
+c_zAxis_motorScrewHole_diam        = c_motorScrewHole_diam ;
+c_zAxis_motorScrewHoles_centerDist = c_motorScrewHoles_centerDist;
