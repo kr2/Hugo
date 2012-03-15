@@ -1,4 +1,4 @@
-/* H-set3
+/* H-Set3
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -7,10 +7,10 @@
 include <units.scad>
 
 include <H-Z-End.scad>
-include <H-enstop-holder.scad>
-include <H-Y-supportFootEnd.scad>
-include <H-bar-clamp.scad>
-include <H-bar-clamp-cross.scad>
+include <H-EndstopHolder.scad>
+include <H-Y-SupportFootEnd.scad>
+include <H-BarClamp.scad>
+include <H-BarClampCross.scad>
 
 $fn= 24 * 4;
 
@@ -18,7 +18,7 @@ $fn= 24 * 4;
 
 
 translate([35, -25, 0]) 
-H_Z_end_printSet1();
+H_Z_end_printSet2();
 
 translate([20, -65, 0]) 
 rotate(a=90,v=Z) 
@@ -31,5 +31,5 @@ H_Y_supportFootEnd_printSet();
 translate([-10, 35, 0]) 
 H_endstop_printSet();
 
-translate([-38, -45, 0]) 
+*translate([-38, -45, 0]) 
 H_barClampCross_printSet();

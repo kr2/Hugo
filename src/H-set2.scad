@@ -1,4 +1,4 @@
-/* H-set2
+/* H-Set2
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -6,10 +6,10 @@
  */
 include <units.scad>
 
-include <H-Y-beltClamp.scad>
-include <H-Y-BarEnd.scad>
-include <bearing-guide.scad>
+include <H-Y-BeltClamp.scad>
+include <BearingGuide.scad>
 include <H-Z-Coupling.scad>
+include <H-Y-BarEnd.scad>
 
 $fn= 24 * 4;
 
@@ -26,7 +26,7 @@ H_Y_BarEnd_print();
 
 translate([-33, 30, 0]) 
 rotate(a=-90-30,v=[0,0,1]) 
-H_yBeltClam_printSet();
+H_yBeltClamp_printSet();
 
 
 translate([7, 55, 0]) 

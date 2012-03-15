@@ -246,7 +246,7 @@ if (Xe_mode == "print Reight") {
 
 /*------------------------------------assembly--------------------------------*/
 include <basicMetalParts.scad>
-include <bearing-guide.scad>
+include <BearingGuide.scad>
 include <motors.scad>
 
 module H_x_End_idle_assembly() {

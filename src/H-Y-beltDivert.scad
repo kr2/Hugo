@@ -1,4 +1,4 @@
-/* H-Y-beltDivert [Ybd]
+/* H-Y-BeltDivert [Ybd]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -120,7 +120,7 @@ if (Ybd_mode == "print") {
 
 
 /*------------------------------------assembly--------------------------------*/
-include <bearing-guide.scad>
+include <BearingGuide.scad>
 
 
 module H_Y_beltDivert_assembly() {

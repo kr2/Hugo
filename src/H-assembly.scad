@@ -1,4 +1,4 @@
-/* H-assembly [a]
+/* H-Assembly [a]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -11,16 +11,16 @@ include <metric.scad>
 include <H-Xtruder-Mount.scad>
 include <H-X-End.scad>
 include <H-X-Carriage.scad>
-include <H-base.scad>
 include <H-Y-BarEnd.scad>
 include <H-Z-End.scad>
-include <H-bar-clamp-cross.scad>
-include <H-Y-beltDivert.scad>
-include <H-Y-beltClamp.scad>
-include <H-enstop-holder.scad>
-include <H-Y-supportFootEnd.scad>
-include <H-bar-clamp.scad>
+include <H-BarClampCross.scad>
+include <H-Y-BeltDivert.scad>
+include <H-Y-BeltClamp.scad>
+include <H-EndstopHolder.scad>
+include <H-Y-SupportFootEnd.scad>
+include <H-BarClamp.scad>
 include <H-Z-Coupling.scad>
+include <H-Base.scad>
 
 include <basicMetalParts.scad>
 
@@ -112,9 +112,9 @@ module _yAxis_assembly() {
 	//beltclamps
 	translate([0, 0, -(a_heatedBed_size[2]+a_heatedBed_tabelOffset+ a_tabel_thickness)]){
 		translate([0, -_a_yAxis_real_length/2, 0]) 
-			H_yBeltClamFront_assembly();
+			H_yBeltClampFront_assembly();
 		translate([0, _a_yAxis_real_length/2, 0]) 
-			H_yBeltClamBack_assembly();
+			H_yBeltClampBack_assembly();
 	}
 
 }

@@ -10,7 +10,7 @@ include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
 include <barbell.scad>
-use <A-Y-beltClamp.scad>
+use <A-Y-BeltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
@@ -348,7 +348,7 @@ if (Xc_mode == "print") {
 
 /*------------------------------------assembly--------------------------------*/
 include <basicMetalParts.scad>
-include <toothedLinearBearing.scad>
+//include <ToothedLinearBearing.scad>
 
 module H_x_Carriage_assembly() {
 	rotate(a=180,v=Z) 

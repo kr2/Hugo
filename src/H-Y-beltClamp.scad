@@ -1,4 +1,4 @@
-/* H-Y-beltClamp [Ybc]
+/* H-Y-BeltClamp [Ybc]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -23,7 +23,7 @@ Ybc_belt_thickness      = 2.5;
 Ybc_belt_width          = 6 + 1;
 Ybc_belt_teethDist      = 5;
 Ybc_belt_teethDepth     = 1.5;
-Ybc_belt_topOffset      =14.6;  // from top plate to the top edge of the belt
+Ybc_belt_topOffset      = 14.6;  // from top plate to the top edge of the belt
 Ybc_belt_tolerance      = [2,1,1]; //x,y,z
 
 Ybc_strongWallThickness = 10;
@@ -31,7 +31,7 @@ Ybc_genWallThickness    = 2;
 
 Ybc_nutSlotTolerance    = 0.4;
 
-module H_yBeltClam() {
+module H_yBeltClamp() {
 	y_mainLength = m3_diameter+Ybc_genWallThickness+Ybc_strongWallThickness+Ybc_belt_tolerance[0]+Ybc_belt_thickness;
 
 	difference() {
@@ -182,17 +182,17 @@ module beltClamp() {
 
 
 if (Ybc_mode == "inspect") {
-	H_yBeltClam();
+	H_yBeltClamp();
 	translate([Ybc_strongWallThickness+1,  Ybc_genWallThickness+m3_nut_diameter/2, +Ybc_belt_tolerance[2]/2]) 
 	yBeltClamp_beltProtector();
 	translate([Ybc_strongWallThickness/2, -Ybc_belt_thickness, (Ybc_belt_width+Ybc_belt_tolerance[2])/2]) 
 	rotate(a=90,v=X) 
 	beltClamp();
 }
-module H_yBeltClam_print() {
+module H_yBeltClamp_print() {
 	rotate(a=180,v=X) 
 	translate([0, 0, -(Ybc_belt_topOffset+ Ybc_belt_width+Ybc_belt_tolerance[2])]) 
-	H_yBeltClam();
+	H_yBeltClamp();
 	translate([Ybc_strongWallThickness*1.6, Ybc_strongWallThickness/3, 0]) 
 	beltClamp();
 
@@ -201,23 +201,23 @@ module H_yBeltClam_print() {
 	yBeltClamp_beltProtector();
 }
 if (Ybc_mode == "print") 
-	H_yBeltClam_print();
+	H_yBeltClamp_print();
 
-module H_yBeltClam_printSet() {
-	H_yBeltClam_print();
+module H_yBeltClamp_printSet() {
+	H_yBeltClamp_print();
 	translate([-26, 0, 0]) 
-	H_yBeltClam_print();
+	H_yBeltClamp_print();
 }
 if (Ybc_mode == "printSet") {
-	H_yBeltClam_printSet();
+	H_yBeltClamp_printSet();
 }
 
 
 
 /*------------------------------------assembly--------------------------------*/
-module _H_yBeltClam_assembly() {
+module _H_yBeltClamp_assembly() {
 	translate([-Ybc_strongWallThickness -(Ybc_belt_thickness+Ybc_belt_tolerance[0])/2, -4, -( Ybc_belt_width+Ybc_belt_tolerance[2]+Ybc_belt_topOffset)]) {
-		H_yBeltClam();
+		H_yBeltClamp();
 		translate([Ybc_strongWallThickness+1,  Ybc_genWallThickness+m3_nut_diameter/2, +Ybc_belt_tolerance[2]/2]) 
 		yBeltClamp_beltProtector();
 		translate([Ybc_strongWallThickness/2, -Ybc_belt_thickness, (Ybc_belt_width+Ybc_belt_tolerance[2])/2]) 
@@ -226,17 +226,17 @@ module _H_yBeltClam_assembly() {
 	}
 }
 
-module H_yBeltClamBack_assembly() {
+module H_yBeltClampBack_assembly() {
 	rotate(a=180,v=Z) 
-	_H_yBeltClam_assembly();
+	_H_yBeltClamp_assembly();
 }
 
-module H_yBeltClamFront_assembly() {
+module H_yBeltClampFront_assembly() {
 	mirror([1, 0, 0])  
-	_H_yBeltClam_assembly();
+	_H_yBeltClamp_assembly();
 }
 
 if (Ybc_mode == "assembly"){
-	//H_yBeltClam_assembly();
-	H_yBeltClamBack_assembly();
+	//H_yBeltClamp_assembly();
+	H_yBeltClampBack_assembly();
 }

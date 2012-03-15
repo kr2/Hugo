@@ -1,4 +1,4 @@
-/* H-Z-end [Ze]
+/* H-Z-End [Ze]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -17,8 +17,8 @@ use <teardrop.scad>
 /*------------------------------------general---------------------------------*/
 Ze_mode = "-";
 //Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
-//Ze_mode = "printSet2";  $fn=24*4;
-//e_mode = "print Left";  $fn=24*4;
+//Ze_mode = "printSet2";  $fn=24*4; //without additional Support
+//Ze_mode = "print left";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;
 //Ze_mode = "inspect";
 //Ze_mode = "assembly";
@@ -184,14 +184,17 @@ module H_Z_end_printSet1() {
 if (Ze_mode == "printSet1") {
 	H_Z_end_printSet1();
 }
-if (Ze_mode == "printSet2") {
+module H_Z_end_printSet2() {
 	translate([10, 12, 0]) 
 	H_Z_end(hasCrossBrace = false);
 	translate([-10, -12, 0]) 
 	rotate(a=180,v=[0,0,1]) 
 	H_Z_end(hasCrossBrace = false);
 }
-if (Ze_mode == "print Left") {
+if (Ze_mode == "printSet2") {
+	H_Z_end_printSet2();
+}
+if (Ze_mode == "print left") {
 	H_Z_end(hasCrossBrace = false);
 }
 if (Ze_mode == "print right") {

@@ -9,7 +9,7 @@ include <units.scad>
 
 mode = "-";
 //mode = "print"; $fn=24*4;
-//mode = "printSet"; $fn=24*4;
+mode = "printSet"; $fn=24*4;
 
 /**
 * @brief   Toothed Linear Bearing (TLB).

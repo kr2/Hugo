@@ -7,7 +7,7 @@ Brief
 =====
 This is Hugo. Named after Hugo de Vries who introduced the term "mutation".
 
-First of I would like to thank jsturm who started this project in the first place and did almost the entire testing of the parts. The entire design is done in OpenSCAD and all files are hosted on https://github.com/kr2/Hugo.
+First of I would like to thank Achim (jsturm) who started this project in the first place and did almost the entire testing of the parts. The entire design is done in OpenSCAD and all files are hosted on https://github.com/kr2/Hugo.
 
 It is a derivative of the original Printrbot by abdrumm, but all parts are redesigned and improved.
 

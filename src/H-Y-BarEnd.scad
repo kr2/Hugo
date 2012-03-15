@@ -19,7 +19,6 @@ Ybe_mode = "-";
 //Ybe_mode = "print";  $fn=24*4;  
 //Ybe_mode = "inspect";
 //Ybe_mode = "assembly";
-$fn=48;
 
 Ybe_thinWallThickness          = 1;
 Ybe_genWallThickness           = 2.5;
