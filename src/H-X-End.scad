@@ -5,25 +5,27 @@
  * derivative of the original design by abdrumm for the PrintrBot
  */
 
+include <config.scad>
 include <units.scad>
 include <metric.scad>
 include <teardrop.scad>
-include <roundEdges.scad>
 include <barbell.scad>
+include <roundEdges.scad>
 
 /*------------------------------------general---------------------------------*/
 Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Reight"; $fn=24*4;
-//Xe_mode = "inspect";
-Xe_mode = "assembly";
+Xe_mode = "inspect";
+//Xe_mode = "assembly";
+
 
 Xe_outline           = [56.33, 49, 43.712];   // absolute Xe_outline [x,y,z]
 
 Xe_Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertical nutrap with spring thing
-Xe_Z_bearingHole_pos = [23.27, 9.69+1]; //[x,y] // pos of the vertical bearing holder
-Xe_Z_bearingHole_dia = 15.3; // bearing hole diameter
+Xe_Z_bearingHole_dia = c_zAxis_lber_diam; // bearing hole diameter
+Xe_Z_bearingHole_pos = [23.27, Xe_Z_bearingHole_dia/2]; //[x,y] // pos of the vertical bearing holder
 
 Xe_X_RodHoles_pos    =  [ // x direction rod hole positions 
 						   [9.08, 9.34],//[x,z] // bottom// reference
@@ -35,8 +37,7 @@ Xe_X_Rod_depth       = 37.5; // x direction rode hole depth
 
 Xe_m8_diameter       = 8.5; // m8 rod diameter
 //metric.scad: m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
-Xe_thin_wall         = 3.25; // thin wall for different walls
-Xe_corection         = 1.17; //correction factor for the nuttrap
+Xe_gen_wall         = 3.25; // general  wall for different walls
 
 Xe_overhang_angle    = 20;
 
@@ -45,6 +46,7 @@ Xe_overhang_angle    = 20;
 Xe_idle_hole_pos   = [Xe_outline[1]/2, 14]; //[y,z] // postion of the idler hole
 Xe_idle_hole_dia   = 8.25; // diameter of the idler hole
 Xe_idle_hole_depth = 17.5; // depth of the idler hole
+
 
 /*------------------------------------motorholder-----------------------------*/
 Xe_motor_xdirBar_size     = [4.22, 5.39]; //[y,z] // size of the suport bares betwen the x end and the motor plate
@@ -71,6 +73,7 @@ Xe_X_BlockSize = [min(Xe_Z_nutTrap_pos[0]-m8_nut_diameter/2,Xe_Z_bearingHole_pos
 
 
 
+
 module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
 
 	//x belt
@@ -92,11 +95,11 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 			{
 				//Nut Trap
 				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],0]) 
-					cylinder(h=Xe_outline[2],r=m8_nut_diameter/2+Xe_thin_wall*Xe_corection,$fn=6);
+					cylinder(h=Xe_outline[2],r= (m8_nut_wallDist/2+Xe_gen_wall)/cos(30) ,$fn=6);
 
 				// z rod hole
 				translate(Xe_Z_bearingHole_pos) 
-					cylinder(r=Xe_Z_bearingHole_dia/2+Xe_thin_wall,h=Xe_outline[2],center=false,$fn=48);
+					cylinder(r=Xe_Z_bearingHole_dia/2+Xe_gen_wall,h=Xe_outline[2],center=false,$fn=48);
 
 				// x rod solid
 				translate([Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]])  rotate(a=90,v=X)  rotate(a=90,v=Z) linear_extrude(height=Xe_outline[1])
@@ -111,9 +114,9 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 				if (isIdle) {
 					//idler Xe_outline
-					translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall-Xe_idle_hole_depth/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]]) 
-						cube(size=[Xe_idle_hole_depth, abs(Xe_X_RodHoles_pos[0][1]-Xe_X_RodHoles_pos[1][1]), Xe_idle_hole_dia+2*Xe_thin_wall], center=true);
-						//cylinder(r=Xe_idle_hole_dia/2+Xe_thin_wall, h=Xe_idle_hole_depth, center=false);
+					translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall-Xe_idle_hole_depth/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]]) 
+						cube(size=[Xe_idle_hole_depth, abs(Xe_X_RodHoles_pos[0][1]-Xe_X_RodHoles_pos[1][1]), Xe_idle_hole_dia+2*Xe_gen_wall], center=true);
+						//cylinder(r=Xe_idle_hole_dia/2+Xe_gen_wall, h=Xe_idle_hole_depth, center=false);
 				}
 				
 
@@ -149,7 +152,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],39.5]) 
 					cylinder(h=90,r=m8_nut_diameter/2,$fn=6,center=true);
 				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],8.5]) 
-					cylinder(h=4,r=m8_nut_diameter/2+Xe_thin_wall,$fn=6,center=true);
+					cylinder(h=4,r=m8_nut_diameter/2+Xe_gen_wall,$fn=6,center=true);
 			}
 			translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],52]) 
 				cylinder(h=90,r=Xe_m8_diameter/2,$fn=9,center=true);
@@ -185,7 +188,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 			if (isIdle) {
 				//idler coutout
-				translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  rotate(a=-90,v=Y) 
+				translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  rotate(a=-90,v=Y) 
 					cylinder(r=Xe_idle_hole_dia/2, h=Xe_idle_hole_depth, center=false, $fn=8);
 			}
 
@@ -255,11 +258,11 @@ module H_x_End_idle_assembly() {
 	mirror([0, 1, 0]) {
 		H_x_End(isIdle=true,elongetededLowerHole = false);
 
-		translate([2 + 7 + 2 + m8_nut_heigth + Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
+		translate([2 + 7 + 2 + m8_nut_heigth + Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=-90,v=Y) 
 			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false,info = "x end idler bearing holder rod");
 
-		translate([1.5+Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_thin_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
+		translate([1.5+Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=90,v=Y) 
 			bearGuid_ass();
 	}
@@ -281,8 +284,6 @@ if (Xe_mode == "assembly"){
 	//H_x_End_idle_assembly();
 	H_x_End_motor_assembly();
 }
-
-
 
 
 /******************************************************************************/ 
@@ -379,3 +380,4 @@ module z_stop()
 		cylinder(r=m3_nut_diameter/2,h=3,$fn=6);
 	}
 }
+
