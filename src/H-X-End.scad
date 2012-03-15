@@ -21,11 +21,19 @@ Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
 
-Xe_outline           = [56.33, 49, 43.712];   // absolute Xe_outline [x,y,z]
+/*------------------------------------general---------------------------------*/
+Xe_m8_diameter       = m8_diameter; // m8 rod diameter
+Xe_m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
+Xe_gen_wall          = 3.25; // general  wall for different walls
 
-Xe_Z_nutTrap_pos     = [23.27, (45.45+30.56)/2+1]; //[x,y] // pos of the vertical nutrap with spring thing
+Xe_overhang_angle    = 20;
+
+
+
+
 Xe_Z_bearingHole_dia = c_zAxis_lber_diam; // bearing hole diameter
-Xe_Z_bearingHole_pos = [23.27, Xe_Z_bearingHole_dia/2]; //[x,y] // pos of the vertical bearing holder
+Xe_Z_bearingHole_pos = [23.27, Xe_Z_bearingHole_dia/2+Xe_gen_wall]; //[x,y] // pos of the vertical bearing holder
+Xe_Z_nutTrap_pos     = [23.27, Xe_Z_bearingHole_pos[1]+c_z_axis_rodsDist]; //[x,y] // pos of the vertical nutrap with spring thing
 
 Xe_X_RodHoles_pos    =  [ // x direction rod hole positions 
 						   [9.08, 9.34],//[x,z] // bottom// reference
@@ -34,12 +42,9 @@ Xe_X_RodHoles_pos    =  [ // x direction rod hole positions
 Xe_X_Rod_dia         = 8.1; // x direction diameter
 Xe_X_Rod_depth       = 37.5; // x direction rode hole depth
 
+Xe_outline           = [56.33, Xe_Z_nutTrap_pos[1]+(m8_nut_wallDist/2+Xe_gen_wall), 43.712];   // absolute Xe_outline [x,y,z]
 
-Xe_m8_diameter       = 8.5; // m8 rod diameter
-//metric.scad: m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
-Xe_gen_wall         = 3.25; // general  wall for different walls
-
-Xe_overhang_angle    = 20;
+Xe_Z_AxisDist        = c_z_axis_rodsDist;
 
 /*------------------------------------idler-----------------------------------*/
 
@@ -68,7 +73,7 @@ Xe_elongHole_addDia = 1.0;
 /******************************************************************************/
 
 
-Xe_X_BlockSize = [min(Xe_Z_nutTrap_pos[0]-m8_nut_diameter/2,Xe_Z_bearingHole_pos[0]-Xe_Z_bearingHole_dia/2),Xe_outline[1],Xe_outline[2]];
+Xe_X_BlockSize = [min(Xe_Z_nutTrap_pos[0]-Xe_m8_nut_diameter/2,Xe_Z_bearingHole_pos[0]-Xe_Z_bearingHole_dia/2),Xe_outline[1],Xe_outline[2]];
 
 
 
@@ -79,6 +84,8 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 	//x belt
 	xb_r1=Xe_X_RodHoles_pos[0][1]; // bottom
 	xb_r2=Xe_outline[2]-Xe_X_RodHoles_pos[1][1]; // top
+
+	xb_zDir_nuttrapBearnghole_wallDist = Xe_Z_AxisDist- Xe_Z_bearingHole_dia/2 -2*Xe_gen_wall - m8_nut_wallDist/2;
 
 
 	if (adjustable_z_stop) {
@@ -108,8 +115,8 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 				difference() {
 					translate([Xe_X_RodHoles_pos[0][0], 0, 0]) 
 						cube(size=[Xe_Z_bearingHole_pos[0]-Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_outline[2]], center=false);
-					translate([Xe_Z_bearingHole_pos[0], Xe_outline[1]/2, -OS])
-						cylinder(r=Xe_Z_bearingHole_pos[0]-xb_r1*2, h=Xe_outline[2]+OS, center=false); 
+					translate([Xe_Z_bearingHole_pos[0], Xe_Z_bearingHole_pos[1]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+xb_zDir_nuttrapBearnghole_wallDist/2, -OS])
+						cylinder(r=xb_zDir_nuttrapBearnghole_wallDist/2, h=Xe_outline[2]+OS, center=false); 
 				}
 
 				if (isIdle) {
@@ -150,9 +157,9 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 			difference()
 			{
 				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],39.5]) 
-					cylinder(h=90,r=m8_nut_diameter/2,$fn=6,center=true);
+					cylinder(h=90,r=Xe_m8_nut_diameter/2,$fn=6,center=true);
 				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],8.5]) 
-					cylinder(h=4,r=m8_nut_diameter/2+Xe_gen_wall,$fn=6,center=true);
+					cylinder(h=4,r=Xe_m8_nut_diameter/2+Xe_gen_wall,$fn=6,center=true);
 			}
 			translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],52]) 
 				cylinder(h=90,r=Xe_m8_diameter/2,$fn=9,center=true);
