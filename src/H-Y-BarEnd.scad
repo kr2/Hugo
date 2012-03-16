@@ -22,7 +22,7 @@ Ybe_mode = "-";
 
 Ybe_thinWallThickness          = 1;
 Ybe_genWallThickness           = 2.5;
-Ybe_strongWallThickness        = 5;
+Ybe_strongWallThickness        = 7;
 
 Ybe_horizontalSuportThickness  = 0.3;
 Ybe_verticalSupportThickness   = 0.5;
@@ -33,20 +33,23 @@ Ybe_smoothRod_diam                   = 8.0;
 /*------------------------------------BarEnd----------------------------------*/
 Ybe_barEnd_yAxis_offset = 14.321;
 Ybe_barEnd_slot_width = 1.674;
-Ybe_barEnd_heigth = 8;
+Ybe_barEnd_heigth = 16;
 
-
+Yeb_screwHolde_diam = m4_diameter;
+Yeb_nut_diam = m4_nut_diameter;
 
 
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
 /******************************************************************************/
-_Ybe_screwHole_offset = Ybe_smoothRod_diam/2+Ybe_thinWallThickness+m3_diameter/2;
+_Ybe_screwHole_offset = Ybe_smoothRod_diam/2+Ybe_thinWallThickness+Yeb_screwHolde_diam/2;
 
-_Ybe_con_size = [Ybe_smoothRod_diam/2+Ybe_genWallThickness+m3_diameter/2+Ybe_genWallThickness,Ybe_barEnd_yAxis_offset+Ybe_smoothRod_diam/2+Ybe_genWallThickness,Ybe_barEnd_heigth];
+_Ybe_con_size = [Ybe_smoothRod_diam/2+Ybe_genWallThickness+Yeb_screwHolde_diam+Ybe_strongWallThickness,Ybe_barEnd_yAxis_offset+Ybe_smoothRod_diam/2+Ybe_genWallThickness,Ybe_barEnd_heigth];
 _Ybe_bb_rotAngle = atan(Ybe_barEnd_yAxis_offset/(_Ybe_con_size[0]/2));
 _Ybe_bb_length = distance1D(Ybe_barEnd_yAxis_offset,_Ybe_con_size[0]/2);
+
+_Ybe_angle = 10;
 
 module H_Y_BarEnd() {
 	difference() {
@@ -68,12 +71,12 @@ module H_Y_BarEnd() {
 			//screw holde
 			translate([_Ybe_screwHole_offset, 0, Ybe_barEnd_heigth/2]) 
 			rotate(a=90,v=X) 
-				cylinder(r=m3_diameter/2, h=Ybe_barEnd_yAxis_offset*3, center=true);
+				cylinder(r=Yeb_screwHolde_diam/2, h=Ybe_barEnd_yAxis_offset*3, center=true);
 
 			// nuttrap
 			translate([_Ybe_screwHole_offset, -Ybe_smoothRod_diam/2- Ybe_genWallThickness-OS, Ybe_barEnd_heigth/2]) 
 			rotate(a=-90,v=X) 
-				cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6);
+				cylinder(r=Yeb_nut_diam/2, h=m3_nut_heigth, center=false,$fn=6);
 
 			//slot
 			translate([-OS, -Ybe_barEnd_slot_width/2, -OS]) 
@@ -87,9 +90,10 @@ module H_Y_BarEnd() {
 			translate([_Ybe_con_size[0]/2, -Ybe_smoothRod_diam/2- Ybe_genWallThickness, -OS]) 
 			difference() {
 				cube(size=_Ybe_con_size+[0,0,2*OS], center=false);
-				rotate(a=90,v=Z) 
+				translate([-(tan(10) * _Ybe_con_size[1]) , 0, 0]) 
+				rotate(a=90-_Ybe_angle,v=Z) 
 				linear_extrude(height=Ybe_barEnd_heigth+2*OS)
-					barbell (r1=_Ybe_con_size[0]/2,r2=_Ybe_con_size[0]/2,r3=_Ybe_con_size[1],r4=_Ybe_con_size[1]*1.5,separation=_Ybe_con_size[1]); 
+					barbell (r1=(Ybe_smoothRod_diam/2+Ybe_genWallThickness+Yeb_screwHolde_diam+Ybe_genWallThickness)/2,r2=_Ybe_con_size[0]/2,r3=_Ybe_con_size[1],r4=_Ybe_con_size[1]*1.5,separation=_Ybe_con_size[1]); 
 			}
 		}
 	}
