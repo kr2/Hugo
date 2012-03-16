@@ -22,7 +22,7 @@ Xe_mode = "-";
 
 
 /*------------------------------------general---------------------------------*/
-Xe_m8_diameter       = m8_diameter; // m8 rod diameter
+Xe_m8_diameter       = m8_diameter+0.4; // m8 rod diameter
 Xe_m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to the other) !!! this is not the wrench width !!!
 Xe_gen_wall          = 3.25; // general  wall for different walls
 Xe_strong_wall       = 5; // strong  wall for different walls

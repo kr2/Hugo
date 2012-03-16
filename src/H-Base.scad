@@ -19,69 +19,65 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-//b_mode = "inspect";
+b_mode = "inspect";
 //b_mode = "assembly";
 
-b_thinWallThickness         = 1;
-b_genWallThickness          = 2.5;
-b_strongWallThickness       = 8;
+b_thinWallThickness          = 1;
+b_genWallThickness           = 2.5;
+b_strongWallThickness        = 8;
 
-b_horizontalSuportThickness = 0.3;
-b_verticalSupportThickness  = 0.5;
+b_horizontalSuportThickness  = 0.3;
+b_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-b_smoothRod_diam            = 8.2;
-b_roughRod_diam             = 8.5;
+b_smoothRod_diam             = c_z_axis_smoothRod_diam;
+b_roughRod_diam              = m8_diameter;
 
-b_m8_nut_tolerance          = [2,1]; // diameter,height
-
-/*------------------------------------zdir wall-------------------------------*/
-b_zDirWall_size             = [9.4,77.9,58.986];
-
-b_zDirSupport_r             = 6;
-
-/*------------------------------------xdir wall-------------------------------*/
-b_xDirWall_size             = [30.6,b_zDirWall_size[1],6];
-b_xDirWall_roundedEdge_r    = 8;
-
-
-
-
-/*------------------------------------zdir Rod--------------------------------*/
-b_zdirRod_hole_depth        = b_zDirWall_size[2]-10;
+b_m8_nut_heigth              = m8_nut_heigth;
+b_m8_nut_tolerance           = [2,1]; // diameter,height
 
 /*------------------------------------xdir Rods-------------------------------*/
-b_xdirRods_holes_altitude   = [8.266,45.497];
-b_xdirRods_holes_zAxisDist  = 38.95-8.5;
+b_xdirRods_holes_altitude    = c_xDirSupp_thredRod_altitude;
+b_xdirRods_holes_zAxisDist   = c_xDirSupp_thredRod_zAxisDist;
 
 /*------------------------------------zip ties--------------------------------*/
-b_zipTies_width             = 4;
-b_zipTies_thickness         = 2;
-
-/*------------------------------------linear bearings-------------------------*/
-b_lber_length               = 24.2;
-b_lber_diam                 = 15.3;
-b_lber_topOff               = (b_lber_diam- b_smoothRod_diam)/2-0.5;
-b_lber_zAxisDist            = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
-b_lber_zAxisXdirDist        = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
+b_zipTies_width              = 4;
+b_zipTies_thickness          = 2;
 
 /*------------------------------------air outlet------------------------------*/
-b_airOut_diam = 3;
+b_airOut_diam                = 3;
 
 /*------------------------------------y dir motor-----------------------------*/
-b_ydir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
-b_ydir_motorHoles_diameter   = 3.2; // motor hole diameter
-b_ydir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
-b_ydirM_motorAxis_zAxisDist = 25.35+7.951 + cos(45)*b_ydir_motorHoles_centerDist;
-b_ydirM_sideLength          = 42;
+b_ydir_motorCoutout_diam     = c_yAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
+b_ydir_motorHoles_diameter   = c_yAxis_motorScrewHole_diam  ; // motor hole diameter
+b_ydir_motorHoles_centerDist = c_yAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
+b_ydirM_motorAxis_zAxisDist  = 25.35+7.951 + cos(45)*b_ydir_motorHoles_centerDist;
+b_ydirM_sideLength           = c_yAxis_motor_sideLength;
 
 /*------------------------------------z dir motor-----------------------------*/
-b_zdir_motorCoutout_diam     = 27.5; // diameter of the coutout around the motoraxis
-b_zdir_motorHoles_diameter   = 3.2; // motor hole diameter
-b_zdir_motorHoles_centerDist = 43.841/2; // distace of the motor holes from the motor axis center
-b_zdirM_motorAxis_zAxisDist  = 5.35+7.95 + cos(45)*b_zdir_motorHoles_centerDist;
-b_zdirM_sideLength           = 42;
+b_zdir_motorCoutout_diam     = c_zAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
+b_zdir_motorHoles_diameter   = c_zAxis_motorScrewHole_diam; // motor hole diameter
+b_zdir_motorHoles_centerDist = c_zAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
+b_zdirM_motorAxis_zAxisDist  = c_z_axis_rodsDist;
+b_zdirM_sideLength           = c_zAxis_motor_sideLength;
 
+/*------------------------------------zdir wall-------------------------------*/
+b_zDirWall_size              = [9.4,77.9,58.986];
+b_zDirSupport_r              = b_m8_nut_heigth*2 - b_m8_nut_tolerance[1];
+
+/*------------------------------------xdir wall-------------------------------*/
+b_xDirWall_size              = [30.6,b_zDirWall_size[1],6];
+b_xDirWall_roundedEdge_r     = 8;
+
+/*------------------------------------zdir Rod--------------------------------*/
+b_zdirRod_hole_depth         = b_zDirWall_size[2]-8.5;
+
+/*------------------------------------linear bearings-------------------------*/
+b_lber_length                = c_yAxis_lber_length;
+b_lber_diam                  = c_yAxis_lber_diam;
+b_lber_topOff                = (b_lber_diam- b_smoothRod_diam)/2 - 0.5;
+b_lber_zAxisDist             = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
+b_lber_zAxisXdirDist         = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
@@ -90,7 +86,7 @@ b_zdirM_hole_zAxisDist      = b_zdirM_motorAxis_zAxisDist - cos(45)*b_zdir_motor
 b_ydirM_hole_zAxisDist      = b_ydirM_motorAxis_zAxisDist - cos(45)*b_ydir_motorHoles_centerDist;  // dist of the holes not the motor axsis
 
 
-_b_xdir_bb_r = m8_nut_diameter*0.75;
+_b_xdir_bb_r = m8_nut_diameter*0.8;
 _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitude[0]);
 
 _b_zdirM_supportThickness = b_zdirM_motorAxis_zAxisDist-(b_zdirM_sideLength/2+b_smoothRod_diam/2+ b_genWallThickness);  
@@ -115,7 +111,7 @@ module  H_base(hasYMotorMount = true) {
 
 			// xdir wall
 			translate([-b_zDirWall_size[0]/2,-b_xDirWall_size[1]/2, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
-			cube(size=b_xDirWall_size, center=false);
+				cube(size=b_xDirWall_size, center=false);
 
 			//y dir bb
 			for (z=b_xdirRods_holes_altitude) 
@@ -173,10 +169,10 @@ module  H_base(hasYMotorMount = true) {
 					teardrop (r=b_roughRod_diam/2,h=b_zDirWall_size[0]+2*OS,top_and_bottom=false);
 					//cylinder(r=b_roughRod_diam/2, h=b_zDirWall_size[0]+2*OS, center=true); 
 				//xdir holes nut save range
-				for (x=[-(b_zDirWall_size[0]/2+m8_nut_heigth/2),b_zDirWall_size[0]/2+m8_nut_heigth/2]) 
+				for (x=[-(b_zDirWall_size[0]/2+b_m8_nut_heigth ),b_zDirWall_size[0]/2+b_m8_nut_heigth]) 
 				translate([x, y, z])
 				rotate(a=90,v=Y) 
-					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=m8_nut_heigth+b_m8_nut_tolerance[1], center=true); 
+					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=b_m8_nut_heigth*2+b_m8_nut_tolerance[1], center=true); 
 
 				// top and bottom coutoff
 				for (i=[-b_zDirWall_size[2]*1.5,b_zDirWall_size[2]+ b_zDirWall_size[2]*1.5]) 

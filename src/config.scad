@@ -22,11 +22,9 @@ c_y_axis_smoothRod_diam = 8;
 
 /*-----------------------------------z axis-----------------------------------*/
 c_z_axis_length = 235; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
-c_z_axis_smoothRod_diam = 8;
+c_z_axis_smoothRod_diam = 8.2;
 
 c_z_axis_rodsDist = ((45.45+30.56)/2+1)-(9.69+1); // distance between threded rod and smooth rod
-
-
 
 /******************************************************************************/ 
 /*                                  linear Bearings                           */
@@ -67,6 +65,12 @@ c_belt_tolerance      = [2,1]; //w,t
 
 
 /******************************************************************************/ 
+/*                                  support                                   */
+/******************************************************************************/
+c_xDirSupp_thredRod_altitude    = [8.266,45.497];
+c_xDirSupp_thredRod_zAxisDist   = 38.95-8.5;
+
+/******************************************************************************/ 
 /*                                  motor                                     */
 /******************************************************************************/
 c_motorShaft_diam            = 5; // motor axis diameter
@@ -74,6 +78,7 @@ c_motorShaft_length          = 25; // motor axis length from pilot
 c_motorPilot_diam            = 27.5; // motor pilot diameter
 c_motorScrewHole_diam        = 3.2; // motor screw holde diameter
 c_motorScrewHoles_centerDist = 43.841/2; // motor holes distance from axis center
+c_motor_sideLength           = 42; // length of the motor side (rectangular motor)
 
 /*-----------------------------------x axis-----------------------------------*/
 c_xAxis_motorShaft_diam            = c_motorShaft_diam;
@@ -81,6 +86,7 @@ c_xAxis_motorShaft_length          = c_motorShaft_length;
 c_xAxis_motorPilot_diam            = c_motorPilot_diam ;
 c_xAxis_motorScrewHole_diam        = c_motorScrewHole_diam ;
 c_xAxis_motorScrewHoles_centerDist = c_motorScrewHoles_centerDist;
+c_xAxis_motor_sideLength           = c_motor_sideLength;
 
 /*-----------------------------------y axis-----------------------------------*/
 c_yAxis_motorShaft_diam            = c_motorShaft_diam;
@@ -88,6 +94,7 @@ c_yAxis_motorShaft_length          = c_motorShaft_length;
 c_yAxis_motorPilot_diam            = c_motorPilot_diam ;
 c_yAxis_motorScrewHole_diam        = c_motorScrewHole_diam ;
 c_yAxis_motorScrewHoles_centerDist = c_motorScrewHoles_centerDist;
+c_yAxis_motor_sideLength           = c_motor_sideLength;
 
 /*-----------------------------------z axis-----------------------------------*/
 c_zAxis_motorShaft_diam            = c_motorShaft_diam;
@@ -95,3 +102,4 @@ c_zAxis_motorShaft_length          = c_motorShaft_length;
 c_zAxis_motorPilot_diam            = c_motorPilot_diam ;
 c_zAxis_motorScrewHole_diam        = c_motorScrewHole_diam ;
 c_zAxis_motorScrewHoles_centerDist = c_motorScrewHoles_centerDist;
+c_zAxis_motor_sideLength           = c_motor_sideLength;
