@@ -17,7 +17,7 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 Ze_mode = "-";
-//Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
+Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
 //Ze_mode = "printSet2";  $fn=24*4; //without additional Support
 //Ze_mode = "print left";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;
@@ -156,7 +156,7 @@ module H_Z_end(hasCrossBrace = true) {
 
 			if (hasCrossBrace) {
 				//screw holde
-				translate([-Ze_zEnd_rodsDist- _Ze_crosBr_bearing_dist, -Ze_strongWallThickness, m8_nut_diameter/2])
+				translate([-Ze_zEnd_rodsDist- _Ze_crosBr_bearing_dist, -Ze_strongWallThickness-OS, m8_nut_diameter/2])
 				rotate(a=90,v=Z)
 				rotate(a=180,v=X) 
 					teardrop (r=Ze_roughRod_diam/2,h=Ze_strongWallThickness*2+2*OS,top_and_bottom=false); 
