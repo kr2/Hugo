@@ -16,7 +16,7 @@ use <A-Y-BeltClamp.scad>
 Xc_mode = "-"; 
 //Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
-//Xc_mode = "assembly";
+Xc_mode = "assembly";
 
 Xc_genWallThickness          = 2.5;
 Xc_strongWallThickness       = 5;
@@ -50,13 +50,13 @@ Xc_holes_dist              = 18;
 Xc_rod_diam                = m8_diameter;
 
 /*------------------------------------belt------------------------------------*/
-Xc_belt_axisXc_ydir_dist   = c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width/2; // distece between center x axis and nerest belt edge
-Xc_belt_axisXc_zdir_offset = c_xAxis_beltTop_topxAxisDist; // distece between center of the top x axis and toothed side of the belt in z dir
 Xc_belt_thickness          = c_xAxis_belt_thickness;
 Xc_belt_width              = c_xAxis_belt_width;
 Xc_belt_teethDist          = c_xAxis_belt_teethDist;
 Xc_belt_teethDepth         = c_xAxis_belt_teethDepth;
 Xc_belt_tolerance          = [1,2,1]; //[t,w,-1]
+Xc_belt_axisXc_ydir_dist   = c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width/2; // distece between center x axis and nerest belt edge
+Xc_belt_axisXc_zdir_offset = c_xAxis_beltTop_topxAxisDist - Xc_belt_tolerance[0]; // distece between center of the top x axis and toothed side of the belt in z dir
 
 Xc_beltClamp_depth         = 10;
 
@@ -124,7 +124,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 						translate([-Xc_axis_dist/2, 0, 0]) 
 						rotate(a=-Xc_belt_holder_angle,v=Z) 
 						rotate(a=-90,v=[0,0,1]) 
-							barbell((Xc_lber_diam+Xc_genWallThickness*2)/2,Xc_beltClamp_width/2,Xc_belt_axisXc_ydir_dist*0.35,Xc_belt_axisXc_ydir_dist*0.3,Xc_belt_axisDist);
+							barbell((Xc_lber_diam+Xc_genWallThickness*2)/2,Xc_beltClamp_width/2,Xc_belt_axisXc_ydir_dist*0.4,Xc_belt_axisXc_ydir_dist*0.35,Xc_belt_axisDist);
 					}
 
 					// place for tabel for conectors
