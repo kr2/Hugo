@@ -16,7 +16,7 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 b_mode = "-";
-//b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
 //b_mode = "inspect";
@@ -262,12 +262,12 @@ if (b_mode == "inspect") {
 /*------------------------------------print-----------------------------------*/
 
 module H_base_print() {
-	translate([-b_zdir_motorHoles_centerDist*0.9, b_zdir_motorHoles_centerDist/3, 0]) 
+	translate([-b_zdir_motorHoles_centerDist, b_zdir_motorHoles_centerDist/3, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = true);
 
-	translate([b_zdir_motorHoles_centerDist*0.9, -b_zdir_motorHoles_centerDist/3, 0]) 
+	translate([b_zdir_motorHoles_centerDist, -b_zdir_motorHoles_centerDist/3, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
