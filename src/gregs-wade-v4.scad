@@ -909,18 +909,19 @@ module gegsWade_assembly() {
 	rotate(a=-90,v=Y) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 
-	translate([gear_separation+5, 20, 37.5]) 
-	rotate(a=-motor_mount_rotation,v=Y) 
-	rotate(a=-90,v=Z) 
-	rotate(a=-90,v=Y) 
-		cylinder(r=10, h=10, center=true);
+	color("Snow",0.5){
+		translate([gear_separation+5, 20, 37.5]) 
+		rotate(a=-motor_mount_rotation,v=Y) 
+		rotate(a=-90,v=Z) 
+		rotate(a=-90,v=Y) 
+			cylinder(r=10, h=10, center=true);
 
-	translate([5, 20, 37.5]) 
-	rotate(a=-motor_mount_rotation,v=Y) 
-	rotate(a=-90,v=Z) 
-	rotate(a=-90,v=Y) 
-		cylinder(r=65/2, h=10, center=true);
-
+		translate([5, 20, 37.5]) 
+		rotate(a=-motor_mount_rotation,v=Y) 
+		rotate(a=-90,v=Z) 
+		rotate(a=-90,v=Y) 
+			cylinder(r=65/2, h=10, center=true);
+	}
 
 	translate([-7, 14, 0]) 
 	rotate(a=90,v=X) 

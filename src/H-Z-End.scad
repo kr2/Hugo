@@ -37,8 +37,8 @@ Ze_roughRod_diam       = m8_diameter;
 
 /*------------------------------------zEnd------------------------------------*/
 Ze_zEnd_rodsDist       = c_z_axis_rodsDist;
-Ze_zEnd_heigt          = 42;
-Ze_zEnd_nuttrap_offset = 12;
+Ze_zEnd_heigt          = 50;
+Ze_zEnd_nuttrap_offset = 17;
 
 /*------------------------------------bearing---------------------------------*/
 Ze_bear_diam           = bear_608ZZ_diam;

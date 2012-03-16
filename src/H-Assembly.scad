@@ -55,7 +55,7 @@ module _xAxis_assembly() {
 		rod(r=c_x_axis_smoothRod_diam/2, h=_a_xAxis_real_length, center=true,info="x axis rod");
 
 	// xends
-	*translate([_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
+	translate([_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
 		H_x_End_idle_assembly();
 	translate([-_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
 		H_x_End_motor_assembly();
@@ -263,10 +263,10 @@ module H_assembly() {
 	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	*translate([0, a_act_pos[1], 0]) 
+	translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
-	*_zAxis_assembly();
+	_zAxis_assembly();
 
 	// basement
 	color("Lavender")
