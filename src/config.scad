@@ -22,9 +22,9 @@ c_y_axis_smoothRod_diam = 8;
 
 /*-----------------------------------z axis-----------------------------------*/
 c_z_axis_length = 235; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
-c_z_axis_smoothRod_diam = 8.2;
+c_z_axis_smoothRod_diam = 12.2;
 
-c_z_axis_rodsDist = 28.315; // distance between threded rod and smooth rod
+c_z_axis_rodsDist = 32; // distance between threded rod and smooth rod
 
 /******************************************************************************/ 
 /*                                  linear Bearings                           */
@@ -40,7 +40,7 @@ c_yAxis_lber_length = c_lber_length;
 c_yAxis_lber_diam   = c_lber_diam;
 /*----------------------------------z axis------------------------------------*/
 c_zAxis_lber_length = c_lber_length;
-c_zAxis_lber_diam   = c_lber_diam;
+c_zAxis_lber_diam   = 12 + c_lber_diam-8;
 
 /******************************************************************************/ 
 /*                                    BELT                                    */
@@ -64,8 +64,8 @@ c_xAxis_pully_diam = 9-c_xAxis_belt_thickness*2; // innes (in the teeth molde) d
 c_xAxis_bearingDiviater_diam = 26; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt) 
 
 // distances
-c_xAxis_beltCenter_xAxisDist     = 35;
-c_xAxis_beltCenter_motorScrewHoleDist     = 15;
+c_xAxis_beltCenter_xAxisDist     = 38;
+c_xAxis_beltCenter_motorScrewHoleDist     = 12;
 //c_xAxis_beltTop_topxAxisDist = -8; // distece between center of the top x axis and toothed side of the belt in z dir
 c_xAxis_beltTop_topxAxisDist = -(c_x_axis_dist/2)+c_xAxis_pully_diam/2; // distece between center of the top x axis and toothed side of the belt in z dir
 

@@ -6,6 +6,7 @@
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
+include <config.scad>
 include <units.scad>
 include <metric.scad>
 include <roundEdges.scad>
@@ -19,10 +20,10 @@ Ybc_mode = "-";
 //Ybc_mode = "assembly";
 
 /*------------------------------------belt------------------------------------*/
-Ybc_belt_thickness      = 2.5;
-Ybc_belt_width          = 6 + 1;
-Ybc_belt_teethDist      = 5;
-Ybc_belt_teethDepth     = 1.5;
+Ybc_belt_thickness      = c_yAxis_belt_thickness;
+Ybc_belt_width          = c_yAxis_belt_width;
+Ybc_belt_teethDist      = c_yAxis_belt_teethDist;
+Ybc_belt_teethDepth     = c_yAxis_belt_teethDepth;
 Ybc_belt_topOffset      = 14.6;  // from top plate to the top edge of the belt
 Ybc_belt_tolerance      = [2,1,1]; //x,y,z
 
@@ -132,8 +133,8 @@ module H_yBeltClamp() {
 			}
 
 			//oblique edge
-			translate([0, 0,  m3_diameter/2+Ybc_belt_width+Ybc_belt_tolerance[2]]) 
-			rotate(a=-30,v=X)  {
+			translate([0, 0,  m3_diameter/2+Ybc_belt_width+Ybc_belt_tolerance[2]-1]) 
+			rotate(a=-20,v=X)  {
 				difference() {
 					translate([-OS, -(y_mainLength- Ybc_strongWallThickness),0])
 					cube(size=[Ybc_strongWallThickness+2*OS, y_mainLength- Ybc_strongWallThickness, Ybc_belt_topOffset], center=false);
