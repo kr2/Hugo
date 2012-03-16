@@ -19,11 +19,10 @@ Ybd_mode = "-";
 //Ybd_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
 //Ybd_mode = "inspect";
 //Ybd_mode = "assembly";
-$fn=48;
 
-Ybd_thinWallThickness          = 1;
+Ybd_thinWallThickness          = 0.9;
 Ybd_genWallThickness           = 2.5;
-Ybd_strongWallThickness        = 8;
+Ybd_strongWallThickness        = 10;
 
 Ybd_horizontalSuportThickness  = 0.3;
 Ybd_verticalSupportThickness   = 0.5;
