@@ -76,7 +76,7 @@ c_yAxis_belt_width          = c_belt_width;
 c_yAxis_belt_teethDist      = c_belt_teethDist;
 c_yAxis_belt_teethDepth     = c_belt_teethDepth;
 
-c_y_axis_beltCenter_zDirOffset = 14.321; // offset of the center of the belt to the tabel contact plain
+c_y_axis_beltCenter_zDirOffset = 14.6; // offset of the center of the belt to the tabel contact plain
 
 /******************************************************************************/ 
 /*                                  support                                   */
