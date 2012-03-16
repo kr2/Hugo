@@ -21,7 +21,10 @@ module threadedRod(r=4, h=100, center=true,info="-") {
 	threadDepth = 1;
 	threadHeight = 0.5;
 
-	color("Gray") {
+	color("Gray") 
+		cylinder(r=r, h=h, center=center);
+
+	*color("Gray") {
 		cylinder(r=r - threadDepth, h=h, center=center);
 		for (i=[0:0.5:h]) {
 			if (center) {
