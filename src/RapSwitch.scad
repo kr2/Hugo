@@ -85,7 +85,7 @@ module contactHolder(springSpace = 0, knob = false,cabelHolder = false) {
 			difference() {
 				cube(size=[cabelHoleD*1.75, springThickness*2, switchSize[2]], center=false);
 				
-				#translate([cabelHoleD, -OS, switchSize[2]/2])  rotate(a=-90,v=[1,0,0]) 
+				translate([cabelHoleD, -OS, switchSize[2]/2])  rotate(a=-90,v=[1,0,0]) 
 					cylinder(r=cabelHoleD/2, h=springThickness*2 +2*OS, center=false);
 			}
 		}
