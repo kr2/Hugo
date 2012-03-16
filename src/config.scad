@@ -18,7 +18,8 @@ c_x_axis_dist = 35;
 
 /*-----------------------------------y axis-----------------------------------*/
 c_y_axis_length = 333; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
-c_y_axis_smoothRod_diam = 8;
+c_y_axis_smoothRod_diam = 8.1;
+c_y_axis_tabel_zDirOffset = 14.321; // offset of the center of the y axis to the tabel contact plain
 
 /*-----------------------------------z axis-----------------------------------*/
 c_z_axis_length = 333; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
@@ -66,7 +67,7 @@ c_xAxis_bearingDiviater_diam = 26; // diameter of the diviater (so the diameter 
 // distances
 c_xAxis_beltCenter_xAxisDist     = 38;
 c_xAxis_beltCenter_motorScrewHoleDist     = 12;
-//c_xAxis_beltTop_topxAxisDist = -8; // distece between center of the top x axis and toothed side of the belt in z dir
+
 c_xAxis_beltTop_topxAxisDist = -(c_x_axis_dist/2)+c_xAxis_pully_diam/2; // distece between center of the top x axis and toothed side of the belt in z dir
 
 /*-----------------------------------y axis-----------------------------------*/
@@ -74,6 +75,8 @@ c_yAxis_belt_thickness      = c_belt_thickness;
 c_yAxis_belt_width          = c_belt_width;
 c_yAxis_belt_teethDist      = c_belt_teethDist;
 c_yAxis_belt_teethDepth     = c_belt_teethDepth;
+
+c_y_axis_beltCenter_zDirOffset = 14.321; // offset of the center of the belt to the tabel contact plain
 
 /******************************************************************************/ 
 /*                                  support                                   */

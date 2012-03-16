@@ -17,7 +17,7 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 Ze_mode = "-";
-Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
+//Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
 //Ze_mode = "printSet2";  $fn=24*4; //without additional Support
 //Ze_mode = "print left";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;

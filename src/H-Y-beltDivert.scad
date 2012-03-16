@@ -6,6 +6,7 @@
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
+include <config.scad>
 include <units.scad>;
 include <metric.scad>
 include <roundEdges.scad>
@@ -31,7 +32,7 @@ Ybd_verticalSupportThickness   = 0.5;
 Ybd_roughRod_diam                   = 8.5;
 
 /*------------------------------------beltDivert------------------------------*/
-Ybd_beltDiv_xdirRods_dist = 60.901;
+Ybd_beltDiv_xdirRods_dist = c_xDirSupp_thredRod_zAxisDist*2;
 Ybd_beldDiv_bearingDist = 31.134+2;
 
 Ybd_beltDiv_height = Ybd_roughRod_diam+2*Ybd_genWallThickness;
@@ -123,7 +124,7 @@ include <BearingGuide.scad>
 
 
 module H_Y_beltDivert_assembly() {
-	translate([-22.2/2-0.5, 0, -Ybd_beltDiv_height/2]) 
+	translate([-c_xAxis_bearingDiviater_diam/2, 0, -Ybd_beltDiv_height/2]) 
 	rotate(a=90,v=Z){ 
 		H_Y_beltDivert();
 

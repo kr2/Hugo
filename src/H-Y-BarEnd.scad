@@ -5,6 +5,7 @@
  * derivative of the original design by abdrumm for the PrintrBot
  */
 
+include <config.scad>
 include <units.scad>;
 include <metric.scad>
 include <roundEdges.scad>
@@ -17,7 +18,7 @@ use <teardrop.scad>
 Ybe_mode = "-"; 
 //Ybe_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //Ybe_mode = "print";  $fn=24*4;  
-Ybe_mode = "inspect";
+//Ybe_mode = "inspect";
 //Ybe_mode = "assembly";
 
 Ybe_thinWallThickness          = 1;
@@ -28,10 +29,10 @@ Ybe_horizontalSuportThickness  = 0.3;
 Ybe_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-Ybe_smoothRod_diam                   = 8.0;
+Ybe_smoothRod_diam                   = c_y_axis_smoothRod_diam;
 
 /*------------------------------------BarEnd----------------------------------*/
-Ybe_barEnd_yAxis_offset = 14.321;
+Ybe_barEnd_yAxis_offset = c_y_axis_tabel_zDirOffset;
 Ybe_barEnd_slot_width = 1.674;
 Ybe_barEnd_heigth = 16;
 
