@@ -29,3 +29,26 @@ To view this  H-assembly.scad I recommend to use the actual developer release of
 So there are several prebuilt stl files to discover and to put your own assembly together or you build your own via OpenSCAD.
 
 In general if you print H-set1.stl and H-set2.stl you should have all mandatory parts to build the Printer. If you also print H-set3.stl you should be able to setup the entire printer as shown in H-assembly.scad. The H-set7_PLA.stl contains all necessary linear bearings plus some extra, in case some come out in bad quality. This bearings should be printed in PLA because it is harder then ABS.
+
+
+Sources
+=======
+Bar clamp:
+Bar clamp by Josef Průša
+https://github.com/prusajr/PrusaMendel
+
+Bearing Guide:
+Bearing Guide by GregFrost
+https://github.com/GregFrost/PrusaMendel
+
+Also some modules and metric files from the two above.
+
+Extruder:
+Greg's Wade reloaded - Guidler, Tilt Screws, Fishbone Gears by jonaskuehling
+http://www.thingiverse.com/thing:18379
+
+Printrbot:
+THE Printrbot by abdrumm
+http://www.thingiverse.com/thing:16990
+
+Thanks to all of them.
