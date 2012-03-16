@@ -260,7 +260,7 @@ module _zAxis_assembly() {
 
 
 module H_assembly() {
-	*translate([0, 0, a_act_pos[2]]) 
+	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
 	translate([0, a_act_pos[1], 0]) 
