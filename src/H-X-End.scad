@@ -39,7 +39,7 @@ Xe_X_RodHoles_pos    =  [ // x direction rod hole positions
 				    	];
 
 Xe_Z_bearingHole_dia = c_zAxis_lber_diam; // bearing hole diameter
-Xe_Z_bearingHole_pos = [Xe_X_RodHoles_pos[0][0]+Xe_strong_wall+ Xe_X_Rod_dia/2 + Xe_Z_bearingHole_dia/2, Xe_Z_bearingHole_dia/2+Xe_gen_wall]; //[x,y] // pos of the vertical bearing holder
+Xe_Z_bearingHole_pos = [Xe_X_RodHoles_pos[0][0]+Xe_strong_wall/2+ Xe_X_Rod_dia/2 + Xe_Z_bearingHole_dia/2, Xe_Z_bearingHole_dia/2+Xe_gen_wall]; //[x,y] // pos of the vertical bearing holder
 Xe_Z_nutTrap_pos     = [Xe_Z_bearingHole_pos[0], Xe_Z_bearingHole_pos[1]+c_z_axis_rodsDist]; //[x,y] // pos of the vertical nutrap with spring thing
 
 
