@@ -6,6 +6,7 @@
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
+include <config.scad>
 include <units.scad>;
 include <metric.scad>
 include <roundEdges.scad>
@@ -31,17 +32,17 @@ Ze_horizontalSuportThickness = 0.3;
 Ze_verticalSupportThickness  = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-Ze_smoothRod_diam      = 8.0;
-Ze_roughRod_diam       = 8.5;
+Ze_smoothRod_diam      = c_z_axis_smoothRod_diam;
+Ze_roughRod_diam       = m8_diameter;
 
 /*------------------------------------zEnd------------------------------------*/
-Ze_zEnd_rodsDist       = 28.315;
-Ze_zEnd_heigt          = 35;
+Ze_zEnd_rodsDist       = c_z_axis_rodsDist;
+Ze_zEnd_heigt          = 42;
 Ze_zEnd_nuttrap_offset = 12;
 
 /*------------------------------------bearing---------------------------------*/
-Ze_bear_diam           = 22.6;
-Ze_bear_heigth         = 7;
+Ze_bear_diam           = bear_608ZZ_diam;
+Ze_bear_heigth         = bear_608ZZ_height;
 
 
 /******************************************************************************/ 
@@ -169,7 +170,7 @@ module H_Z_end(hasCrossBrace = true) {
 
 
 if (Ze_mode == "inspect") {
-	H_Z_end();
+	H_Z_end(hasCrossBrace = false);
 }
 module H_Z_end_print() {
 	H_Z_end();

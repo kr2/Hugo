@@ -33,6 +33,10 @@ m3_nut_diameter_horizontal = 6.1;
 // where a nut is put in an slot and inthere hits the perpendicular threadhole
 m3_elongNtt_tolerance      = [0.5,0,0.5];// additional [diameter,depth,height]  // depth is not implemented
 
+/*------------------------------------608ZZ-----------------------------------*/
+bear_608ZZ_height = 7;
+bear_608ZZ_diam = 22.6;
+
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */

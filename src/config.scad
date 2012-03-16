@@ -24,7 +24,7 @@ c_y_axis_smoothRod_diam = 8;
 c_z_axis_length = 235; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
 c_z_axis_smoothRod_diam = 8.2;
 
-c_z_axis_rodsDist = ((45.45+30.56)/2+1)-(9.69+1); // distance between threded rod and smooth rod
+c_z_axis_rodsDist = 28.315; // distance between threded rod and smooth rod
 
 /******************************************************************************/ 
 /*                                  linear Bearings                           */
