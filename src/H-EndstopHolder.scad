@@ -11,6 +11,7 @@ include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
 include <barbell.scad>
+include <config.scad>
 
 
 /*------------------------------------general---------------------------------*/
@@ -26,12 +27,12 @@ eh_horizontalSuportThickness  = 0.3;
 eh_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-eh_rod_diam                   = 8.5;
+//rod_diam                   = 8.5;
 
 /*------------------------------------enstop----------------------------------*/
 eh_end_height                 = 9;
 eh_end_wallWidth              = 4;
-eh_end_slotWidth              = eh_rod_diam*0.7;
+
 eh_end_slotDepth              = 20.5;
 eh_end_clampHole_offset       = 15;
 eh_end_elongetatedHole_length = 10;
@@ -53,20 +54,20 @@ eh_holeOffsets = [
 
 // holeOffset is the distance form the center of the axis in the clamp to the center the hole
 // nuttraps [clamp, switch connector]  0: off, -1 one side 1 other side
-module H_endstop_holder(isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [-1,1]) {
+module H_endstop_holder(rod_diam=8,isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [-1,1]) {
 	_end_edgeRadius = min(eh_end_edgeRadius,(holeOffset[1]-3*eh_genWallThickness));
 	difference() {
 		union(){	
 			rotate(a=180,v=Z) 
-				_clamp(holeOffset=holeOffset, nuttrap = nuttraps[0]);
+				_clamp(holeOffset=holeOffset, nuttrap = nuttraps[0],rod_diam=rod_diam);
 
 			if (isPerpendicular == 0) {
-				translate([-eh_end_wallWidth/2, eh_rod_diam/2, 0]) 
-					cube(size=[eh_end_wallWidth, holeOffset[1]-eh_rod_diam/2+eh_end_addLengthHole, eh_end_height], center=false);
+				translate([-eh_end_wallWidth/2, rod_diam/2, 0]) 
+					cube(size=[eh_end_wallWidth, holeOffset[1]-rod_diam/2+eh_end_addLengthHole, eh_end_height], center=false);
 			}else{
 				// normal side
-				translate([-eh_end_wallWidth/2, eh_rod_diam/2, 0]) 
-					cube(size=[eh_end_wallWidth, holeOffset[1]-eh_rod_diam/2+eh_end_wallWidth/2, eh_end_height], center=false);
+				translate([-eh_end_wallWidth/2, rod_diam/2, 0]) 
+					cube(size=[eh_end_wallWidth, holeOffset[1]-rod_diam/2+eh_end_wallWidth/2, eh_end_height], center=false);
 				// Perpendicular sied
 				if (holeOffset[0]>0) {
 					translate([0, holeOffset[1]-eh_end_wallWidth/2, ])
@@ -139,8 +140,12 @@ module H_endstop_holder(isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [
 					translate([-eh_end_wallWidth/2, holeOffset[1]+eh_end_wallWidth/2, 0]) 
 						roundEdge(_a=-90,_r=_end_edgeRadius+eh_end_wallWidth/2,_l=eh_end_height,_fn=48);
 				}else{
-					translate([eh_end_wallWidth/2, holeOffset[1]+eh_end_wallWidth/2, 0]) 
-						roundEdge(_a=180,_r=_end_edgeRadius+ eh_end_wallWidth/2,_l=eh_end_height,_fn=48);
+					difference() {
+						translate([eh_end_wallWidth/2, holeOffset[1]+eh_end_wallWidth/2, 0]) 
+							roundEdge(_a=180,_r=_end_edgeRadius+ eh_end_wallWidth/2,_l=eh_end_height,_fn=48);
+						rotate(a=180,v=Z) 
+							_clamp(holeOffset=holeOffset, nuttrap = nuttraps[0],rod_diam=rod_diam);
+					}
 				}
 			}
 		}
@@ -148,18 +153,20 @@ module H_endstop_holder(isPerpendicular= 1, holeOffset = [-7,14,5], nuttraps = [
 
 }
 
-module _clamp(holeOffset,nuttrap) {
+module _clamp(holeOffset,nuttrap,rod_diam) {
+	end_slotWidth = rod_diam*0.7;
+
 	difference() {
 		union(){
-			cylinder(r=eh_rod_diam/2+eh_end_wallWidth, h=eh_end_height, center=false);
+			cylinder(r=rod_diam/2+eh_end_wallWidth, h=eh_end_height, center=false);
 			// slot outline
-			translate([-(eh_end_slotWidth+2*eh_end_wallWidth)/2, 0, 0]) 
-			cube(size=[eh_end_slotWidth+2*eh_end_wallWidth, eh_end_slotDepth, eh_end_height], center=false);
+			translate([-(end_slotWidth+2*eh_end_wallWidth)/2, 0, 0]) 
+			cube(size=[end_slotWidth+2*eh_end_wallWidth, eh_end_slotDepth, eh_end_height], center=false);
 
 			//nuttrap
 			if (nuttrap != 0) {
 				translate([0, eh_end_clampHole_offset, eh_end_height/2]) { // center screw hole
-					translate([nuttrap * ((eh_end_slotWidth)/2+eh_end_wallWidth), 0, 0]) 
+					translate([nuttrap * ((end_slotWidth)/2+eh_end_wallWidth), 0, 0]) 
 					rotate(a=90,v=Y) 
 					rotate(a=30,v=Z) 
 						cylinder(r=(eh_end_height/2)/cos(30), h=m3_nut_heigth, center=true,$fn=6);
@@ -169,26 +176,26 @@ module _clamp(holeOffset,nuttrap) {
 
 			// connector
 
-			linear_extrude(height=eh_end_height)
+			*linear_extrude(height=eh_end_height)
 			rotate(a=-90,v=Z) 
-				barbell(r1=(eh_rod_diam+2*eh_end_wallWidth)/2,r2=eh_end_wallWidth/2,r3=eh_end_wallWidth*4,r4=eh_end_wallWidth*4,separation=min(eh_end_edgeRadius,holeOffset[1]-3*eh_genWallThickness));
+				barbell(r1=(rod_diam+2*eh_end_wallWidth)/2,r2=eh_end_wallWidth/2,r3=eh_end_wallWidth*4,r4=eh_end_wallWidth*4,separation=min(eh_end_edgeRadius,holeOffset[1]-3*eh_genWallThickness));
 		}
 		union(){
 			// rod coutout
 			translate([0, 0, -OS]) 
-			cylinder(r=eh_rod_diam/2, h=eh_end_height+2*OS, center=false);
+			cylinder(r=rod_diam/2, h=eh_end_height+2*OS, center=false);
 			// slot coutout
-			translate([-eh_end_slotWidth/2, 0, -OS]) 
-			cube(size=[eh_end_slotWidth, eh_end_slotDepth+OS, eh_end_height+2*OS], center=false);
+			translate([-end_slotWidth/2, 0, -OS]) 
+			cube(size=[end_slotWidth, eh_end_slotDepth+OS, eh_end_height+2*OS], center=false);
 
 			
 			translate([0, eh_end_clampHole_offset, eh_end_height/2]) { // center screw hole
 				// clamp hole
 				rotate(a=90,v=Y) 
-					cylinder(r=m3_diameter/2, h=eh_end_slotWidth+2*eh_end_wallWidth+2*OS, center=true,$fn=24);
+					cylinder(r=m3_diameter/2, h=end_slotWidth+2*eh_end_wallWidth+2*OS, center=true,$fn=24);
 				if (nuttrap != 0) {
 					// nuttrap
-					translate([nuttrap * ((eh_end_slotWidth)/2+eh_end_wallWidth), 0, 0]) 
+					translate([nuttrap * ((end_slotWidth)/2+eh_end_wallWidth), 0, 0]) 
 					rotate(a=90,v=Y) 
 					rotate(a=30,v=Z) 
 						cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth+2*OS, center=true,$fn=6);
@@ -211,22 +218,22 @@ if (eh_mode == "print") {
 module H_endstop_printSet() {
 
 	translate([40, 20, 0]) 
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
+	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
 
 	translate([20, 10, 0]) 
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
+	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
 
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
 	
 	translate([-40, 25, 0]) 
 	rotate(a=90,v=[0,0,1]) 
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
 	
 	translate([-20, -10, 0]) 
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
+	H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
 
 	translate([-40, -20, 0]) 
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
+	H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
 
 }
 if (eh_mode == "printSet") {
@@ -245,7 +252,7 @@ module H_endstop_zb_assembly() {
 		rapSwitch_ass();
 
 	mirror([0, 1, 0])  
-		H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]);
+		H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]);
 }
 //!H_endstop_zb_assembly();
 
@@ -257,7 +264,7 @@ module H_endstop_zt_assembly() {
 		rapSwitch_ass();
 
 	mirror([0, 1, 0])  
-	H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]);
+	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]);
 }
 //! H_endstop_zt_assembly();
 
@@ -268,7 +275,7 @@ module H_endstop_yf_assembly() {
 
 	rotate(a=90,v=X) 
 	rotate(a=90,v=Y) 
-		H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]);
+		H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]);
 }
 //!H_endstop_yf_assembly();
 
@@ -287,7 +294,7 @@ module H_endstop_xl_assembly() {
 	rapSwitch_ass();
 
 	rotate(a=90,v=Y) 
-		H_endstop_holder(isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]);
+		H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]);
 }
 //!H_endstop_xl_assembly();
 
