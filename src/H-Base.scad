@@ -75,7 +75,7 @@ b_zdirRod_hole_depth         = b_zDirWall_size[2]-8.5;
 /*------------------------------------linear bearings-------------------------*/
 b_lber_length                = c_yAxis_lber_length;
 b_lber_diam                  = c_yAxis_lber_diam;
-b_lber_topOff                = (b_lber_diam- b_smoothRod_diam)/2 - 0.5;
+b_lber_topOff                = (b_lber_diam- c_y_axis_smoothRod_diam)/2 - 0.5;
 b_lber_zAxisDist             = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
 b_lber_zAxisXdirDist         = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
 
