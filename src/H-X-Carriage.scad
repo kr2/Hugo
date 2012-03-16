@@ -4,7 +4,7 @@
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * derivative of the original design by abdrumm for the PrintrBot
  */
-
+include <config.scad>
 include <units.scad>;
 include <metric.scad>
 include <roundEdges.scad>
@@ -18,7 +18,6 @@ Xc_mode = "-";
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
-Xc_axis_dist                 = 25.38;
 Xc_genWallThickness          = 2.5;
 Xc_strongWallThickness       = 5;
 
@@ -29,9 +28,12 @@ Xc_verticalSupportThickness  = 0.7;
 
 Xc_supportDistance           = 0.45; // suport distance for coutout
 
+
+Xc_axis_dist                 = c_x_axis_dist;
+
 /*------------------------------------linear bearings-------------------------*/
-Xc_lber_length               = 24;
-Xc_lber_diam                 = 15.3;
+Xc_lber_length               = c_xAxis_lber_length;
+Xc_lber_diam                 = c_xAxis_lber_diam;
 
 
 /*------------------------------------notch-----------------------------------*/
@@ -45,15 +47,15 @@ Xc_holes_diam              = m4_diameter;
 Xc_holes_dist              = 18;
 
 /*------------------------------------rod-------------------------------------*/
-Xc_rod_diam                = 8.5;
+Xc_rod_diam                = m8_diameter;
 
 /*------------------------------------belt------------------------------------*/
-Xc_belt_axisXc_ydir_dist   = 30; // distece between center x axis and nerest belt edge
-Xc_belt_axisXc_zdir_offset = -8; // distece between center x axis and toothed side of the belt in z dir
-Xc_belt_thickness          = 2.5;
-Xc_belt_width              = 6 + 1;
-Xc_belt_teethDist          = 5;
-Xc_belt_teethDepth         = 1.5;
+Xc_belt_axisXc_ydir_dist   = c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width/2; // distece between center x axis and nerest belt edge
+Xc_belt_axisXc_zdir_offset = c_xAxis_beltTop_topxAxisDist; // distece between center of the top x axis and toothed side of the belt in z dir
+Xc_belt_thickness          = c_xAxis_belt_thickness;
+Xc_belt_width              = c_xAxis_belt_width;
+Xc_belt_teethDist          = c_xAxis_belt_teethDist;
+Xc_belt_teethDepth         = c_xAxis_belt_teethDepth;
 Xc_belt_tolerance          = [1,2,1]; //[t,w,-1]
 
 Xc_beltClamp_depth         = 10;
