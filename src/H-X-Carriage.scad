@@ -124,7 +124,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 						translate([-Xc_axis_dist/2, 0, 0]) 
 						rotate(a=-Xc_belt_holder_angle,v=Z) 
 						rotate(a=-90,v=[0,0,1]) 
-							barbell((Xc_lber_diam+Xc_genWallThickness*2)/2,Xc_beltClamp_width/2,Xc_belt_axisXc_ydir_dist*0.47,Xc_belt_axisXc_ydir_dist*0.37,Xc_belt_axisDist);
+							barbell((Xc_lber_diam+Xc_genWallThickness*2)/2,Xc_beltClamp_width/2,Xc_belt_axisXc_ydir_dist*0.35,Xc_belt_axisXc_ydir_dist*0.3,Xc_belt_axisDist);
 					}
 
 					// place for tabel for conectors

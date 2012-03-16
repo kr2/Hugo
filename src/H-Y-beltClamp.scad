@@ -24,7 +24,7 @@ Ybc_belt_thickness      = c_yAxis_belt_thickness;
 Ybc_belt_width          = c_yAxis_belt_width;
 Ybc_belt_teethDist      = c_yAxis_belt_teethDist;
 Ybc_belt_teethDepth     = c_yAxis_belt_teethDepth;
-Ybc_belt_topOffset      = 14.6;  // from top plate to the top edge of the belt
+Ybc_belt_topOffset      = c_y_axis_beltCenter_zDirOffset;  // from top plate to the top edge of the belt
 Ybc_belt_tolerance      = [2,1,1]; //x,y,z
 
 Ybc_strongWallThickness = 10;

@@ -11,21 +11,21 @@
 /******************************************************************************/
 
 /*-----------------------------------x axis-----------------------------------*/
-c_x_axis_length = 333; // usable lenth. If you use an extruder which is longer then the H-Xtruder-Mount.scad you have to add this overcut here.
+c_x_axis_length = 225; // usable lenth. If you use an extruder which is longer then the H-Xtruder-Mount.scad you have to add this overcut here.
 c_x_axis_smoothRod_diam = 8.1;
 
-c_x_axis_dist = 35;
+c_x_axis_dist = 25.38;
 
 /*-----------------------------------y axis-----------------------------------*/
-c_y_axis_length = 333; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
+c_y_axis_length = 225; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
 c_y_axis_smoothRod_diam = 8.1;
 c_y_axis_tabel_zDirOffset = 14.321; // offset of the center of the y axis to the tabel contact plain
 
 /*-----------------------------------z axis-----------------------------------*/
-c_z_axis_length = 333; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
-c_z_axis_smoothRod_diam = 12.2;
+c_z_axis_length = 235; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
+c_z_axis_smoothRod_diam = 8.2;
 
-c_z_axis_rodsDist = 32; // distance between threded rod and smooth rod
+c_z_axis_rodsDist = ((45.45+30.56)/2+1)-(9.69+1); // distance between threded rod and smooth rod
 
 /******************************************************************************/ 
 /*                                  linear Bearings                           */
@@ -41,15 +41,15 @@ c_yAxis_lber_length = c_lber_length;
 c_yAxis_lber_diam   = c_lber_diam + 0.2;
 /*----------------------------------z axis------------------------------------*/
 c_zAxis_lber_length = c_lber_length;
-c_zAxis_lber_diam   = 12 + c_lber_diam-8;
+c_zAxis_lber_diam   = c_lber_diam;
 
 /******************************************************************************/ 
 /*                                    BELT                                    */
 /******************************************************************************/
-c_belt_thickness      = 1.3;
+c_belt_thickness      = 2.2;
 c_belt_width          = 6;
-c_belt_teethDist      = 2.5;
-c_belt_teethDepth     = 0.7;
+c_belt_teethDist      = 5;
+c_belt_teethDepth     = 1.2;
 
 /*-----------------------------------x axis-----------------------------------*/
 //belt
@@ -59,13 +59,13 @@ c_xAxis_belt_teethDist      = c_belt_teethDist;
 c_xAxis_belt_teethDepth     = c_belt_teethDepth;
 
 // pully
-c_xAxis_pully_diam = 9-c_xAxis_belt_thickness*2; // innes (in the teeth molde) diameter of the pully
+c_xAxis_pully_diam = 15.05 - c_xAxis_belt_thickness*2; // innes (in the teeth molde) diameter of the pully
 
 // diviater
 c_xAxis_bearingDiviater_diam = 26; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt) 
 
 // distances
-c_xAxis_beltCenter_xAxisDist     = 38;
+c_xAxis_beltCenter_xAxisDist     = 32;
 c_xAxis_beltCenter_motorScrewHoleDist     = 12;
 
 c_xAxis_beltTop_topxAxisDist = -(c_x_axis_dist/2)+c_xAxis_pully_diam/2; // distece between center of the top x axis and toothed side of the belt in z dir
@@ -76,7 +76,7 @@ c_yAxis_belt_width          = c_belt_width;
 c_yAxis_belt_teethDist      = c_belt_teethDist;
 c_yAxis_belt_teethDepth     = c_belt_teethDepth;
 
-c_y_axis_beltCenter_zDirOffset = 14.321; // offset of the center of the belt to the tabel contact plain
+c_y_axis_beltCenter_zDirOffset = 14.6; // offset of the center of the belt to the tabel contact plain
 
 /******************************************************************************/ 
 /*                                  support                                   */
