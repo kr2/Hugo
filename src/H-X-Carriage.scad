@@ -16,7 +16,7 @@ use <A-Y-BeltClamp.scad>
 Xc_mode = "-"; 
 //Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
-Xc_mode = "assembly";
+//Xc_mode = "assembly";
 
 Xc_genWallThickness          = 2.5;
 Xc_strongWallThickness       = 5;
