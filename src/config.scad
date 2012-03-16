@@ -45,10 +45,10 @@ c_zAxis_lber_diam   = c_lber_diam;
 /******************************************************************************/ 
 /*                                    BELT                                    */
 /******************************************************************************/
-c_belt_thickness      = 2.5;
+c_belt_thickness      = 1.3;
 c_belt_width          = 6;
-c_belt_teethDist      = 5;
-c_belt_teethDepth     = 1.5;
+c_belt_teethDist      = 2.5;
+c_belt_teethDepth     = 0.7;
 
 /*-----------------------------------x axis-----------------------------------*/
 c_xAxis_belt_thickness      = c_belt_thickness;
@@ -56,12 +56,12 @@ c_xAxis_belt_width          = c_belt_width;
 c_xAxis_belt_teethDist      = c_belt_teethDist;
 c_xAxis_belt_teethDepth     = c_belt_teethDepth;
 
-c_xAxis_beltCenter_xAxisDist     = 30;
-c_xAxis_beltCenter_motorScrewHoleDist     = 20;
+c_xAxis_beltCenter_xAxisDist     = 35;
+c_xAxis_beltCenter_motorScrewHoleDist     = 15;
 c_xAxis_beltTop_topxAxisDist = -8; // distece between center of the top x axis and toothed side of the belt in z dir
 
 // pully
-c_xAxis_pully_diam = 9-c_xAxis_belt_thickness; // innes (in the teeth molde) diameter of the pully
+c_xAxis_pully_diam = 9-c_xAxis_belt_thickness*2; // innes (in the teeth molde) diameter of the pully
 
 // diviater
 c_xAxis_bearingDiviater_diam = 26; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt) 

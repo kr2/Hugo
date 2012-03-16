@@ -52,7 +52,7 @@ Xe_X_Rod_depth       = Xe_outline[1]- Xe_gen_wall -m8_nut_wallDist/2; // x direc
 
 /*------------------------------------idler-----------------------------------*/
 
-Xe_idle_hole_pos   = [Xe_outline[1]/2, 14]; //[y,z] // postion of the idler hole
+Xe_idle_hole_pos   = [Xe_Z_bearingHole_dia/2 + Xe_gen_wall + Xe_Z_AxisDist/2, Xe_X_RodHoles_pos[1][1] + c_xAxis_beltTop_topxAxisDist - c_xAxis_bearingDiviater_diam/2]; //[y,z] // postion of the idler hole
 Xe_idle_hole_dia   = 8.25; // diameter of the idler hole
 Xe_idle_hole_depth =  (min(Xe_Z_nutTrap_pos[0]+(m8_nut_wallDist+Xe_gen_wall)/cos(30),Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall))-(Xe_X_RodHoles_pos[0][0]+Xe_X_Rod_dia/2+Xe_strong_wall); // depth of the idler hole
 
@@ -275,7 +275,7 @@ module H_x_End_idle_assembly() {
 		rotate(a=-90,v=Y) 
 			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false,info = "x end idler bearing holder rod");
 
-		translate([1.5+Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
+		translate([Xe_X_RodHoles_pos[1][0]+c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=90,v=Y) 
 			bearGuid_ass();
 	}
@@ -290,11 +290,18 @@ module H_x_End_motor_assembly() {
 		translate([Xe_outline[0], Xe_outline[1]/2, Xe_outline[2]/2]) 
 		rotate(a=-90,v=Y) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
+
+		// pully 
+		translate([Xe_outline[0], Xe_outline[1]/2, Xe_outline[2]/2] - [c_xAxis_beltCenter_motorScrewHoleDist,0,0]) 
+		rotate(a=90,v=Y) 
+			cylinder(r=c_xAxis_pully_diam/2, h=c_xAxis_belt_width, center=true);
 	}
 }
 
 if (Xe_mode == "assembly"){
-	//H_x_End_idle_assembly();
+	translate([Xe_Z_bearingHole_dia, 0, 0]) 
+	H_x_End_idle_assembly();
+	translate([-Xe_Z_bearingHole_dia, 0, 0]) 
 	H_x_End_motor_assembly();
 }
 
