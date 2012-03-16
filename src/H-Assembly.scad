@@ -76,8 +76,8 @@ module _xAxis_assembly() {
 
 	//belt
 	color("white")
-	translate([0, Xc_belt_axisXc_ydir_dist + 3,Xe_X_RodHoles_pos[1][1]+ Xc_belt_axisXc_zdir_offset + 1.5]) 
-		cube(size=[_a_xAxis_real_length, 6, 3], center=true);
+	translate([0, Xc_belt_axisXc_ydir_dist + c_xAxis_belt_width/2, Xe_X_RodHoles_pos[1][1]+ c_xAxis_beltTop_topxAxisDist + c_xAxis_belt_thickness/2]) 
+		cube(size=[_a_xAxis_real_length, c_xAxis_belt_width, c_xAxis_belt_thickness], center=true);
 }
 
 /*------------------------------------y axis----------------------------------*/
@@ -117,6 +117,11 @@ module _yAxis_assembly() {
 			H_yBeltClampBack_assembly();
 	}
 
+
+	// y belt
+	color("white")
+	translate([0, 0, -( a_heatedBed_size[2] + a_heatedBed_tabelOffset + a_tabel_thickness +  Ybc_belt_topOffset +3 +1)]) 
+		cube(size=[c_yAxis_belt_thickness,  _a_yAxis_real_length, c_yAxis_belt_width], center=true);
 }
 
 
@@ -248,19 +253,16 @@ module H_assembly() {
 	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	translate([0, a_act_pos[1], 0]) 
+	*translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
-	_zAxis_assembly();
+	*_zAxis_assembly();
 
 	// basement
 	color("Lavender")
 	translate([0, 0, -_a_basement_tabelOffset-2.5]) 
 		cube(size=[c_x_axis_length*2, c_y_axis_length*2, 5], center=true);
 
-	color("white")
-	translate([0, 0, -( a_heatedBed_size[2] + a_heatedBed_tabelOffset + a_tabel_thickness +  Ybc_belt_topOffset +3 +1)]) 
-	cube(size=[3, _a_yAxis_real_length, 6], center=true);
 }
 
 H_assembly();
