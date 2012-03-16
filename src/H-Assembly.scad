@@ -138,7 +138,7 @@ module _yAxis_assembly() {
 /*------------------------------------z axis----------------------------------*/
 _a_basement_tabelOffset = _a_yAxis_rod_topOffset +  b_zDirWall_size[2]-b_lber_topOff+ b_lber_diam/2;
 _a_zAxis_smoothReal_length = c_z_axis_length+ b_zdirRod_hole_depth+ (_a_basement_tabelOffset-b_zDirWall_size[2]) + Ze_zEnd_heigt;
-_a_zAxis_roughReal_length = c_z_axis_length+ (_a_basement_tabelOffset-b_zDirWall_size[2]) + Ze_zEnd_heigt - c_motorShaft_length;
+_a_zAxis_roughReal_length = c_z_axis_length+ (_a_basement_tabelOffset-b_zDirWall_size[2]) + Ze_zEnd_heigt - c_motorShaft_length + 25;
 
 _a_zAxis_xdir_crossBrace_overcut = 150; // todo 100 == cross brace
 _a_zAxis_xdirRods_length = _a_xEnd_xdirBearHole_offset[0]*2 + b_zDirWall_size[0] + m8_nut_heigth*2 ; 
