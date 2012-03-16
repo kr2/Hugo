@@ -17,7 +17,7 @@ use <teardrop.scad>
 Ybe_mode = "-"; 
 //Ybe_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the model with the original model] (uncomment next line)
 //Ybe_mode = "print";  $fn=24*4;  
-//Ybe_mode = "inspect";
+Ybe_mode = "inspect";
 //Ybe_mode = "assembly";
 
 Ybe_thinWallThickness          = 1;
@@ -89,7 +89,8 @@ module H_Y_BarEnd() {
 			// material coutout
 			translate([_Ybe_con_size[0]/2, -Ybe_smoothRod_diam/2- Ybe_genWallThickness, -OS]) 
 			difference() {
-				cube(size=_Ybe_con_size+[0,0,2*OS], center=false);
+				translate([0, -OS, 0]) 
+					cube(size=_Ybe_con_size+[0,2*OS,2*OS], center=false);
 				translate([-(tan(10) * _Ybe_con_size[1]) , 0, 0]) 
 				rotate(a=90-_Ybe_angle,v=Z) 
 				linear_extrude(height=Ybe_barEnd_heigth+2*OS)
