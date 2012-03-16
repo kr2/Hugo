@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-//b_mode = "inspect";
+b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness          = 1;
@@ -183,11 +183,8 @@ module  H_base(hasYMotorMount = true) {
 			//linear bearing coutout
 			for (i=[b_lber_zAxisDist+b_lber_length/2,-b_lber_zAxisDist- b_lber_length/2])  
 			translate([b_lber_zAxisXdirDist, i, b_zDirWall_size[2]-b_lber_topOff+ b_lber_diam/2]) {
-				rotate(a=90,v=Z)
-				rotate(a=180,v=X)	
-				translate([-b_lber_length/2, 0, 0]) 		  
-					teardrop (r=b_lber_diam/2,h=b_lber_length,top_and_bottom=false);
-						//#cylinder(r=b_lber_diam/2, h=b_lber_length, center=true);
+				rotate(a=90,v=X)  		  
+					cylinder(r=(b_lber_diam/2)/cos(15), h=b_lber_length, center=true,$fn=12);
 
 
 				//zip tie holes
