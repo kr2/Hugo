@@ -22,6 +22,8 @@ include <H-BarClamp.scad>
 include <H-Z-Coupling.scad>
 include <H-Base.scad>
 
+include <gregs-wade-v4.scad>
+
 include <basicMetalParts.scad>
 
 
@@ -52,9 +54,9 @@ module _xAxis_assembly() {
 		rod(r=c_x_axis_smoothRod_diam/2, h=_a_xAxis_real_length, center=true,info="x axis rod");
 
 	// xends
-	translate([_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
+	*translate([_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
 		H_x_End_idle_assembly();
-	translate([-_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
+	*translate([-_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
 		H_x_End_motor_assembly();
 
 	// x carriage
@@ -65,6 +67,13 @@ module _xAxis_assembly() {
 	translate([a_act_pos[0], 0, Xe_X_RodHoles_pos[1][1]]) 
 	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
 		H_Xtruder_mount_assembly();
+
+	// extruder
+	translate([0, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
+	translate([a_act_pos[0], 0, Xe_X_RodHoles_pos[1][1]]) 
+	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
+	rotate(a=180,v=Z) 
+	gegsWade_assembly();
 
 	// endstops
 	translate([-c_x_axis_length/2, 0, Xe_X_RodHoles_pos[0][1]]) 
@@ -253,10 +262,10 @@ module H_assembly() {
 	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	translate([0, a_act_pos[1], 0]) 
+	*translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
-	_zAxis_assembly();
+	*_zAxis_assembly();
 
 	// basement
 	color("Lavender")
