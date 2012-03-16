@@ -8,6 +8,8 @@
 include <config.scad>
 include <metric.scad>
 
+include <gregs-wade-v4.scad>
+
 include <H-Xtruder-Mount.scad>
 include <H-X-End.scad>
 include <H-X-Carriage.scad>
@@ -22,7 +24,6 @@ include <H-BarClamp.scad>
 include <H-Z-Coupling.scad>
 include <H-Base.scad>
 
-include <gregs-wade-v4.scad>
 
 include <basicMetalParts.scad>
 
@@ -56,7 +57,7 @@ module _xAxis_assembly() {
 	// xends
 	*translate([_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
 		H_x_End_idle_assembly();
-	*translate([-_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
+	translate([-_a_xEnd_xdirBearHole_offset[0], _a_xEnd_xdirBearHole_offset[1], 0]) 
 		H_x_End_motor_assembly();
 
 	// x carriage
@@ -73,7 +74,7 @@ module _xAxis_assembly() {
 	translate([a_act_pos[0], 0, Xe_X_RodHoles_pos[1][1]]) 
 	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
 	rotate(a=180,v=Z) 
-	gegsWade_assembly();
+		gegsWade_assembly();
 
 	// endstops
 	translate([-c_x_axis_length/2, 0, Xe_X_RodHoles_pos[0][1]]) 

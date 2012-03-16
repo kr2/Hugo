@@ -4,7 +4,7 @@
 // Extruder based on prusa git repo.
 // http://www.thingiverse.com/thing:6713
 
-include <units.scad>
+include<units.scad>
 include<config.scad>
 include<metric.scad>
 
@@ -243,20 +243,20 @@ module wade (hotend_mount=0,legacy_mount=true,hasSupport = false){
 
 			// Connect block to top of motor mount.
 			linear_extrude(height=motor_mount_thickness)
-			barbell(block_top_right-[0,5],motor_hole(0),5,nema17_support_d/2,100,60);
+			gW_barbell(block_top_right-[0,5],motor_hole(0),5,nema17_support_d/2,100,60);
 
 			//Connect motor mount to base.
 			linear_extrude(height=motor_mount_thickness)
-			barbell([base_length-base_leadout,
+			gW_barbell([base_length-base_leadout,
 				base_thickness/2],motor_hole(2),base_thickness/2,
 				nema17_support_d/2,100,60);
 
 			// Round the ends of the base
 			translate([base_length-base_leadout,base_thickness/2,0])
-			cylinder(r=base_thickness/2,h=wade_block_depth,$fn=20);
+				cylinder(r=base_thickness/2,h=wade_block_depth,$fn=20);
 
 			translate([-base_leadout,base_thickness/2,0])
-			cylinder(r=base_thickness/2,h=wade_block_depth,$fn=20);
+				cylinder(r=base_thickness/2,h=wade_block_depth,$fn=20);
 
 			//Provide the bevel betweeen the base and the wade block.
 			render()
@@ -316,7 +316,7 @@ module wade (hotend_mount=0,legacy_mount=true,hasSupport = false){
 			translate([-base_leadout,0,0])
 			cube([base_length,base_thickness,wade_block_depth]);
 
-			motor_mount ();
+			motor_mount();
 		}
 
 		block_holes(legacy_mount=legacy_mount);
@@ -530,9 +530,9 @@ module block_holes(legacy_mount=false){
 
 module motor_mount(){
 	linear_extrude(height=motor_mount_thickness){
-		barbell (motor_hole(0),motor_hole(1),nema17_support_d/2,
+		gW_barbell (motor_hole(0),motor_hole(1),nema17_support_d/2,
 			nema17_support_d/2,20,160);
-		barbell (motor_hole(1),motor_hole(2),nema17_support_d/2,
+		gW_barbell (motor_hole(1),motor_hole(2),nema17_support_d/2,
 			nema17_support_d/2,20,160);
 	}
 }
@@ -685,7 +685,7 @@ module b608(h=8){
 	translate([0,0,h/2]) cylinder(r=hole_for_608/2,h=h,center=true,$fn=60);
 }
 
-module barbell (x1,x2,r1,r2,r3,r4) {
+module gW_barbell (x1,x2,r1,r2,r3,r4) {
 	x3=triangulate (x1,x2,r1+r3,r2+r3);
 	x4=triangulate (x2,x1,r2+r4,r1+r4);
 	render()
