@@ -1,4 +1,4 @@
-/* config [c]
+O/* config [c]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -92,7 +92,7 @@ c_motorShaft_length          = 25; // motor axis length from pilot
 c_motorPilot_diam            = 27.5; // motor pilot diameter
 c_motorScrewHole_diam        = 3.2; // motor screw holde diameter
 c_motorScrewHoles_centerDist = 43.841/2; // motor holes distance from axis center
-c_motor_sideLength           = 42; // length of the motor side (rectangular motor)
+c_motor_sideLength           = 42.1; // length of the motor side (rectangular motor)
 
 /*-----------------------------------x axis-----------------------------------*/
 c_xAxis_motorShaft_diam            = c_motorShaft_diam;

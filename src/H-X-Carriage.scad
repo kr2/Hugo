@@ -13,7 +13,7 @@ include <barbell.scad>
 use <A-Y-BeltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
-Xc_mode = "-"; 
+//Xc_mode = "-"; 
 //Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
@@ -118,7 +118,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 						rotate(a=90-Xc_belt_holder_angle,v=Z) 
 						rotate(a=-90,v=Y)
 						linear_extrude(height=Xc_zdir)
-							barbell(Xc_beltClamp_width/2,Xc_beltClamp_width/2,Xc_zdir*0.5,Xc_zdir*0.55,Xc_zdir+2*OS);
+							barbell(Xc_beltClamp_width/2,Xc_beltClamp_width/2,Xc_zdir*0.474,Xc_zdir*0.65,Xc_zdir+2*OS);
 			
 						linear_extrude(height=Xc_zdir)
 						translate([-Xc_axis_dist/2, 0, 0]) 

@@ -8,7 +8,7 @@
 include <units.scad>
 
 mode = "-";
-//mode = "print"; $fn=24*4;
+mode = "print"; $fn=24*4;
 mode = "printSet"; $fn=24*4;
 
 /**
@@ -143,7 +143,44 @@ module TLB_print(s = 4) {
 	}
 }
 if (mode == "printSet") {
-	TLB_print(s = 4);
+	translate([0, 0, 12]) {
+		// x axis
+		for (i=[-2:2]) 
+		translate([i*16, 18, 0])
+			TLB_linearBearing(
+					inner_d          = 8, 
+					outer_d          = 15,
+					h                = 24,
+					stringWidth      = 0.5,
+					minWallThickness = 0.85, 
+					tooths           = 16, 
+					toothRatio       = 0.25);
+
+		// y axis
+		for (i=[-2:2]) 
+		translate([i*16, -18, 0])
+			TLB_linearBearing(
+					inner_d          = 8, 
+					outer_d          = 15,
+					h                = 24,
+					stringWidth      = 0.5,
+					minWallThickness = 0.85, 
+					tooths           = 16, 
+					toothRatio       = 0.25);
+
+		// y axis
+		for (i=[-2:2]) 
+		translate([i*20, 0, 0])
+			TLB_linearBearing(
+					inner_d          = 12, 
+					outer_d          = 19,
+					h                = 24,
+					stringWidth      = 0.5,
+					minWallThickness = 0.85, 
+					tooths           = 22, 
+					toothRatio       = 0.25);
+
+	}
 }
 
 if (mode == "print") {

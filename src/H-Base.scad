@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-b_mode = "inspect";
+//b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness          = 1;
@@ -41,8 +41,8 @@ b_xdirRods_holes_altitude    = c_xDirSupp_thredRod_altitude;
 b_xdirRods_holes_zAxisDist   = c_xDirSupp_thredRod_zAxisDist;
 
 /*------------------------------------zip ties--------------------------------*/
-b_zipTies_width              = 4;
-b_zipTies_thickness          = 2;
+b_zipTies_width              = 5;
+b_zipTies_thickness          = 2.5;
 
 /*------------------------------------air outlet------------------------------*/
 b_airOut_diam                = 3;
@@ -90,6 +90,9 @@ _b_xdir_bb_r = m8_nut_diameter*0.8;
 _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitude[0]);
 
 _b_zdirM_supportThickness = b_zdirM_motorAxis_zAxisDist-(b_zdirM_sideLength/2+b_smoothRod_diam/2+ b_genWallThickness);  
+
+
+_b_SaveRange_height = max(b_zDirSupport_r, b_m8_nut_heigth+b_m8_nut_tolerance[1]) +b_verticalSupportThickness;
 
 module  H_base(hasYMotorMount = true) {
 	difference() {
@@ -159,7 +162,7 @@ module  H_base(hasYMotorMount = true) {
 			// z axis
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) 
 				cylinder(r=b_smoothRod_diam/2, h=b_zdirRod_hole_depth+OS, center=false);
-			cylinder(r=b_airOut_diam/2, h= b_zDirWall_size[2]-b_zdirRod_hole_depth + OS, center=false);
+			cylinder(r=b_airOut_diam/2, h= b_zDirWall_size[2]-b_zdirRod_hole_depth -b_horizontalSuportThickness, center=false);
 
 			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
 			for (z=b_xdirRods_holes_altitude){
@@ -169,10 +172,10 @@ module  H_base(hasYMotorMount = true) {
 					teardrop (r=b_roughRod_diam/2,h=b_zDirWall_size[0]+2*OS,top_and_bottom=false);
 					//cylinder(r=b_roughRod_diam/2, h=b_zDirWall_size[0]+2*OS, center=true); 
 				//xdir holes nut save range
-				for (x=[-(b_zDirWall_size[0]/2+b_m8_nut_heigth ),b_zDirWall_size[0]/2+b_m8_nut_heigth]) 
+				for (x=[-(b_zDirWall_size[0]/2+_b_SaveRange_height/2 -b_verticalSupportThickness),b_zDirWall_size[0]/2+_b_SaveRange_height/2- b_verticalSupportThickness]) 
 				translate([x, y, z])
 				rotate(a=90,v=Y) 
-					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=b_m8_nut_heigth*2+b_m8_nut_tolerance[1], center=true); 
+					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=_b_SaveRange_height, center=true); 
 
 				// top and bottom coutoff
 				for (i=[-b_zDirWall_size[2]*1.5,b_zDirWall_size[2]+ b_zDirWall_size[2]*1.5]) 
@@ -185,7 +188,7 @@ module  H_base(hasYMotorMount = true) {
 			translate([b_lber_zAxisXdirDist, i, b_zDirWall_size[2]-b_lber_topOff+ b_lber_diam/2]) {
 				rotate(a=90,v=X) {		  
 					cylinder(r=(b_lber_diam/2)/cos(45), h=b_lber_length, center=true,$fn=4);
-					*cylinder(r=(8/2), h=b_lber_length, center=true);
+					*cylinder(r=(b_lber_diam/2), h=b_lber_length, center=true);
 				}
 
 				//zip tie holes
@@ -263,12 +266,12 @@ if (b_mode == "inspect") {
 /*------------------------------------print-----------------------------------*/
 
 module H_base_print() {
-	translate([-b_zdir_motorHoles_centerDist*0.9, b_zdir_motorHoles_centerDist/3, 0]) 
+	translate([-b_zdir_motorHoles_centerDist, b_zdir_motorHoles_centerDist/3, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
 		H_base(hasYMotorMount = true);
 
-	translate([b_zdir_motorHoles_centerDist*0.9, -b_zdir_motorHoles_centerDist/3, 0]) 
+	translate([b_zdir_motorHoles_centerDist, -b_zdir_motorHoles_centerDist/3, 0]) 
 	rotate(a=180,v=Z) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
