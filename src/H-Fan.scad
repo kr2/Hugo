@@ -48,7 +48,7 @@ f_screwFreeSpace = 6;
 
 
 /*------------------------------------connector-------------------------------*/
-f_conn_size = [f_strongWallThickness*2+m3_diameter,f_strongWallThickness,70];  // relative to z=0
+f_conn_size = [3*2+m3_diameter,f_strongWallThickness,70];  // relative to z=0
 f_connSlot_width = m3_diameter;
 
 
