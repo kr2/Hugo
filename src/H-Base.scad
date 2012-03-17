@@ -16,7 +16,7 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 b_mode = "-";
-b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
+//b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
 //b_mode = "inspect";

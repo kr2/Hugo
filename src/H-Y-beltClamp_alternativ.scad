@@ -6,6 +6,7 @@
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
+include <config.scad>
 include <units.scad>
 include <utilities.scad>
 include <metric.scad>
@@ -29,11 +30,11 @@ Ybda_strongWallThickness = 10;
 Ybda_reinforcement_r = 4;
 
 /*------------------------------------belt------------------------------------*/
-Ybda_belt_thickness      = 2.5;
-Ybda_belt_width          = 6;
-Ybda_belt_teethDist      = 5;
-Ybda_belt_teethDepth     = 1.5;
-Ybda_belt_topOffset      = 14.6;  // from top plate to the top edge of the belt
+Ybda_belt_thickness      = c_yAxis_belt_thickness;
+Ybda_belt_width          = c_yAxis_belt_width;
+Ybda_belt_teethDist      = c_yAxis_belt_teethDist;
+Ybda_belt_teethDepth     = c_yAxis_belt_teethDepth;
+Ybda_belt_topOffset      = c_y_axis_beltCenter_zDirOffset;  // from top plate to the top edge of the belt
 Ybda_belt_tolerance      = [2,1]; //w,t
 
 /*------------------------------------zip ties--------------------------------*/
@@ -103,12 +104,18 @@ if (Ybda_mode == "inspect") {
 	H_yBeltClam_alt();
 }
 
-
-module H_yBeltClam_alt_print() {
+module H_yBeltClam_alt_prinSet() {
 	for (i=[-Ybda_strongWallThickness/2-0.5,+Ybda_strongWallThickness/2+0.5]) 
 	translate([0, i, 0]) 
 	H_yBeltClam_alt();
 }
 if (Ybda_mode == "printSet") {
+	H_yBeltClam_alt_prinSet();
+}
+
+module H_yBeltClam_alt_print() {
+	H_yBeltClam_alt();
+}
+if (Ybda_mode == "print") {
 	H_yBeltClam_alt_print();
 }

@@ -11,4 +11,4 @@ use <toothedLinearBearing.scad>
 
 %cube(size=[150, 150, 1], center=true);
 
-TLB_print(s = 4);
+*TLB_print(s = 4);

@@ -5,16 +5,17 @@
 // http://www.thingiverse.com/thing:6713
 
 include <metric.scad>
-include <configuration.scad>
+include <config.scad>
 use <parametric_involute_gear_v5.0.scad>
 
 gWb_mode = "-"; 
 //gWb_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 
 if (gWb_mode == "print") {
-	translate([55,40,0]) 
+	translate([25,-25,0]) 
 	WadesL(); //this module call will make the large gear
-	translate([15,60,0]) 
+	translate([-5,5,0]) 
+	rotate(a=10,v=Z) 
 	WadesS(); //this module call will make the small gear	
 }
 

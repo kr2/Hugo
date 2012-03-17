@@ -16,7 +16,7 @@ include <roundEdges.scad>
 Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
-//Xe_mode = "print Reight"; $fn=24*4;
+//Xe_mode = "print Right"; $fn=24*4;
 //Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
@@ -255,7 +255,7 @@ if (Xe_mode == "printSet")
 if (Xe_mode == "print Left") {
 	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
 }
-if (Xe_mode == "print Reight") {
+if (Xe_mode == "print Right") {
 	mirror([0, 1, 0]) 
 		H_x_End(isIdle=true,elongetededLowerHole = false);
 }

@@ -25,7 +25,7 @@ Ze_mode = "-";
 //Ze_mode = "assembly";
 
 Ze_thinWallThickness         = 1;
-Ze_genWallThickness          = 3;
+Ze_genWallThickness          = 3.5;
 Ze_strongWallThickness       = 9;
 
 Ze_horizontalSuportThickness = 0.3;

@@ -415,10 +415,7 @@ module block_holes(legacy_mount=false){
 
 	translate(motor_mount_translation){
 		translate([-gear_separation,0,0]){
-			rotate([0,180,0])
-			translate([0,0,1])
-			import_stl("wade-large.stl");
-
+			
 			// Open the top to remove overhangs and to provide access to the hobbing.
 			translate([-wade_block_width+2,0,9.5])
 			cube([wade_block_width,
@@ -481,8 +478,6 @@ module block_holes(legacy_mount=false){
 			}
 
 		}
-%		translate([0,0,-8])
-		import_stl("wade-small.stl");
 	}
 
 	// Idler mounting holes and nut traps.
