@@ -23,13 +23,15 @@ f_mode = "inspect";
 
 f_thinWallThickness          = 1;
 f_genWallThickness           = 1.5;
-f_strongWallThickness        = 10;
+f_strongWallThickness        = 4;
 
 f_horizontalSuportThickness  = 0.3;
 f_verticalSupportThickness   = 0.5;
 
 
 f_airChannal_segments = 12;
+
+f_airChannal_outerR = 32;
 
 f_fanSize = 40;
 
@@ -42,8 +44,12 @@ f_fanHoles_nutHeight = 2.3;
 
 f_fanHoles_nuttAddFree = 2.0;
 
-f_screwFreeSpace = 10;
+f_screwFreeSpace = 6;
 
+
+/*------------------------------------connector-------------------------------*/
+f_conn_size = [f_strongWallThickness*2+m3_diameter,f_strongWallThickness,70];  // relative to z=0
+f_connSlot_width = m3_diameter;
 
 
 /******************************************************************************/ 
@@ -53,17 +59,10 @@ f_screwFreeSpace = 10;
 _f_nutFree_r = f_fanHoles_nutDiam/2+f_fanHoles_nuttAddFree;
 
 module H_Fan() {
+	// ari Channal
 	difference() {
 		union(){
 			rotate_extrude(file = "fanOutlet.dxf", layer = "airCannal",origin =  [0,0], convexity = 10,$fn=f_airChannal_segments);
-
-			// fan connetor outline
-			for (i=[0,180]) 
-			rotate(a=i,v=Z) 
-			{
-				rotate(a=90,v=X)
-					linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
-			}
 
 			//support walls
 			intersection() {
@@ -82,12 +81,38 @@ module H_Fan() {
 		}
 		union(){
 			for (i=[0,180])
-			rotate(a=i,v=Z) {
-				difference() {
-					//fan connector inline cutout
+			rotate(a=i,v=Z) 
+			{
+				translate([0, 0, -OS]) 
+				rotate(a=90,v=X)
+					linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
+			}
+
+		}
+	}
+}
+
+module H_FanConnector() {
+	difference() {
+		union(){
+			//fan connetor outline
+			for (i=[0,180]) 
+			rotate(a=i,v=Z) 
+			{
+				//hull
+				rotate(a=90,v=X)
+					linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_hull",height = f_fanSize, center = true, convexity = 10, twist = 0);
+
+				//walls
+				for (i=[-f_fanSize/2+f_thinWallThickness/2,f_fanSize/2-f_thinWallThickness/2])
+				translate([0, i, 0])  
+				rotate(a=90,v=X)
+					linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_thinWallThickness, center = true, convexity = 10, twist = 0);
+
+				intersection() {
 					rotate(a=90,v=X)
-						linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_inline",height = f_fanSize - 2*f_genWallThickness, center = true, convexity = 10, twist = 0);
-					
+						linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
+
 					// sollid spots for screws
 					translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
 					for (_a=[45:90:350]) 
@@ -97,6 +122,36 @@ module H_Fan() {
 						cylinder(r1=_f_nutFree_r*2,r2=f_genWallThickness/2, h=27, center=false);	
 				}
 
+				difference() {
+					union(){
+						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]/2-f_conn_size[0]/4]) 
+							cube(size=f_conn_size-[0,0,f_conn_size[0]/2], center=true);
+
+						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]-f_conn_size[0]/2]) 
+						rotate(a=90,v=X) 
+							cylinder(r=f_conn_size[0]/2, h=f_conn_size[1], center=true);
+					}
+					union(){
+						rotate(a=90,v=X)
+							linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
+
+						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]/2-f_conn_size[0]/4]) 
+							cube(size=[f_connSlot_width,f_conn_size[1]+2*OS,f_conn_size[2]-f_conn_size[0]/2], center=true);
+
+						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]-f_conn_size[0]/2]) 
+						rotate(a=90,v=X) 
+							cylinder(r=f_connSlot_width/2, h=f_conn_size[1]+2*OS, center=true,$fn=4);
+					}
+				}
+				
+				
+			}
+		}
+		union(){
+			for (i=[0,180])
+			rotate(a=i,v=Z) {
+				
+				
 				//fan round coutout
 				rotate(a=90,v=X)
 				translate([f_fanCenterOffset+OS, f_fanSize/2, 0]) 
@@ -110,14 +165,33 @@ module H_Fan() {
 				translate([0, f_fanHoles_centerDist,0]) 
 				rotate(a=-90,v=Y) 
 					cylinder(r=f_fanHoles_diam/2, h=f_screwFreeSpace, center=false);	
+
+
+				// sollid spots for screws
+				difference() {
+					union(){
+						translate([f_fanCenterOffset , 0, f_fanSize/2]) 
+						for (_a=[45:90:350]) 
+						rotate(a=_a,v=X) 
+						translate([0, f_fanHoles_centerDist+_f_nutFree_r + f_thinWallThickness,0]) 
+						rotate(a=-90,v=Y) 
+							cylinder(r1=_f_nutFree_r*2,r2=f_genWallThickness/2, h=27, center=false);
+					}
+					union(){
+						translate([f_fanCenterOffset , 0, f_fanSize/2+OS]) 
+							cube(size=[f_strongWallThickness, f_fanSize+2*OS,f_fanSize+2*OS], center=true);
+					}
+				}
 			}
 		}
 	}
 }
 
 
+
 if (f_mode == "inspect") {
 	H_Fan();
+	H_FanConnector() ;
 }
 module H_Fan_print() {
 	H_Fan();
