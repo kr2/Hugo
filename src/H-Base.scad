@@ -159,7 +159,7 @@ module  H_base(hasYMotorMount = true) {
 			// z axis
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) 
 				cylinder(r=b_smoothRod_diam/2, h=b_zdirRod_hole_depth+OS, center=false);
-			cylinder(r=b_airOut_diam/2, h= b_zDirWall_size[2]-b_zdirRod_hole_depth + OS, center=false);
+			cylinder(r=b_airOut_diam/2, h= b_zDirWall_size[2]-b_zdirRod_hole_depth -b_horizontalSuportThickness, center=false);
 
 			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
 			for (z=b_xdirRods_holes_altitude){
