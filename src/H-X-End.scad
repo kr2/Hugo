@@ -52,7 +52,7 @@ Xe_X_Rod_depth       = Xe_outline[1]- Xe_gen_wall -m8_nut_wallDist/2; // x direc
 
 /*------------------------------------idler-----------------------------------*/
 
-Xe_idle_hole_pos   = [Xe_Z_bearingHole_dia/2 + Xe_gen_wall + Xe_Z_AxisDist/2, Xe_X_RodHoles_pos[1][1] + c_xAxis_beltTop_topxAxisDist - c_xAxis_bearingDiviater_diam/2]; //[y,z] // postion of the idler hole
+Xe_idle_hole_pos   = [Xe_Z_bearingHole_pos[1]+abs(Xe_Z_bearingHole_pos[1]-Xe_Z_nutTrap_pos[1])/2, Xe_X_RodHoles_pos[1][1] + c_xAxis_beltTop_topxAxisDist - c_xAxis_bearingDiviater_diam/2]; //[y,z] // postion of the idler hole
 Xe_idle_hole_dia   = 8.25; // diameter of the idler hole
 Xe_idle_hole_depth =  (min(Xe_Z_nutTrap_pos[0]+(m8_nut_wallDist+Xe_gen_wall)/cos(30),Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall))-(Xe_X_RodHoles_pos[0][0]+Xe_X_Rod_dia/2+Xe_strong_wall); // depth of the idler hole
 
@@ -78,8 +78,9 @@ Xe_elongHole_addDia = 1.0;
 
 Xe_X_BlockSize = [min(Xe_Z_nutTrap_pos[0]-Xe_m8_nut_diameter/2,Xe_Z_bearingHole_pos[0]-Xe_Z_bearingHole_dia/2),Xe_outline[1],Xe_outline[2]];
 
-
-
+Xe_idlerHolde_x = min( Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall,
+						Xe_Z_nutTrap_pos[0] + (m8_nut_wallDist/2+Xe_gen_wall)/(cos(30))
+					);
 
 
 module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
@@ -127,8 +128,8 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 				if (isIdle) {
 					//idler Xe_outline
-					translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall-Xe_idle_hole_depth/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]]) 
-						cube(size=[Xe_idle_hole_depth, abs(Xe_X_RodHoles_pos[0][1]-Xe_X_RodHoles_pos[1][1]), Xe_idle_hole_dia+2*Xe_gen_wall], center=true);
+					translate([Xe_idlerHolde_x- Xe_idle_hole_depth/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]]) 
+						cube(size=[Xe_idle_hole_depth,abs(Xe_Z_bearingHole_pos[1]- Xe_Z_nutTrap_pos[1]), Xe_idle_hole_dia+2*Xe_gen_wall], center=true);
 						//cylinder(r=Xe_idle_hole_dia/2+Xe_gen_wall, h=Xe_idle_hole_depth, center=false);
 				}
 				
@@ -201,9 +202,10 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 			if (isIdle) {
 				//idler coutout
-				translate([Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  rotate(a=-90,v=Y) 
+				translate([Xe_idlerHolde_x+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  rotate(a=-90,v=Y) 
 					cylinder(r=Xe_idle_hole_dia/2, h=Xe_idle_hole_depth, center=false, $fn=8);
 			}
+			
 
 			if (isMotor) {
 				// motor ceter coutout
