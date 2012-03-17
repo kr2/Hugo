@@ -91,6 +91,9 @@ _b_xdirRods_holes_zdist = (b_xdirRods_holes_altitude[1]-b_xdirRods_holes_altitud
 
 _b_zdirM_supportThickness = b_zdirM_motorAxis_zAxisDist-(b_zdirM_sideLength/2+b_smoothRod_diam/2+ b_genWallThickness);  
 
+
+_b_SaveRange_height = max(b_zDirSupport_r, b_m8_nut_heigth+b_m8_nut_tolerance[1]) +b_verticalSupportThickness;
+
 module  H_base(hasYMotorMount = true) {
 	difference() {
 		union(){
@@ -169,10 +172,10 @@ module  H_base(hasYMotorMount = true) {
 					teardrop (r=b_roughRod_diam/2,h=b_zDirWall_size[0]+2*OS,top_and_bottom=false);
 					//cylinder(r=b_roughRod_diam/2, h=b_zDirWall_size[0]+2*OS, center=true); 
 				//xdir holes nut save range
-				for (x=[-(b_zDirWall_size[0]/2+b_m8_nut_heigth ),b_zDirWall_size[0]/2+b_m8_nut_heigth]) 
+				for (x=[-(b_zDirWall_size[0]/2+_b_SaveRange_height/2 -b_verticalSupportThickness),b_zDirWall_size[0]/2+_b_SaveRange_height/2- b_verticalSupportThickness]) 
 				translate([x, y, z])
 				rotate(a=90,v=Y) 
-					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=b_m8_nut_heigth*2+b_m8_nut_tolerance[1], center=true); 
+					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=_b_SaveRange_height, center=true); 
 
 				// top and bottom coutoff
 				for (i=[-b_zDirWall_size[2]*1.5,b_zDirWall_size[2]+ b_zDirWall_size[2]*1.5]) 
@@ -185,7 +188,7 @@ module  H_base(hasYMotorMount = true) {
 			translate([b_lber_zAxisXdirDist, i, b_zDirWall_size[2]-b_lber_topOff+ b_lber_diam/2]) {
 				rotate(a=90,v=X) {		  
 					cylinder(r=(b_lber_diam/2)/cos(45), h=b_lber_length, center=true,$fn=4);
-					*cylinder(r=(8/2), h=b_lber_length, center=true);
+					*cylinder(r=(b_lber_diam/2), h=b_lber_length, center=true);
 				}
 
 				//zip tie holes
