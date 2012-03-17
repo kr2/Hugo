@@ -41,8 +41,8 @@ b_xdirRods_holes_altitude    = c_xDirSupp_thredRod_altitude;
 b_xdirRods_holes_zAxisDist   = c_xDirSupp_thredRod_zAxisDist;
 
 /*------------------------------------zip ties--------------------------------*/
-b_zipTies_width              = 4;
-b_zipTies_thickness          = 2;
+b_zipTies_width              = 5;
+b_zipTies_thickness          = 2.5;
 
 /*------------------------------------air outlet------------------------------*/
 b_airOut_diam                = 3;
