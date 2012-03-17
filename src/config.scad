@@ -38,7 +38,7 @@ c_xAxis_lber_length = c_lber_length;
 c_xAxis_lber_diam   = c_lber_diam;
 /*----------------------------------y axis------------------------------------*/
 c_yAxis_lber_length = c_lber_length;
-c_yAxis_lber_diam   = c_lber_diam + 0.2;
+c_yAxis_lber_diam   = c_lber_diam;
 /*----------------------------------z axis------------------------------------*/
 c_zAxis_lber_length = c_lber_length;
 c_zAxis_lber_diam   = c_lber_diam;
