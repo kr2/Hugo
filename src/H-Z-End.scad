@@ -25,7 +25,7 @@ Ze_mode = "-";
 //Ze_mode = "assembly";
 
 Ze_thinWallThickness         = 1;
-Ze_genWallThickness          = 3.5;
+Ze_genWallThickness          = 4.5;
 Ze_strongWallThickness       = 9;
 
 Ze_horizontalSuportThickness = 0.3;
@@ -149,7 +149,8 @@ module H_Z_end(hasCrossBrace = true) {
 
 			//nuttrap
 			translate([_Ze_xDir-Ze_zEnd_nuttrap_offset, 0, Ze_roughRod_diam/2+Ze_genWallThickness]) {
-				rotate(a=90,v=Y) 
+				cube(size=[m8_nut_heigth+0.3, Ze_roughRod_diam+Ze_genWallThickness*2, m8_nut_diameter +1], center=true);
+				*rotate(a=90,v=Y) 
 				rotate(a=30,v=Z) 
 					cylinder(r=max(m8_nut_diameter/2 +1,Ze_roughRod_diam/2+Ze_genWallThickness)+OS, h=m8_nut_heigth, center=true);
 			}
