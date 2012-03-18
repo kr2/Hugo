@@ -18,7 +18,7 @@ use <teardrop.scad>
 /*------------------------------------general---------------------------------*/
 f_mode = "-";  
 f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-//f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
 //f_mode = "inspect";
 //f_mode = "assembly";
 
@@ -102,8 +102,9 @@ module H_Fan_airChannal() {
 }
 
 module H_FanConnector() {
-	for (x=[-f_fanCenterOffset+10,f_fanCenterOffset-10]) 
-	for (y=[-2.5,2.5]) 
+	color([100/255, 0/255, 0/255])
+	for (x=[-f_fanCenterOffset+15,f_fanCenterOffset-15]) 
+	for (y=[-5,5]) 
 	translate([x,y, 1-OS]) 
 		linear_extrude(file = "fanOutlet.dxf", layer = "arrow",height = f_horizontalSuportThickness, center = false, convexity = 10, twist = 0,$fn=24);
 
