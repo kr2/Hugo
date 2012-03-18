@@ -15,7 +15,7 @@ use <A-Y-BeltClamp.scad>
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
 //Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-//Xc_mode = "inspect";
+Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
 Xc_thinWallThickness         = 1;
@@ -30,7 +30,7 @@ Xc_verticalSupportThickness  = 0.7;
 Xc_supportDistance           = 0.45; // suport distance for coutout
 
 
-Xc_axis_dist                 = c_x_axis_dist;
+Xc_axis_dist                 = c_x_axis_dist - 0.1; //
 
 /*------------------------------------linear bearings-------------------------*/
 Xc_lber_length               = c_xAxis_lber_length;
