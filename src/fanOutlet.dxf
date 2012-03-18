@@ -21,13 +21,13 @@ $DIMGAP
  40
 0.625
   9
-$DIMEXO
- 40
-0.625
-  9
 $INSUNITS
  70
 4
+  9
+$DIMEXO
+ 40
+0.625
   9
 $DIMTXT
  40
@@ -37,17 +37,21 @@ $DIMSTYLE
   2
 Standard
   9
+$PLIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
 $PLIMMAX
  10
 210.0
  20
 297.0
   9
-$PLIMMIN
- 10
-0.0
- 20
-0.0
+$DIMEXE
+ 40
+1.25
   9
 $PINSBASE
  10
@@ -56,10 +60,6 @@ $PINSBASE
 148.5
  30
 0.0
-  9
-$DIMEXE
- 40
-1.25
   0
 ENDSEC
   0
@@ -963,7 +963,7 @@ AcDbLayerTableRecord
   2
 airCannal
  70
-0
+1
  62
 7
   6
@@ -983,7 +983,7 @@ AcDbLayerTableRecord
   2
 fanConnector_outline
  70
-1
+0
  62
 7
   6
@@ -1003,7 +1003,7 @@ AcDbLayerTableRecord
   2
 fanConnector_hull
  70
-1
+0
  62
 7
   6
@@ -1365,7 +1365,7 @@ AcDbEntity
 100
 AcDbLine
   8
-airCannal
+supportOutline
  62
 256
 370
@@ -1373,15 +1373,15 @@ airCannal
   6
 ByLayer
  10
-22.0
+22.5
  20
-10.0
+0.0
  30
 0.0
  11
-21.5
+22.5
  21
-9.5
+8.0000000000000018
  31
 0.0
   0
@@ -1393,7 +1393,7 @@ AcDbEntity
 100
 AcDbLine
   8
-airCannal
+supportOutline
  62
 256
 370
@@ -1401,15 +1401,15 @@ airCannal
   6
 ByLayer
  10
-21.5
+12.5
  20
-7.7000000000000002
+0.0
  30
 0.0
  11
-21.5
+22.5
  21
-9.5
+8.0000000000000018
  31
 0.0
   0
@@ -1421,7 +1421,7 @@ AcDbEntity
 100
 AcDbLine
   8
-airCannal
+supportOutline
  62
 256
 370
@@ -1429,133 +1429,21 @@ airCannal
   6
 ByLayer
  10
-21.5
+12.5
  20
-7.7000000000000002
+0.0
  30
 0.0
  11
-21.109565595278482
+22.5
  21
-6.8876524762227884
+0.0
  31
 0.0
   0
 LINE
   5
 4B
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-22.5
- 20
-7.2193751525134315
- 30
-0.0
- 11
-22.109565595278482
- 21
-6.4070276287362198
- 31
-0.0
-  0
-LINE
-  5
-4C
-100
-AcDbEntity
-100
-AcDbLine
-  8
-supportOutline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-22.5
- 20
-0.0
- 30
-0.0
- 11
-22.5
- 21
-8.0000000000000018
- 31
-0.0
-  0
-LINE
-  5
-4D
-100
-AcDbEntity
-100
-AcDbLine
-  8
-supportOutline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-12.5
- 20
-0.0
- 30
-0.0
- 11
-22.5
- 21
-8.0000000000000018
- 31
-0.0
-  0
-LINE
-  5
-4E
-100
-AcDbEntity
-100
-AcDbLine
-  8
-supportOutline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-12.5
- 20
-0.0
- 30
-0.0
- 11
-22.5
- 21
-0.0
- 31
-0.0
-  0
-LINE
-  5
-4F
 100
 AcDbEntity
 100
@@ -1583,7 +1471,7 @@ ByLayer
   0
 LINE
   5
-50
+4C
 100
 AcDbEntity
 100
@@ -1611,7 +1499,7 @@ ByLayer
   0
 LINE
   5
-51
+4D
 100
 AcDbEntity
 100
@@ -1639,7 +1527,7 @@ ByLayer
   0
 LINE
   5
-52
+4E
 100
 AcDbEntity
 100
@@ -1667,7 +1555,7 @@ ByLayer
   0
 LINE
   5
-53
+4F
 100
 AcDbEntity
 100
@@ -1695,7 +1583,7 @@ ByLayer
   0
 LINE
   5
-54
+50
 100
 AcDbEntity
 100
@@ -1723,7 +1611,7 @@ ByLayer
   0
 LINE
   5
-55
+51
 100
 AcDbEntity
 100
@@ -1751,7 +1639,7 @@ ByLayer
   0
 LINE
   5
-56
+52
 100
 AcDbEntity
 100
@@ -1779,7 +1667,7 @@ ByLayer
   0
 LINE
   5
-57
+53
 100
 AcDbEntity
 100
@@ -1807,7 +1695,7 @@ ByLayer
   0
 LINE
   5
-58
+54
 100
 AcDbEntity
 100
@@ -1835,147 +1723,7 @@ ByLayer
   0
 LINE
   5
-59
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-13.515434404721516
- 20
-0.8123475237772122
- 30
-0.0
- 11
-21.109565595278482
- 21
-6.8876524762227884
- 31
-0.0
-  0
-LINE
-  5
-5A
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-13.515434404721516
- 20
-0.8123475237772122
- 30
-0.0
- 11
-13.625
- 21
-0.5
- 31
-0.0
-  0
-LINE
-  5
-5B
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-15.116215464079726
- 20
-0.8123475237772122
- 30
-0.0
- 11
-22.109565595278482
- 21
-6.4070276287362198
- 31
-0.0
-  0
-LINE
-  5
-5C
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-13.625
- 20
-0.5
- 30
-0.0
- 11
-14.22578105935821
- 21
-0.5
- 31
-0.0
-  0
-LINE
-  5
-5D
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-15.116215464079726
- 20
-0.8123475237772122
- 30
-0.0
- 11
-14.22578105935821
- 21
-0.5
- 31
-0.0
-  0
-LINE
-  5
-5E
+55
 100
 AcDbEntity
 100
@@ -2003,7 +1751,7 @@ ByLayer
   0
 ARC
   5
-5F
+56
 100
 AcDbEntity
   8
@@ -2033,7 +1781,7 @@ AcDbArc
   0
 LINE
   5
-60
+57
 100
 AcDbEntity
 100
@@ -2061,7 +1809,7 @@ ByLayer
   0
 LINE
   5
-61
+58
 100
 AcDbEntity
 100
@@ -2089,7 +1837,7 @@ ByLayer
   0
 LINE
   5
-62
+59
 100
 AcDbEntity
 100
@@ -2117,7 +1865,7 @@ ByLayer
   0
 LINE
   5
-63
+5A
 100
 AcDbEntity
 100
@@ -2145,147 +1893,7 @@ ByLayer
   0
 LINE
   5
-64
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal_outline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-12.500000000000002
- 20
-0.0
- 30
-0.0
- 11
-21.109565595278482
- 21
-6.8876524762227884
- 31
-0.0
-  0
-LINE
-  5
-65
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal_outline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-21.109565595278482
- 20
-6.8876524762227884
- 30
-0.0
- 11
-21.5
- 21
-7.7000000000000002
- 31
-0.0
-  0
-LINE
-  5
-66
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal_outline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-21.5
- 20
-7.7000000000000002
- 30
-0.0
- 11
-21.5
- 21
-9.5
- 31
-0.0
-  0
-LINE
-  5
-67
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal_outline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-21.5
- 20
-9.5
- 30
-0.0
- 11
-22.0
- 21
-10.0
- 31
-0.0
-  0
-LINE
-  5
-68
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal_outline
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-22.0
- 20
-10.0
- 30
-0.0
- 11
-31.5
- 21
-10.0
- 31
-0.0
-  0
-LINE
-  5
-69
+5B
 100
 AcDbEntity
 100
@@ -2313,7 +1921,7 @@ ByLayer
   0
 LINE
   5
-6A
+5C
 100
 AcDbEntity
 100
@@ -2341,7 +1949,7 @@ ByLayer
   0
 LINE
   5
-6B
+5D
 100
 AcDbEntity
 100
@@ -2369,6 +1977,398 @@ ByLayer
   0
 LINE
   5
+5E
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_outline
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+23.0
+ 20
+0.0
+ 30
+0.0
+ 11
+50.0
+ 21
+0.0
+ 31
+0.0
+  0
+LINE
+  5
+5F
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_outline
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+47.0
+ 20
+40.0
+ 30
+0.0
+ 11
+23.0
+ 21
+10.0
+ 31
+0.0
+  0
+LINE
+  5
+60
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_outline
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+23.0
+ 20
+10.0
+ 30
+0.0
+ 11
+23.0
+ 21
+0.0
+ 31
+0.0
+  0
+LINE
+  5
+61
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+47.0
+ 20
+1.0
+ 30
+0.0
+ 11
+47.0
+ 21
+38.399218940641788
+ 31
+0.0
+  0
+LINE
+  5
+62
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+47.0
+ 20
+40.0
+ 30
+0.0
+ 11
+50.0
+ 21
+40.0
+ 31
+0.0
+  0
+LINE
+  5
+63
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+50.0
+ 20
+40.0
+ 30
+0.0
+ 11
+50.0
+ 21
+0.0
+ 31
+0.0
+  0
+LINE
+  5
+64
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+50.0
+ 20
+0.0
+ 30
+0.0
+ 11
+23.0
+ 21
+0.0
+ 31
+0.0
+  0
+LINE
+  5
+65
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+23.0
+ 20
+0.0
+ 30
+0.0
+ 11
+23.0
+ 21
+1.0
+ 31
+0.0
+  0
+LINE
+  5
+66
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+23.0
+ 20
+1.0
+ 30
+0.0
+ 11
+47.0
+ 21
+1.0
+ 31
+0.0
+  0
+LINE
+  5
+67
+100
+AcDbEntity
+100
+AcDbLine
+  8
+fanConnector_hull
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+47.0
+ 20
+38.399218940641788
+ 30
+0.0
+ 11
+23.48062484748657
+ 21
+9.0
+ 31
+0.0
+  0
+LINE
+  5
+68
+100
+AcDbEntity
+100
+AcDbLine
+  8
+airCannal
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+21.556366560705339
+ 20
+7.5001313753490582
+ 30
+0.0
+ 11
+20.932213455659223
+ 21
+6.7457707645273794
+ 31
+0.0
+  0
+LINE
+  5
+69
+100
+AcDbEntity
+100
+AcDbLine
+  8
+airCannal
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+22.34328429560308
+ 20
+6.8490407157806841
+ 30
+0.0
+ 11
+21.719131190556965
+ 21
+6.0946801049590054
+ 31
+0.0
+  0
+LINE
+  5
+6A
+100
+AcDbEntity
+100
+AcDbLine
+  8
+airCannal
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+23.246906147161965
+ 20
+8.5579869129555348
+ 30
+0.0
+ 11
+22.34328429560308
+ 21
+6.8490407157806841
+ 31
+0.0
+  0
+LINE
+  5
+6B
+100
+AcDbEntity
+100
+AcDbLine
+  8
+airCannal
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+23.98062484748657
+ 20
+9.0
+ 30
+0.0
+ 11
+30.5
+ 21
+9.0
+ 31
+0.0
+  0
+LINE
+  5
 6C
 100
 AcDbEntity
@@ -2383,13 +2383,13 @@ airCannal
   6
 ByLayer
  10
-23.0
+23.246906147161965
  20
-9.0
+8.5579869129555348
  30
 0.0
  11
-30.5
+23.98062484748657
  21
 9.0
  31
@@ -2411,15 +2411,15 @@ airCannal
   6
 ByLayer
  10
-22.5
+22.644477604930572
  20
-7.2193751525134315
+9.5579869129555348
  30
 0.0
  11
-22.5
+21.556366560705339
  21
-8.5
+7.5001313753490582
  31
 0.0
   0
@@ -2439,15 +2439,15 @@ airCannal
   6
 ByLayer
  10
-23.0
+31.5
  20
-9.0
+10.0
  30
 0.0
  11
-22.5
+23.378196305255173
  21
-8.5
+10.0
  31
 0.0
   0
@@ -2459,7 +2459,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_outline
+airCannal
  62
 256
 370
@@ -2467,15 +2467,15 @@ fanConnector_outline
   6
 ByLayer
  10
-23.0
+22.644477604930572
  20
-0.0
+9.5579869129555348
  30
 0.0
  11
-50.0
+23.378196305255173
  21
-0.0
+10.0
  31
 0.0
   0
@@ -2487,7 +2487,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_outline
+airCannal_outline
  62
 256
 370
@@ -2495,15 +2495,15 @@ fanConnector_outline
   6
 ByLayer
  10
-47.0
+12.500000000000002
  20
-40.0
+0.0
  30
 0.0
  11
-23.0
+20.932213455659223
  21
-10.0
+6.7457707645273794
  31
 0.0
   0
@@ -2515,7 +2515,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_outline
+airCannal_outline
  62
 256
 370
@@ -2523,15 +2523,15 @@ fanConnector_outline
   6
 ByLayer
  10
-23.0
+20.932213455659223
  20
-10.0
+6.7457707645273794
  30
 0.0
  11
-23.0
+21.556366560705339
  21
-0.0
+7.5001313753490582
  31
 0.0
   0
@@ -2543,7 +2543,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_hull
+airCannal_outline
  62
 256
 370
@@ -2551,15 +2551,15 @@ fanConnector_hull
   6
 ByLayer
  10
-47.0
+21.556366560705339
  20
-1.0
+7.5001313753490582
  30
 0.0
  11
-47.0
+22.644477604930572
  21
-38.399218940641788
+9.5579869129555348
  31
 0.0
   0
@@ -2571,7 +2571,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_hull
+airCannal_outline
  62
 256
 370
@@ -2579,15 +2579,15 @@ fanConnector_hull
   6
 ByLayer
  10
-23.0
+22.644477604930572
  20
-10.0
+9.5579869129555348
  30
 0.0
  11
-47.0
+23.378196305255173
  21
-40.0
+10.0
  31
 0.0
   0
@@ -2599,7 +2599,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_hull
+airCannal_outline
  62
 256
 370
@@ -2607,15 +2607,15 @@ fanConnector_hull
   6
 ByLayer
  10
-47.0
+23.378196305255173
  20
-40.0
+10.0
  30
 0.0
  11
-50.0
+31.5
  21
-40.0
+10.0
  31
 0.0
   0
@@ -2627,7 +2627,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_hull
+airCannal
  62
 256
 370
@@ -2635,15 +2635,15 @@ fanConnector_hull
   6
 ByLayer
  10
-50.0
+12.5
  20
-40.0
+0.0
  30
 0.0
  11
-50.0
+20.932213455659223
  21
-0.0
+6.7457707645273794
  31
 0.0
   0
@@ -2655,7 +2655,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_hull
+airCannal
  62
 256
 370
@@ -2663,13 +2663,13 @@ fanConnector_hull
   6
 ByLayer
  10
-50.0
+12.5
  20
 0.0
  30
 0.0
  11
-23.0
+14.100781059358212
  21
 0.0
  31
@@ -2683,7 +2683,7 @@ AcDbEntity
 100
 AcDbLine
   8
-fanConnector_hull
+airCannal
  62
 256
 370
@@ -2691,15 +2691,15 @@ fanConnector_hull
   6
 ByLayer
  10
-23.0
+14.100781059358212
  20
 0.0
  30
 0.0
  11
-23.0
+21.719131190556965
  21
-1.0
+6.0946801049590054
  31
 0.0
   0
@@ -2721,13 +2721,13 @@ ByLayer
  10
 23.0
  20
-1.0
+10.000000000000002
  30
 0.0
  11
-47.0
+23.0
  21
-1.0
+9.3207358241342213
  31
 0.0
   0
@@ -2747,15 +2747,15 @@ fanConnector_hull
   6
 ByLayer
  10
-47.0
+23.0
  20
-38.399218940641788
+10.000000000000002
  30
 0.0
  11
-23.48062484748657
+47.0
  21
-9.0
+40.0
  31
 0.0
   0
@@ -2777,69 +2777,13 @@ ByLayer
  10
 23.0
  20
-9.0
+9.3207358241342213
  30
 0.0
  11
 23.48062484748657
  21
 9.0
- 31
-0.0
-  0
-LINE
-  5
-7B
-100
-AcDbEntity
-100
-AcDbLine
-  8
-fanConnector_hull
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-23.0
- 20
-9.0
- 30
-0.0
- 11
-23.0
- 21
-10.0
- 31
-0.0
-  0
-LINE
-  5
-7C
-100
-AcDbEntity
-100
-AcDbLine
-  8
-airCannal
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-22.0
- 20
-10.0
- 30
-0.0
- 11
-31.5
- 21
-10.0
  31
 0.0
   0
@@ -2881,7 +2825,7 @@ E
   3
 AcDbVariableDictionary
 350
-7D
+7B
   0
 DICTIONARY
   5
@@ -3345,7 +3289,7 @@ Layout2
   0
 DICTIONARY
   5
-7D
+7B
 100
 AcDbDictionary
 281
@@ -3353,15 +3297,15 @@ AcDbDictionary
   3
 DIMASSOC
 350
-7F
+7D
   3
 HIDETEXT
 350
-7E
+7C
   0
 DICTIONARYVAR
   5
-7E
+7C
 100
 DictionaryVariables
 280
@@ -3371,7 +3315,7 @@ DictionaryVariables
   0
 DICTIONARYVAR
   5
-7F
+7D
 100
 DictionaryVariables
 280
