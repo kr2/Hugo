@@ -90,7 +90,7 @@ c_xDirSupp_thredRod_zAxisDist   = 38.95-8.5;
 c_motorShaft_diam            = 5; // motor axis diameter
 c_motorShaft_length          = 25; // motor axis length from pilot
 c_motorPilot_diam            = 27.5; // motor pilot diameter
-c_motorScrewHole_diam        = 3.2; // motor screw holde diameter
+c_motorScrewHole_diam        = 3.3; // motor screw holde diameter
 c_motorScrewHoles_centerDist = 43.841/2; // motor holes distance from axis center
 c_motor_sideLength           = 42.1; // length of the motor side (rectangular motor)
 
