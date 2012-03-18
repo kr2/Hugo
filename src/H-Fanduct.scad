@@ -17,13 +17,16 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 f_mode = "-";  
-//f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-f_mode = "inspect";
+f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//f_mode = "inspect";
 //f_mode = "assembly";
 
 f_thinWallThickness          = 1;
 f_genWallThickness           = 1.5;
 f_strongWallThickness        = 4;
+
+f_supportDist = 5;
 
 f_horizontalSuportThickness  = 0.3;
 f_verticalSupportThickness   = 0.5;
@@ -51,6 +54,12 @@ f_screwFreeSpace = 6;
 f_conn_size = [3*2+m3_diameter,f_strongWallThickness,70];  // relative to z=0
 f_connSlot_width = m3_diameter;
 
+/*------------------------------------clamp-----------------------------------*/
+f_clamp_thickness = 0.5;
+f_clamp_widht = m4_diameter + 2*f_strongWallThickness;
+f_clamp_slotWidth = m4_diameter;
+f_clamp_length = 50;
+
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
@@ -58,7 +67,7 @@ f_connSlot_width = m3_diameter;
 
 _f_nutFree_r = f_fanHoles_nutDiam/2+f_fanHoles_nuttAddFree;
 
-module H_Fan() {
+module H_Fan_airChannal() {
 	// ari Channal
 	difference() {
 		union(){
@@ -93,6 +102,11 @@ module H_Fan() {
 }
 
 module H_FanConnector() {
+	for (x=[-f_fanCenterOffset+10,f_fanCenterOffset-10]) 
+	for (y=[-2.5,2.5]) 
+	translate([x,y, 1-OS]) 
+		linear_extrude(file = "fanOutlet.dxf", layer = "arrow",height = f_horizontalSuportThickness, center = false, convexity = 10, twist = 0,$fn=24);
+
 	difference() {
 		union(){
 			//fan connetor outline
@@ -188,27 +202,78 @@ module H_FanConnector() {
 	}
 }
 
+module H_fanDuct() {
+	H_Fan_airChannal();
+	H_FanConnector() ;	
+}
+
+module H_fan_clamp() {
+	difference() {
+		union(){
+			translate([0, -f_clamp_length/4, f_clamp_thickness/2]) 
+				cube(size=[f_clamp_widht, f_clamp_length/2, f_clamp_thickness], center=true);
+
+			for (x=[-1,1]) 
+			translate([x*(f_clamp_widht/2-(f_clamp_widht- f_conn_size[1])/4), f_clamp_length/4,  f_conn_size[0]/2]) 
+				cube(size=[(f_clamp_widht- f_conn_size[1])/2, f_clamp_length/2, f_conn_size[0]], center=true);
+			
+			scale([1, 0.3, 1]) 
+			rotate(a=90,v=Y) 
+				cylinder(r=f_conn_size[0], h=f_clamp_widht, center=true);
+		}
+		union(){
+			translate([0, 0, -50]) 
+				cube(size=[100, 100, 100], center=true);
+
+			translate([0, -f_clamp_length/4-f_clamp_widht/2, f_clamp_thickness/2]) 
+				cube(size=[f_clamp_slotWidth, f_clamp_length/2, f_clamp_thickness+OS], center=true);
+
+			difference() {
+				for (x=[-1,1]) 
+				translate([x*(f_clamp_widht/2-(f_clamp_widht- f_conn_size[1])/4), f_clamp_length/4 + f_clamp_widht/2,  f_conn_size[0]/2]) 
+					cube(size=[(f_clamp_widht- f_conn_size[1])/2 +2*OS, f_clamp_length/2, f_connSlot_width], center=true);
+				
+				for (i=[0:f_supportDist: f_clamp_length/2]) 
+				translate([0, f_clamp_length/2-f_verticalSupportThickness/2 - i, f_clamp_widht/2+OS]) 
+					cube(size=[f_clamp_widht+2*OS, f_verticalSupportThickness, f_conn_size[0]], center=true);
+			}
+			
+		}
+	}
+}
+
 
 
 if (f_mode == "inspect") {
-	H_Fan();
-	H_FanConnector() ;
+	H_fanDuct();
+
+	translate([-30, 0, 50]) 
+	rotate(a=90,v=Z) 
+	H_fan_clamp();
 }
 module H_Fan_print() {
-	H_Fan();
+	H_fanDuct();
 }
 if (f_mode == "print") {
 	H_Fan_print();
 }
 
+if (f_mode == "printSet") {
+	H_Fan_print();
+
+	for (i=[-40,40]) 
+	translate([0, i, 0]) 
+	rotate(a=90,v=[0,0,1]) 
+	H_fan_clamp();
+}
 
 
 
 /*------------------------------------assembly--------------------------------*/
 module H_Fan_assembly() {
-	H_Fan();
+	H_fanDuct();
 }
 
 if (f_mode == "assembly"){
-	H_Fan_assembly();
+	H_Fan_airChannal_assembly();
 }
