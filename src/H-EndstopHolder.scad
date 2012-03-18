@@ -17,7 +17,7 @@ include <config.scad>
 /*------------------------------------general---------------------------------*/
 eh_mode = "-";
 //eh_mode = "printSet";  $fn=24*4;
-eh_mode = "inspect";
+//eh_mode = "inspect";
 //eh_mode = "assembly";
 
 eh_genWallThickness           = 2.5;
