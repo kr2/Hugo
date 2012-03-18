@@ -26,7 +26,7 @@ b_thinWallThickness          = 1;
 b_genWallThickness           = 2.5;
 b_strongWallThickness        = 8;
 
-b_horizontalSuportThickness  = 0.3;
+b_horizontalSuportThickness  = 0.5;
 b_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
@@ -100,6 +100,8 @@ module  H_base(hasYMotorMount = true) {
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth- b_genWallThickness]) {
 				// z axis
 				cylinder(r=b_smoothRod_diam/2+b_genWallThickness, h=b_zdirRod_hole_depth+b_genWallThickness, center=false);
+
+
 				// z axis rounded end 
 				scale([1, 1, 0.5]) 
 					sphere(r=b_smoothRod_diam/2+b_genWallThickness);
@@ -159,9 +161,15 @@ module  H_base(hasYMotorMount = true) {
 			}
 		}
 		union(){
-			// z axis
-			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) 
+			
+			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth]) {
+				// z axis hole
 				cylinder(r=b_smoothRod_diam/2, h=b_zdirRod_hole_depth+OS, center=false);
+				//edge coutoff z axis hole
+				translate([0, 0, b_zdirRod_hole_depth-b_horizontalSuportThickness*2 + OS]) 
+					cylinder(r2=b_smoothRod_diam/2+tan(30)*b_horizontalSuportThickness*2,r1=b_smoothRod_diam/2-b_horizontalSuportThickness, h=b_horizontalSuportThickness*2, center=false);
+			}
+
 			cylinder(r=b_airOut_diam/2, h= b_zDirWall_size[2]-b_zdirRod_hole_depth -b_horizontalSuportThickness, center=false);
 
 			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
