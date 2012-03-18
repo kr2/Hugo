@@ -6,7 +6,7 @@
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
-use <toothedLinearBearing.scad>
+use <ToothedLinearBearing_v1.scad>
 
 
 %cube(size=[150, 150, 1], center=true);
