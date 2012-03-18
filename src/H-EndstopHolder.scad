@@ -17,7 +17,7 @@ include <config.scad>
 /*------------------------------------general---------------------------------*/
 eh_mode = "-";
 //eh_mode = "printSet";  $fn=24*4;
-//eh_mode = "inspect";
+eh_mode = "inspect";
 //eh_mode = "assembly";
 
 eh_genWallThickness           = 2.5;
@@ -38,7 +38,7 @@ eh_end_clampHole_offset       = 15;
 eh_end_elongetatedHole_length = 10;
 eh_end_addLengthHole          = 5.5 + eh_end_elongetatedHole_length;
 eh_end_edgeRadius             = 10; // availiable ony if perpendicular
-eh_end_holeSeperator_width    = 1; 
+eh_end_holeSeperator_width    = 1.2; 
 
 /*------------------------------------K----------------------------*/
 
