@@ -12,18 +12,18 @@
 
 /*-----------------------------------x axis-----------------------------------*/
 c_x_axis_length = 225; // usable lenth. If you use an extruder which is longer then the H-Xtruder-Mount.scad you have to add this overcut here.
-c_x_axis_smoothRod_diam = 8.1;
+c_x_axis_smoothRod_diam = 8.1 +0.1;
 
 c_x_axis_dist = 25.38;
 
 /*-----------------------------------y axis-----------------------------------*/
 c_y_axis_length = 225; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
-c_y_axis_smoothRod_diam = 8.1;
+c_y_axis_smoothRod_diam = 8.1 +0.1;
 c_y_axis_tabel_zDirOffset = 14.321; // offset of the center of the y axis to the tabel contact plain
 
 /*-----------------------------------z axis-----------------------------------*/
 c_z_axis_length = 235; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
-c_z_axis_smoothRod_diam = 8.2;
+c_z_axis_smoothRod_diam = 8.2 +0.1;
 
 c_z_axis_rodsDist = ((45.45+30.56)/2+1)-(9.69+1); // distance between threded rod and smooth rod
 
