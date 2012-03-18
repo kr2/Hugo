@@ -153,10 +153,11 @@ module H_FanConnector() {
 				
 				
 				//fan round coutout
-				rotate(a=90,v=X)
-				translate([f_fanCenterOffset+OS, f_fanSize/2, 0]) 
-				rotate(a=-90,v=Y) 
-					cylinder(r=f_fanSize/2- f_genWallThickness, h=3+2*OS, center=false);
+				
+				translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
+				rotate(a=180,v=Z) 
+					teardrop (r=f_fanSize/2- f_genWallThickness,h=3+2*OS,top_and_bottom=false);
+					//cylinder(r=f_fanSize/2- f_genWallThickness, h=3+2*OS, center=false);
 
 				// screw holes
 				translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
