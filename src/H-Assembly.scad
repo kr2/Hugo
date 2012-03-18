@@ -8,7 +8,7 @@
 include <config.scad>
 include <metric.scad>
 
-include <gregs-wade-v4.scad>
+include <GregsWade_v4.scad>
 
 include <H-Xtruder-Mount.scad>
 include <H-X-End.scad>
