@@ -57,6 +57,7 @@ f_connSlot_width = m3_diameter;
 /*------------------------------------clamp-----------------------------------*/
 f_clamp_thickness = 0.5;
 f_clamp_widht = m4_diameter + 2*f_strongWallThickness;
+f_clampThin_widht = 28;
 f_clamp_slotWidth = m4_diameter;
 f_clamp_length = 50;
 
@@ -171,7 +172,7 @@ module H_FanConnector() {
 				
 				translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
 				rotate(a=180,v=Z) 
-					teardrop (r=f_fanSize/2- f_genWallThickness,h=3+2*OS,top_and_bottom=false);
+					teardrop (r=f_fanSize/2- f_genWallThickness*1.25,h=3+2*OS,top_and_bottom=false);
 					//cylinder(r=f_fanSize/2- f_genWallThickness, h=3+2*OS, center=false);
 
 				// screw holes
@@ -212,13 +213,13 @@ module H_fan_clamp() {
 	difference() {
 		union(){
 			translate([0, -f_clamp_length/4, f_clamp_thickness/2]) 
-				cube(size=[f_clamp_widht, f_clamp_length/2, f_clamp_thickness], center=true);
+				cube(size=[f_clampThin_widht, f_clamp_length/2, f_clamp_thickness], center=true);
 
 			for (x=[-1,1]) 
 			translate([x*(f_clamp_widht/2-(f_clamp_widht- f_conn_size[1])/4), f_clamp_length/4,  f_conn_size[0]/2]) 
 				cube(size=[(f_clamp_widht- f_conn_size[1])/2, f_clamp_length/2, f_conn_size[0]], center=true);
 			
-			scale([1, 0.3, 1]) 
+			scale([1, 0.1, 1]) 
 			rotate(a=90,v=Y) 
 				cylinder(r=f_conn_size[0], h=f_clamp_widht, center=true);
 		}
@@ -226,7 +227,11 @@ module H_fan_clamp() {
 			translate([0, 0, -50]) 
 				cube(size=[100, 100, 100], center=true);
 
-			translate([0, -f_clamp_length/4-f_clamp_widht/2, f_clamp_thickness/2]) 
+			for (i=[[f_clampThin_widht/2,180],[-f_clampThin_widht/2,-90]]) 
+			translate([i[0], 0, -OS]) 
+				roundEdge(_a=i[1],_r=(f_clampThin_widht- f_clamp_widht)/4,_l=f_clamp_thickness+2*OS,_fn=100);
+
+			translate([0, -f_clamp_length/4-f_conn_size[0]*0.5, f_clamp_thickness/2]) 
 				cube(size=[f_clamp_slotWidth, f_clamp_length/2, f_clamp_thickness+OS], center=true);
 
 			difference() {
@@ -262,7 +267,7 @@ if (f_mode == "print") {
 if (f_mode == "printSet") {
 	H_Fan_print();
 
-	for (i=[-40,40]) 
+	for (i=[-48,48]) 
 	translate([0, i, 0]) 
 	rotate(a=90,v=[0,0,1]) 
 	H_fan_clamp();
