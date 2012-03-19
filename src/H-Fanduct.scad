@@ -7,7 +7,7 @@
  */
 
 include <config.scad>
-include <units.scad>;
+include <units.scad>
 include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
@@ -35,6 +35,7 @@ f_verticalSupportThickness   = 0.5;
 f_airChannal_segments = 12;
 
 f_airChannal_outerR = 32;
+f_airChannal_width = 45;
 
 f_fanSize = 40;
 
@@ -85,7 +86,15 @@ module H_Fan_airChannal() {
 			//seperater wall
 			intersection() {
 				rotate_extrude(file = "fanOutlet.dxf", layer = "airCannal_outline",origin =  [0,0], convexity = 10,$fn=f_airChannal_segments);
-					cube(size=[f_thinWallThickness,100, 100], center=true);
+				cube(size=[f_thinWallThickness,100, 100], center=true);
+			}
+
+			//cutoff
+			intersection() {
+				rotate_extrude(file = "fanOutlet.dxf", layer = "airCannal_outline",origin =  [0,0], convexity = 10,$fn=f_airChannal_segments);
+				for (i=[-1,1]) 
+				translate([0, i*(f_airChannal_width/2+f_airChannal_outerR/2), 0]) 
+					cube(size=[f_airChannal_outerR*2, f_airChannal_outerR, f_airChannal_outerR], center=true);
 			}
 			
 		}
@@ -98,11 +107,21 @@ module H_Fan_airChannal() {
 					linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
 			}
 
+			//cutoff
+			for (i=[-1,1]) 
+			translate([0, i*(f_airChannal_width/2+f_airChannal_outerR/2+f_thinWallThickness), 0]) 
+				cube(size=[f_airChannal_outerR*2, f_airChannal_outerR, f_airChannal_outerR], center=true);
+
+
 		}
 	}
 }
-
-module H_FanConnector() {
+/*
+conType:
+elongeteated
+bar
+*/
+module H_FanConnector(conType = "bar") {
 	color([100/255, 0/255, 0/255])
 	for (x=[-f_fanCenterOffset+15,f_fanCenterOffset-15]) 
 	for (y=[-5,5]) 
@@ -138,29 +157,45 @@ module H_FanConnector() {
 						cylinder(r1=_f_nutFree_r*2,r2=f_genWallThickness/2, h=27, center=false);	
 				}
 
-				difference() {
-					union(){
-						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]/2-f_conn_size[0]/4]) 
-							cube(size=f_conn_size-[0,0,f_conn_size[0]/2], center=true);
+				if (conType == "elongeteated") {
+					difference() {
+						union(){
+							translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]/2-f_conn_size[0]/4]) 
+								cube(size=f_conn_size-[0,0,f_conn_size[0]/2], center=true);
 
-						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]-f_conn_size[0]/2]) 
-						rotate(a=90,v=X) 
-							cylinder(r=f_conn_size[0]/2, h=f_conn_size[1], center=true);
-					}
-					union(){
-						rotate(a=90,v=X)
-							linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
+							translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]-f_conn_size[0]/2]) 
+							rotate(a=90,v=X) 
+								cylinder(r=f_conn_size[0]/2, h=f_conn_size[1], center=true);
+						}
+						union(){
+							rotate(a=90,v=X)
+								linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
 
-						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]/2-f_conn_size[0]/4]) 
-							cube(size=[f_connSlot_width,f_conn_size[1]+2*OS,f_conn_size[2]-f_conn_size[0]/2], center=true);
+							translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]/2-f_conn_size[0]/4]) 
+								cube(size=[f_connSlot_width,f_conn_size[1]+2*OS,f_conn_size[2]-f_conn_size[0]/2], center=true);
 
-						translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]-f_conn_size[0]/2]) 
-						rotate(a=90,v=X) 
-							cylinder(r=f_connSlot_width/2, h=f_conn_size[1]+2*OS, center=true,$fn=4);
+							translate([f_fanCenterOffset- f_conn_size[0]/2, 0, f_conn_size[2]-f_conn_size[0]/2]) 
+							rotate(a=90,v=X) 
+								cylinder(r=f_connSlot_width/2, h=f_conn_size[1]+2*OS, center=true,$fn=4);
+						}
 					}
 				}
-				
-				
+				if (conType == "bar") {
+					difference() {
+						union(){
+							translate([f_fanCenterOffset- f_conn_size[1]/2, 0, f_conn_size[2]/2-f_conn_size[1]/4]) 
+								cube(size=[f_conn_size[1],f_conn_size[1],f_conn_size[2]-f_conn_size[1]/2], center=true);
+
+							translate([f_fanCenterOffset- f_conn_size[1]/2, 0, f_conn_size[2]-f_conn_size[1]/2]) 
+							rotate(a=90,v=X) 
+								cylinder(r=f_conn_size[1]/2, h=f_conn_size[1], center=true);
+						}
+						union(){
+							rotate(a=90,v=X)
+								linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
+						}
+					}
+				}
 			}
 		}
 		union(){
@@ -267,7 +302,7 @@ if (f_mode == "print") {
 if (f_mode == "printSet") {
 	H_Fan_print();
 
-	for (i=[-48,48]) 
+	for (i=[-42,42]) 
 	translate([0, i, 0]) 
 	rotate(a=90,v=[0,0,1]) 
 	H_fan_clamp();
