@@ -18,16 +18,16 @@ Xc_mode = "-";
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
-Xc_thinWallThickness         = 1;
+Xc_thinWallThickness         = 1.5;
 Xc_genWallThickness          = 2.5;
 Xc_strongWallThickness       = 5;
 
 Xc_slot_width                = 2.5;
 
-Xc_horizontalSuportThickness = 0.3;
-Xc_verticalSupportThickness  = 0.7;
+Xc_horizontalSuportThickness = 0.35;
+Xc_verticalSupportThickness  = 1.2;
 
-Xc_supportDistance           = 0.45; // suport distance for coutout
+Xc_supportDistance           = 0.2; // suport distance for coutout
 
 
 Xc_axis_dist                 = c_x_axis_dist - 0.1; //
