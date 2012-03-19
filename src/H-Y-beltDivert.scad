@@ -86,9 +86,10 @@ module H_Y_beltDivert() {
 			
 			for (i=[-Ybd_beltDiv_xdirRods_dist/2,Ybd_beltDiv_xdirRods_dist/2]) {
 				// x dir rods
-				translate([i, 0, Ybd_beltDiv_height/2]) 
-				rotate(a=90,v=X) 
-					cylinder(r=Ybd_roughRod_diam/2, h=Ybd_strongWallThickness+2*OS, center=true);
+				translate([i, -Ybd_strongWallThickness/2-OS, Ybd_beltDiv_height/2]) 
+				rotate(a=90,v=Z) 
+					teardrop (r=Ybd_roughRod_diam/2,h=Ybd_strongWallThickness+2*OS,top_and_bottom=false);
+					//cylinder(r=Ybd_roughRod_diam/2, h=Ybd_strongWallThickness+2*OS, center=true);
 				// nut coutout
 				for (y=[-_Ybd_xdir_holder_size[1]/2-m8_nut_heigth/2,_Ybd_xdir_holder_size[1]/2+m8_nut_heigth/2]) 
 				translate([i, y, Ybd_beltDiv_height/2]) 
