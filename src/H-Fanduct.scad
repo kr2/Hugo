@@ -320,7 +320,7 @@ module H_Fan_assembly(zDirOffset = -60) {
 	for (i=[-1,1]) 
 	translate([-i*f_fanCenterOffset*0.75, 0, 0]) 
 	rotate(a=i*90,v=Z) 
-	rotate(a=180,v=Y) 
+	//rotate(a=180,v=Y) 
 	H_fan_clamp();
 }
 

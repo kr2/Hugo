@@ -78,7 +78,7 @@ module _xAxis_assembly() {
 		gegsWade_assembly();
 
 	// fanduct
-	translate([-3, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
+	translate([0, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
 	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
 	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
 		H_Fan_assembly(zDirOffset = -45) 
@@ -270,10 +270,10 @@ module H_assembly() {
 	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	*translate([0, a_act_pos[1], 0]) 
+	translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
-	*_zAxis_assembly();
+	_zAxis_assembly();
 
 	// basement
 	color("Lavender")
