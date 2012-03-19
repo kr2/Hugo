@@ -25,7 +25,7 @@ Xc_strongWallThickness       = 5;
 Xc_slot_width                = 2.5;
 
 Xc_horizontalSuportThickness = 0.35;
-Xc_verticalSupportThickness  = 1.2;
+Xc_verticalSupportThickness  = 1.35;
 
 Xc_supportDistance           = 0.2; // suport distance for coutout
 
@@ -77,7 +77,8 @@ Xc_beltClamp_depth         = 10;
 // belt connector
 Xc_beltClamp_beltHole      = [Xc_belt_thickness+Xc_belt_tolerance[0],Xc_belt_width+Xc_belt_tolerance[1],-1];
 Xc_beltClamp_center_height = Xc_genWallThickness+m3_nut_wallDist;
-Xc_beltClamp_width         = Xc_belt_width+Xc_belt_tolerance[1]+m3_diameter*2+m3_nut_diameter;
+//Xc_beltClamp_width         = Xc_belt_width+Xc_belt_tolerance[1]+m3_diameter*2+m3_nut_diameter;
+Xc_beltClamp_width         = m3_nut_diameter*3 + 3*Xc_thinWallThickness;
 Xc_beltClamp_heigth        = Xc_belt_thickness+Xc_belt_tolerance[0]+Xc_genWallThickness+m3_nut_wallDist;
 
 Xc_xdir                    = Xc_axis_dist+Xc_lber_diam+2*Xc_genWallThickness;
@@ -177,7 +178,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 							rotate(a=90,v=Y) 
 								cylinder(r=m3_diameter/2, h=Xc_beltClamp_width+OS*2, center=false,$fn=12);
 							// eleongeteated nuttraps
-							translate([-Xc_beltClamp_beltHole[0]-Xc_beltClamp_center_height/4-m3_elongNtt_height/2, c, i+Xc_beltClamp_depth/2])
+							translate([-Xc_beltClamp_beltHole[0]-Xc_beltClamp_center_height/3-m3_elongNtt_height/2, c, i+Xc_beltClamp_depth/2])
 							rotate(a=90,v=Y) 
 								cylinder(r=m3_elongNtt_diameter/2, h=m3_elongNtt_height, center=false,$fn=6); 
 							
@@ -196,7 +197,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 					// elengeteated nuttraps
 					for (i=[-OS,Xc_zdir-Xc_beltClamp_depth/2]) 
 					for (c=[-(Xc_beltClamp_width-Xc_beltClamp_depth)/2,(Xc_beltClamp_width-Xc_beltClamp_depth)/2])// center screws
-					translate([-Xc_beltClamp_beltHole[0]-Xc_beltClamp_center_height/4-m3_elongNtt_height/2, c- m3_elongNtt_wallDist/2, i]) 
+					translate([-Xc_beltClamp_beltHole[0]-Xc_beltClamp_center_height/3-m3_elongNtt_height/2, c- m3_elongNtt_wallDist/2, i]) 
 						cube(size=[m3_elongNtt_height, m3_elongNtt_wallDist, Xc_beltClamp_depth], center=false);
 				}
 				
@@ -373,7 +374,7 @@ if (Xc_mode == "inspect") {
 }
 module H_x_Carriage_print() {
 	H_x_Carriage();
-	for (i=[0, Xc_beltClamp_depth+1]) 
+	for (i=[2, Xc_beltClamp_depth+3]) 
 	translate([Xc_belt_width+i, -Xc_lber_diam*2-3, 0]){
 		carr_beltClamp();
 		translate([0,Xc_beltClamp_width/2+4.5 , 0]) 
