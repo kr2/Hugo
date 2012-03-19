@@ -17,8 +17,8 @@ use <teardrop.scad>
 
 /*------------------------------------general---------------------------------*/
 f_mode = "-";  
-f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+//f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
 //f_mode = "inspect";
 //f_mode = "assembly";
 
@@ -276,10 +276,19 @@ if (f_mode == "printSet") {
 
 
 /*------------------------------------assembly--------------------------------*/
-module H_Fan_assembly() {
-	H_fanDuct();
+module H_Fan_assembly(zDirOffset = -60) {
+	translate([0, 0, zDirOffset]) 
+		H_fanDuct();
+
+
+
+	for (i=[-1,1]) 
+	translate([-i*f_fanCenterOffset*0.75, 0, 0]) 
+	rotate(a=i*90,v=Z) 
+	rotate(a=180,v=Y) 
+	H_fan_clamp();
 }
 
 if (f_mode == "assembly"){
-	H_Fan_airChannal_assembly();
+	H_Fan_assembly();
 }
