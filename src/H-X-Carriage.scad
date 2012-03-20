@@ -14,7 +14,7 @@ use <A-Y-BeltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-//Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
@@ -30,7 +30,7 @@ Xc_verticalSupportThickness  = 1.35;
 Xc_supportDistance           = 0.2; // suport distance for coutout
 
 
-Xc_axis_dist                 = c_x_axis_dist - 0.1; //
+Xc_axis_dist                 = c_x_axis_dist; 
 
 /*------------------------------------linear bearings-------------------------*/
 Xc_lber_length               = c_xAxis_lber_length;
@@ -69,6 +69,11 @@ Xc_belt_axisXc_zdir_offset = c_xAxis_beltTop_topxAxisDist - Xc_belt_tolerance[0]
 
 Xc_beltClamp_depth         = 10;
 
+/*------------------------------------elongetated hole------------------------*/
+
+//elongetated hole for the lower x axis beratin to compensate the different 
+//print directions of xEnd and this
+Xc_elongHole_addDia = 0.5; // aditional distenace
 
 /******************************************************************************/ 
 /*                                  internal                                  */
@@ -85,7 +90,7 @@ Xc_xdir                    = Xc_axis_dist+Xc_lber_diam+2*Xc_genWallThickness;
 Xc_ydir                    = Xc_lber_diam+2*Xc_genWallThickness;
 Xc_zdir                    = Xc_lber_length*2+Xc_genWallThickness;
 
-Xc_matCoutout_rounded_r    = Xc_xdir/2;
+Xc_matCoutout_rounded_r    = Xc_xdir/2+Xc_elongHole_addDia;
 Xc_matCoutout_scale        = (Xc_lber_length/2)/Xc_matCoutout_rounded_r; // material coutout scale
 
 
@@ -119,13 +124,13 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 						rotate(a=90-Xc_belt_holder_angle,v=Z) 
 						rotate(a=-90,v=Y)
 						linear_extrude(height=Xc_zdir)
-							barbell(Xc_beltClamp_width/2,Xc_beltClamp_width/2,Xc_zdir*0.474,Xc_zdir*0.65,Xc_zdir+2*OS);
+							barbell(Xc_beltClamp_width/2,Xc_beltClamp_width/2,Xc_zdir*0.45,Xc_zdir*0.55,Xc_zdir+2*OS);
 			
 						linear_extrude(height=Xc_zdir)
 						translate([-Xc_axis_dist/2, 0, 0]) 
 						rotate(a=-Xc_belt_holder_angle,v=Z) 
 						rotate(a=-90,v=[0,0,1]) 
-							barbell((Xc_lber_diam+Xc_genWallThickness*2)/2,Xc_beltClamp_width/2,Xc_belt_axisXc_ydir_dist*0.35,Xc_belt_axisXc_ydir_dist*0.3,Xc_belt_axisDist);
+							barbell((Xc_lber_diam+Xc_genWallThickness*2)/2,Xc_beltClamp_width/2,Xc_belt_axisXc_ydir_dist*0.25,Xc_belt_axisXc_ydir_dist*0.3,Xc_belt_axisDist);
 					}
 
 					// place for tabel for conectors
@@ -224,10 +229,14 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 			translate([Xc_axis_dist/2, 0, 0]){
 				difference() {
 					union() {
-						cylinder(r=Xc_lber_diam/2, h=Xc_zdir+2*OS, center=false);
+						for (i=[-Xc_elongHole_addDia/2,Xc_elongHole_addDia/2]) 
+         				translate([i, 0, 0]) 
+              				cylinder(r=Xc_lber_diam/2, h=Xc_zdir+2*OS, center=false);
+           				translate([0, 0, Xc_zdir/2]) 
+           					cube(size=[Xc_elongHole_addDia, Xc_lber_diam, Xc_zdir+2*OS], center=true);
 
 						//zip tie coutout
-						translate([0, 0, Xc_zdir/2])
+					*	translate([0, 0, Xc_zdir/2])
 						rotate_extrude(convexity = 10)
 						translate([ Xc_lber_diam/2+Xc_thinWallThickness,0, 0]) 
 						rotate(a=-90,v=Z) 
