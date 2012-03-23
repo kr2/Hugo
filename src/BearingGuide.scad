@@ -7,8 +7,8 @@
 */
 
 bg_mode = "-";
-//bg_mode = "print";  $fn=24*4; 
-//bg_mode = "printSet";  $fn=24*4; 
+bg_mode = "print";  $fn=24*4; 
+bg_mode = "printSet";  $fn=24*4; 
 
 layer_height=0.4;
 perimeter_w_over_t=2;
@@ -21,7 +21,8 @@ slope_thickness=layer_height*3.1;
 height=7+edge_thickness;
 wall_ascent=5;
 wall_descent=0.5;
-tolerance=0.15;
+tolerance=0.15; // bearing radius
+conn_tolerance = -0.05; // connector radius
 
 module bearing_guide(inner_r=2)
 {
@@ -29,7 +30,7 @@ module bearing_guide(inner_r=2)
 	{
 		union()
 		{
-			cylinder(r=inner_r++single_layer_width,h=height);
+			cylinder(r=inner_r+single_layer_width,h=height);
 
 			cylinder(r=bearing_inner/2+wall_ascent,h=edge_thickness);
 			translate([0,0,edge_thickness-layer_height*0.1])
@@ -52,7 +53,7 @@ module inner()
 
 module outer()
 {
-	bearing_guide(inner_r=bearing_inner/2+single_layer_width+2*+tolerance);
+	bearing_guide(inner_r=bearing_inner/2 + tolerance + single_layer_width +conn_tolerance);
 }
 
 
