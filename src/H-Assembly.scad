@@ -23,6 +23,7 @@ include <H-Y-SupportFootEnd.scad>
 include <H-BarClamp.scad>
 include <H-Z-Coupling.scad>
 include <H-Base.scad>
+include <H-Fanduct.scad>
 
 
 include <basicMetalParts.scad>
@@ -33,7 +34,7 @@ a_act_pos = [0,0,50]; // relative to the center of the axis exept z is relative 
 
 
 /*------------------------------------heated bed------------------------------*/
-a_heatedBed_size = [215,215,1.6];
+a_heatedBed_size = [300,300,1.6];
 a_heatedBed_tabelOffset = 5;
 
 /*------------------------------------tabel-----------------------------------*/
@@ -65,16 +66,22 @@ module _xAxis_assembly() {
 		H_x_Carriage_assembly();
 
 	// x extruder holder
-	translate([a_act_pos[0], 0, Xe_X_RodHoles_pos[1][1]]) 
+	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
 	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
 		H_Xtruder_mount_assembly();
 
 	// extruder
 	translate([0, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
-	translate([a_act_pos[0], 0, Xe_X_RodHoles_pos[1][1]]) 
+	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
 	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
 	rotate(a=180,v=Z) 
 		gegsWade_assembly();
+
+	// fanduct
+	translate([0, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
+	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
+	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
+		H_Fan_assembly(zDirOffset = -45) 
 
 	// endstops
 	translate([-c_x_axis_length/2, 0, Xe_X_RodHoles_pos[0][1]]) 
@@ -97,7 +104,7 @@ _a_yAxis_dist = (_a_xEnd_xdirBearHole_offset[0]-b_lber_zAxisXdirDist)*2; // todo
 module _yAxis_assembly() {
 	//heated bed
 	color("Crimson")
-	translate([0, 0, -a_heatedBed_size[2]/2]) 
+	translate([0,-(Xc_genWallThickness+Xc_lber_diam/2+Xm_ext_hole_yoff),  -a_heatedBed_size[2]/2]) 
 		cube(size=a_heatedBed_size, center=true);
 
 	// table
@@ -106,7 +113,7 @@ module _yAxis_assembly() {
 
 	// y axis
 	for (i=[_a_yAxis_dist/2,-_a_yAxis_dist/2]) 
-	translate([i, a_act_pos[1], -_a_yAxis_rod_topOffset]) 
+	translate([i,0, -_a_yAxis_rod_topOffset]) 
 	rotate(a=90,v=X) 
 		rod(r=c_y_axis_smoothRod_diam/2, h=_a_yAxis_real_length, center=true, info="y Axis rod");
 
