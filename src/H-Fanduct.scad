@@ -125,7 +125,7 @@ module H_FanConnector(conType = "bar") {
 	color([100/255, 0/255, 0/255])
 	for (x=[-f_fanCenterOffset+15,f_fanCenterOffset-15]) 
 	for (y=[-5,5]) 
-	translate([x,y, 1-OS]) 
+	translate([x,y, 1.5-OS]) 
 		linear_extrude(file = "fanOutlet.dxf", layer = "arrow",height = f_horizontalSuportThickness, center = false, convexity = 10, twist = 0,$fn=24);
 
 	difference() {
