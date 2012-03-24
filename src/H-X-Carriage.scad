@@ -40,6 +40,8 @@ Xc_lber_diam                 = c_xAxis_lber_diam;
 Xc_lber_clipHeight           = 0.2*Xc_lber_diam;
 Xc_lber_coverdHeight         = 0.65 * Xc_lber_diam;
 
+Xc_lber_lowerBer_tolerance   = [0.15,0.2];// diam,height
+
 /*------------------------------------zip ties--------------------------------*/
 Xc_zipTies_width              = 5;
 Xc_zipTies_thickness          = 2.5;
@@ -226,6 +228,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 			} 
 			
 			// lower bearing holder
+			assign (Xc_lber_diam = Xc_lber_diam + Xc_lber_lowerBer_tolerance[0] ,Xc_lber_length=Xc_lber_length + Xc_lber_lowerBer_tolerance[1])
 			translate([Xc_axis_dist/2, 0, 0]){
 				difference() {
 					union() {
