@@ -19,8 +19,8 @@ use <teardrop.scad>
 f_mode = "-";  
 //f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
 //f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
-//f_mode = "inspect";
-//f_mode = "assembly";
+f_mode = "inspect";
+f_mode = "assembly";
 
 f_thinWallThickness          = 1;
 f_genWallThickness           = 1.5;
@@ -57,9 +57,9 @@ f_connSlot_width = m3_diameter;
 
 /*------------------------------------clamp-----------------------------------*/
 f_clamp_thickness = 0.5;
-f_clamp_widht = m4_diameter + 2*f_strongWallThickness;
+f_clamp_widht = m3_diameter + 2*f_strongWallThickness;
 f_clampThin_widht = 28;
-f_clamp_slotWidth = m4_diameter;
+f_clamp_slotWidth = m3_diameter;
 f_clamp_length = 50;
 
 
