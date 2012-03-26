@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-b_mode = "inspect";
+//b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness           = 1;
@@ -196,6 +196,16 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 				}
 
 			}
+
+
+
+			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
+			for (z=b_xdirRods_holes_altitude){
+				//xdir holes nut suport range
+				translate([0, y, z])
+				rotate(a=90,v=Y) 
+					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=b_zDirWall_size[0]+ b_verticalSupportThickness*2, center=true); 
+			} 
 		}
 		union(){
 			
@@ -212,12 +222,12 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 			for (y=[-b_xdirRods_holes_zAxisDist,b_xdirRods_holes_zAxisDist])
 			for (z=b_xdirRods_holes_altitude){
 				//xdir hole coutput
-				translate([-b_zDirWall_size[0]/2+OS, y, z]) 
+				translate([-b_zDirWall_size[0], y, z]) 
 				rotate(a=180,v=X) 
-					teardrop (r=b_roughRod_diam/2,h=b_zDirWall_size[0]+2*OS,top_and_bottom=false);
+					teardrop (r=b_roughRod_diam/2,h=b_zDirWall_size[0]*2,top_and_bottom=false);
 					//cylinder(r=b_roughRod_diam/2, h=b_zDirWall_size[0]+2*OS, center=true); 
 				//xdir holes nut save range
-				for (x=[-(b_zDirWall_size[0]/2+_b_SaveRange_height/2 -b_verticalSupportThickness),b_zDirWall_size[0]/2+_b_SaveRange_height/2- b_verticalSupportThickness]) 
+				for (x=[-(b_zDirWall_size[0]/2+_b_SaveRange_height/2 +b_verticalSupportThickness),b_zDirWall_size[0]/2+_b_SaveRange_height/2+ b_verticalSupportThickness]) 
 				translate([x, y, z])
 				rotate(a=90,v=Y) 
 					cylinder(r=m8_nut_diameter/2+b_m8_nut_tolerance[0]/2, h=_b_SaveRange_height, center=true); 
