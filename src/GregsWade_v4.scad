@@ -10,7 +10,7 @@ include<metric.scad>
 
 gW_mode = "-"; 
 //gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-gW_mode = "assembly";
+//gW_mode = "assembly";
 
 // Define the hotend_mounting style you want by specifying hotend_mount=style1+style2 etc.
 malcolm_hotend_mount=1;
@@ -475,7 +475,7 @@ module block_holes(legacy_mount=false){
 				rotate([-90,0,0]){
 //				cylinder(r=m4_nut_diameter/2,h=base_thickness,$fn=6);
 				translate([0,0,base_thickness/2 - m3_nut_heigth+OS]) rotate([0,0,30]) 
-					cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false, $fn=6);
+					cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth*2, center=false, $fn=6);
 					//nut_trap(m4_wrench,base_thickness,0);
 				}
 			}
@@ -839,7 +839,7 @@ module wildseyed_mount_holes(insulator_d=12.7){
 
 //PEEK mount holes for reprap-fab.org 10mm dia insulator
 module peek_reprapfaborg_holes(){
-	extruder_recess_d=10.8;
+	extruder_recess_d=10.7;
 	extruder_recess_h=20; 
 
 	// Recess in base
