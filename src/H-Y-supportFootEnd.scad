@@ -32,7 +32,7 @@ Ysf_verticalSupportThickness   = 0.5;
 Ysf_roughRod_diam                   = 8.5;
 
 /*------------------------------------supportFootEnd--------------------------*/
-Ysf_sFooEnd_size = [(8.267+9.25)*2,(8.267+9.25)*2,Ysf_strongWallThickness];
+Ysf_sFooEnd_size = [(8.267+9.25)*2+3,(8.267+9.25)*2+3,Ysf_strongWallThickness];
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
