@@ -14,7 +14,7 @@ use <A-Y-BeltClamp.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-//Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+Xc_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
@@ -54,7 +54,7 @@ Xc_notch_depth               = 1.2;
 Xc_notch_lengt               = 24 + 2.5 + 1.5;
 
 /*------------------------------------xtruder carriag holes-------------------*/
-Xc_holes_diam              = m4_diameter;
+Xc_holes_diam              = m3_diameter;
 Xc_holes_dist              = 18;
 
 /*------------------------------------rod-------------------------------------*/
@@ -93,7 +93,7 @@ Xc_ydir                    = Xc_lber_diam+2*Xc_genWallThickness;
 Xc_zdir                    = Xc_lber_length*2+Xc_genWallThickness;
 
 Xc_matCoutout_rounded_r    = Xc_xdir/2+Xc_elongHole_addDia;
-Xc_matCoutout_scale        = (Xc_lber_length/2)/Xc_matCoutout_rounded_r; // material coutout scale
+Xc_matCoutout_scale        = (Xc_lber_length/2)/Xc_matCoutout_rounded_r; // material cutout scale
 
 
 Xc_belt_axisDist           = distance1D(Xc_belt_axisXc_ydir_dist+Xc_belt_width/2,Xc_belt_axisXc_zdir_offset+(Xc_beltClamp_center_height+Xc_beltClamp_beltHole[0])/2);
@@ -239,7 +239,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
            					cube(size=[Xc_elongHole_addDia, Xc_lber_diam, Xc_zdir+2*OS], center=true);
 
 						//zip tie coutout
-					*	translate([0, 0, Xc_zdir/2])
+						*translate([0, 0, Xc_zdir/2])
 						rotate_extrude(convexity = 10)
 						translate([ Xc_lber_diam/2+Xc_thinWallThickness,0, 0]) 
 						rotate(a=-90,v=Z) 
@@ -292,7 +292,7 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 				translate([0, -Xc_ydir/2-OS, 0]) 
 				rotate(a=-90,v=X) 
 				rotate(a=30,v=Z) 
-					cylinder(r=m4_nut_diameter/2, h=m4_nut_heigth, center=false,$fn=6);
+					cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6);
 
 			}
 		}
