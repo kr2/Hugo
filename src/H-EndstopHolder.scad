@@ -16,9 +16,9 @@ include <config.scad>
 
 /*------------------------------------general---------------------------------*/
 eh_mode = "-";
-//eh_mode = "printSet";  $fn=24*4;
+eh_mode = "printSet";  $fn=24*4;
 //eh_mode = "inspect";
-//eh_mode = "assembly";
+eh_mode = "assembly";
 
 eh_genWallThickness           = 2.5;
 eh_strongWallThickness        = 5;
@@ -48,7 +48,7 @@ eh_holeOffsets = [
 
 					[-7,14,5], // y front/back  nuttraps = [-1,0]
 
-					[-9,14,5] // x left/reight nuttraps = [-1,1]
+					[-9,19,5] // x left/reight nuttraps = [-1,1]
 				];
 
 
