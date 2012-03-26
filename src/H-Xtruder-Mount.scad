@@ -5,6 +5,7 @@
  * derivative of the original design by abdrumm for the PrintrBot
  */
 
+include <metric.scad>
 include <units.scad>
 include <teardrop.scad>
 include <roundEdges.scad>
@@ -23,7 +24,7 @@ Xm_extM_tabelThickness = 5.9;
 
 Xm_extM_genWallThickness = 4;
 
-Xm_ext_hole_diam = 4.5;
+Xm_ext_hole_diam = m4_diameter;
 Xm_ext_hole_xoff = 50/2;
 Xm_ext_hole_yoff = 20.55;
 
@@ -31,7 +32,7 @@ Xm_Zdir_edge_r = 15;
 
 Xm_carr_hole_zoff = Xm_outline[2]/2;
 Xm_carr_hole_xoff = 18/2;
-Xm_carr_hole_dia = 4.5;
+Xm_carr_hole_dia = m3_diameter;
 
 Xm_tchOuterWidth     = 7.3;
 Xm_notchInnerWidth   = 5.4;
