@@ -16,9 +16,10 @@ include <config.scad>
 
 /*------------------------------------general---------------------------------*/
 eh_mode = "-";
-eh_mode = "printSet";  $fn=24*4;
+//eh_mode = "printSet1";  $fn=24*4;
+//eh_mode = "printSet2";  $fn=24*4;
 //eh_mode = "inspect";
-eh_mode = "assembly";
+//eh_mode = "assembly";
 
 eh_genWallThickness           = 2.5;
 eh_strongWallThickness        = 5;
@@ -215,7 +216,7 @@ if (eh_mode == "inspect") {
 if (eh_mode == "print") {
 	H_endstop_holder();
 }
-module H_endstop_printSet() {
+module H_endstop_printSet1() {
 
 	translate([40, 20, 0]) 
 	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
@@ -236,8 +237,23 @@ module H_endstop_printSet() {
 	H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
 
 }
-if (eh_mode == "printSet") {
-	H_endstop_printSet();
+if (eh_mode == "printSet1") {
+	H_endstop_printSet1();
+}
+
+module H_endstop_printSet2() {
+
+	translate([20, 10, 0]) 
+	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
+
+	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+		
+	translate([-20, -10, 0]) 
+	H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
+
+}
+if (eh_mode == "printSet2") {
+	H_endstop_printSet2();
 }
 
 
