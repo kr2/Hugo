@@ -10,7 +10,7 @@ include<metric.scad>
 
 gW_mode = "-"; 
 //gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-//gW_mode = "assembly";
+gW_mode = "assembly";
 
 // Define the hotend_mounting style you want by specifying hotend_mount=style1+style2 etc.
 malcolm_hotend_mount=1;
@@ -467,16 +467,18 @@ module block_holes(legacy_mount=false){
 					-motor_mount_translation[1]-1,wade_block_depth/2])
 				rotate([-90,0,0])
 				rotate(360/16)
-				cylinder(r=m4_diameter/2,h=base_thickness+2,$fn=8);	
+				cylinder(r=m3_diameter/2,h=base_thickness+2,$fn=8);	
 	
 				translate([-filament_feed_hole_offset+25*((mount<1)?1:-1),
 					-motor_mount_translation[1]+base_thickness/2,
 					wade_block_depth/2])
 				rotate([-90,0,0]){
 //				cylinder(r=m4_nut_diameter/2,h=base_thickness,$fn=6);
-				translate([0,0,base_thickness/2]) rotate([0,0,30]) nut_trap(m4_wrench,base_thickness,0);}
+				translate([0,0,base_thickness/2 - m3_nut_heigth+OS]) rotate([0,0,30]) 
+					cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false, $fn=6);
+					//nut_trap(m4_wrench,base_thickness,0);
+				}
 			}
-
 		}
 	}
 
