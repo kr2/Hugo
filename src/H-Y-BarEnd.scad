@@ -36,8 +36,8 @@ Ybe_barEnd_yAxis_offset = c_y_axis_tabel_zDirOffset;
 Ybe_barEnd_slot_width = 1.674;
 Ybe_barEnd_heigth = 16;
 
-Yeb_screwHolde_diam = m4_diameter;
-Yeb_nut_diam = m4_nut_diameter;
+Yeb_screwHolde_diam = m3_diameter;
+Yeb_nut_diam = m3_nut_diameter;
 
 
 
