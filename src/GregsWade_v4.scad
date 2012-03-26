@@ -853,15 +853,8 @@ module peek_reprapfaborg_holes(){
 		rotate([0,0,30])
 		{
 			translate([0,0,wade_block_width*2/6])
-			cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2-0.1/* tight */,h=idler_nut_thickness,$fn=6);	
-			//top
-			translate([0,0,-wade_block_width*2/6-idler_nut_thickness])
-				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=idler_nut_thickness,$fn=6);
+				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=wade_block_width*2/6,$fn=6);	
 		}
-		translate([0,10/2,wade_block_width*2/6+idler_nut_thickness/2])
-			cube([(m3_nut_diameter+verticalNuttrap_tolerance)*cos(30),10,idler_nut_thickness],center=true);
-		translate([0,10/2,-(wade_block_width*2/6+idler_nut_thickness/2)])
-			cube([(m3_nut_diameter+verticalNuttrap_tolerance)*cos(30),10,idler_nut_thickness],center=true);
 	}
 	
 	translate([-5,0,min(extruder_recess_h/2, base_thickness-2)])
@@ -870,15 +863,9 @@ module peek_reprapfaborg_holes(){
 		rotate([0,0,30])
 		{
 			translate([0,0,wade_block_width*2/6])
-			cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=idler_nut_thickness,$fn=6);	
-			//top
-			translate([0,0,-wade_block_width*2/6-idler_nut_thickness])
-			cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=idler_nut_thickness,$fn=6);
+				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=wade_block_width*2/6,$fn=6);	
+			
 		}
-		translate([0,10/2,wade_block_width*2/6+idler_nut_thickness/2])
-			cube([(m3_nut_diameter+verticalNuttrap_tolerance)*cos(30),10,idler_nut_thickness],center=true);
-		translate([0,10/2,-(wade_block_width*2/6+idler_nut_thickness/2)])
-			cube([(m3_nut_diameter+verticalNuttrap_tolerance)*cos(30),10,idler_nut_thickness],center=true);
 	}
 	//cylinder(r=m4_diameter/2-0.5/* tight */,h=wade_block_depth+2,center=true); 
 }
