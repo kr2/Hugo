@@ -19,7 +19,7 @@ b_mode = "-";
 //b_mode = "printSet";  $fn=24*4; // can be print or inspect [overlays the b_model with the original b_model] (uncomment next line)
 //b_mode = "print left"; $fn=24*4; 
 //b_mode = "print right"; $fn=24*4; 
-//b_mode = "inspect";
+b_mode = "inspect";
 //b_mode = "assembly";
 
 b_thinWallThickness           = 1;
@@ -73,7 +73,7 @@ b_xDirWall_roundedEdge_r      = 6.5;
 b_zdirRod_hole_depth          = b_zDirWall_size[2]-8.5;
 
 /*------------------------------------linear bearings-------------------------*/
-b_lber_length                 = c_yAxis_lber_length;
+b_lber_length                 = c_yAxis_lber_length + 0.2; //+ 0.2 to conteract print errors
 b_lber_diam                   = c_yAxis_lber_diam;
 b_lber_topOff                 = (b_lber_diam- c_y_axis_smoothRod_diam)/2 - 0.5;
 b_lber_zAxisDist              = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
