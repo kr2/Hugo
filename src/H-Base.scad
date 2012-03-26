@@ -22,62 +22,70 @@ b_mode = "-";
 //b_mode = "inspect";
 //b_mode = "assembly";
 
-b_thinWallThickness          = 1;
-b_genWallThickness           = 2.5;
-b_strongWallThickness        = 8;
+b_thinWallThickness           = 1;
+b_genWallThickness            = 2.5;
+b_strongWallThickness         = 8;
 
-b_horizontalSuportThickness  = 0.5;
-b_verticalSupportThickness   = 0.5;
+b_horizontalSuportThickness   = 0.5;
+b_verticalSupportThickness    = 0.5;
 
 /*------------------------------------rod-------------------------------------*/
-b_smoothRod_diam             = c_z_axis_smoothRod_diam;
-b_roughRod_diam              = m8_diameter;
+b_smoothRod_diam              = c_z_axis_smoothRod_diam;
+b_roughRod_diam               = m8_diameter;
 
-b_m8_nut_heigth              = m8_nut_heigth;
-b_m8_nut_tolerance           = [2,1]; // diameter,height
+b_m8_nut_heigth               = m8_nut_heigth;
+b_m8_nut_tolerance            = [2,1]; // diameter,height
 
 /*------------------------------------xdir Rods-------------------------------*/
-b_xdirRods_holes_altitude    = c_xDirSupp_thredRod_altitude;
-b_xdirRods_holes_zAxisDist   = c_xDirSupp_thredRod_zAxisDist;
+b_xdirRods_holes_altitude     = c_xDirSupp_thredRod_altitude;
+b_xdirRods_holes_zAxisDist    = c_xDirSupp_thredRod_zAxisDist;
 
 /*------------------------------------zip ties--------------------------------*/
-b_zipTies_width              = 5;
-b_zipTies_thickness          = 2.5;
+b_zipTies_width               = 5;
+b_zipTies_thickness           = 2.5;
 
 /*------------------------------------air outlet------------------------------*/
-b_airOut_diam                = 3;
+b_airOut_diam                 = 3;
 
 /*------------------------------------y dir motor-----------------------------*/
-b_ydir_motorCoutout_diam     = c_yAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
-b_ydir_motorHoles_diameter   = c_yAxis_motorScrewHole_diam  ; // motor hole diameter
-b_ydir_motorHoles_centerDist = c_yAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
-b_ydirM_motorAxis_zAxisDist  = 25.35+7.951 + cos(45)*b_ydir_motorHoles_centerDist;
-b_ydirM_sideLength           = c_yAxis_motor_sideLength;
+b_ydir_motorCoutout_diam      = c_yAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
+b_ydir_motorHoles_diameter    = c_yAxis_motorScrewHole_diam  ; // motor hole diameter
+b_ydir_motorHoles_centerDist  = c_yAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
+b_ydirM_motorAxis_zAxisDist   = 25.35+7.951 + cos(45)*b_ydir_motorHoles_centerDist;
+b_ydirM_sideLength            = c_yAxis_motor_sideLength;
 
 /*------------------------------------z dir motor-----------------------------*/
-b_zdir_motorCoutout_diam     = c_zAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
-b_zdir_motorHoles_diameter   = c_zAxis_motorScrewHole_diam; // motor hole diameter
-b_zdir_motorHoles_centerDist = c_zAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
-b_zdirM_motorAxis_zAxisDist  = c_z_axis_rodsDist;
-b_zdirM_sideLength           = c_zAxis_motor_sideLength;
+b_zdir_motorCoutout_diam      = c_zAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
+b_zdir_motorHoles_diameter    = c_zAxis_motorScrewHole_diam; // motor hole diameter
+b_zdir_motorHoles_centerDist  = c_zAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
+b_zdirM_motorAxis_zAxisDist   = c_z_axis_rodsDist;
+b_zdirM_sideLength            = c_zAxis_motor_sideLength;
 
 /*------------------------------------zdir wall-------------------------------*/
-b_zDirWall_size              = [9.4,77.9,58.986];
-b_zDirSupport_r              = b_m8_nut_heigth*2 - b_m8_nut_tolerance[1];
+b_zDirWall_size               = [9.4,77.9,58.986];
+b_zDirSupport_r               = b_m8_nut_heigth*2 - b_m8_nut_tolerance[1];
 
 /*------------------------------------xdir wall-------------------------------*/
-b_xDirWall_size              = [30.6,b_zDirWall_size[1],6];
-b_xDirWall_roundedEdge_r     = 8;
+b_xDirWall_size               = [30.6,b_zDirWall_size[1],6];
+b_xDirWall_roundedEdge_r      = 6.5;
 
 /*------------------------------------zdir Rod--------------------------------*/
-b_zdirRod_hole_depth         = b_zDirWall_size[2]-8.5;
+b_zdirRod_hole_depth          = b_zDirWall_size[2]-8.5;
 
 /*------------------------------------linear bearings-------------------------*/
-b_lber_length                = c_yAxis_lber_length;
-b_lber_diam                  = c_yAxis_lber_diam;
-b_lber_topOff                = (b_lber_diam- c_y_axis_smoothRod_diam)/2 - 0.5;
-b_lber_zAxisDist             = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
-b_lber_zAxisXdirDist         = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
+b_lber_length                 = c_yAxis_lber_length;
+b_lber_diam                   = c_yAxis_lber_diam;
+b_lber_topOff                 = (b_lber_diam- c_y_axis_smoothRod_diam)/2 - 0.5;
+b_lber_zAxisDist              = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
+b_lber_zAxisXdirDist          = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
+
+/*------------------------------------EndstopHolder---------------------------*/
+b_elongetatedHole_length      = 10;
+b_elongetatedHole_diam        = m2_diameter;
+b_elongetatedHole_NutDiam     = m2_nut_diameter;
+b_elongetatedHole_NutHeight   = m2_nut_heigth;
+b_elongetatedHole_NutWallDist = m2_nut_wallDist;
+
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
@@ -94,7 +102,9 @@ _b_zdirM_supportThickness = b_zdirM_motorAxis_zAxisDist-(b_zdirM_sideLength/2+b_
 
 _b_SaveRange_height = max(b_zDirSupport_r, b_m8_nut_heigth+b_m8_nut_tolerance[1]) +b_verticalSupportThickness;
 
-module  H_base(hasYMotorMount = true) {
+_b_bigMotorMount_r = b_ydir_motorHoles_centerDist - b_zdir_motorCoutout_diam/2;
+
+module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 	difference() {
 		union(){
 			translate([0, 0, b_zDirWall_size[2]-b_zdirRod_hole_depth- b_genWallThickness]) {
@@ -159,6 +169,33 @@ module  H_base(hasYMotorMount = true) {
 				rotate(a=-90,v=X) 
 					roundEdge(_a=0,_r=b_xDirWall_size[0]-b_zDirWall_size[0]/2,_l=b_smoothRod_diam,_fn=4);
 			}
+
+			if (hasEnstopHolder) {
+				for (i=[-1,1])
+				translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length/2 , i*(b_xDirWall_size[1]/2 - b_genWallThickness- b_elongetatedHole_NutWallDist/2), b_zDirWall_size[2]-b_xDirWall_size[2]/2]) {
+					// elongetated hole
+					cube(size=[(b_elongetatedHole_length), (b_genWallThickness+ b_elongetatedHole_NutWallDist/2)*2, b_xDirWall_size[2]], center=true);
+				}
+
+				difference() {
+					union() {
+						for (i=[[-1,0],[1,180]])  
+						translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length , i[0]*(b_xDirWall_size[1]/2 - b_genWallThickness- b_elongetatedHole_NutWallDist/2), b_zDirWall_size[2]-b_xDirWall_size[2]])
+						linear_extrude(height=b_zDirWall_size[0])
+						mirror([i[1]/180, 0, 0])  
+						rotate(a=i[1],v=Z) 
+						rotate(a=90,v=Z) 
+							barbell (r1=(b_genWallThickness+ b_elongetatedHole_NutWallDist/2),r2=_b_bigMotorMount_r,r3=_b_bigMotorMount_r*100,r4=_b_bigMotorMount_r/2,separation=b_xDirWall_size[1]/2- b_genWallThickness - b_elongetatedHole_NutWallDist/2 -  (sin(45)*b_ydir_motorHoles_centerDist));
+						
+						translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length/2 , 0, b_zDirWall_size[2]-b_xDirWall_size[2]/2]) 
+							cube(size=[(b_elongetatedHole_length), b_xDirWall_size[1], b_xDirWall_size[2]], center=true);
+					}
+					
+					translate([b_xDirWall_size[0], 0,  b_zDirWall_size[2]])
+						cube(size=[b_xDirWall_size[0], sin(45)*b_ydir_motorHoles_centerDist*2+ _b_bigMotorMount_r, b_zDirWall_size[2]], center=true); 
+				}
+
+			}
 		}
 		union(){
 			
@@ -207,10 +244,31 @@ module  H_base(hasYMotorMount = true) {
 				}
 			}
 
-			// rounded edge
-			for (i=[[b_xDirWall_size[1]/2,180],[-b_xDirWall_size[1]/2,90]]) 
-			translate([b_xDirWall_size[0]-b_zDirWall_size[0]/2, i[0],b_zDirWall_size[2]-b_xDirWall_size[2]]) 
-				roundEdge(_a=i[1],_r=b_xDirWall_roundedEdge_r,_l=b_xDirWall_size[2],_fn=100);
+			if (hasEnstopHolder) {
+
+				for (i=[-1,1])
+				translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length/2 , i*(b_xDirWall_size[1]/2 - b_genWallThickness- b_elongetatedHole_NutWallDist/2), b_zDirWall_size[2]-b_xDirWall_size[2]/2]) {
+					// elongetated hole coutout
+					cube(size=[b_elongetatedHole_length, b_elongetatedHole_diam, b_xDirWall_size[2]+2*OS], center=true);
+					//elongetated hole end round coutout
+					for (x=[-b_elongetatedHole_length/2,b_elongetatedHole_length/2]) 
+					translate([x, 0, 0]) 
+						cylinder(r=b_elongetatedHole_diam/2, h=b_xDirWall_size[2]+2*OS, center=true);
+
+					//nuttrap
+					for (x=[-b_elongetatedHole_length/2,b_elongetatedHole_length/2]) 
+					translate([x, 0, -b_xDirWall_size[2]/2-OS]) 
+						cylinder(r=b_elongetatedHole_NutDiam/2, h=b_elongetatedHole_NutHeight, center=false,$fn=6);
+					translate([0, 0, -b_xDirWall_size[2]/2 + b_elongetatedHole_NutHeight/2 -OS]) 
+						cube(size=[b_elongetatedHole_length, b_elongetatedHole_NutWallDist, b_elongetatedHole_NutHeight], center=true);
+				}
+
+			} else {
+				// rounded edge
+				for (i=[[b_xDirWall_size[1]/2,180],[-b_xDirWall_size[1]/2,90]]) 
+				translate([b_xDirWall_size[0]-b_zDirWall_size[0]/2, i[0],b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+					roundEdge(_a=i[1],_r=b_xDirWall_roundedEdge_r,_l=b_xDirWall_size[2],_fn=100);
+			}
 		}
 	}
 }
@@ -268,7 +326,7 @@ module _motorHolder(holeCenterDist = 43.841/2, holeDiam = 3.2, coutoutDiam= 26, 
 //!_motorHolder();
 
 if (b_mode == "inspect") {
-	 H_base();
+	 H_base(hasEnstopHolder = true);
 }
 
 /*------------------------------------print-----------------------------------*/
@@ -277,7 +335,7 @@ module H_base_print() {
 	translate([-b_zdir_motorHoles_centerDist*0.85, b_zdir_motorHoles_centerDist/3, 0]) 
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-		H_base(hasYMotorMount = true);
+		H_base(hasYMotorMount = true,hasEnstopHolder = true);
 
 	translate([b_zdir_motorHoles_centerDist * 0.85, -b_zdir_motorHoles_centerDist/3, 0]) 
 	rotate(a=180,v=Z) 
@@ -291,7 +349,7 @@ if (b_mode == "printSet") {
 if (b_mode == "print left") {
 	rotate(a=180,v=Y) 
 	translate([0, 0, -b_zDirWall_size[2]])  
-	H_base(hasYMotorMount = true);
+	H_base(hasYMotorMount = true,hasEnstopHolder = true);
 }
 if (b_mode == "print right") {
 	rotate(a=180,v=Z) 
@@ -306,7 +364,7 @@ if (b_mode == "print right") {
 include <motors.scad>
 
 module H_baseLeft_assembly() {
-	H_base(hasYMotorMount = true);
+	H_base(hasYMotorMount = true,hasEnstopHolder = true);
 
 	translate([-b_zdirM_motorAxis_zAxisDist, 0, b_zDirWall_size[2]-b_xDirWall_size[2]]) 
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
