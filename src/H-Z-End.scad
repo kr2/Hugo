@@ -34,6 +34,7 @@ Ze_verticalSupportThickness  = 0.5;
 /*------------------------------------rod-------------------------------------*/
 Ze_smoothRod_diam      = c_z_axis_smoothRod_diam;
 Ze_roughRod_diam       = m8_diameter;
+Ze_zdir_roughRod_diam  = m8_diameter * 1.5;
 
 /*------------------------------------zEnd------------------------------------*/
 Ze_zEnd_rodsDist       = c_z_axis_rodsDist;
@@ -116,12 +117,12 @@ module H_Z_end(hasCrossBrace = true) {
 					cylinder(r=Ze_bear_diam/2, h=m8_nut_diameter, center=false);
 					// rod coutput
 					translate([0, 0, m8_nut_diameter+Ze_horizontalSuportThickness])
-						cylinder(r=Ze_roughRod_diam/2, h=_Ze_zDir, center=false); 
+						cylinder(r=Ze_zdir_roughRod_diam/2, h=_Ze_zDir, center=false); 
 				} else {
 					cylinder(r=Ze_bear_diam/2, h=Ze_bear_heigth+OS, center=false);
 					// rod coutput
 					translate([0, 0, Ze_bear_heigth+Ze_horizontalSuportThickness])
-						cylinder(r=Ze_roughRod_diam/2, h=_Ze_zDir, center=false); 
+						cylinder(r=Ze_zdir_roughRod_diam/2, h=_Ze_zDir, center=false); 
 				}
 			}
 
