@@ -51,7 +51,7 @@ b_airOut_diam                 = 3;
 b_ydir_motorCoutout_diam      = c_yAxis_motorPilot_diam; // diameter of the coutout around the motoraxis
 b_ydir_motorHoles_diameter    = c_yAxis_motorScrewHole_diam  ; // motor hole diameter
 b_ydir_motorHoles_centerDist  = c_yAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
-b_ydirM_motorAxis_zAxisDist   = 25.35+7.951 + cos(45)*b_ydir_motorHoles_centerDist;
+b_ydirM_motorAxis_zAxisDist   = 25.35+2.5 + cos(45)*b_ydir_motorHoles_centerDist;
 b_ydirM_sideLength            = c_yAxis_motor_sideLength;
 
 /*------------------------------------z dir motor-----------------------------*/
@@ -63,7 +63,7 @@ b_zdirM_sideLength            = c_zAxis_motor_sideLength;
 
 /*------------------------------------zdir wall-------------------------------*/
 b_zDirWall_size               = [9.4,77.9,58.986];
-b_zDirSupport_r               = b_m8_nut_heigth*2 - b_m8_nut_tolerance[1];
+b_zDirSupport_r               = b_m8_nut_heigth*2 - b_m8_nut_tolerance[1] ;
 
 /*------------------------------------xdir wall-------------------------------*/
 b_xDirWall_size               = [30.6,b_zDirWall_size[1],6];
@@ -167,7 +167,7 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 
 				translate([0, -b_smoothRod_diam/2, 0]) 
 				rotate(a=-90,v=X) 
-					roundEdge(_a=0,_r=b_xDirWall_size[0]-b_zDirWall_size[0]/2,_l=b_smoothRod_diam,_fn=4);
+					roundEdge(_a=0,_r=b_zDirWall_size[0]/2 + b_lber_zAxisXdirDist + b_lber_diam/4,_l=b_smoothRod_diam,_fn=4);
 			}
 
 			if (hasEnstopHolder) {
@@ -175,26 +175,14 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 				translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length/2 , i*(b_xDirWall_size[1]/2 - b_genWallThickness- b_elongetatedHole_NutWallDist/2), b_zDirWall_size[2]-b_xDirWall_size[2]/2]) {
 					// elongetated hole
 					cube(size=[(b_elongetatedHole_length), (b_genWallThickness+ b_elongetatedHole_NutWallDist/2)*2, b_xDirWall_size[2]], center=true);
-				}
 
-				difference() {
-					union() {
-						for (i=[[-1,0],[1,180]])  
-						translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length , i[0]*(b_xDirWall_size[1]/2 - b_genWallThickness- b_elongetatedHole_NutWallDist/2), b_zDirWall_size[2]-b_xDirWall_size[2]])
-						linear_extrude(height=b_zDirWall_size[0])
-						mirror([i[1]/180, 0, 0])  
-						rotate(a=i[1],v=Z) 
-						rotate(a=90,v=Z) 
-							barbell (r1=(b_genWallThickness+ b_elongetatedHole_NutWallDist/2),r2=_b_bigMotorMount_r,r3=_b_bigMotorMount_r*100,r4=_b_bigMotorMount_r/2,separation=b_xDirWall_size[1]/2- b_genWallThickness - b_elongetatedHole_NutWallDist/2 -  (sin(45)*b_ydir_motorHoles_centerDist));
-						
-						translate([b_lber_zAxisXdirDist + b_lber_diam/2+b_genWallThickness + b_elongetatedHole_length/2 , 0, b_zDirWall_size[2]-b_xDirWall_size[2]/2]) 
-							cube(size=[(b_elongetatedHole_length), b_xDirWall_size[1], b_xDirWall_size[2]], center=true);
-					}
-					
-					translate([b_xDirWall_size[0], 0,  b_zDirWall_size[2]])
-						cube(size=[b_xDirWall_size[0], sin(45)*b_ydir_motorHoles_centerDist*2+ _b_bigMotorMount_r, b_zDirWall_size[2]], center=true); 
+					translate([ b_elongetatedHole_length/2,0, 0]) 
+						cylinder(r=(b_genWallThickness+ b_elongetatedHole_NutWallDist/2), h=b_xDirWall_size[2], center=true);
 				}
-
+				
+				for (i=[[-1,0],[1,-90]]) 
+				translate([b_xDirWall_size[0]-b_zDirWall_size[0]/2,i[0]*(b_xDirWall_size[1]/2 - (b_genWallThickness+ b_elongetatedHole_NutWallDist/2)*2), b_zDirWall_size[2]-b_xDirWall_size[2]]) 
+					roundEdge(_a=0+i[1],_r=b_elongetatedHole_diam,_l=b_xDirWall_size[2]);
 			}
 
 
@@ -251,6 +239,79 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 				difference() {
 					cylinder(r=b_lber_diam/2+b_thinWallThickness+b_zipTies_thickness, h=b_zipTies_width, center=true);
 					cylinder(r=b_lber_diam/2+b_thinWallThickness, h=b_zipTies_width+2*OS, center=true);
+				}
+			}
+
+			translate([b_lber_zAxisXdirDist + b_zdirM_hole_zAxisDist/5, 0, b_zDirWall_size[2]-0.5+OS]){
+				translate([-5*1.5-1, 0, 0]) 
+				intersection() {
+					translate([5/2, 0, 0]) 
+					cube(size=[5, 8, 1], center=true);
+					
+					union() {
+						translate([0.1/2, 0, 0]) 
+						cube(size=[0.1, 8 , 1], center=true);
+						
+						translate([0.1,0 , 0]) 
+						rotate(a=atan((8/2)/(5-0.1)),v=[0,0,1]) 	
+							cube(size=[8*5, 0.1, 1], center=true);
+
+						translate([0.1,0 , 0]) 
+						rotate(a=-atan((8/2)/(5-0.1)),v=[0,0,1]) 	
+							cube(size=[8*5, 0.1, 1], center=true);
+					}
+				}
+				translate([-5/2, 0, 0]) 
+				intersection() {
+					translate([5/2, 0, 0]) 
+					cube(size=[5, 8, 1], center=true);
+					
+					union() {
+						translate([0.1/2, 0, 0]) 
+						cube(size=[0.1, 8 , 1], center=true);
+
+
+						translate([5 - 8/4, 8/4, 0]) 
+						difference() {
+							cylinder(r=8/4, h=1, center=true);
+							cylinder(r=8/4 - 0.1, h=1+0.002, center=true);
+							translate([-5, 0, 0]) 
+								cube(size=[5*2, 8*2, 1*2], center=true);
+						}
+
+						for (i=[0,8/2- 0.1]) 
+						translate([0, i, -1/2]) 
+							cube(size=[5-8/4 + 0.01, 0.1, 1], center=false);
+
+
+						translate([5-8/4 - 0.1,0 , -1/2]) 
+						rotate(a=-atan((8/2)/(5-(5-8/4 - 0.1/2))),v=[0,0,1]) 	
+							cube(size=[8*5, 0.1, 1], center=false);
+					}
+				}
+				translate([(5+1)/2, 0, 0]) 
+				intersection() {
+					translate([5/2, 0, 0]) 
+					cube(size=[5, 8, 1], center=true);
+					
+					union() {
+						translate([5/2, -8/2 + 0.1/2, 0]) 
+							cube(size=[5, 0.1 , 1], center=true);
+
+						translate([0, -8/2, -1/2]) 
+						rotate(a=45,v=[0,0,1]) 
+							cube(size=[8*0.9, 0.1 , 1], center=false);
+
+						translate([5/2, 8/2-5/2, 0]) 
+						difference() {
+							cylinder(r=5/2, h=1, center=true);
+							cylinder(r=5/2 - 0.1, h=1+0.002, center=true);
+
+							translate([0, -5- 0.1, 0]) 
+							rotate(a=-20,v=[0,0,1]) 
+								cube(size=[10, 10, 10], center=true);
+						}
+					}
 				}
 			}
 
@@ -393,7 +454,7 @@ module H_baseright_assembly() {
 }
 
 if (b_mode == "assembly"){
-	H_baseLeft_assembly();
-	//H_baseright_assembly();
+	//H_baseLeft_assembly();
+	H_baseright_assembly();
 }
 
