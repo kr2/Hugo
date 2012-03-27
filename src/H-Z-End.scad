@@ -21,7 +21,7 @@ Ze_mode = "-";
 //Ze_mode = "printSet2";  $fn=24*4; //without additional Support
 //Ze_mode = "print left";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;
-//Ze_mode = "inspect";
+Ze_mode = "inspect";
 //Ze_mode = "assembly";
 
 Ze_thinWallThickness         = 1;
@@ -59,7 +59,7 @@ _Ze_crosBr_bearing_dist       = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_di
 _Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness;
 
 module H_Z_end(hasCrossBrace = true) {
-	_bearSuppCoutout_scale           = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2)/(_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness);
+	_bearSuppCoutout_scale           = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2)/(Ze_bear_heigth*3);
 	_bearSuppCoutout_crosBrace_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2+_Ze_crosBr_bearing_noseLength)/(_Ze_zDir- m8_nut_diameter);
 	
 	difference() {
@@ -133,10 +133,18 @@ module H_Z_end(hasCrossBrace = true) {
 				rotate(a=90,v=X) 
 					cylinder(r=_Ze_zDir- m8_nut_diameter  , h=Ze_bear_diam+2*Ze_genWallThickness+2*OS, center=true); 
 			} else {
-				translate([-(Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness), 0, _Ze_zDir])
-				scale([_bearSuppCoutout_scale, 1, 1]) 
-				rotate(a=90,v=X) 
-					cylinder(r=_Ze_zDir- Ze_bear_heigth -Ze_genWallThickness, h=Ze_bear_diam+2*Ze_genWallThickness+2*OS, center=true); 
+				difference() {
+					translate([-(Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness), 0,  4*Ze_bear_heigth +Ze_genWallThickness]){
+						scale([_bearSuppCoutout_scale, 1, 1]) 
+						rotate(a=90,v=X) 
+							cylinder(r=Ze_bear_heigth*3, h=Ze_bear_diam+2*Ze_genWallThickness+2*OS, center=true); 
+
+						translate([0, -(Ze_bear_diam+2*Ze_genWallThickness+2*OS)/2, 0]) 
+							cube(size=[Ze_bear_heigth*3*_bearSuppCoutout_scale, Ze_bear_diam+2*Ze_genWallThickness+2*OS, _Ze_zDir], center=false);
+					}
+
+					cylinder(r=Ze_smoothRod_diam/2 + Ze_genWallThickness, h=_Ze_zDir, center=false);
+				}
 			}
 
 			// x dir rod
