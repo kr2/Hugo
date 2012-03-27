@@ -29,6 +29,7 @@ cal_outline = [c_z_axis_smoothRod_diam+2*cal_genWallThickness,
                c_z_axis_smoothRod_diam + 2* cal_genWallThickness];
 
 module  H_calibration() {
+      translate([0,0, cal_outline[2]/2]) 
 	intersection() {
 		cube(size=[cal_outline[0] + 0.5, cal_outline[1]*2, cal_outline[2]], center=true);
 
