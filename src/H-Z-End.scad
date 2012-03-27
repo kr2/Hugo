@@ -24,7 +24,7 @@ Ze_mode = "-";
 Ze_mode = "inspect";
 //Ze_mode = "assembly";
 
-Ze_thinWallThickness         = 1;
+Ze_thinWallThickness         = 1.4;
 Ze_genWallThickness          = 4.5;
 Ze_strongWallThickness       = 9;
 
@@ -45,6 +45,13 @@ Ze_zEnd_nuttrap_offset = 17;
 Ze_bear_diam           = bear_608ZZ_diam;
 Ze_bear_heigth         = bear_608ZZ_height;
 
+/*------------------------------------endstop holder--------------------------*/
+Ze_ends_hole_dist      = 9.5;
+Ze_ends_hole_diam      = m2_diameter;
+Ze_ends_nut_width      = m2_nut_wallDist;
+Ze_ends_nut_heigth     = m2_nut_heigth;
+Ze_ends_size           = [Ze_smoothRod_diam/2+Ze_genWallThickness+Ze_ends_nut_heigth,Ze_ends_hole_dist +Ze_ends_nut_width + Ze_thinWallThickness*2, 10];
+
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
@@ -58,7 +65,7 @@ _Ze_support_coutout_r         = circel_radius3Points([Ze_thinWallThickness,0],[_
 _Ze_crosBr_bearing_dist       = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
 _Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness;
 
-module H_Z_end(hasCrossBrace = true) {
+module H_Z_end(hasCrossBrace = true, hasEnstopholder = true) {
 	_bearSuppCoutout_scale           = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2)/(Ze_bear_heigth*3);
 	_bearSuppCoutout_crosBrace_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2+_Ze_crosBr_bearing_noseLength)/(_Ze_zDir- m8_nut_diameter);
 	
@@ -107,6 +114,17 @@ module H_Z_end(hasCrossBrace = true) {
 					cylinder(r=m8_nut_diameter/2, h=Ze_strongWallThickness*2, center=true); 
 			}
 
+			if (hasEnstopholder) {
+				translate([-Ze_ends_size[0], 0, _Ze_zDir- Ze_ends_size[2]]) {
+					translate([0, -Ze_ends_size[1]/2, 0]) 
+						cube(size=Ze_ends_size, center=false);
+					
+					translate([Ze_ends_size[0], Ze_ends_size[1]/2, 0]) 
+					scale([1, 1, 3]) 
+					rotate(a=90,v=X) 
+						roundEdge(_a=180,_r=Ze_ends_size[0],_l=Ze_ends_size[1],_fn=4*24);
+				}
+			}
 		}
 		union(){
 			translate([0, 0, Ze_genWallThickness]) 
@@ -144,6 +162,28 @@ module H_Z_end(hasCrossBrace = true) {
 					}
 
 					cylinder(r=Ze_smoothRod_diam/2 + Ze_genWallThickness, h=_Ze_zDir, center=false);
+
+					if (hasEnstopholder) {
+						translate([-Ze_ends_size[0], 0, _Ze_zDir- Ze_ends_size[2]]) {
+							translate([0, -Ze_ends_size[1]/2, 0]) 
+								cube(size=Ze_ends_size, center=false);
+							translate([Ze_ends_size[0], Ze_ends_size[1]/2, 0]) 
+							scale([1, 1, 3])
+							rotate(a=90,v=X) 
+								roundEdge(_a=180,_r=Ze_ends_size[0],_l=Ze_ends_size[1],_fn=4*24);
+						}
+					}
+				}
+			}
+
+			if (hasEnstopholder) {
+				translate([-Ze_ends_size[0], 0, _Ze_zDir- Ze_ends_size[2]/2 + Ze_thinWallThickness]) {
+					for (i=[-1,1]) {
+						translate([0, i * Ze_ends_hole_dist/2, 0]) 
+							cube(size=[Ze_thinWallThickness*2 + OS*2, Ze_ends_hole_diam, Ze_ends_size[2] +2*OS], center=true);
+						translate([Ze_thinWallThickness + Ze_ends_nut_heigth/2, i * Ze_ends_hole_dist/2, 0]) 
+							cube(size=[Ze_ends_nut_heigth, Ze_ends_nut_width, Ze_ends_size[2] +2*OS] , center=true);
+					}
 				}
 			}
 
