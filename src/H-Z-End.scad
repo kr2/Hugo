@@ -21,7 +21,8 @@ Ze_mode = "-";
 //Ze_mode = "printSet2";  $fn=24*4; //without additional Support
 //Ze_mode = "print left";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;
-Ze_mode = "inspect";
+//Ze_mode = "print noEnds";  $fn=24*4;
+//Ze_mode = "inspect";
 //Ze_mode = "assembly";
 
 Ze_thinWallThickness         = 1.4;
@@ -227,32 +228,33 @@ module H_Z_end_print() {
 }
 module H_Z_end_printSet1() {
 	translate([10, 13, 0]) 
-	H_Z_end(hasCrossBrace = true);
+	H_Z_end(hasCrossBrace = true, hasEnstopholder = false);
 	translate([-10, -13, 0]) 
 	rotate(a=180,v=[0,0,1]) 
-	H_Z_end(hasCrossBrace = false);
+	H_Z_end(hasCrossBrace = false, hasEnstopholder = true);
 }
 if (Ze_mode == "printSet1") {
 	H_Z_end_printSet1();
 }
 module H_Z_end_printSet2() {
 	translate([0, 13, 0]) 
-	H_Z_end(hasCrossBrace = false);
+	H_Z_end(hasCrossBrace = false, hasEnstopholder = true);
 	translate([0, -13, 0]) 
 	rotate(a=180,v=[0,0,1]) 
-	H_Z_end(hasCrossBrace = false);
+	H_Z_end(hasCrossBrace = false, hasEnstopholder = false);
 }
 if (Ze_mode == "printSet2") {
 	H_Z_end_printSet2();
 }
 if (Ze_mode == "print left") {
-	H_Z_end(hasCrossBrace = false);
+	H_Z_end(hasCrossBrace = false , hasEnstopholder = true);
 }
 if (Ze_mode == "print right") {
-	H_Z_end(hasCrossBrace = true);
+	H_Z_end(hasCrossBrace = true , hasEnstopholder = false);
 }
-
-
+if (Ze_mode == "print noEnds") {
+	H_Z_end(hasCrossBrace = false , hasEnstopholder = false);
+}
 
 /*------------------------------------assembly--------------------------------*/
 include <basicMetalParts.scad>
@@ -268,7 +270,7 @@ module _H_Z_end_assembly(hasCrossBrace = false) {
 
 
 module H_Z_endLeft_assembly() {
-	_H_Z_end_assembly(hasCrossBrace = false);
+	_H_Z_end_assembly(hasCrossBrace = false  , hasEnstopholder = true);
 }
 module H_Z_endright_assembly() {
 	rotate(a=180,v=Z) 
@@ -276,7 +278,7 @@ module H_Z_endright_assembly() {
 
 	*translate([Ze_zEnd_rodsDist + _Ze_crosBr_bearing_dist, 0, 0]) 
 	rotate(a=90,v=X) 
-	threadedRod(r=4, h=100+50, center=true,info = "z end cross brace rod connector");  // todo
+		threadedRod(r=4, h=100+50, center=true,info = "z end cross brace rod connector");  // todo
 }
 
 if (Ze_mode == "assembly"){
