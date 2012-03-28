@@ -1,8 +1,9 @@
-/* H-Calibration [cal]
+/* H-TestObject [cal]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * 
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
- * derivative of the original desing by abdrumm for the PrintrBot
+ * and
+ * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 include <config.scad>
 
@@ -68,6 +69,11 @@ module  H_calibration() {
 
 					}
 				}
+
+				translate([0, -cal_outline[1]/2, 0]) 
+				rotate(a=180,v=Y) 
+				rotate(a=-90,v=Z) 
+					teardrop (r=m8_diameter/2 + cal_genWallThickness,h= cal_outline[2],top_and_bottom=false);
 			}
 			union(){
 				cylinder(r=c_z_axis_smoothRod_diam/2, h=cal_outline[2]+2*OS, center=true);
@@ -94,6 +100,11 @@ module  H_calibration() {
 					translate([0, 0, -cal_outline[2]/2-OS]) 
 						cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6);
 				}
+
+				translate([0, -cal_outline[1]/2, 0]) 
+				rotate(a=180,v=Y) 
+				rotate(a=-90,v=Z) 
+					teardrop (r=m8_diameter/2,h= cal_outline[2]+OS,top_and_bottom=false);
 			}
 		}
 	}
