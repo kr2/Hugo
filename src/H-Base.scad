@@ -80,7 +80,7 @@ b_lber_zAxisDist              = b_xDirWall_size[1]/2- b_strongWallThickness- b_l
 b_lber_zAxisXdirDist          = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
 
 /*------------------------------------EndstopHolder---------------------------*/
-b_elongetatedHole_length      = 10;
+b_elongetatedHole_length      = 12.5;
 b_elongetatedHole_diam        = m2_diameter;
 b_elongetatedHole_NutDiam     = m2_nut_diameter;
 b_elongetatedHole_NutHeight   = m2_nut_heigth;
