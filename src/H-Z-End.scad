@@ -48,9 +48,9 @@ Ze_bear_heigth         = bear_608ZZ_height;
 
 /*------------------------------------endstop holder--------------------------*/
 Ze_ends_hole_dist      = 9.5;
-Ze_ends_hole_diam      = m2_diameter;
-Ze_ends_nut_width      = m2_nut_wallDist;
-Ze_ends_nut_heigth     = m2_nut_heigth;
+Ze_ends_hole_diam      = m2d5_diameter;
+Ze_ends_nut_width      = m2d5_nut_wallDist;
+Ze_ends_nut_heigth     = m2d5_nut_heigth;
 Ze_ends_size           = [Ze_smoothRod_diam/2+Ze_genWallThickness+Ze_ends_nut_heigth,Ze_ends_hole_dist +Ze_ends_nut_width + Ze_thinWallThickness*2, 10];
 
 
