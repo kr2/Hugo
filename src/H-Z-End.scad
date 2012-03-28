@@ -22,7 +22,7 @@ Ze_mode = "-";
 //Ze_mode = "print left";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;
 //Ze_mode = "print noEnds";  $fn=24*4;
-Ze_mode = "inspect";
+//Ze_mode = "inspect";
 //Ze_mode = "assembly";
 
 Ze_thinWallThickness         = 1.4;
