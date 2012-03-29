@@ -46,10 +46,17 @@ c_zAxis_lber_diam   = c_lber_diam;
 /******************************************************************************/ 
 /*                                    BELT                                    */
 /******************************************************************************/
+//T2.5
 c_belt_thickness    = 1.3;
 c_belt_width        = 6;
 c_belt_teethDist    = 2.5;
 c_belt_teethDepth   = 0.7;
+
+// T 5 Belt
+//c_belt_thickness = 2.2;
+//c_belt_width = 5;
+//c_belt_teethDist = 5;
+//c_belt_teethDepth = 1.2;
 
 /*-----------------------------------x axis-----------------------------------*/
 //belt
