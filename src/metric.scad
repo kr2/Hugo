@@ -29,11 +29,15 @@ m3_nut_heigth              = 2.3;
 m3_nut_wallDist            = _wallDistFromDia(m3_nut_diameter);
 m3_nut_diameter_horizontal = 6.1;
 
-m2_diameter                = 2.6;
+m2d5_diameter                = 2.6;
+m2d5_nut_diameter            = 6.87;
+m2d5_nut_heigth              = 2;
+m2d5_nut_wallDist            = _wallDistFromDia(m2d5_nut_diameter);
+
+m2_diameter                = 2.2;
 m2_nut_diameter            = 4.75;
 m2_nut_heigth              = 1.7;
 m2_nut_wallDist            = _wallDistFromDia(m2_nut_diameter);
-
 
 // elongetaed nuttraps
 // where a nut is put in an slot and inthere hits the perpendicular threadhole
