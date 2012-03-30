@@ -11,13 +11,14 @@ include <roundEdges.scad>
 include <utilities.scad>
 include <barbell.scad>
 use <teardrop.scad>
+include <text.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-//Xc_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+Xc_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "print Carriage"; $fn=24*4; 
 //Xc_mode = "print Beltarm"; $fn=24*4;
-Xc_mode = "inspect";
+//Xc_mode = "inspect";
 //Xc_mode = "assembly";
 
 Xc_thinWallThickness         = 1.5;
@@ -152,12 +153,94 @@ module H_x_Carriage(hasSupport = false) {
 			}
 		}
 
+		mirror([1, 0, 0])  
+		translate([0,0,-OS]){
+			translate([-5*1.5-1, 0, 0]) 
+			intersection() {
+				translate([5/2, 0, 0]) 
+				cube(size=[5, 8, 1], center=true);
+				
+				union() {
+					translate([0.1/2, 0, 0]) 
+					cube(size=[0.1, 8 , 1], center=true);
+					
+					translate([0.1,0 , 0]) 
+					rotate(a=atan((8/2)/(5-0.1)),v=[0,0,1]) 	
+						cube(size=[8*5, 0.1, 1], center=true);
+
+					translate([0.1,0 , 0]) 
+					rotate(a=-atan((8/2)/(5-0.1)),v=[0,0,1]) 	
+						cube(size=[8*5, 0.1, 1], center=true);
+				}
+			}
+			translate([-5/2, 0, 0]) 
+			intersection() {
+				translate([5/2, 0, 0]) 
+				cube(size=[5, 8, 1], center=true);
+				
+				union() {
+					translate([0.1/2, 0, 0]) 
+					cube(size=[0.1, 8 , 1], center=true);
+
+
+					translate([5 - 8/4, 8/4, 0]) 
+					difference() {
+						cylinder(r=8/4, h=1, center=true);
+						cylinder(r=8/4 - 0.1, h=1+0.002, center=true);
+						translate([-5, 0, 0]) 
+							cube(size=[5*2, 8*2, 1*2], center=true);
+					}
+
+					for (i=[0,8/2- 0.1]) 
+					translate([0, i, -1/2]) 
+						cube(size=[5-8/4 + 0.01, 0.1, 1], center=false);
+
+
+					translate([5-8/4 - 0.1,0 , -1/2]) 
+					rotate(a=-atan((8/2)/(5-(5-8/4 - 0.1/2))),v=[0,0,1]) 	
+						cube(size=[8*5, 0.1, 1], center=false);
+				}
+			}
+			translate([(5+1)/2, 0, 0]) 
+			intersection() {
+				translate([5/2, 0, 0]) 
+				cube(size=[5, 8, 1], center=true);
+				
+				union() {
+					translate([5/2, -8/2 + 0.1/2, 0]) 
+						cube(size=[5, 0.1 , 1], center=true);
+
+					translate([0, -8/2, -1/2]) 
+					rotate(a=45,v=[0,0,1]) 
+						cube(size=[8*0.9, 0.1 , 1], center=false);
+
+					translate([5/2, 8/2-5/2, 0]) 
+					difference() {
+						cylinder(r=5/2, h=1, center=true);
+						cylinder(r=5/2 - 0.1, h=1+0.002, center=true);
+
+						translate([0, -5- 0.1, 0]) 
+						rotate(a=-20,v=[0,0,1]) 
+							cube(size=[10, 10, 10], center=true);
+					}
+				}
+			}
+		}
+
 		//round coutouts
 		for (i=[-1,1]) 
 		translate([i*_Xc_xdir/2, 0,0]) 
 		scale([_Xc_coutout_xdirScale, 1, 1]) 
 		rotate(a=90,v=X) 	
 			cylinder(r=_Xc_coutout_r, h=_Xc_ydir+2*OS, center=true);
+
+
+		if (Xc_mode != "inspect") {
+			//logo
+			rotate(a=180,v=Z) 
+			translate([0, 0, _Xc_zdir-txt_z + OS]) 
+				txt_hugo();
+		}
 	}
 }
 
