@@ -158,21 +158,21 @@ module  H_calibration() {
 	translate([-(cal_outline[0]/2+Ze_bear_diam/2 + Xe_gen_wall+1), -(+Ze_bear_diam/2 + Xe_gen_wall+1), 0]) 
 	difference() {
 		union(){
-			cylinder(r=Ze_bear_diam/2 + Xe_gen_wall, h=Ze_bear_heigth + cal_horizontalSuportThickness, center=false);
+			cylinder(r=Ze_bear_diam/2 + single_layer_width, h=Ze_bear_heigth + cal_horizontalSuportThickness, center=false);
 		}
 		union(){
 			translate([0, 0, -OS]) 
 			cylinder(r=Ze_bear_diam/2, h=Ze_bear_heigth, center=false);
 		}
 	}
-	translate([0, +cal_outline[1]/2 + cal_outline[2]/2 + 1 +Ze_bear_diam/2 + Xe_gen_wall + conn_tolerance + Xe_gen_wall, 0]) 
+	translate([0, +cal_outline[1]/2 + cal_outline[2]/2 + 1 +Ze_bear_diam/2 + single_layer_width + conn_tolerance + single_layer_width, 0]) 
 	difference() {
 		union(){
-			cylinder(r=Ze_bear_diam/2 + Xe_gen_wall + conn_tolerance + Xe_gen_wall, h=Ze_bear_heigth, center=false);
+			cylinder(r=Ze_bear_diam/2 + single_layer_width + conn_tolerance + single_layer_width, h=Ze_bear_heigth, center=false);
 		}
 		union(){
 			translate([0, 0, -OS]) 
-			cylinder(r=Ze_bear_diam/2 + Xe_gen_wall + conn_tolerance , h=Ze_bear_heigth + 2*OS, center=false);
+			cylinder(r=Ze_bear_diam/2 + single_layer_width + conn_tolerance , h=Ze_bear_heigth + 2*OS, center=false);
 		}
 	}
 }
