@@ -15,7 +15,7 @@ include <text.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-//sXc_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//Xc_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "print Carriage"; $fn=24*4; 
 //Xc_mode = "print Beltarm"; $fn=24*4;
 //Xc_mode = "inspect";
@@ -27,7 +27,7 @@ Xc_strongWallThickness       = 5;
 
 Xc_horizontalSuportThickness = 0.35;
 Xc_verticalSupportThickness  = 1.35;
-Xc_verticalSupportInterval = 5;
+Xc_verticalSupportInterval   = 5;
 
 Xc_supportDistance           = 0.2; // suport distance for coutout
 
@@ -298,7 +298,7 @@ module _beltArm() {
 
 	// belt clamps
 	for (i=[[1,0],[-1,1]]) 
-	translate([i[0]*(_Xc_xdir/2 - _Xc_beltcon_thickness/2), -Xc_belt_axisXc_ydir_dist, 0]) 
+	translate([i[0]*(_Xc_xdir/2 - _Xc_beltcon_thickness/2 - OS), -Xc_belt_axisXc_ydir_dist, 0]) 
 	mirror([i[1], 0, 0])  
 		_beltConnrector();
 
@@ -321,7 +321,7 @@ module _beltArm() {
 
 	rotate(a=180,v=Z) 
 	translate([-Xc_strongWallThickness/2, _Xc_ydir/2,  - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth)]) 
-		cube(size=[Xc_strongWallThickness, Xc_belt_axisXc_ydir_dist  + _Xc_beltcon_minWidth/2 + _Xc_beltcon_thickness/2- _Xc_ydir/2  - _Xc_connector_bend- _Xc_connector_thickness, _Xc_beltcon_overallHeight], center=false);
+		cube(size=[Xc_strongWallThickness, Xc_belt_axisXc_ydir_dist  + _Xc_beltcon_minWidth/2 + _Xc_beltcon_thickness/2- _Xc_ydir/2  - _Xc_connector_bend- _Xc_connector_thickness/2, _Xc_beltcon_overallHeight], center=false);
 	
 			
 }
