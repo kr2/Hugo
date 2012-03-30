@@ -10,7 +10,8 @@ include <H-Z-End.scad>
 include <H-EndstopHolder.scad>
 include <H-Y-SupportFootEnd.scad>
 include <H-BarClamp.scad>
-include <H-BarClampCross.scad>
+include <H-Y-BeltDivert.scad>
+include <BearingGuide.scad>
 
 $fn= 24 * 4;
 
@@ -24,12 +25,19 @@ translate([20, -66, 0])
 rotate(a=90,v=Z) 
 H_barClamp_printSet();
 
-translate([57, 38, 0]) 
-rotate(a=90,v=Z) 
+translate([35, 23, 0]) 
+rotate(a=0,v=Z) 
 H_Y_supportFootEnd_printSet();
 
 translate([-10, 35, 0]) 
 H_endstop_printSet();
 
-*translate([-38, -45, 0]) 
-H_barClampCross_printSet();
+
+translate([-43, -16, 0])
+mirror([0, 1, 0])   
+rotate(a=30,v=Z) 
+bearingGuid_printSet();
+
+translate([0, 55, 0]) 
+rotate(a=-0,v=[0,0,1]) 
+H_Y_beltDivert_print();

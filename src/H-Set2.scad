@@ -6,8 +6,9 @@
  */
 include <units.scad>
 
+include <H-Base.scad>
+
 include <H-Y-BeltClamp.scad>
-include <BearingGuide.scad>
 include <H-Z-Coupling.scad>
 include <H-Y-BarEnd.scad>
 
@@ -15,19 +16,20 @@ $fn= 24 * 4;
 
 %cube(size=[150, 150, 1], center=true);
 
+translate([0, -20, 0]) 
+H_base_print();
 
-translate([5, 0, 0]) 
-bearingGuid_printSet();
-
-translate([43, -39, 0]) 
-rotate(a=-20,v=Z) 
+translate([40, 33, 0]) 
+rotate(a=-90,v=Z) 
 H_Y_BarEnd_print();
 
 
-translate([-33, 30, 0]) 
-rotate(a=-90-30,v=[0,0,1]) 
+translate([-45, -63, 0]) 
+H_Z_Coupling_printSet();
+
+
+translate([-10, 60, 0]) 
+rotate(a=0,v=[0,0,1]) 
 H_yBeltClamp_printSet();
 
 
-translate([7, 55, 0]) 
-H_Z_Coupling_printSet();

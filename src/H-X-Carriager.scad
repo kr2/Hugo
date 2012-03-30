@@ -450,7 +450,7 @@ module H_x_Carriage_print() {
 		yBeltClamp_beltProtector();
 
 	for (i=[-1,1]) 
-	translate([(_Xc_beltcon_thickness/2+1)*i, -Xc_belt_axisXc_ydir_dist - _Xc_beltcon_minWidth/2 - _Xc_beltcon_thickness/2, 0]) 
+	translate([i*(_Xc_connector_length/2 + _Xc_beltcon_thickness*1.5 + 1), -Xc_belt_axisXc_ydir_dist + _Xc_beltcon_minWidth * 0.5, 0]) 
 		carr_beltClamp();
 	
 }
