@@ -9,6 +9,8 @@ include <config.scad>
 include <metric.scad>
 
 include <GregsWade_v4.scad>
+include <RampsHolder.scad>
+
 
 include <H-Xtruder-Mount.scad>
 include <H-X-End.scad>
@@ -220,12 +222,17 @@ module _zAxis_assembly() {
 
 		translate([0, 0, b_xdirRods_holes_altitude[0]+9]){ 
 			rotate(a=90,v=X) 
-				threadedRod(r=4, h=_a_yAxis_real_length/3*2, center=true, info = "bottom y dir support foot");
+				threadedRod(r=4, h=_a_yAxis_real_length*0.33*2, center=true, info = "bottom y dir support foot");
 
-			for (i=[_a_yAxis_real_length/3-10,-_a_yAxis_real_length/3+10])
+			for (i=[_a_yAxis_real_length*0.33-10,-_a_yAxis_real_length*0.33+10])
 			translate([0, i, 0])  
 			H_Y_supportFootEnd_assembly();
 		}
+
+		translate([-30, c_xDirSupp_thredRod_zAxisDist, c_xDirSupp_thredRod_altitude[0]]) 
+		rotate(a=180,v=Z) 
+			rh_assembly();
+
 	}
 
 	// TODO
@@ -270,10 +277,10 @@ module H_assembly() {
 	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	*translate([0, a_act_pos[1], 0]) 
+	translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
-	*_zAxis_assembly();
+	_zAxis_assembly();
 
 	// basement
 	color("Lavender")

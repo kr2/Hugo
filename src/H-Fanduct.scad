@@ -29,7 +29,7 @@ f_strongWallThickness        = 4;
 f_supportDist = 5;
 
 f_horizontalSuportThickness  = 0.3;
-f_verticalSupportThickness   = 0.5;
+f_verticalSupportThickness   = 1.35;
 
 
 f_airChannal_segments = 12;
@@ -59,9 +59,9 @@ f_connSlot_width = m3_diameter;
 
 /*------------------------------------clamp-----------------------------------*/
 f_clamp_thickness = 0.5;
-f_clamp_widht = m4_diameter + 2*f_strongWallThickness;
+f_clamp_widht = m3_diameter + 2*f_strongWallThickness;
 f_clampThin_widht = 28;
-f_clamp_slotWidth = m4_diameter;
+f_clamp_slotWidth = m3_diameter;
 f_clamp_length = 50;
 
 

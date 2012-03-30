@@ -27,6 +27,9 @@ Xe_m8_nut_diameter   = m8_nut_diameter; // m8 nut diameter (one vertical edge to
 Xe_gen_wall          = 3.25; // general  wall for different walls
 Xe_strong_wall       = 5; // strong  wall for different walls
 
+Xe_horizontalSuportThickness = 0.35;
+Xe_verticalSupportThickness  = 1.35;
+
 Xe_overhang_angle    = 20;
 
 
@@ -163,13 +166,13 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 			//nut Rod hole.
 			difference()
 			{
-				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],39.5]) 
-					cylinder(h=90,r=Xe_m8_nut_diameter/2,$fn=6,center=true);
-				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],8.5]) 
-					cylinder(h=4,r=Xe_m8_nut_diameter/2+Xe_gen_wall,$fn=6,center=true);
+				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],Xe_outline[2]/2]) 
+					cylinder(h=Xe_outline[2]+2*OS,r=Xe_m8_nut_diameter/2,$fn=6,center=true);
+				translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],m8_nut_heigth + Xe_gen_wall/2]) 
+					cylinder(h=Xe_gen_wall,r=Xe_m8_nut_diameter/2+Xe_gen_wall,$fn=6,center=true);
 			}
-			translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],52]) 
-				cylinder(h=90,r=Xe_m8_diameter/2,$fn=9,center=true);
+			translate([Xe_Z_nutTrap_pos[0],Xe_Z_nutTrap_pos[1],Xe_outline[2]/2 + m8_nut_heigth + Xe_gen_wall/2 + Xe_horizontalSuportThickness]) 
+				cylinder(h=Xe_outline[2]+2*OS,r=Xe_m8_diameter/2,center=true);
 
 			// z rod hole
 			translate(Xe_Z_bearingHole_pos-[0,0,OS]) 
