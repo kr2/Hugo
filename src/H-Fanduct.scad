@@ -50,6 +50,8 @@ f_fanHoles_nuttAddFree = 2.0;
 
 f_screwFreeSpace = 6;
 
+f_fan_angle = -90+75.99;
+
 
 /*------------------------------------connector-------------------------------*/
 f_conn_size = [3*2+m3_diameter,f_strongWallThickness,70];  // relative to z=0
@@ -61,6 +63,8 @@ f_clamp_widht = m3_diameter + 2*f_strongWallThickness;
 f_clampThin_widht = 28;
 f_clamp_slotWidth = m3_diameter;
 f_clamp_length = 50;
+
+
 
 
 /******************************************************************************/ 
@@ -123,7 +127,7 @@ bar
 */
 module H_FanConnector(conType = "bar") {
 	color([100/255, 0/255, 0/255])
-	for (x=[-f_fanCenterOffset+15,f_fanCenterOffset-15]) 
+	for (x=[-f_fanCenterOffset+7,f_fanCenterOffset-7]) 
 	for (y=[-5,5]) 
 	translate([x,y, 1.5-OS]) 
 		linear_extrude(file = "fanOutlet.dxf", layer = "arrow",height = f_horizontalSuportThickness, center = false, convexity = 10, twist = 0,$fn=24);
@@ -149,8 +153,9 @@ module H_FanConnector(conType = "bar") {
 						linear_extrude(file = "fanOutlet.dxf", layer = "fanConnector_outline",height = f_fanSize, center = true, convexity = 10, twist = 0);
 
 					// sollid spots for screws
-					translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
+					translate([f_fanCenterOffset+5+OS, 0, f_fanSize/2]) 
 					for (_a=[45:90:350]) 
+					rotate(a=f_fan_angle,v=Y) 
 					rotate(a=_a,v=X) 
 					translate([0, f_fanHoles_centerDist+_f_nutFree_r,0]) 
 					rotate(a=-90,v=Y) 
@@ -205,14 +210,16 @@ module H_FanConnector(conType = "bar") {
 				
 				//fan round coutout
 				
-				translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
+				translate([f_fanCenterOffset+5+OS, 0, f_fanSize/2]) 
+				rotate(a=f_fan_angle,v=Y) 
 				rotate(a=180,v=Z) 
 					teardrop (r=f_fanSize/2- f_genWallThickness*1.25,h=3+2*OS,top_and_bottom=false);
 					//cylinder(r=f_fanSize/2- f_genWallThickness, h=3+2*OS, center=false);
 
 				// screw holes
-				translate([f_fanCenterOffset+OS, 0, f_fanSize/2]) 
+				translate([f_fanCenterOffset+5+OS, 0, f_fanSize/2]) 
 				for (_a=[45:90:350]) 
+				rotate(a=f_fan_angle,v=Y) 
 				rotate(a=_a,v=X) 
 				translate([0, f_fanHoles_centerDist,0]) 
 				rotate(a=-90,v=Y) 
@@ -222,16 +229,18 @@ module H_FanConnector(conType = "bar") {
 				// sollid spots for screws
 				difference() {
 					union(){
-						translate([f_fanCenterOffset , 0, f_fanSize/2]) 
+						translate([f_fanCenterOffset +5, 0, f_fanSize/2]) 
 						for (_a=[45:90:350]) 
+						rotate(a=f_fan_angle,v=Y) 
 						rotate(a=_a,v=X) 
 						translate([0, f_fanHoles_centerDist+_f_nutFree_r + f_thinWallThickness,0]) 
 						rotate(a=-90,v=Y) 
 							cylinder(r1=_f_nutFree_r*2,r2=f_genWallThickness/2, h=27, center=false);
 					}
 					union(){
-						translate([f_fanCenterOffset , 0, f_fanSize/2+OS]) 
-							cube(size=[f_strongWallThickness, f_fanSize+2*OS,f_fanSize+2*OS], center=true);
+						translate([f_fanCenterOffset +5 , 0, f_fanSize/2+OS]) 
+						rotate(a=f_fan_angle,v=Y) 
+							cube(size=[f_strongWallThickness, f_fanSize+2*OS,f_fanSize*2+2*OS], center=true);
 					}
 				}
 			}
