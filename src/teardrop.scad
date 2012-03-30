@@ -14,6 +14,21 @@ module teardrop (r=4.5,h=20,top_and_bottom=false)
 	}
 }
 
+module teardropFlat (r=4.5,h=20,top_and_bottom=false)
+{
+	rotate([-270,0,90])
+	linear_extrude(height=h,convexity=10)
+	{
+		circle(r=r);
+		polygon(points=[[0,0],[r*cos(20),r*sin(20)],[0.6*r,r],[-0.6*r,r],[-r*cos(20),r*sin(20)]],
+				paths=[[0,1,2,3,4]]);
+		if (top_and_bottom)
+		polygon(points=[[0,0],[r*cos(20),-r*sin(20)],[0.5*r,-r],[-0.5*r,-r],[-r*cos(20),-r*sin(20)]],
+				paths=[[0,1,2,3,4]]);
+		
+	}
+}
+
 module teardropcentering (r=4.5,h=20)
 {
 	rotate([-270,0,90])
