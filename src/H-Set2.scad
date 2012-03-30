@@ -31,5 +31,3 @@ H_Z_Coupling_printSet();
 translate([-10, 60, 0]) 
 rotate(a=0,v=[0,0,1]) 
 H_yBeltClamp_printSet();
-
-

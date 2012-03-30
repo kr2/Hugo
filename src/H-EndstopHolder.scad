@@ -213,7 +213,7 @@ if (eh_mode == "inspect") {
 	H_endstop_holder();
 }
 if (eh_mode == "print") {
-	H_endstop_holder();
+	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]);
 }
 module H_endstop_printSet() {
 
