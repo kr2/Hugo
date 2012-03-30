@@ -12,7 +12,7 @@ txt_width = 5;
 
 txt_thickness = 0.1;
 
-txt_z = 1;
+txt_z = 0.6;
 
 
 module txt_hugo() {
