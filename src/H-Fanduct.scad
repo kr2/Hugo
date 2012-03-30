@@ -29,7 +29,7 @@ f_strongWallThickness        = 4;
 f_supportDist = 5;
 
 f_horizontalSuportThickness  = 0.3;
-f_verticalSupportThickness   = 0.5;
+f_verticalSupportThickness   = 1.35;
 
 
 f_airChannal_segments = 12;
