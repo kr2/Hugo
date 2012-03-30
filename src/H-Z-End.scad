@@ -87,7 +87,7 @@ module H_Z_end(hasCrossBrace = true, hasEnstopholder = true) {
 			// x dir rod
 			translate([0, 0, Ze_roughRod_diam/2+Ze_genWallThickness]) 
 			rotate(a=180,v=X) 
-				teardrop (r=Ze_roughRod_diam/2+Ze_genWallThickness,h=_Ze_xDir,top_and_bottom=false);
+				teardropFlat (r=Ze_roughRod_diam/2+Ze_genWallThickness,h=_Ze_xDir,top_and_bottom=false);
 
 			// x dir support
 			translate([0, 0, Ze_roughRod_diam/2+Ze_genWallThickness]) 
