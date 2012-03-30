@@ -12,7 +12,7 @@ include <GregsWade_v4.scad>
 
 include <H-Xtruder-Mount.scad>
 include <H-X-End.scad>
-include <H-X-Carriage.scad>
+include <H-X-Carriager.scad>
 include <H-Y-BarEnd.scad>
 include <H-Z-End.scad>
 include <H-BarClampCross.scad>
@@ -67,20 +67,20 @@ module _xAxis_assembly() {
 
 	// x extruder holder
 	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
-	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
+	translate([a_act_pos[0], -_Xc_ydir/2-1, -Xc_axis_dist/2]) 
 		H_Xtruder_mount_assembly();
 
 	// extruder
 	translate([0, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
 	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
-	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
+	translate([a_act_pos[0], -_Xc_ydir/2-1, -Xc_axis_dist/2]) 
 	rotate(a=180,v=Z) 
 		gegsWade_assembly();
 
 	// fanduct
 	translate([0, -Xm_ext_hole_yoff, Xm_outline[2]/2]) 
 	translate([0, 0, Xe_X_RodHoles_pos[1][1]]) 
-	translate([a_act_pos[0], -Xc_ydir/2-1, -Xc_axis_dist/2]) 
+	translate([a_act_pos[0], -_Xc_ydir/2-1, -Xc_axis_dist/2]) 
 		H_Fan_assembly(zDirOffset = -45) 
 
 	// endstops
@@ -93,12 +93,12 @@ module _xAxis_assembly() {
 
 	//belt
 	color("white")
-	translate([0, Xc_belt_axisXc_ydir_dist + c_xAxis_belt_width/2, Xe_X_RodHoles_pos[1][1]+ c_xAxis_beltTop_topxAxisDist + c_xAxis_belt_thickness/2]) 
+	translate([0, Xc_belt_axisXc_ydir_dist , Xe_X_RodHoles_pos[1][1]+ c_xAxis_beltTop_topxAxisDist ]) 
 		cube(size=[_a_xAxis_real_length, c_xAxis_belt_width, c_xAxis_belt_thickness], center=true);
 }
 
 /*------------------------------------y axis----------------------------------*/
-_a_yAxis_real_length = c_y_axis_length + b_xDirWall_size[1] + Xc_ydir + Xm_ext_hole_yoff;
+_a_yAxis_real_length = c_y_axis_length + b_xDirWall_size[1] + _Xc_ydir + Xm_ext_hole_yoff;
 _a_yAxis_rod_topOffset = a_heatedBed_size[2] + a_heatedBed_tabelOffset + a_tabel_thickness + Ybe_barEnd_yAxis_offset;
 _a_yAxis_dist = (_a_xEnd_xdirBearHole_offset[0]-b_lber_zAxisXdirDist)*2; // todo
 module _yAxis_assembly() {
