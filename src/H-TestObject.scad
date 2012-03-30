@@ -11,6 +11,10 @@ include <units.scad>
 include <metric.scad>
 include <teardrop.scad>
 include <roundEdges.scad>
+include <H-X-End.scad>
+include <H-X-Carriager.scad>
+include <H-Z-End.scad>
+include <BearingGuide.scad>
 
 /*------------------------------------general---------------------------------*/
 cal_mode = "-";
@@ -42,11 +46,18 @@ module  H_calibration() {
 				rotate(a=90,v=Y) 
 					cylinder(r=m8_diameter/2 + cal_thinWallThickness, h=cal_outline[0]+ 0.5, center=true);
 
-				translate([- cal_outline[0]/2, cal_outline[1]/2, cal_outline[2]/2]) 
+				// brig and support test
+				for (i=[-cal_outline[0]/2, cal_outline[2]/2 - cal_verticalSupportThickness]) 
+				translate([ i,cal_outline[1]/2-OS, -cal_outline[2]/2]) 
+					cube(size=[cal_verticalSupportThickness, cal_outline[2]/2, cal_outline[2]], center=false);
+				translate([-cal_outline[0]/2, cal_outline[1]/2, cal_outline[2]/2- cal_horizontalSuportThickness])
+					cube(size=[cal_outline[0],cal_outline[2]/2 , cal_horizontalSuportThickness], center=false); 
+
+				//support test
+				*translate([- cal_outline[0]/2, cal_outline[1]/2, cal_outline[2]/2]) 
 				rotate(a=90,v=Y) 
 					roundEdge(_a=0,_r=cal_outline[2],_l=cal_outline[0]);
-
-				difference() {
+				*difference() {
 					union(){
 						translate([0, cal_outline[1]/2+ cal_outline[2]/2 + cal_supportDistance, 0 - cal_supportDistance]) 
 							cube(size=[cal_outline[0], cal_outline[2], cal_outline[2]], center=true);
@@ -73,7 +84,8 @@ module  H_calibration() {
 				translate([0, -cal_outline[1]/2, 0]) 
 				rotate(a=180,v=Y) 
 				rotate(a=-90,v=Z) 
-					teardrop (r=m8_diameter/2 + cal_genWallThickness,h= cal_outline[2],top_and_bottom=false);
+					teardropFlat (r=m8_diameter/2 + cal_genWallThickness,h= cal_outline[2],top_and_bottom=false);
+
 			}
 			union(){
 				cylinder(r=c_z_axis_smoothRod_diam/2, h=cal_outline[2]+2*OS, center=true);
@@ -87,6 +99,7 @@ module  H_calibration() {
 						cylinder(r=m3_diameter/2, h=cal_outline[0]+2*OS, center=true);
 
 					translate([0, 0, -cal_outline[2]/2-OS]) 
+					rotate(a=30,v=Z) 
 						cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6);
 				}
 
@@ -102,15 +115,66 @@ module  H_calibration() {
 				}
 
 				translate([0, -cal_outline[1]/2, 0]) 
-				rotate(a=180,v=Y) 
 				rotate(a=-90,v=Z) 
 					teardrop (r=m8_diameter/2,h= cal_outline[2]+OS,top_and_bottom=false);
 			}
 		}
 	}
+
+	//xend tests
+	translate([cal_outline[0]/2 + 1 + max((m8_nut_wallDist/2+Xe_gen_wall)/cos(30),Xe_Z_bearingHole_dia/2+Xe_gen_wall), 0, 0]) 
+	difference() {
+		union(){
+			translate([0, (m8_nut_wallDist/2+Xe_gen_wall)/cos(30) + 1, 0]) 
+				cylinder(h=m8_nut_heigth+cal_horizontalSuportThickness,r= (m8_nut_wallDist/2+Xe_gen_wall)/cos(30) ,$fn=6);
+
+			translate([0, -Xe_Z_bearingHole_dia/2-Xe_gen_wall-1, 0]) 
+				cylinder(r=Xe_Z_bearingHole_dia/2+Xe_gen_wall,h=m8_nut_heigth,center=false,$fn=48);
+		}
+		union(){
+			translate([0, (m8_nut_wallDist/2+Xe_gen_wall)/cos(30) + 1, -OS]) 
+				cylinder(h=m8_nut_heigth+2*OS,r=Xe_m8_nut_diameter/2,$fn=6,center=false);
+
+			translate([0, -Xe_Z_bearingHole_dia/2-Xe_gen_wall-1, -OS]) 
+				cylinder(r=Xe_Z_bearingHole_dia/2,h=m8_nut_heigth+2*OS,center=false,$fn=48);
+		}
+	}
+
+	// carriager test
+	translate([-(cal_outline[0]/2 + 1 + cal_outline[0]), Xc_lber_diam/2 + Xc_genWallThickness+1, Xc_lber_diam/2 + Xc_genWallThickness]) 
+	difference() {
+		union(){
+			translate([-_Xc_xdir/2, 0, i]) 
+				teardropFlat (r=Xc_lber_diam/2 + Xc_genWallThickness,h=cal_outline[0],top_and_bottom=true);
+		}
+		union(){
+			translate([-OS, 0, 0]) 
+				teardrop (r=Xc_lber_diam/2,h=cal_outline[0]+2*OS,top_and_bottom=false);
+		}
+	}
 	
 
-	
+	// zend & bearing Clamp test
+	translate([-(cal_outline[0]/2+Ze_bear_diam/2 + Xe_gen_wall+1), -(+Ze_bear_diam/2 + Xe_gen_wall+1), 0]) 
+	difference() {
+		union(){
+			cylinder(r=Ze_bear_diam/2 + Xe_gen_wall, h=Ze_bear_heigth + cal_horizontalSuportThickness, center=false);
+		}
+		union(){
+			translate([0, 0, -OS]) 
+			cylinder(r=Ze_bear_diam/2, h=Ze_bear_heigth, center=false);
+		}
+	}
+	translate([0, +cal_outline[1]/2 + cal_outline[2]/2 + 1 +Ze_bear_diam/2 + Xe_gen_wall + conn_tolerance + Xe_gen_wall, 0]) 
+	difference() {
+		union(){
+			cylinder(r=Ze_bear_diam/2 + Xe_gen_wall + conn_tolerance + Xe_gen_wall, h=Ze_bear_heigth, center=false);
+		}
+		union(){
+			translate([0, 0, -OS]) 
+			cylinder(r=Ze_bear_diam/2 + Xe_gen_wall + conn_tolerance , h=Ze_bear_heigth + 2*OS, center=false);
+		}
+	}
 }
 
 if (cal_mode == "print") {
