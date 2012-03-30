@@ -15,15 +15,15 @@ $fn= 24 * 4;
 %cube(size=[150, 150, 1], center=true);
 
 
+rotate(a=90,v=Z) {
+	translate([25,0, 0]) 
+	H_x_End_print();^
 
-translate([25,0, 0]) 
-H_x_End_print();
+	translate([-30, 29, 0]) 
+	rotate(a=-90,v=Z) 
+	H_x_Carriage_print();
 
-translate([-30, 29, 0]) 
-rotate(a=-90,v=Z) 
-H_x_Carriage_print();
-
-translate([-2, -36, 0]) 
-rotate(a=90,v=Z) 
-H_Xtruder_mount_print();
-
+	translate([-2, -36, 0]) 
+	rotate(a=90,v=Z) 
+	H_Xtruder_mount_print();
+}

@@ -252,12 +252,15 @@ module H_x_End_print() {
 		H_x_End(isIdle=true,elongetededLowerHole = false);
 }
 if (Xe_mode == "printSet") 
+	rotate(a=90,v=Z) 
 	H_x_End_print();
 
 if (Xe_mode == "print Left") {
+	rotate(a=90,v=Z) 
 	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
 }
 if (Xe_mode == "print Right") {
+	rotate(a=90,v=Z) 
 	mirror([0, 1, 0]) 
 		H_x_End(isIdle=true,elongetededLowerHole = false);
 }
