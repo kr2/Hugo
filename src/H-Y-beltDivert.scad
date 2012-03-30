@@ -114,6 +114,7 @@ module H_Y_beltDivert_print() {
 	H_Y_beltDivert();
 }
 if (Ybd_mode == "print") {
+	rotate(a=90,v=Z) 
 	H_Y_beltDivert_print();
 }
 
