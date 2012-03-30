@@ -22,6 +22,7 @@ m8_nut_heigth              = 6.3;
 m4_diameter                = 4.5;
 m4_nut_diameter            = 8.2;
 m4_nut_heigth              = 3.2;
+m4_nut_wallDist            = _wallDistFromDia(m4_nut_diameter);
 
 m3_diameter                = 3.6;
 m3_nut_diameter            = 6.45;
