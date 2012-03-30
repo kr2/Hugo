@@ -58,7 +58,7 @@ Xc_holes_diam              = m3_diameter;
 Xc_holes_dist              = 18;
 
 /*------------------------------------rod-------------------------------------*/
-Xc_rod_diam                = m8_diameter;
+//Xc_rod_diam                = m8_diameter;
 
 /*------------------------------------belt------------------------------------*/
 Xc_belt_thickness          = c_xAxis_belt_thickness;
@@ -69,13 +69,7 @@ Xc_belt_tolerance          = [1,2,1]; //[t,w,-1]
 Xc_belt_axisXc_ydir_dist   = c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width/2; // distece between center x axis and nerest belt edge
 Xc_belt_axisXc_zdir_offset = c_xAxis_beltTop_topxAxisDist - Xc_belt_tolerance[0]; // distece between center of the top x axis and toothed side of the belt in z dir
 
-Xc_beltClamp_depth         = 10;
-
-/*------------------------------------elongetated hole------------------------*/
-
-//elongetated hole for the lower x axis beratin to compensate the different 
-//print directions of xEnd and this
-Xc_elongHole_addDia = 0.5; // aditional distenace
+Xc_beltClamp_thickness         = 10;
 
 /******************************************************************************/ 
 /*                                  internal                                  */
@@ -276,6 +270,13 @@ module H_x_Carriage(hasSupport = true, hasBeltConnector = true) {
 			}
 
 			//notch coutout
+			translate([0, Xc_ydir/2- Xc_notch_depth/2+OS, Xc_zdir/2]){ 
+				cube(size=[Xc_notch_width, Xc_notch_depth, Xc_notch_lengt], center=true);
+				for (i=[-Xc_notch_width/2,Xc_notch_width/2])
+				translate([i-Xc_notch_depth/2-0.1, Xc_notch_depth/2, 0]) 
+				rotate(a=-30,v=[0,0,1]) 
+					triangle(l=Xc_notch_depth,h=Xc_notch_lengt+OS);
+			}//notch coutout
 			translate([0, Xc_ydir/2- Xc_notch_depth/2+OS, Xc_zdir/2]){ 
 				cube(size=[Xc_notch_width, Xc_notch_depth, Xc_notch_lengt], center=true);
 				for (i=[-Xc_notch_width/2,Xc_notch_width/2])
