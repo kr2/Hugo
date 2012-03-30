@@ -42,7 +42,7 @@ m2_nut_wallDist            = _wallDistFromDia(m2_nut_diameter);
 
 // elongetaed nuttraps
 // where a nut is put in an slot and inthere hits the perpendicular threadhole
-m3_elongNtt_tolerance      = [0.5,0,0.5];// additional [diameter,depth,height]  // depth is not implemented
+m3_elongNtt_tolerance      = [0.25,0,0.5];// additional [diameter,depth,height]  // depth is not implemented
 
 /*------------------------------------608ZZ-----------------------------------*/
 bear_608ZZ_height = 7;
