@@ -224,11 +224,11 @@ module H_endstop_printSet1() {
 	translate([20, 10, 0]) 
 	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[1], nuttraps = [-1,1]); // z top
 
-	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,1]); // y front/back
 	
 	translate([-40, 25, 0]) 
 	rotate(a=90,v=[0,0,1]) 
-	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,1]); // y front/back
 	
 	translate([-20, -10, 0]) 
 	H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
@@ -246,7 +246,7 @@ module H_endstop_printSet2() {
 	translate([20, 10, 0]) 
 	H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]); // z bottom
 
-	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,0]); // y front/back
+	H_endstop_holder(rod_diam=c_y_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[2], nuttraps = [-1,1]); // y front/back
 		
 	translate([-20, -10, 0]) 
 	H_endstop_holder(rod_diam=c_x_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[3], nuttraps = [-1,1]); // x left/reight
