@@ -18,7 +18,7 @@ include <config.scad>
 eh_mode = "-";
 //eh_mode = "printSet1";  $fn=24*4;
 //eh_mode = "printSet2";  $fn=24*4;
-//eh_mode = "inspect";
+eh_mode = "inspect";
 //eh_mode = "assembly";
 
 eh_genWallThickness           = 2.5;
@@ -118,7 +118,7 @@ module H_endstop_holder(rod_diam=8,isPerpendicular= 1, holeOffset = [-7,14,5], n
 					}
 					union(){
 						translate([0, eh_end_elongetatedHole_length/2 * holeOffset[0]/abs(holeOffset[0])*-1, -OS]) 
-						for (i=[m2_diameter:m2_diameter:eh_end_elongetatedHole_length/2]) {
+						for (i=[m2_diameter:m2_diameter*2:eh_end_elongetatedHole_length/2]) {
 							translate([0, i * holeOffset[0]/abs(holeOffset[0])*-1, 0]) 
 								cube(size=[  m2_diameter, eh_end_holeSeperator_width, eh_end_wallWidth+2*OS], center=true);
 							
