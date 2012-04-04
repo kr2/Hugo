@@ -16,7 +16,7 @@ txt_z = 0.6;
 
 
 module txt_hugo() {
-	dist = 1;
+	dist = 1.5;
 
 	step = txt_width + dist;
 

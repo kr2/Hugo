@@ -8,15 +8,14 @@
 
 include <units.scad>;
 include <metric.scad>
-include <roundEdges.scad>
-include <utilities.scad>
 
 
 /*------------------------------------general---------------------------------*/
 Hbg_mode = "-";
-Hbg_mode = "printSet";  $fn=24*4;    // can be print or inspect [overlays the Hbg_model with the original Hbg_model] (uncomment next line)
+//Hbg_mode = "printSet";  $fn=24*4;    // can be print or inspect [overlays the Hbg_model with the original Hbg_model] (uncomment next line)
 //Hbg_mode = "print";  $fn=24*4;
 //Hbg_mode = "inspect";
+//Hbg_mode = "assembly";
 
 Hbg_thinWallThickness         = 1;
 Hbg_genWallThickness          = 3;
@@ -31,7 +30,6 @@ Hbg_rod_diam                  = m8_diameter;
 
 /*------------------------------------bearing---------------------------------*/
 Hbg_bear_diam                 = bear_608ZZ_diam;
-Hbg_bear_heigth               = bear_608ZZ_height;
 
 /*------------------------------------general---------------------------------*/
 
@@ -81,3 +79,22 @@ if (Hbg_mode == "print") {
 		H_BearingGuid_print();
 }
 
+
+
+/*------------------------------------assembly--------------------------------*/
+include <basicMetalParts.scad>
+
+module H_BearingGuid_ass() {
+	translate([0, 0, -Hbg_washer_height- Hbg_height]) 
+		H_BearingGuid();
+	translate([0, 0, bear_608ZZ_height + Hbg_height + Hbg_washer_height ]) 
+	rotate(a=180,v=X) 
+		H_BearingGuid();
+	
+	translate([0, 0, slope_thickness/2 + edge_thickness]) 
+		bear608ZZ(info="bearing guid");
+
+}
+if (Hbg_mode == "assembly") {
+	H_BearingGuid_ass();
+}

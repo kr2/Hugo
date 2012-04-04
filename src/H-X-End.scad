@@ -270,7 +270,7 @@ if (Xe_mode == "print Right") {
 
 /*------------------------------------assembly--------------------------------*/
 include <basicMetalParts.scad>
-include <BearingGuide.scad>
+include <H-BearingGuid.scad>
 include <motors.scad>
 
 module H_x_End_idle_assembly() {
@@ -285,7 +285,7 @@ module H_x_End_idle_assembly() {
 
 		translate([Xe_X_RodHoles_pos[1][0]+c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=90,v=Y) 
-			bearGuid_ass();
+			H_BearingGuid_ass();
 	}
 }
 

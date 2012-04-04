@@ -41,7 +41,7 @@ Ybd_beltDiv_height = Ybd_roughRod_diam+2*Ybd_genWallThickness;
 /*------------------------------------bearing---------------------------------*/
 Ybd_bear_height = 7;
 
-Ybd_bear_washer_height = 4;
+Ybd_bear_washer_height = 1;
 Ybd_bear_washer_diam = 12;
 
 
@@ -122,7 +122,7 @@ if (Ybd_mode == "print") {
 
 
 /*------------------------------------assembly--------------------------------*/
-include <BearingGuide.scad>
+include <H-BearingGuid.scad>
 
 
 module H_Y_beltDivert_assembly() {
@@ -131,8 +131,8 @@ module H_Y_beltDivert_assembly() {
 		H_Y_beltDivert();
 
 		for (i=[-Ybd_beldDiv_bearingDist/2,Ybd_beldDiv_bearingDist/2])
-		translate([i, 0, Ybd_beltDiv_height+2])  
-			bearGuid_ass();
+		translate([i, 0, Ybd_beltDiv_height+3])  
+			H_BearingGuid_ass();
 	}
 }
 
