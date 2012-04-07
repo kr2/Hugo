@@ -95,7 +95,7 @@ module  H_calibration() {
 
 				translate([0, c_z_axis_smoothRod_diam/2 + cal_thinWallThickness + c_x_axis_smoothRod_diam/2, 0]) 
 				rotate(a=90,v=Y) 
-					cylinder(r=c_z_axis_smoothRod_diam/2, h=cal_outline[0]+2*OS, center=true);
+					cylinder(r=c_x_axis_smoothRod_diam/2, h=cal_outline[0]+2*OS, center=true);
 
 				translate([0, c_z_axis_smoothRod_diam/2 + cal_thinWallThickness + c_x_axis_smoothRod_diam + cal_thinWallThickness + m3_nut_diameter/2, 0]) 
 				rotate(a=90,v=Y) {
@@ -148,8 +148,7 @@ module  H_calibration() {
 	translate([-(cal_outline[0]/2 + 1 + cal_outline[0]), Xc_lber_diam/2 + Xc_genWallThickness+1, Xc_lber_diam/2 + Xc_genWallThickness]) 
 	difference() {
 		union(){
-			translate([-_Xc_xdir/2, 0, i]) 
-				teardropFlat (r=Xc_lber_diam/2 + Xc_genWallThickness,h=cal_outline[0],top_and_bottom=true);
+			teardropFlat (r=Xc_lber_diam/2 + Xc_genWallThickness,h=cal_outline[0],top_and_bottom=true);
 		}
 		union(){
 			translate([-OS, 0, 0]) 
