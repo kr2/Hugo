@@ -34,7 +34,7 @@ mirror([1, 0, 0])
 H_endstop_holder(rod_diam=c_z_axis_smoothRod_diam,isPerpendicular= 1, holeOffset = eh_holeOffsets[0], nuttraps = [-1,1]);
 
 
-*translate([15, 37, 0])
+translate([15, 37, 0])
 mirror([0, 1, 0])   
 rotate(a=30+90,v=Z) 
 H_BearingGuid_printSet();
