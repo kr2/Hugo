@@ -83,7 +83,7 @@ module H_endstop_holder(rod_diam=8,isPerpendicular= 1, holeOffset = [-7,14,5], n
 
 			// nuttrap outline
 			if (nuttraps[1]!= 0) {
-				for (i=[0:m3_nut_diameter/2:eh_end_elongetatedHole_length]) 
+				for (i=[0:m2d5_nut_diameter/2:eh_end_elongetatedHole_length]) 
 				translate([holeOffset[0]+i*holeOffset[0]/abs(holeOffset[0]), holeOffset[1], eh_end_height/2]) 
 				rotate(a=90*isPerpendicular,v=Z)
 				rotate(a=-90,v=Y)
@@ -171,7 +171,7 @@ module _clamp(holeOffset,nuttrap,rod_diam) {
 					translate([nuttrap * ((end_slotWidth)/2+eh_end_wallWidth), 0, 0]) 
 					rotate(a=90,v=Y) 
 					rotate(a=30,v=Z) 
-						cylinder(r=(eh_end_height/2)/cos(30), h=m3_nut_heigth, center=true,$fn=6);
+						cylinder(r=(eh_end_height/2)/cos(30), h=m2d5_nut_heigth, center=true,$fn=6);
 				}
 			}
 			
@@ -194,13 +194,13 @@ module _clamp(holeOffset,nuttrap,rod_diam) {
 			translate([0, eh_end_clampHole_offset, eh_end_height/2]) { // center screw hole
 				// clamp hole
 				rotate(a=90,v=Y) 
-					cylinder(r=m3_diameter/2, h=end_slotWidth+2*eh_end_wallWidth+2*OS, center=true,$fn=24);
+					cylinder(r=m2d5_diameter/2, h=end_slotWidth+2*eh_end_wallWidth+2*OS, center=true,$fn=24);
 				if (nuttrap != 0) {
 					// nuttrap
 					translate([nuttrap * ((end_slotWidth)/2+eh_end_wallWidth), 0, 0]) 
 					rotate(a=90,v=Y) 
 					rotate(a=30,v=Z) 
-						cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth+2*OS, center=true,$fn=6);
+						cylinder(r=m2d5_nut_diameter/2, h=m2d5_nut_heigth+2*OS, center=true,$fn=6);
 				}
 			}
 		}
