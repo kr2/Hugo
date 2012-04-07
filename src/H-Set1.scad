@@ -17,7 +17,7 @@ $fn= 24 * 4;
 
 rotate(a=90,v=Z) {
 	translate([25,0, 0]) 
-	H_x_End_print();^
+	H_x_End_print();
 
 	translate([-30, 29, 0]) 
 	rotate(a=-90,v=Z) 
