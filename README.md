@@ -1,7 +1,9 @@
-NOT ALL PARTS ARE TESTED
+NOT ALL PARTS ARE TESTED YET
 
 
 At the moment the config.scad and metric.scad file aren't implemented consistently. So if you want to change something look in the scad file of the corresponding part and if the desired setting already depends on the config.scad or metric.scad check the appropriate.
+
+It is always recommend to check the stl files before printing.
 
 Brief
 =====
@@ -28,7 +30,7 @@ To view this  H-assembly.scad I recommend to use the actual developer release of
 
 So there are several prebuilt stl files to discover and to put your own assembly together or you build your own via OpenSCAD.
 
-In general if you print H-set1.stl and H-set2.stl you should have all mandatory parts to build the Printer. If you also print H-set3.stl you should be able to setup the entire printer as shown in H-assembly.scad. The H-set7_PLA.stl contains all necessary linear bearings plus some extra, in case some come out in bad quality. This bearings should be printed in PLA because it is harder then ABS.
+In general if you print H-set1.stl and H-set2.stl you should have all mandatory parts to build the Printer. If you also print H-set3.stl you should be able to setup the entire printer similar to the one shown in H-assembly.scad. It is recommend to use LMXXUU or igus linear Bearings but the H-set7_PLA.scad contains printable linear bearings. This bearings should be printed in PLA because it is harder then ABS.
 
 
 Sources
@@ -52,3 +54,4 @@ THE Printrbot by abdrumm
 http://www.thingiverse.com/thing:16990
 
 Thanks to all of them.
+(If I missed someone I am sorry, plz contact me.)
