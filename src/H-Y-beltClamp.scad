@@ -32,15 +32,15 @@ Ybc_genWallThickness    = 2;
 
 Ybc_nutSlotTolerance    = 0.4;
 
-module H_yBeltClamp() {
-	y_mainLength = m3_diameter+Ybc_genWallThickness+Ybc_strongWallThickness+Ybc_belt_tolerance[0]+Ybc_belt_thickness;
+Ybc_y_mainLength = m3_diameter+Ybc_genWallThickness+Ybc_strongWallThickness+Ybc_belt_tolerance[0]+Ybc_belt_thickness;
+module H_yBeltClamp(hasSupportFeet = true) {
 
 	difference() {
 		union(){
 			//main block
-			cube(size=[Ybc_strongWallThickness, y_mainLength, Ybc_belt_width+Ybc_belt_tolerance[2]], center=false);
+			cube(size=[Ybc_strongWallThickness, Ybc_y_mainLength, Ybc_belt_width+Ybc_belt_tolerance[2]], center=false);
 			//deflection
-			translate([Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0], y_mainLength- Ybc_strongWallThickness, 0]) {
+			translate([Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0], Ybc_y_mainLength- Ybc_strongWallThickness, 0]) {
 				difference() {
 					cube(size=[Ybc_strongWallThickness, Ybc_strongWallThickness, Ybc_belt_width+Ybc_belt_tolerance[2]], center=false);
 					translate([0, 0, -OS])
@@ -62,8 +62,8 @@ module H_yBeltClamp() {
 			translate([0, 0, -Ybc_genWallThickness]){ 
 				translate([0, 0, -m3_nut_diameter/2-m3_diameter/2]) 
 				difference() {
-					cube(size=[Ybc_strongWallThickness, y_mainLength- Ybc_strongWallThickness, m3_nut_diameter/2+m3_diameter/2+Ybc_genWallThickness], center=false);
-					translate([0, y_mainLength- Ybc_strongWallThickness, 0]) 
+					cube(size=[Ybc_strongWallThickness, Ybc_y_mainLength- Ybc_strongWallThickness, m3_nut_diameter/2+m3_diameter/2+Ybc_genWallThickness], center=false);
+					translate([0, Ybc_y_mainLength- Ybc_strongWallThickness, 0]) 
 					rotate(a=90,v=Y) 
 						roundEdge(_a=180,_r=(m3_nut_diameter/2+m3_diameter/2+Ybc_genWallThickness)/2,_l=Ybc_strongWallThickness,_fn=100);
 					rotate(a=-90,v=X) 
@@ -72,31 +72,33 @@ module H_yBeltClamp() {
 					rotate(a=-90,v=X) 
 						roundEdge(_a=180,_r=(m3_nut_diameter/2+m3_diameter/2+Ybc_genWallThickness)/2,_l=Ybc_strongWallThickness,_fn=100);
 				}
-				translate([0, y_mainLength- Ybc_strongWallThickness, 0]) 
+				translate([0, Ybc_y_mainLength- Ybc_strongWallThickness, 0]) 
 				cube(size=[2*Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0], Ybc_strongWallThickness, Ybc_genWallThickness], center=false);
 			}
 
 			// top plate
 			translate([0, 0, Ybc_belt_width+Ybc_belt_tolerance[2]]){ 
-				cube(size=[Ybc_strongWallThickness, y_mainLength, Ybc_belt_topOffset], center=false);
-				translate([0, y_mainLength- Ybc_strongWallThickness, 0]) 
+				cube(size=[Ybc_strongWallThickness, Ybc_y_mainLength, Ybc_belt_topOffset], center=false);
+				translate([0, Ybc_y_mainLength- Ybc_strongWallThickness, 0]) 
 					cube(size=[2*Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0], Ybc_strongWallThickness, Ybc_belt_topOffset], center=false);
 			}
 
 			// support rounded edge
-			translate([0, y_mainLength,  Ybc_belt_width+Ybc_belt_tolerance[2]+Ybc_belt_topOffset-Ybc_genWallThickness]) {
-				intersection() {
-					union() {
-						cube(size=[2*Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0], Ybc_belt_topOffset/3*2, Ybc_genWallThickness], center=false);
-						rotate(a=90,v=Y) 
-							roundEdge(_a=0,_r=Ybc_belt_topOffset/3*2,_l=2*Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0],_fn=4);
+			if (hasSupportFeet == true) {
+				translate([0, Ybc_y_mainLength,  Ybc_belt_width+Ybc_belt_tolerance[2]+Ybc_belt_topOffset-Ybc_genWallThickness]) {
+					intersection() {
+						union() {
+							cube(size=[2*Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0], Ybc_belt_topOffset/3*2, Ybc_genWallThickness], center=false);
+							rotate(a=90,v=Y) 
+								roundEdge(_a=0,_r=Ybc_belt_topOffset/3*2,_l=2*Ybc_strongWallThickness+Ybc_belt_thickness+Ybc_belt_tolerance[0],_fn=4);
 
-					}
-					union() {
-						for (i=[Ybc_strongWallThickness/2,Ybc_strongWallThickness + Ybc_belt_thickness+Ybc_belt_tolerance[0] + Ybc_strongWallThickness/2]) 
-						translate([i, 0, -(Ybc_belt_topOffset)]) 
-						scale([1, (Ybc_belt_topOffset/3*2)/(Ybc_strongWallThickness/2), 1]) 
-							cylinder(r=Ybc_strongWallThickness/2, h=Ybc_belt_topOffset+Ybc_genWallThickness, center=false,$fn=48);
+						}
+						union() {
+							for (i=[Ybc_strongWallThickness/2,Ybc_strongWallThickness + Ybc_belt_thickness+Ybc_belt_tolerance[0] + Ybc_strongWallThickness/2]) 
+							translate([i, 0, -(Ybc_belt_topOffset)]) 
+							scale([1, (Ybc_belt_topOffset/3*2)/(Ybc_strongWallThickness/2), 1]) 
+								cylinder(r=Ybc_strongWallThickness/2, h=Ybc_belt_topOffset+Ybc_genWallThickness, center=false,$fn=48);
+						}
 					}
 				}
 			}
@@ -113,7 +115,7 @@ module H_yBeltClamp() {
 
 			//fastening screws
 			for (i=[Ybc_strongWallThickness/2, Ybc_strongWallThickness + Ybc_belt_thickness+Ybc_belt_tolerance[0] + Ybc_strongWallThickness/2]) 
-			translate([i, y_mainLength- m3_nut_diameter+Ybc_genWallThickness, -Ybc_genWallThickness-OS]){
+			translate([i, Ybc_y_mainLength- m3_nut_diameter+Ybc_genWallThickness, -Ybc_genWallThickness-OS]){
 				translate([0, 0, OS]) 
 				cylinder(r=m3_diameter/2, h=Ybc_belt_topOffset+ Ybc_belt_width+Ybc_belt_tolerance[2]+2*Ybc_genWallThickness, center=false,$fn=24);
 				cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth, center=false,$fn=6);
@@ -123,7 +125,7 @@ module H_yBeltClamp() {
 			for (i=[-m3_diameter/2,m3_diameter/2+Ybc_belt_width+Ybc_belt_tolerance[2]]) 
 			translate([Ybc_strongWallThickness/2, -OS, i]){
 				rotate(a=-90,v=X) 
-					cylinder(r=m3_diameter/2, h=y_mainLength- m3_nut_diameter-2*Ybc_genWallThickness, center=false,$fn=48); 
+					cylinder(r=m3_diameter/2, h=Ybc_y_mainLength- m3_nut_diameter-2*Ybc_genWallThickness, center=false,$fn=48); 
 				//nuttraps
 				translate([0, Ybc_genWallThickness+m3_nut_diameter/2-m3_nut_heigth-Ybc_nutSlotTolerance/2, 0]) 
 				rotate(a=-90,v=X) 
@@ -136,8 +138,8 @@ module H_yBeltClamp() {
 			translate([0, 0,  m3_diameter/2+Ybc_belt_width+Ybc_belt_tolerance[2]-1]) 
 			rotate(a=-20,v=X)  {
 				difference() {
-					translate([-OS, -(y_mainLength- Ybc_strongWallThickness),0])
-					cube(size=[Ybc_strongWallThickness+2*OS, y_mainLength- Ybc_strongWallThickness, Ybc_belt_topOffset], center=false);
+					translate([-OS, -(Ybc_y_mainLength- Ybc_strongWallThickness),0])
+					cube(size=[Ybc_strongWallThickness+2*OS, Ybc_y_mainLength- Ybc_strongWallThickness, Ybc_belt_topOffset], center=false);
 					
 					translate([Ybc_strongWallThickness/2, 0, 0]) 
 					scale([1, 0.55, 1]) 
