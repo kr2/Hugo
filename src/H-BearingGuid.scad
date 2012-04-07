@@ -91,8 +91,7 @@ module H_BearingGuid_ass() {
 	rotate(a=180,v=X) 
 		H_BearingGuid();
 	
-	translate([0, 0, slope_thickness/2 + edge_thickness]) 
-		bear608ZZ(info="bearing guid");
+	bear608ZZ(info="bearing guid");
 
 }
 if (Hbg_mode == "assembly") {

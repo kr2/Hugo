@@ -277,7 +277,7 @@ module H_assembly() {
 	translate([0, 0, a_act_pos[2]]) 
 		_xAxis_assembly();
 
-	ranslate([0, a_act_pos[1], 0]) 
+	translate([0, a_act_pos[1], 0]) 
 		_yAxis_assembly();
 	
 	_zAxis_assembly();
