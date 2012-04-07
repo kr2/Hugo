@@ -43,11 +43,13 @@ Ybda_zipTies_thickness   = 2;
 
 
 /*------------------------------------internal--------------------------------*/
-_Ybda_base_size = [Ybda_genWallThickness*2+ Ybda_belt_thickness*2 + Ybda_belt_tolerance[1]*2 + m3_nut_diameter*2 + 2* Ybda_thinWallThickness,
+_Ybda_base_size = [Ybda_genWallThickness*2+ Ybda_belt_thickness*2 + Ybda_belt_tolerance[1]*2 + m3_nut_diameter*2 + 4* Ybda_thinWallThickness,
 				   Ybda_strongWallThickness,
 				   Ybda_genWallThickness+m3_nut_heigth];
 
 _Ybda_clamp_heigt = Ybda_belt_topOffset + Ybda_belt_width + Ybda_belt_tolerance[1] + Ybda_zipTies_width + 2*Ybda_genWallThickness;
+
+_Ybda_teeth_dist = (Ybda_belt_thickness- Ybda_belt_teethDepth)*2;
 
 module H_yBeltClam_alt(HasFoot = true) {
 	difference() {
@@ -64,12 +66,12 @@ module H_yBeltClam_alt(HasFoot = true) {
 
 			for (i=[-1,+1]) {
 				// outer clamp
-				translate([(Ybda_belt_thickness+Ybda_genWallThickness/2) * i, 0, _Ybda_clamp_heigt/2]) 
+				translate([(_Ybda_teeth_dist+Ybda_belt_teethDepth+Ybda_genWallThickness/2) * i, 0, _Ybda_clamp_heigt/2]) 
 					cube(size=[Ybda_genWallThickness, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
 
 				// belt teeth conector
 				for (y=[-Ybda_strongWallThickness/2+ Ybda_belt_teethDist/2:Ybda_belt_teethDist:Ybda_strongWallThickness/2- Ybda_belt_teethDepth/2]) 
-				translate([(Ybda_belt_thickness- Ybda_belt_teethDepth/2) * i, y, _Ybda_clamp_heigt/2])
+				translate([(_Ybda_teeth_dist+ Ybda_belt_teethDepth/2) * i, y, _Ybda_clamp_heigt/2])
 					cube(size=[Ybda_belt_teethDepth, Ybda_belt_teethDist/2, _Ybda_clamp_heigt], center=true); 
 			}
 
@@ -91,9 +93,14 @@ module H_yBeltClam_alt(HasFoot = true) {
 			}
 
 			//zip tie coutout
-			translate([0, 0, _Ybda_clamp_heigt- Ybda_thinWallThickness - Ybda_zipTies_width/2]) {
-				difference() {
-				
+			translate([0, 0, _Ybda_clamp_heigt- Ybda_thinWallThickness - Ybda_zipTies_width*0.75]) {
+				rotate_extrude(convexity = 10)
+				translate([ distance1D(Ybda_strongWallThickness/2,Ybda_belt_thickness+Ybda_genWallThickness)- Ybda_zipTies_thickness/2,0, 0]) 
+				rotate(a=-90,v=Z)  
+				polygon(points=[[-Ybda_zipTies_width/2,0],[Ybda_zipTies_width/2,0],[Ybda_zipTies_width,Ybda_zipTies_thickness],[-Ybda_zipTies_width,Ybda_zipTies_thickness],[-Ybda_zipTies_width/2,0]]);
+				*difference() {
+					
+
 					cylinder(r=Ybda_strongWallThickness, h=Ybda_zipTies_thickness+2*OS, center=true);
 					cylinder(r=distance1D(Ybda_strongWallThickness/2,Ybda_belt_thickness+Ybda_genWallThickness)- Ybda_zipTies_thickness/2, h=Ybda_zipTies_width, center=true);
 				}
