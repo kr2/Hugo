@@ -15,7 +15,7 @@ include <text.scad>
 
 /*------------------------------------general---------------------------------*/
 Xc_mode = "-"; 
-Xc_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//Xc_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //Xc_mode = "print Carriage"; $fn=24*4; 
 //Xc_mode = "print Beltarm"; $fn=24*4;
 //Xc_mode = "inspect";
