@@ -22,7 +22,7 @@ Bc_thinWallThickness         = 1;
 Bc_genWallThickness          = 3;
 Bc_strongWallThickness       = 9;
 
-Bc_horizontalSuportThickness = 0.3;
+Bc_horizontalSuportThickness = 0.35;
 Bc_verticalSupportThickness  = 0.5;
 
 /*------------------------------------screws---------------------------------*/

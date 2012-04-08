@@ -23,7 +23,7 @@ Xc_strongWallThickness       = 5;
 
 Xc_slot_width                = 2.5;
 
-Xc_horizontalSuportThickness = 0.3;
+Xc_horizontalSuportThickness = 0.35;
 Xc_verticalSupportThickness  = 0.7;
 
 Xc_supportDistance           = 0.45; // suport distance for coutout

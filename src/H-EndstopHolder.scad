@@ -25,7 +25,7 @@ eh_mode = "-";
 eh_genWallThickness           = 2.5;
 eh_strongWallThickness        = 5;
 
-eh_horizontalSuportThickness  = 0.3;
+eh_horizontalSuportThickness  = 0.35;
 eh_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/

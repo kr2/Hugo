@@ -23,7 +23,7 @@ Zc_thinWallThickness         = 1;
 Zc_genWallThickness          = 3;
 Zc_strongWallThickness       = 9;
 
-Zc_horizontalSuportThickness = 0.3;
+Zc_horizontalSuportThickness = 0.35;
 Zc_verticalSupportThickness  = 0.5;
 
 

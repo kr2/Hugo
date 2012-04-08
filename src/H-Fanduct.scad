@@ -28,7 +28,7 @@ f_strongWallThickness        = 4;
 
 f_supportDist = 5;
 
-f_horizontalSuportThickness  = 0.3;
+f_horizontalSuportThickness  = 0.35;
 f_verticalSupportThickness   = 1.35;
 
 

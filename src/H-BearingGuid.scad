@@ -21,7 +21,7 @@ Hbg_thinWallThickness         = 1;
 Hbg_genWallThickness          = 3;
 Hbg_strongWallThickness       = 9;
 
-Hbg_horizontalSuportThickness = 0.3;
+Hbg_horizontalSuportThickness = 0.35;
 Hbg_verticalSupportThickness  = 0.5;
 
 

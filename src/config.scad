@@ -11,13 +11,13 @@ include <metric.scad>
 /*
 Standard Printrbot dimensions.
 */
-include <config\pb_standard.scad>
+//include <config\pb_standard.scad>
 
 /*
 Changes:
 - T2.5 belt
 */
-//include <config\Hugo_standard.scad>
+include <config\Hugo_standard.scad>
 
 
 /*

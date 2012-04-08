@@ -29,7 +29,7 @@ Ze_thinWallThickness         = 1.4;
 Ze_genWallThickness          = 4.5;
 Ze_strongWallThickness       = 9;
 
-Ze_horizontalSuportThickness = 0.3;
+Ze_horizontalSuportThickness = 0.35;
 Ze_verticalSupportThickness  = 0.5;
 
 /*------------------------------------rod-------------------------------------*/

@@ -25,7 +25,7 @@ Ybe_thinWallThickness          = 1;
 Ybe_genWallThickness           = 2.5;
 Ybe_strongWallThickness        = 7;
 
-Ybe_horizontalSuportThickness  = 0.3;
+Ybe_horizontalSuportThickness  = 0.35;
 Ybe_verticalSupportThickness   = 0.5;
 
 /*------------------------------------rod-------------------------------------*/

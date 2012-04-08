@@ -22,7 +22,7 @@ tc_thinWallThickness         = 1;
 tc_genWallThickness          = 3;
 tc_strongWallThickness       = 9;
 
-tc_horizontalSuportThickness = 0.3;
+tc_horizontalSuportThickness = 0.35;
 tc_verticalSupportThickness  = 0.5;
 
 
