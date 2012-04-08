@@ -14,7 +14,7 @@ include <roundEdges.scad>
 
 /*------------------------------------general---------------------------------*/
 Xe_mode = "-";
-//Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
+Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Right"; $fn=24*4;
 //Xe_mode = "inspect";
@@ -70,7 +70,7 @@ Xe_motor_holes_diameter   = c_xAxis_motorScrewHole_diam; // motor hole diameter
 /*------------------------------------elongated hole--------------------------*/
 // lower hole could be elongeteded to compensate inaccuracies, which ouccour by the fact that the carriage beearing holes are printed in the other direction
 
-Xe_elongHole_addDia = 1.0;
+Xe_elongHole_addDia = 1;
 
 
 
@@ -244,15 +244,15 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 }
 
 if (Xe_mode == "inspect") {
-	H_x_End(isMotor=true,elongetededLowerHole = false,adjustable_z_stop=true);
+	H_x_End(isMotor=true,elongetededLowerHole = true,adjustable_z_stop=true);
 }
 module H_x_End_print() {
 	translate([-Xe_outline[1]/2, 0, 0]) 
-	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
+	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
 
 	translate([-Xe_outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
-		H_x_End(isIdle=true,elongetededLowerHole = false);
+		H_x_End(isIdle=true,elongetededLowerHole = true);
 }
 if (Xe_mode == "printSet") 
 	rotate(a=90,v=Z) 
@@ -260,12 +260,12 @@ if (Xe_mode == "printSet")
 
 if (Xe_mode == "print Left") {
 	rotate(a=90,v=Z) 
-	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = false);
+	H_x_End(isMotor=true,adjustable_z_stop=true,elongetededLowerHole = true);
 }
 if (Xe_mode == "print Right") {
 	rotate(a=90,v=Z) 
 	mirror([0, 1, 0]) 
-		H_x_End(isIdle=true,elongetededLowerHole = false);
+		H_x_End(isIdle=true,elongetededLowerHole = true);
 }
 
 /*------------------------------------assembly--------------------------------*/
