@@ -14,7 +14,7 @@ include <roundEdges.scad>
 
 /*------------------------------------general---------------------------------*/
 Xe_mode = "-";
-Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
+//Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Right"; $fn=24*4;
 //Xe_mode = "inspect";
