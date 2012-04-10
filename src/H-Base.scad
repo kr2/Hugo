@@ -63,7 +63,7 @@ b_zdirM_sideLength            = c_zAxis_motor_sideLength;
 
 /*------------------------------------zdir wall-------------------------------*/
 b_zDirWall_size               = [9.4,77.9,58.986];
-b_zDirSupport_r               = b_m8_nut_heigth*2 - b_m8_nut_tolerance[1] ;
+b_zDirSupport_r               = b_m8_nut_heigth*2.2 - b_m8_nut_tolerance[1] ;
 
 /*------------------------------------xdir wall-------------------------------*/
 b_xDirWall_size               = [30.6,b_zDirWall_size[1],6];
@@ -76,7 +76,7 @@ b_zdirRod_hole_depth          = b_zDirWall_size[2]-8.5;
 b_lber_length                 = c_yAxis_lber_length + 0.2; //+ 0.2 to conteract print errors
 b_lber_diam                   = c_yAxis_lber_diam;
 b_lber_topOff                 = (b_lber_diam- c_y_axis_smoothRod_diam)/2 - 0.5;
-b_lber_zAxisDist              = b_xDirWall_size[1]/2- b_strongWallThickness- b_lber_length;
+b_lber_zAxisDist              = b_xDirWall_size[1]/2- 1.5- b_lber_length;
 b_lber_zAxisXdirDist          = b_xDirWall_size[0]-b_genWallThickness- b_lber_diam/2 - b_zDirWall_size[0]/2 - b_zipTies_thickness;
 
 /*------------------------------------EndstopHolder---------------------------*/
@@ -233,6 +233,9 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 					cylinder(r=(b_lber_diam/2)/cos(45), h=b_lber_length, center=true,$fn=4);
 					*cylinder(r=(b_lber_diam/2), h=b_lber_length, center=true);
 				}
+
+				//cutouts for printability
+				cube(size=[b_lber_diam/4 , b_lber_length, (b_lber_diam/2)/cos(45) *2 +2*OS], center=true);
 
 				//zip tie holes
 				rotate(a=90,v=X) 
