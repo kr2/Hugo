@@ -34,7 +34,7 @@ Hbg_bear_diam                = bear_608ZZ_diam;
 /*------------------------------------general---------------------------------*/
 
 Hbg_diam                     = Hbg_bear_diam + 5;
-Hbg_outer_height             = 1;
+Hbg_outer_height             = 0.5;
 Hbg_inner_height             = 2;
 
 Hbg_washer_height            = Hbg_horizontalSuportThickness;
