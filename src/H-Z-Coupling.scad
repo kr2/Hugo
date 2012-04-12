@@ -36,7 +36,7 @@ Zc_nut_diam               = m8_nut_diameter;
 Zc_nut_height             = m8_nut_heigth;
 
 /*------------------------------------motor-----------------------------------*/
-Zc_motorShaft_diam        = 5.15;
+Zc_motorShaft_diam        = 5.3;
 Zc_motorShaftCover_length = 14;
 
 /*------------------------------------screw-----------------------------------*/
