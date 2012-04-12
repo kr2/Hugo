@@ -53,6 +53,8 @@ Ze_ends_nut_width      = m2d5_nut_wallDist;
 Ze_ends_nut_heigth     = m2d5_nut_heigth;
 Ze_ends_size           = [Ze_smoothRod_diam/2+Ze_genWallThickness+Ze_ends_nut_heigth,Ze_ends_hole_dist +Ze_ends_nut_width + Ze_thinWallThickness*2, 10];
 
+/*------------------------------------air outlet------------------------------*/
+Ze_airOut_diam                 = 3;
 
 /******************************************************************************/ 
 /*                                  INTERNAL                                  */
@@ -60,8 +62,8 @@ Ze_ends_size           = [Ze_smoothRod_diam/2+Ze_genWallThickness+Ze_ends_nut_he
 _Ze_zDir                      = Ze_zEnd_heigt;
 _Ze_xDir                      = _Ze_zDir-(Ze_genWallThickness+Ze_smoothRod_diam/2);
 
-_Ze_support_r = _Ze_xDir;
-_Ze_support_thickness            = (Ze_smoothRod_diam/2+Ze_genWallThickness)*0.6;
+_Ze_support_r                 = _Ze_xDir;
+_Ze_support_thickness         = (Ze_smoothRod_diam/2+Ze_genWallThickness)*0.6;
 _Ze_support_coutout_r         = circel_radius3Points([Ze_thinWallThickness,0],[_Ze_support_thickness+Ze_thinWallThickness,_Ze_support_r],[_Ze_support_thickness+Ze_thinWallThickness,-_Ze_support_r]);
 
 _Ze_crosBr_bearing_dist       = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
@@ -137,8 +139,13 @@ module H_Z_end(hasCrossBrace = true, hasEnstopholder = true) {
 			}
 		}
 		union(){
+			//z axis
 			translate([0, 0, Ze_genWallThickness]) 
 				cylinder(r=Ze_smoothRod_diam/2, h=_Ze_zDir+2*OS, center=false);
+			
+			//air outlet
+			translate([0, 0, -OS]) 
+				cylinder(r=Ze_airOut_diam/2, h=Ze_genWallThickness + 2*OS, center=false);
 			// bearing holder
 			translate([-Ze_zEnd_rodsDist, 0, -OS]) {
 				if (hasCrossBrace) {					
