@@ -19,7 +19,9 @@ use <teardrop.scad>
 Ze_mode = "-";
 //Ze_mode = "printSet1";  $fn=24*4;    // can be print or inspect [overlays the Ze_model with the original Ze_model] (uncomment next line)
 //Ze_mode = "printSet2";  $fn=24*4; //without additional Support
+//Ze_mode = "printSet3";  $fn=24*4; //without additional Support and with motor cutout
 //Ze_mode = "print left";  $fn=24*4;
+//Ze_mode = "print left MotorCutout";  $fn=24*4;
 //Ze_mode = "print right";  $fn=24*4;
 //Ze_mode = "print noEnds";  $fn=24*4;
 //Ze_mode = "inspect";
@@ -69,7 +71,7 @@ _Ze_support_coutout_r         = circel_radius3Points([Ze_thinWallThickness,0],[_
 _Ze_crosBr_bearing_dist       = Ze_bear_diam/2+Ze_strongWallThickness+ m8_nut_diameter/2;
 _Ze_crosBr_bearing_noseLength = _Ze_crosBr_bearing_dist + m8_nut_diameter/2+Ze_genWallThickness- Ze_strongWallThickness;
 
-module H_Z_end(hasCrossBrace = true, hasEnstopholder = true) {
+module H_Z_end(hasCrossBrace = true, hasEnstopholder = true, hasEnstopScrewtraps = false, hasMotorCutout = false) {
 	_bearSuppCoutout_scale           = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2)/(Ze_bear_heigth*3);
 	_bearSuppCoutout_crosBrace_scale = (Ze_zEnd_rodsDist+Ze_bear_diam/2+Ze_genWallThickness- Ze_smoothRod_diam/2 - Ze_genWallThickness/2+_Ze_crosBr_bearing_noseLength)/(_Ze_zDir- m8_nut_diameter);
 	
@@ -193,7 +195,7 @@ module H_Z_end(hasCrossBrace = true, hasEnstopholder = true) {
 				}
 			}
 
-			if (hasEnstopholder) {
+			if (hasEnstopScrewtraps) {
 				translate([-Ze_ends_size[0], 0, _Ze_zDir- Ze_ends_size[2]/2 + Ze_thinWallThickness]) {
 					for (i=[-1,1]) {
 						translate([0, i * Ze_ends_hole_dist/2, 0]) 
@@ -202,6 +204,11 @@ module H_Z_end(hasCrossBrace = true, hasEnstopholder = true) {
 							cube(size=[Ze_ends_nut_heigth, Ze_ends_nut_width, Ze_ends_size[2] +2*OS] , center=true);
 					}
 				}
+			}
+
+			if (hasMotorCutout) {
+				translate([-Ze_smoothRod_diam/2 - Ze_genWallThickness - Ze_ends_nut_heigth -OS, _Ze_support_thickness, -OS]) 
+					cube(size=[Ze_genWallThickness + Ze_smoothRod_diam/2 + _Ze_xDir+ Ze_ends_nut_heigth +2*OS, Ze_genWallThickness*2 , _Ze_zDir+2*OS], center=false);
 			}
 
 			// x dir rod
@@ -253,7 +260,7 @@ module _support(size=[30,10,40], coutoutRate=0.5,coverRate=0.8) {
 
 
 if (Ze_mode == "inspect") {
-	H_Z_end(hasCrossBrace = false);
+	H_Z_end(hasCrossBrace = false, hasEnstopScrewtraps = false, hasMotorCutout = true);
 }
 module H_Z_end_print() {
 	H_Z_end();
@@ -263,14 +270,14 @@ module H_Z_end_printSet1() {
 	H_Z_end(hasCrossBrace = true, hasEnstopholder = false);
 	translate([-10, -13, 0]) 
 	rotate(a=180,v=[0,0,1]) 
-	H_Z_end(hasCrossBrace = false, hasEnstopholder = true);
+	H_Z_end(hasCrossBrace = false, hasEnstopholder = true, hasEnstopScrewtraps = true);
 }
 if (Ze_mode == "printSet1") {
 	H_Z_end_printSet1();
 }
 module H_Z_end_printSet2() {
 	translate([0, 13, 0]) 
-	H_Z_end(hasCrossBrace = false, hasEnstopholder = true);
+	H_Z_end(hasCrossBrace = false, hasEnstopholder = true, hasEnstopScrewtraps = true);
 	translate([0, -13, 0]) 
 	rotate(a=180,v=[0,0,1]) 
 	H_Z_end(hasCrossBrace = false, hasEnstopholder = false);
@@ -278,8 +285,21 @@ module H_Z_end_printSet2() {
 if (Ze_mode == "printSet2") {
 	H_Z_end_printSet2();
 }
+module H_Z_end_printSet3() {
+	translate([0, 13, 0]) 
+	H_Z_end(hasCrossBrace = false , hasEnstopholder = true, hasEnstopScrewtraps = false, hasMotorCutout = true);
+	translate([0, -13, 0]) 
+	rotate(a=180,v=[0,0,1]) 
+	H_Z_end(hasCrossBrace = false, hasEnstopholder = false);
+}
+if (Ze_mode == "printSet3") {
+	H_Z_end_printSet3();
+}
 if (Ze_mode == "print left") {
-	H_Z_end(hasCrossBrace = false , hasEnstopholder = true);
+	H_Z_end(hasCrossBrace = false , hasEnstopholder = true, hasEnstopScrewtraps = true);
+}
+if (Ze_mode == "print left MotorCutout") {
+	H_Z_end(hasCrossBrace = false , hasEnstopholder = true, hasEnstopScrewtraps = false, hasMotorCutout = true);
 }
 if (Ze_mode == "print right") {
 	H_Z_end(hasCrossBrace = true , hasEnstopholder = false);
