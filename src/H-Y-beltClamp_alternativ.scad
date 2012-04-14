@@ -49,7 +49,7 @@ _Ybda_base_size = [Ybda_genWallThickness*2+ Ybda_belt_thickness*2 + Ybda_belt_to
 
 _Ybda_clamp_heigt = Ybda_belt_topOffset + Ybda_belt_width + Ybda_belt_tolerance[1] + Ybda_zipTies_width + 2*Ybda_genWallThickness;
 
-_Ybda_teeth_dist = (Ybda_belt_thickness- Ybda_belt_teethDepth)*2;
+_Ybda_teeth_dist = (Ybda_belt_thickness- Ybda_belt_teethDepth);
 
 module H_yBeltClam_alt(HasFoot = true) {
 	difference() {
@@ -64,20 +64,21 @@ module H_yBeltClam_alt(HasFoot = true) {
 			translate([0, 0, _Ybda_base_size[2]/2]) 
 				cube(size=_Ybda_base_size- [_Ybda_base_size[1],0,0], center=true);
 
-			for (i=[-1,+1]) {
-				// outer clamp
-				translate([(_Ybda_teeth_dist+Ybda_belt_teethDepth+Ybda_genWallThickness/2) * i, 0, _Ybda_clamp_heigt/2]) 
-					cube(size=[Ybda_genWallThickness, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
-
-				// belt teeth conector
-				for (y=[-Ybda_strongWallThickness/2+ Ybda_belt_teethDist/2:Ybda_belt_teethDist:Ybda_strongWallThickness/2- Ybda_belt_teethDepth/2]) 
-				translate([(_Ybda_teeth_dist+ Ybda_belt_teethDepth/2) * i, y, _Ybda_clamp_heigt/2])
-					cube(size=[Ybda_belt_teethDepth, Ybda_belt_teethDist/2, _Ybda_clamp_heigt], center=true); 
-			}
+			// outer clamp
+			translate([(_Ybda_teeth_dist/2+Ybda_belt_teethDepth+Ybda_genWallThickness/2) * 1, 0, _Ybda_clamp_heigt/2]) 
+				cube(size=[Ybda_genWallThickness, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
+			translate([(_Ybda_teeth_dist/2+Ybda_genWallThickness/2 + Ybda_belt_teethDepth/2) * -1, 0, _Ybda_clamp_heigt/2]) 
+				cube(size=[Ybda_genWallThickness + Ybda_belt_teethDepth, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
+			
+			// belt teeth conector
+			for (y=[-Ybda_strongWallThickness/2+ Ybda_belt_teethDist/2:Ybda_belt_teethDist:Ybda_strongWallThickness/2- Ybda_belt_teethDepth/2]) 
+			translate([(_Ybda_teeth_dist/2 + Ybda_belt_teethDepth/2), y, _Ybda_clamp_heigt/2])
+				cube(size=[Ybda_belt_teethDepth, Ybda_belt_teethDist/2, _Ybda_clamp_heigt], center=true); 
+			
 
 			if (HasFoot)
 			for (i=[[-1,90],[1,0]]) 
-			translate([(Ybda_belt_thickness+Ybda_genWallThickness)*i[0],_Ybda_base_size[1]/2, _Ybda_base_size[2]]) 
+			translate([(Ybda_belt_thickness/2+Ybda_genWallThickness)*i[0],_Ybda_base_size[1]/2, _Ybda_base_size[2]]) 
 			rotate(a=90,v=X) 
 			 roundEdge(_a=i[1],_r=Ybda_reinforcement_r,_l=_Ybda_base_size[1],_fn=48*2);
 		}
