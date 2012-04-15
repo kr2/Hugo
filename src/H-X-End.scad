@@ -17,7 +17,7 @@ Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Right"; $fn=24*4;
-//Xe_mode = "inspect";
+Xe_mode = "inspect";
 //Xe_mode = "assembly";
 
 
@@ -72,6 +72,11 @@ Xe_motor_holes_diameter   = c_xAxis_motorScrewHole_diam; // motor hole diameter
 
 Xe_elongHole_addDia = 1;
 
+/*------------------------------------screws----------------------------------*/
+Xe_xdirScrew_hole_diam            = m3_diameter;
+Xe_xdirScrew_nut_diam             = m3_nut_diameter;
+Xe_xdirScrew_nut_heigth           = m3_nut_heigth;
+Xe_xdirScrew_nut_wallDist         = m3_nut_wallDist;
 
 
 /******************************************************************************/ 
@@ -86,7 +91,7 @@ Xe_idlerHolde_x = min( Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wal
 					);
 
 
-module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true) {
+module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true, hasXdirScrew = true) {
 
 	//x belt
 	xb_r1=Xe_X_RodHoles_pos[0][1]; // bottom
@@ -200,6 +205,17 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 					cylinder(r=Xe_X_Rod_dia/2, h=Xe_X_Rod_depth, center=false,$fn=48);
 				translate([Xe_X_RodHoles_pos[0][0]-Xe_X_Rod_dia/2, -OS, Xe_X_RodHoles_pos[0][1]-Xe_elongHole_addDia/2])
 					cube(size=[Xe_X_Rod_dia, Xe_X_Rod_depth, Xe_elongHole_addDia], center=false);
+			}
+
+			if (hasXdirScrew) {
+				translate([Xe_X_RodHoles_pos[1][0], Xe_X_Rod_depth - 2* OS, 0]) 
+				for (i=[Xe_X_RodHoles_pos[1][1], Xe_X_RodHoles_pos[0][1]]) 
+				translate([0, 0, i]){
+					rotate(a=-90,v=X) 
+						cylinder(r=Xe_xdirScrew_hole_diam/2, h=Xe_outline[1], center=false);
+					rotate(a=-90,v=X) 
+						cylinder(r=Xe_xdirScrew_nut_diam/2, h=Xe_xdirScrew_nut_heigth, center=false , $fn=6);
+				}
 			}
 
 
