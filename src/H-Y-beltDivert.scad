@@ -122,7 +122,7 @@ if (Ybd_mode == "print") {
 
 
 /*------------------------------------assembly--------------------------------*/
-include <H-BearingGuid.scad>
+include <H-BearingGuide.scad>
 
 
 module H_Y_beltDivert_assembly() {
