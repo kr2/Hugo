@@ -17,7 +17,7 @@ Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Right"; $fn=24*4;
-Xe_mode = "inspect";
+//Xe_mode = "inspect";
 
 
 /*------------------------------------general---------------------------------*/
@@ -90,7 +90,7 @@ Xe_idlerHolde_x = min( Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wal
 					);
 
 
-module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true, hasXdirScrew = true) {
+module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_stop=false,elongetededLowerHole = true, hasXdirScrew = false) {
 
 	//x belt
 	xb_r1=Xe_X_RodHoles_pos[0][1]; // bottom
@@ -267,7 +267,7 @@ module H_x_End_print() {
 
 	translate([-Xe_outline[1]/2,-3, 0]) 
 	mirror([0, 1, 0]) 
-		H_x_End(isIdle=true,elongetededLowerHole = true);
+		H_x_End(isIdle=true,elongetededLowerHole = true,hasXdirScrew = true);
 }
 if (Xe_mode == "printSet") 
 	rotate(a=90,v=Z) 
@@ -280,19 +280,19 @@ if (Xe_mode == "print Left") {
 if (Xe_mode == "print Right") {
 	rotate(a=90,v=Z) 
 	mirror([0, 1, 0]) 
-		H_x_End(isIdle=true,elongetededLowerHole = true);
+		H_x_End(isIdle=true,elongetededLowerHole = true,hasXdirScrew = true);
 }
 
 /*------------------------------------assembly--------------------------------*/
 include <basicMetalParts.scad>
-include <H-BearingGuid.scad>
+include <H-BearingGuide.scad>
 include <motors.scad>
 
 module H_x_End_idle_assembly() {
 	translate([-Xe_Z_bearingHole_pos[1],-Xe_Z_bearingHole_pos[0], 0]) 
 	rotate(a=90,v=Z) 
 	mirror([0, 1, 0]) {
-		H_x_End(isIdle=true,elongetededLowerHole = false);
+		H_x_End(isIdle=true,elongetededLowerHole = false, hasXdirScrew = true);
 
 		translate([2 + 7 + 2 + m8_nut_heigth + Xe_Z_bearingHole_pos[0]+Xe_Z_bearingHole_dia/2+Xe_gen_wall+OS, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])  
 		rotate(a=-90,v=Y) 
@@ -303,6 +303,7 @@ module H_x_End_idle_assembly() {
 			H_BearingGuid_ass();
 	}
 }
+//!H_x_End_idle_assembly();
 
 module H_x_End_motor_assembly() {
 	rotate(a=90,v=Z) 
