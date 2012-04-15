@@ -18,7 +18,6 @@ Xe_mode = "-";
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Right"; $fn=24*4;
 Xe_mode = "inspect";
-//Xe_mode = "assembly";
 
 
 /*------------------------------------general---------------------------------*/
@@ -362,6 +361,9 @@ module z_stop()
 	z_stop_length = Xe_outline[0];
 	z_stop_holderOffset =7;
 
+	z_stop_arm_heigth = 8;
+	z_stop_arm_zOff = 8;
+
 	//spring
 	difference() {
 		union(){
@@ -395,33 +397,38 @@ module z_stop()
 			//screw connector
 			//translate([0,-5,8])
 			translate([8.75/2,5,0])
-			translate([0,0,8])
+			translate([0,0,z_stop_arm_zOff])
 			rotate(a=30,v=[0,0,1]) 
 			translate([-(m3_nut_wallDist+2)/2, -(z_stop_width/2+z_stop_holderOffset+z_stop_holderOffset), 0]) 
-				cube([m3_nut_wallDist+2,z_stop_width/2+z_stop_holderOffset*2,15.8-8]);
+				cube([m3_nut_wallDist+2,z_stop_width/2+z_stop_holderOffset*2,z_stop_arm_heigth]);
 
 			// screw counter holder
+			//translate([8.75/2,5,2*z_stop_height+0.8])
+			//	cylinder(r=m3_nut_diameter/2+1.28,h=15.8-2*z_stop_height-0.8-7.8-0.8,$fn=6);
+			
 			translate([8.75/2,5,2*z_stop_height+0.8])
-				cylinder(r=m3_nut_diameter/2+1.28,h=15.8-2*z_stop_height-0.8-7.8-0.8,$fn=6);
+				cylinder(r=m3_nut_diameter/2+1.28,h=z_stop_arm_zOff,$fn=6);
 			
 			translate([8.75/2,5,0])
 				cylinder(r=m3_nut_diameter/2+0.3*2.1,h=15.8-1,$fn=6);
 			
-			translate([8.75/2,5,8])
-				cylinder(r=m3_nut_diameter/2+1.28,h=7.8,$fn=6);
+			translate([8.75/2,5,z_stop_arm_zOff])
+				cylinder(r=m3_nut_diameter/2+1.28,h=z_stop_arm_heigth,$fn=6);
 		}
 
-		translate([8.75/2,5,0])
-		cylinder(r=m3_diameter/2,h=8,$fn=16);
+		union() {
+			translate([8.75/2,5,0])
+			cylinder(r=m3_diameter/2,h=8,$fn=16);
 
-		translate([8.75/2,5,8+2+0.4])
-		cylinder(r=m3_diameter/2,h=10,$fn=16);
+			translate([8.75/2,5,8+2+0.4])
+				cylinder(r=m3_diameter/2,h=10,$fn=16);
 
-		translate([8.75/2,5,z_stop_height])
-		cylinder(r=m3_nut_diameter/2,h=8+2-z_stop_height,$fn=6);
+			translate([8.75/2,5,z_stop_height])
+				cylinder(r=m3_nut_diameter/2,h=8+2-z_stop_height,$fn=6);
 
-		translate([8.75/2,5,15.8-2])
-		cylinder(r=m3_nut_diameter/2,h=3,$fn=6);
+			*translate([8.75/2,5,15.8-2])
+				cylinder(r=m3_nut_diameter/2,h=3,$fn=6);
+		}
 	}
 }
 
