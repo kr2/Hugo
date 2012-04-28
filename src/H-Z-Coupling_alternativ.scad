@@ -1,6 +1,6 @@
 /* H-Z-Coupling [Zc]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * Dual-licensed under
+ * Dual-licensed under 
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * and
  * LGPL v2 or later [http://www.gnu.org/licenses/].
@@ -28,7 +28,7 @@ Zc_verticalSupportThickness  = 0.5;
 
 
 Zc_shaftNut_dist          = 5; // distance between end of motor shaft and the lower edge of the first nut
-Zc_slot_width             = .5;
+Zc_slot_width             = 2; 
 
 /*------------------------------------rod-------------------------------------*/
 Zc_rod_diam               = m8_diameter;
@@ -45,7 +45,7 @@ Zc_screwNut_diam          = m3_nut_diameter;
 ZC_screwNut_height        = m3_nut_heigth;
 Zc_screwNut_clearency     = 1;
 
-/******************************************************************************/
+/******************************************************************************/ 
 /*                                  INTERNAL                                  */
 /******************************************************************************/
 _Zc_overalHeight         = Zc_nut_height + Zc_shaftNut_dist + Zc_motorShaftCover_length;
@@ -64,67 +64,67 @@ module H_Z_Coupling() {
 		difference() {
 			union(){
 				// upper oultine
-				translate([0, 0, Zc_shaftNut_dist/2])
+				translate([0, 0, Zc_shaftNut_dist/2]) 
 					cylinder(r=_Zc_outer_r, h=Zc_nut_height + Zc_shaftNut_dist/2 - Zc_genWallThickness, center=false);
 
 				// upper close off
-				translate([0, 0, Zc_shaftNut_dist+Zc_nut_height - Zc_genWallThickness])
-				scale([1, 1, _Zc_zdirTopCloseOf_scale])
+				translate([0, 0, Zc_shaftNut_dist+Zc_nut_height - Zc_genWallThickness]) 
+				scale([1, 1, _Zc_zdirTopCloseOf_scale]) 
 					sphere(r=_Zc_outer_r);
 
 				// lower outline
-				translate([0, 0, -Zc_motorShaftCover_length])
+				translate([0, 0, -Zc_motorShaftCover_length]) 
 					cylinder(r1=Zc_motorShaft_diam/2 + Zc_thinWallThickness+Zc_screwHolde_diam+Zc_thinWallThickness, r2=_Zc_outer_r, h=Zc_motorShaftCover_length+Zc_shaftNut_dist/2, center=false);
 			}
 			union(){
 				// material coutout
-				translate([0, 0, -Zc_motorShaftCover_length])
-				for (y=[-_Zc_outer_r,_Zc_outer_r])
-				translate([0, y, 0])
-				scale([1, 1, _Zc_zdirCutout_scale])
-				rotate(a=90,v=Y)
+				translate([0, 0, -Zc_motorShaftCover_length]) 
+				for (y=[-_Zc_outer_r,_Zc_outer_r]) 
+				translate([0, y, 0]) 
+				scale([1, 1, _Zc_zdirCutout_scale]) 
+				rotate(a=90,v=Y) 
 					cylinder(r=_Zc_coutout_r, h=5*Zc_nut_diam, center=true);
 
 				// motorshaft
-				translate([0, 0, -Zc_motorShaftCover_length-OS])
+				translate([0, 0, -Zc_motorShaftCover_length-OS]) 
 					cylinder(r=Zc_motorShaft_diam/2, h=Zc_motorShaftCover_length+2*OS, center=false);
 
 				//zaxis
 				cylinder(r=Zc_rod_diam/2, h=Zc_nut_height + Zc_shaftNut_dist +OS, center=false);
 
 				// nut coutout
-				translate([0, 0, Zc_shaftNut_dist])
+				translate([0, 0, Zc_shaftNut_dist]) 
 					cylinder(r=m8_nut_diameter/2, h=Zc_nut_height+OS, center=false,$fn=6);
 
 				// slot
-				translate([Zc_nut_diam/2, 0, -Zc_motorShaftCover_length/2-OS])
-					cube(size=[Zc_nut_diam, Zc_slot_width, Zc_motorShaftCover_length+OS], center=true);
+				translate([0, 0, -Zc_motorShaftCover_length/2-OS]) 
+				cube(size=[5*Zc_nut_diam, Zc_slot_width, Zc_motorShaftCover_length+OS], center=true);
 
 				// screw holse
-				translate([0, 0, -Zc_motorShaftCover_length+Zc_genWallThickness+Zc_screwNut_diam/2])
-				for (x=[Zc_motorShaft_diam/2 + Zc_thinWallThickness+Zc_screwHolde_diam/2]) {
+				translate([0, 0, -Zc_motorShaftCover_length+Zc_genWallThickness+Zc_screwNut_diam/2]) 
+				for (x=[-Zc_motorShaft_diam/2-Zc_thinWallThickness- Zc_screwHolde_diam/2,Zc_motorShaft_diam/2 + Zc_thinWallThickness+Zc_screwHolde_diam/2]) {
 					//screw holes
-					translate([x, 0, 0])
+					translate([x, 0, 0]) 
 					rotate(a=90,v=X)
-						cylinder(r=Zc_screwHolde_diam/2, h=5*Zc_nut_diam, center=true);
+						cylinder(r=Zc_screwHolde_diam/2, h=5*Zc_nut_diam, center=true); 
 
 					// nuttrap
-					translate([x, -Zc_nut_diam*2.5- _Zc_slotYdirWall_offset + ZC_screwNut_height , 0])
+					translate([x, -Zc_nut_diam*2.5- _Zc_slotYdirWall_offset + ZC_screwNut_height , 0]) 
 					rotate(a=90,v=X)
-						cylinder(r=Zc_screwNut_diam/2, h=5*Zc_nut_diam, center=true,$fn=6);
+						cylinder(r=Zc_screwNut_diam/2, h=5*Zc_nut_diam, center=true,$fn=6); 
 
 					// nut clearany
-					translate([x, Zc_nut_diam*2.5+ _Zc_slotYdirWall_offset -ZC_screwNut_height/2, 0])
+					translate([x, Zc_nut_diam*2.5+ _Zc_slotYdirWall_offset -ZC_screwNut_height/2, 0]) 
 					rotate(a=90,v=X)
-						cylinder(r=Zc_screwNut_diam/2 + Zc_screwNut_clearency, h=5*Zc_nut_diam, center=true);
+						cylinder(r=Zc_screwNut_diam/2 + Zc_screwNut_clearency, h=5*Zc_nut_diam, center=true); 
 				}
 			}
 		}
-		translate([-Zc_nut_diam*2.5, -Zc_nut_diam*2.5, -Zc_motorShaftCover_length])
+		translate([-Zc_nut_diam*2.5, -Zc_nut_diam*2.5, -Zc_motorShaftCover_length]) 
 			cube(size=[Zc_nut_diam*5, Zc_nut_diam*5, _Zc_overalHeight], center=false);
 	}
-
-
+	
+	
 }
 
 
@@ -138,9 +138,9 @@ module H_Z_Coupling_print() {
 }
 module H_Z_Coupling_printSet() {
 	translate([0, 0, Zc_motorShaftCover_length]) {
-		translate([-_Zc_outer_r - 1, 0, 0])
+		translate([-_Zc_outer_r - 1, 0, 0]) 
 			H_Z_Coupling();
-		translate([_Zc_outer_r + 1, 0, 0])
+		translate([_Zc_outer_r + 1, 0, 0]) 
 			H_Z_Coupling();
 	}
 }
@@ -148,7 +148,7 @@ if (Zc_mode == "printSet") {
 	H_Z_Coupling_printSet();
 }
 if (Zc_mode == "print") {
-	translate([0, 0, Zc_motorShaftCover_length])
+	translate([0, 0, Zc_motorShaftCover_length]) 
 		H_Z_Coupling();
 }
 
