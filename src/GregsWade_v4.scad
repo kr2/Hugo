@@ -1,5 +1,5 @@
-// Greg's Wade Extruder. 
-// It is licensed under the Creative Commons - GNU GPL license. 
+// Greg's Wade Extruder.
+// It is licensed under the Creative Commons - GNU GPL license.
 //  2010 by GregFrost
 // Extruder based on prusa git repo.
 // http://www.thingiverse.com/thing:6713
@@ -8,8 +8,8 @@ include<units.scad>
 include<config.scad>
 include<metric.scad>
 
-gW_mode = "-"; 
-//gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+gW_mode = "-";
+gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 //gW_mode = "assembly";
 
 // Define the hotend_mounting style you want by specifying hotend_mount=style1+style2 etc.
@@ -17,7 +17,7 @@ malcolm_hotend_mount=1;
 groovemount=2;
 peek_reprapsource_mount=4;
 arcol_mount=8;
-mendel_parts_v6_mount=16; 
+mendel_parts_v6_mount=16;
 grrf_peek_mount=32;
 wildseyed_mount=64;
 geared_extruder_nozzle=128; // http://reprap.org/wiki/Geared_extruder_nozzle
@@ -36,7 +36,8 @@ elevation=4;
 extra_gear_separation=2;
 
 // Nut wrench sizes ISO 4032
-m3_wrench = 5.5;
+m3_wrench = m3_nut_wallDist;
+m3_diam = m3_diameter;
 m4_wrench = 7;
 
 
@@ -70,16 +71,16 @@ m4_wrench = 7;
  * @step Take idler and insert nut into small nut-trap inside the hinge.
  * @step While holding the nut in place, preprare M3x25 bolt with washer and screw it into the hinge just enough to hold the nut.
  * @step Now take the extruder body and idler. Place idler on the hinge counterpart and compleately screw the M3x25 bolt. This will create secured hinge.
- * 
+ *
  * @using 2 m4nut
  * @step Place M4 nuts into their nut traps, secure them with piece of tape. We need them in place, since later they would be harder to access.
- * 
+ *
  * @using 3 m3x10
  * @using 3 m3washer
  * @using 1 NEMA17
  * @step Prepare your NEMA17 stepper motor and three M3x10 screws with washers.
  * @step Hold motor on place and lightly tighten the screws. We need to adjust motor position later, no need to tighten it hard.
- * 
+ *
  * @using 1 large-gear
  * @using 1 m8washer
  * @using 2 m8nut
@@ -89,7 +90,7 @@ m4_wrench = 7;
  * @step Check if the alignment of hobbed part with the filament path. Adjust it accordingly with adding or removing M8 washers.
  * @step After adjusting, we need to fix the bolt in. So we place washer at the end of hobbed bolt and with two M8 nuts we will do locknut by tightening them against each other.
  * @step Check if large gear turns freely.
- * 
+ *
  * @using 2 m3x40
  * @using 4 m3washer
  * @using 2 extruder-spring
@@ -118,7 +119,7 @@ m4_wrench = 7;
  */
 
 /**
- * Small M8 rod 
+ * Small M8 rod
  * @name Idler
  * @id idler-m8-piece
  * @category Rods and Bars
@@ -147,7 +148,7 @@ m4_wrench = 7;
 //rotate([0,-90,0])
 
 //Place for assembly.
-//wadeidler(); 
+//wadeidler();
 
 //color([0,1,1])
 //import ("idler.stl");
@@ -165,7 +166,7 @@ base_thickness=7;
 base_length=70;
 base_leadout=25;
 
-nema17_hole_spacing=1.2*25.4; 
+nema17_hole_spacing=1.2*25.4;
 nema17_width=1.7*25.4;
 nema17_support_d=nema17_width-nema17_hole_spacing;
 
@@ -205,7 +206,7 @@ filament_pinch=[
 idler_axis=filament_pinch-[608_diameter/2,0,0];
 idler_fulcrum_offset=608_diameter/2+3.5+m3_diameter/2;
 idler_fulcrum=idler_axis-[0,idler_fulcrum_offset,0];
-idler_corners_radius=4; 
+idler_corners_radius=4;
 idler_height=12;
 idler_608_diameter=608_diameter+2;
 idler_608_height=9;
@@ -263,7 +264,7 @@ module wade (hotend_mount=0,legacy_mount=true,hasSupport = false){
 			difference(){
 				translate([-block_bevel_r,0,0])
 				cube([block_bevel_r*2+wade_block_width,
-					base_thickness+block_bevel_r,wade_block_depth]);				
+					base_thickness+block_bevel_r,wade_block_depth]);
 				translate([-block_bevel_r,block_bevel_r+base_thickness])
 				cylinder(r=block_bevel_r,h=wade_block_depth,$fn=60);
 				translate([wade_block_width+block_bevel_r,
@@ -310,7 +311,7 @@ module wade (hotend_mount=0,legacy_mount=true,hasSupport = false){
 						layer_thickness]);
 				}
 			}
-			
+
 
 			//The base.
 			translate([-base_leadout,0,0])
@@ -333,7 +334,7 @@ module wade (hotend_mount=0,legacy_mount=true,hasSupport = false){
 				peek_reprapsource_holes ();
 			if (in_mask (hotend_mount,arcol_mount))
 				arcol_mount_holes ();
-			if (in_mask (hotend_mount,mendel_parts_v6_mount)) 
+			if (in_mask (hotend_mount,mendel_parts_v6_mount))
 				mendel_parts_v6_holes(insulator_d=12.7);
 			if (in_mask(hotend_mount,grrf_peek_mount))
 				grrf_peek_mount_holes();
@@ -349,12 +350,12 @@ module wade (hotend_mount=0,legacy_mount=true,hasSupport = false){
 	}
 }
 
-function in_mask(mask,value)=(mask%(value*2))>(value-1); 
+function in_mask(mask,value)=(mask%(value*2))>(value-1);
 
 //block_holes();
 
 module block_holes(legacy_mount=false){
-	//Round off the top of the block. 
+	//Round off the top of the block.
 	translate([0,wade_block_height-block_bevel_r,-1])
 	render()
 	difference(){
@@ -415,7 +416,7 @@ module block_holes(legacy_mount=false){
 
 	translate(motor_mount_translation){
 		translate([-gear_separation,0,0]){
-			
+
 			// Open the top to remove overhangs and to provide access to the hobbing.
 			translate([-wade_block_width+2,0,9.5])
 			cube([wade_block_width,
@@ -427,27 +428,27 @@ module block_holes(legacy_mount=false){
 			cube([wade_block_width,
 				wade_block_height-motor_mount_translation[1]+1,
 				wade_block_depth]);
-		
+
 			translate([0,0,-1])
 			b608(h=9);
-		
+
 			translate([0,0,20])
 			b608(h=9);
-		
+
 			translate([-13,0,9.5])
 			b608(h=wade_block_depth);
-		
+
 			translate([0,0,8+layer_thickness])
-			cylinder(r=m8_clearance_hole/2,h=wade_block_depth-(8+layer_thickness)+2);	
+			cylinder(r=m8_clearance_hole/2,h=wade_block_depth-(8+layer_thickness)+2);
 
 			translate([0,0,20-2])
-			cylinder(r=16/2,h=wade_block_depth-(8+layer_thickness)+2);	
+			cylinder(r=16/2,h=wade_block_depth-(8+layer_thickness)+2);
 
 			// Filament feed.
 			translate([-filament_feed_hole_offset,0,wade_block_depth/2])
 			rotate([90,0,0])
 			rotate(360/16)
-			cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=8);	
+			cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=8);
 
 			//Widened opening for hobbed bolt access.
 			// EDIT jonaskuehling: removed for better stability around tilt screw nut traps
@@ -455,7 +456,7 @@ module block_holes(legacy_mount=false){
 			rotate([90,0,0])
 			rotate(-45)
 			union(){
-				cylinder(r=5,h=wade_block_height,center=true,$fn=30);	
+				cylinder(r=5,h=wade_block_height,center=true,$fn=30);
 				translate([-5,0,0])
 				cube([10,10,wade_block_height],center=true);
 			}
@@ -467,14 +468,14 @@ module block_holes(legacy_mount=false){
 					-motor_mount_translation[1]-1,wade_block_depth/2])
 				rotate([-90,0,0])
 				rotate(360/16)
-				cylinder(r=m3_diameter/2,h=base_thickness+2,$fn=8);	
-	
+				cylinder(r=m3_diameter/2,h=base_thickness+2,$fn=8);
+
 				translate([-filament_feed_hole_offset+25*((mount<1)?1:-1),
 					-motor_mount_translation[1]+base_thickness/2,
 					wade_block_depth/2])
 				rotate([-90,0,0]){
 //				cylinder(r=m4_nut_diameter/2,h=base_thickness,$fn=6);
-				translate([0,0,base_thickness/2 - m3_nut_heigth+OS]) rotate([0,0,30]) 
+				translate([0,0,base_thickness/2 - m3_nut_heigth+OS]) rotate([0,0,30])
 					cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth*2, center=false, $fn=6);
 					//nut_trap(m4_wrench,base_thickness,0);
 				}
@@ -494,20 +495,20 @@ module block_holes(legacy_mount=false){
 				cylinder(r=idler_mounting_hole_diameter/2,h=wade_block_depth+6,$fn=6);
 
 				// nut traps
-				translate([0,0,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
-//				cylinder(r=m4_nut_diameter/2,h=idler_nut_thickness,$fn=6);	
-				nut_trap(m4_wrench,idler_nut_thickness);
+				#translate([0,0,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
+//				cylinder(r=m4_nut_diameter/2,h=idler_nut_thickness,$fn=6);
+				nut_trap(m3_wrench,m3_nut_heigth*2); // for selbs fix nut
 			}
 			// nut slots
 			translate([0,10/2,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
-			cube([m4_wrench+0.4,10,idler_nut_thickness],center=true);
+				cube([m3_wrench+0.4,10,m3_nut_heigth*2],center=true);
 
 			// screw holes 30°
 			for(tilt=[1:6]){
 				translate([0,0,(wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2)])
 				rotate([tilt*5,0,0])
 				rotate([0,0,30])
-				translate([0,0,-28])
+				translate([0,0,-26.5])
 				cylinder(r=idler_mounting_hole_diameter/2,h=wade_block_depth+10,$fn=6);
 			}
 
@@ -517,9 +518,9 @@ module block_holes(legacy_mount=false){
 				rotate([tilt_nut*5,0,0])
 				rotate([0,0,30])
 //				cylinder(r=m4_nut_diameter/2,h=idler_nut_thickness,$fn=6);
-				nut_trap(m4_wrench,idler_nut_thickness);
-				
-			
+				nut_trap(m3_wrench,m3_nut_heigth*2);
+
+
 
 		}
 	}
@@ -581,7 +582,7 @@ module wadeidler(){
 			//The idler block.
 			translate(idler_axis+[-idler_height/2+2,+idler_long_side/2-idler_long_bottom,0]){
 				cube([idler_height,idler_long_side,idler_short_side],center=true);
-	
+
 				//Filament Guide.
 				translate([guide_height/2+idler_height/2-1,idler_long_side/2-guide_length/2,0])
 				cube([guide_height+1,guide_length,8],center=true);
@@ -593,10 +594,10 @@ module wadeidler(){
 				cylinder(h=idler_short_side,r=idler_hinge_r,center=true,$fn=60);
 				translate([-idler_end_length/2,0,0])
 				cube([idler_end_length,idler_hinge_r*2,idler_short_side],center=true);
-			}		
+			}
 		}
-	
-		//Filament Path	
+
+		//Filament Path
 		translate(idler_axis+[2+guide_height,+idler_long_side-idler_long_bottom-guide_length/2,0]){
 			cube([7,guide_length+2,3.5],center=true);
 			translate([-7/2,0,0])
@@ -694,7 +695,7 @@ module gW_barbell (x1,x2,r1,r2,r3,r4) {
 			circle(r=r2);
 			polygon (points=[x1,x3,x2,x4]);
 		}
-		
+
 		translate(x3)
 		circle(r=r3,$fa=5);
 		translate(x4)
@@ -702,8 +703,8 @@ module gW_barbell (x1,x2,r1,r2,r3,r4) {
 	}
 }
 
-function triangulate (point1, point2, length1, length2) = 
-point1 + 
+function triangulate (point1, point2, length1, length2) =
+point1 +
 length1*rotated(
 atan2(point2[1]-point1[1],point2[0]-point1[0])+
 angle(distance(point1,point2),length1,length2));
@@ -712,7 +713,7 @@ function distance(point1,point2)=
 sqrt((point1[0]-point2[0])*(point1[0]-point2[0])+
 (point1[1]-point2[1])*(point1[1]-point2[1]));
 
-function angle(a,b,c) = acos((a*a+b*b-c*c)/(2*a*b)); 
+function angle(a,b,c) = acos((a*a+b*b-c*c)/(2*a*b));
 
 function rotated(a)=[cos(a),sin(a),0];
 
@@ -722,53 +723,53 @@ function rotated(a)=[cos(a),sin(a),0];
 
 //malcolm_hotend_holes ();
 module malcolm_hotend_holes (){
-	extruder_recess_d=16; 
+	extruder_recess_d=16;
 	extruder_recess_h=3.5;
 
 	// Recess in base
 	translate([0,0,-1])
-	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);	
+	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
 }
 
 //groovemount_holes ();
 module groovemount_holes (){
-	extruder_recess_d=16; 
+	extruder_recess_d=16;
 	extruder_recess_h=5.5;
 
 	// Recess in base
 	translate([0,0,-1])
-	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);	
+	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
 }
 
 //peek_reprapsource_holes ();
 module peek_reprapsource_holes (){
 	extruder_recess_d=11;
-	extruder_recess_h=19; 
+	extruder_recess_h=19;
 
 	// Recess in base
 	translate([0,0,-1])
-	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);	
+	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
 
 	// Mounting holes to affix the extruder into the recess.
 	translate([0,0,min(extruder_recess_h/2, base_thickness)])
 	rotate([-90,0,0])
-	cylinder(r=m4_diameter/2-0.5/* tight */,h=wade_block_depth+2,center=true); 
+	cylinder(r=m4_diameter/2-0.5/* tight */,h=wade_block_depth+2,center=true);
 }
 
 //arcol_mount_holes();
-module arcol_mount_holes(){ 
-	hole_axis_rotation=42.5; 
+module arcol_mount_holes(){
+	hole_axis_rotation=42.5;
 	hole_separation=30;
 	hole_slot_height=4;
 	for(mount=[-1,1])
 		translate([hole_separation/2*mount,-7,0]) {
 			translate([0,0,-1])
 				cylinder(r=m4_diameter/2,h=base_thickness+2,$fn=8);
-			
+
 				translate([0,0,base_thickness/2])
 				//rotate(hole_axis_rotation){
 					cylinder(r=m4_nut_diameter/2,h=base_thickness/2+hole_slot_height,$fn=6);
-				translate([0,-m4_nut_diameter,hole_slot_height/2+base_thickness/2]) 
+				translate([0,-m4_nut_diameter,hole_slot_height/2+base_thickness/2])
 					cube([m4_nut_diameter,m4_nut_diameter*2,hole_slot_height],center=true);
 		}
 }
@@ -776,15 +777,15 @@ module arcol_mount_holes(){
 //mendel_parts_v6_holes ();
 module mendel_parts_v6_holes (insulator_d=12.7) {
 	extruder_recess_d=insulator_d+0.7;
-	extruder_recess_h=10; 
-	hole_axis_rotation=42.5; 
+	extruder_recess_h=10;
+	hole_axis_rotation=42.5;
 	hole_separation=30;
 	hole_slot_height=5;
-	
+
 	// Recess in base
 	translate([0,0,-1])
-	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1); 
-	
+	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
+
 	for(mount=[-1,1])
 	rotate([0,0,hole_axis_rotation+90+90*mount])
 	translate([hole_separation/2,0,0]){
@@ -795,7 +796,7 @@ module mendel_parts_v6_holes (insulator_d=12.7) {
 		rotate(-hole_axis_rotation+180){
 //			rotate(30)
 			cylinder(r=m4_nut_diameter/2,h=base_thickness/2+hole_slot_height,$fn=6);
-			translate([0,-m4_nut_diameter,hole_slot_height/2+base_thickness/2]) 
+			translate([0,-m4_nut_diameter,hole_slot_height/2+base_thickness/2])
 			cube([m4_nut_diameter,m4_nut_diameter*2,hole_slot_height],
 					center=true);
 		}
@@ -803,14 +804,14 @@ module mendel_parts_v6_holes (insulator_d=12.7) {
 }
 
 //grrf_peek_mount_holes();
-module grrf_peek_mount_holes(){  
+module grrf_peek_mount_holes(){
 	extruder_recess_d=16.5;
 	extruder_recess_h=10;
 
 	// Recess in base
 	translate([0,0,-1])
 	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
-	
+
 	for (hole=[-1,1]){
 		rotate(90,[1,0,0])
 			translate([hole*(extruder_recess_d/2-1.5),3+1.5,-wade_block_depth/2-1]){
@@ -823,14 +824,14 @@ module grrf_peek_mount_holes(){
 }
 
 //wildseyed_mount_holes(insulator_d=16);
-module wildseyed_mount_holes(insulator_d=12.7){  
+module wildseyed_mount_holes(insulator_d=12.7){
 	extruder_recess_d=insulator_d+0.7;
 	extruder_recess_h=10;
 
 	// Recess in base
 	translate([0,0,-1])
 	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
-	
+
 	for (hole=[-1,1])
 	rotate(90,[1,0,0])
 	translate([hole*(extruder_recess_d/2-1.5),3+1.5,-wade_block_depth/2-1])
@@ -840,34 +841,34 @@ module wildseyed_mount_holes(insulator_d=12.7){
 //PEEK mount holes for reprap-fab.org 10mm dia insulator
 module peek_reprapfaborg_holes(){
 	extruder_recess_d=10.7;
-	extruder_recess_h=20; 
+	extruder_recess_h=20;
 
 	// Recess in base
 	translate([0,0,-1])
-	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);	
+	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);
 
 	// Mounting holes to affix the extruder into the recess.
 	translate([5,0,min(extruder_recess_h/2, base_thickness-2)])
 	rotate([-90,0,0]){
-		cylinder(r=m3_diameter/2,h=wade_block_depth+2,center=true,$fn=16); 
+		cylinder(r=m3_diameter/2,h=wade_block_depth+2,center=true,$fn=16);
 		rotate([0,0,30])
 		{
 			translate([0,0,wade_block_width*2/6])
-				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=wade_block_width*2/6,$fn=6);	
+				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=wade_block_width*2/6,$fn=6);
 		}
 	}
-	
+
 	translate([-5,0,min(extruder_recess_h/2, base_thickness-2)])
 	rotate([-90,0,0]){
-		cylinder(r=m3_diameter/2-0.1/* tight */,h=wade_block_depth+2,center=true,$fn=16); 
+		cylinder(r=m3_diameter/2-0.1/* tight */,h=wade_block_depth+2,center=true,$fn=16);
 		rotate([0,0,30])
 		{
 			translate([0,0,wade_block_width*2/6])
-				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=wade_block_width*2/6,$fn=6);	
-			
+				cylinder(r=(m3_nut_diameter+verticalNuttrap_tolerance)/2,h=wade_block_width*2/6,$fn=6);
+
 		}
 	}
-	//cylinder(r=m4_diameter/2-0.5/* tight */,h=wade_block_depth+2,center=true); 
+	//cylinder(r=m4_diameter/2-0.5/* tight */,h=wade_block_depth+2,center=true);
 }
 
 module nut_trap(nut_wrench_size,trap_height,vertical=true, clearance=0.2){		// M3 wrench size = 5.5
@@ -884,44 +885,44 @@ include <motors.scad>
 module gegsWade_assembly() {
 	translate([-(motor_mount_translation[0]-gear_separation-filament_feed_hole_offset),
 			wade_block_depth/2,0])
-	rotate(a=90,v=X)	
+	rotate(a=90,v=X)
 		wade(hotend_mount=mountType);
 
-	translate([gear_separation+5, 5.5, 37.5]) 
-	rotate(a=-motor_mount_rotation,v=Y) 
-	rotate(a=-90,v=Z) 
-	rotate(a=-90,v=Y) 
+	translate([gear_separation+5, 5.5, 37.5])
+	rotate(a=-motor_mount_rotation,v=Y)
+	rotate(a=-90,v=Z)
+	rotate(a=-90,v=Y)
 		stepper_motor_mount(nema_standard=17,slide_distance=0, mochup=true, tolerance=0);
 
 	color("Snow",0.5){
-		translate([gear_separation+5, 20, 37.5]) 
-		rotate(a=-motor_mount_rotation,v=Y) 
-		rotate(a=-90,v=Z) 
-		rotate(a=-90,v=Y) 
+		translate([gear_separation+5, 20, 37.5])
+		rotate(a=-motor_mount_rotation,v=Y)
+		rotate(a=-90,v=Z)
+		rotate(a=-90,v=Y)
 			cylinder(r=10, h=10, center=true);
 
-		translate([5, 20, 37.5]) 
-		rotate(a=-motor_mount_rotation,v=Y) 
-		rotate(a=-90,v=Z) 
-		rotate(a=-90,v=Y) 
+		translate([5, 20, 37.5])
+		rotate(a=-motor_mount_rotation,v=Y)
+		rotate(a=-90,v=Z)
+		rotate(a=-90,v=Y)
 			cylinder(r=65/2, h=10, center=true);
 	}
 
-	translate([-7, 14, 0]) 
-	rotate(a=90,v=X) 
-		wadeidler(); 
+	translate([-7, 14, 0])
+	rotate(a=90,v=X)
+		wadeidler();
 
 	color("Gray")
-	translate([5, 0, 37.5]) 
-	rotate(a=-motor_mount_rotation,v=Y) 
-	rotate(a=-90,v=Z) 
-	rotate(a=-90,v=Y) 
+	translate([5, 0, 37.5])
+	rotate(a=-motor_mount_rotation,v=Y)
+	rotate(a=-90,v=Z)
+	rotate(a=-90,v=Y)
 		cylinder(r=4, h=60, center=true);
 
 	color("Gray")
-	for (i=[-8,8]) 
-	translate([-15, i, 53]) 
-	rotate(a=-90,v=Y) 
+	for (i=[-8,8])
+	translate([-15, i, 53])
+	rotate(a=-90,v=Y)
 	cylinder(r=1.5, h=70, center=true);
 }
 
@@ -937,7 +938,7 @@ module gegsWade_print() {
 	//Place for printing
 	translate([78+extra_gear_separation,-10,16.20])
 	rotate([0,-90,0])
-	wadeidler(); 
+	wadeidler();
 
 	wade(hotend_mount=mountType, hasSupport = true);
 }
