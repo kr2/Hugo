@@ -9,8 +9,8 @@ include<config.scad>
 include<metric.scad>
 
 gW_mode = "-";
-gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-gW_mode = "assembly";
+//gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+//gW_mode = "assembly";
 
 // Define the hotend_mounting style you want by specifying hotend_mount=style1+style2 etc.
 malcolm_hotend_mount=1;
