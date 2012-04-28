@@ -10,7 +10,7 @@ include<metric.scad>
 
 gW_mode = "-";
 gW_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-//gW_mode = "assembly";
+gW_mode = "assembly";
 
 // Define the hotend_mounting style you want by specifying hotend_mount=style1+style2 etc.
 malcolm_hotend_mount=1;
@@ -585,7 +585,7 @@ module wadeidler(){
 
 				//Filament Guide.
 				translate([guide_height/2+idler_height/2-1,idler_long_side/2-guide_length/2,0])
-				cube([guide_height+1,guide_length,8],center=true);
+				cube([guide_height+4.5,guide_length,8],center=true);
 			}
 
 			// The fulcrum Hinge
