@@ -261,7 +261,7 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 					cube(size=[b_mc_nut_height, b_mc_nut_walldist,  b_xdirRods_holes_altitude[0]], center=true);
 			}
 
-			*translate([b_lber_zAxisXdirDist + b_zdirM_hole_zAxisDist/5, 0, b_zDirWall_size[2]-0.5+OS]){
+			translate([b_lber_zAxisXdirDist + b_zdirM_hole_zAxisDist/5, 0, b_zDirWall_size[2]-0.5+OS]){
 				translate([-5*1.5-1, 0, 0])
 				intersection() {
 					translate([5/2, 0, 0])
