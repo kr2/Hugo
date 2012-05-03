@@ -250,13 +250,13 @@ module H_x_Carriage(hasSupport = false) {
 /******************************************************************************/
 _Xc_beltarm_elongetatedHole_len = c_x_axis_dist * 0.4;
 
-_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_genWallThickness, Xc_strongWallThickness,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + Xc_strongWallThickness];
+_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_genWallThickness*2, Xc_strongWallThickness,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
 module _beltArm() {
 
 	translate([0, -_Xc_beltarm_connPlat_size[1]/2 - _Xc_ydir/2, -(_Xc_beltarm_elongetatedHole_len )])
 	difference() {
 		union(){
-			translate([0, 0, _Xc_beltarm_connPlat_size[2]/2 - Xc_strongWallThickness])
+			translate([0, 0, _Xc_beltarm_connPlat_size[2]/2 - 1.5*Xc_genWallThickness])
 				cube(size=_Xc_beltarm_connPlat_size, center=true);
 
 		}
@@ -283,7 +283,7 @@ module _beltArm() {
 					cube(size=[Xc_nut_wallDist, Xc_nut_heigth, _Xc_beltarm_elongetatedHole_len], center=true);
 			}
 
-			translate([0, 0, -Xc_strongWallThickness]) {
+			translate([0, 0, -1.5*Xc_genWallThickness]) {
 				for (x=[[-1,0],[1,90]])
 				translate([x[0]*_Xc_beltarm_connPlat_size[0]/2, -_Xc_beltarm_connPlat_size[1]/2, 0])
 					roundEdge(_a=x[1],_r=_Xc_beltarm_connPlat_size[1]/4,_l=_Xc_beltarm_connPlat_size[2],_fn=24);
