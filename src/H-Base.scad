@@ -245,8 +245,8 @@ module  H_base(hasYMotorMount = true, hasEnstopHolder = false) {
 				//zip tie holes
 				rotate(a=90,v=X)
 				difference() {
-					cylinder(r=b_lber_diam/2+b_thinWallThickness+b_zipTies_thickness, h=b_zipTies_width, center=true);
-					cylinder(r=b_lber_diam/2+b_thinWallThickness, h=b_zipTies_width+2*OS, center=true);
+					cylinder(r=b_lber_diam/2+2*b_thinWallThickness+b_zipTies_thickness, h=b_zipTies_width, center=true);
+					cylinder(r=b_lber_diam/2+2*b_thinWallThickness, h=b_zipTies_width+2*OS, center=true);
 				}
 			}
 
