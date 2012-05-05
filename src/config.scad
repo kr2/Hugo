@@ -8,23 +8,29 @@
 
 include <metric.scad>
 
-/*
+/* --------- REFERENCE ----------
 Standard Printrbot dimensions.
+- T5 Belt
+- T5/10 Pulleys
 */
-include <config\pb_standard.scad>
+//include <config\pb_standard.scad>
+
 
 /*
 Changes:
 - T2.5 belt
+- T2.5/20 Pulley
 */
-//include <config\Hugo_standard.scad>
+include <config\Hugo_standard.scad>
 
 
 /*
 Changes:
 - 12 mm Z-Axis
 - T2.5 belt
-- 12 teeth pullys
+- T2.5/12 Pulley
+- Printvoule: 300x300x300 mm
+- x Axis rod dist increased (from 28.3 mm to 32)
 */
 //include <config\Hugo+.scad>
 
