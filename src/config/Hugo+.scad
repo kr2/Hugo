@@ -1,13 +1,12 @@
 /* config [c]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * Dual-licensed under 
+ * Dual-licensed under
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * and
  * LGPL v2 or later [http://www.gnu.org/licenses/].
  */
 
-
-/******************************************************************************/ 
+/******************************************************************************/
 /*                              Main configuration                            */
 /******************************************************************************/
 
@@ -29,7 +28,7 @@ c_z_axis_smoothRod_diam = 12.2 + 0.1;
 
 c_z_axis_rodsDist = 32; // distance between threded rod and smooth rod
 
-/******************************************************************************/ 
+/******************************************************************************/
 /*                                  linear Bearings                           */
 /******************************************************************************/
 c_lber_length       = 24.2;
@@ -45,7 +44,7 @@ c_yAxis_lber_diam   = c_lber_diam;
 c_zAxis_lber_length = c_lber_length;
 c_zAxis_lber_diam   = 12 + c_lber_diam-8;
 
-/******************************************************************************/ 
+/******************************************************************************/
 /*                                    BELT                                    */
 /******************************************************************************/
 //T 2.5
@@ -71,7 +70,7 @@ c_xAxis_belt_teethDepth     = c_belt_teethDepth;
 c_xAxis_pully_diam = 9-c_xAxis_belt_thickness*2; // innes (in the teeth molde) diameter of the pully
 
 // diviater
-c_xAxis_bearingDiviater_diam = bear_608ZZ_diam; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt) 
+c_xAxis_bearingDiviater_diam = bear_608ZZ_diam; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt)
 
 // distances
 c_xAxis_beltCenter_xAxisDist     = 38;
@@ -87,13 +86,13 @@ c_yAxis_belt_teethDepth     = c_belt_teethDepth;
 
 c_y_axis_beltCenter_zDirOffset = 14.6; // offset of the center of the belt to the tabel contact plain
 
-/******************************************************************************/ 
+/******************************************************************************/
 /*                                  support                                   */
 /******************************************************************************/
 c_xDirSupp_thredRod_altitude    = [8.266,45.497];
 c_xDirSupp_thredRod_zAxisDist   = 38.95-8.5;
 
-/******************************************************************************/ 
+/******************************************************************************/
 /*                                  motor                                     */
 /******************************************************************************/
 c_motorShaft_diam            = 5; // motor axis diameter
