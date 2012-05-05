@@ -1,9 +1,11 @@
-NOT ALL PARTS ARE TESTED YET
+NOT ALL PARTS ARE TESTED
 
 
 At the moment the config.scad and metric.scad file aren't implemented consistently. So if you want to change something look in the scad file of the corresponding part and if the desired setting already depends on the config.scad or metric.scad check the appropriate.
 
-It is always recommend to check the stl files before printing.
+It is always recommend to check the stl files before printing. If you have problems slicing the stl fils with Slic3r try fixing them with http://cloud.netfabb.com/ (for Skeinforge the files should work out of the box).
+
+Wiki: http://reprap.org/wiki/Hugo
 
 Brief
 =====
