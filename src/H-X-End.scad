@@ -410,8 +410,8 @@ module z_stop()
 			translate([8.75/2,5,2*z_stop_height+0.8])
 				cylinder(r=m3_nut_diameter/2+1.28,h=z_stop_arm_zOff,$fn=6);
 
-			translate([8.75/2,5,0])
-				cylinder(r=m3_nut_diameter/2+0.3*2.1,h=15.8-1,$fn=6);
+			translate([8.75/2,5, z_stop_height*2 +OS*2])
+				cylinder(r=m3_nut_diameter/2+0.3*2.1,h=10,$fn=6);
 
 			translate([8.75/2,5,z_stop_arm_zOff])
 				cylinder(r=m3_nut_diameter/2+1.28,h=z_stop_arm_heigth,$fn=6);
