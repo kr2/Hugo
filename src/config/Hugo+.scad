@@ -67,7 +67,7 @@ c_xAxis_belt_teethDist      = c_belt_teethDist;
 c_xAxis_belt_teethDepth     = c_belt_teethDepth;
 
 // pully
-c_xAxis_pully_diam = 9-c_xAxis_belt_thickness*2; // innes (in the teeth molde) diameter of the pully
+c_xAxis_pully_diam = 9-c_xAxis_belt_thickness*2; // innermost (in the teeth molde) diameter of the pully
 
 // diviater
 c_xAxis_bearingDiviater_diam = bear_608ZZ_diam; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt)
