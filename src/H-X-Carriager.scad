@@ -153,6 +153,7 @@ module H_x_Carriage(hasSupport = false) {
 			}
 		}
 
+		if (Xc_mode != "inspect" && Xc_mode != "assembly")
 		mirror([1, 0, 0])
 		translate([0,0,-OS]){
 			translate([-5*1.5-1, 0, 0])
@@ -235,7 +236,7 @@ module H_x_Carriage(hasSupport = false) {
 			cylinder(r=_Xc_coutout_r, h=_Xc_ydir+2*OS, center=true);
 
 
-		if (Xc_mode != "inspect") {
+		if (Xc_mode != "inspect" && Xc_mode != "assembly") {
 			//logo
 			rotate(a=180,v=Z)
 			translate([0, 0, _Xc_zdir-txt_z + OS])
@@ -493,7 +494,7 @@ module H_x_Carriage_assembly() {
 	rotate(a=180,v=Z)
 	translate([0, 0, -_Xc_firstBearing_alt- Xc_axis_dist]) {
 		 H_x_Carriage();
-		 translate([0, 0, _Xc_firstBearing_alt + Xc_axis_dist + Xc_belt_axisXc_zdir_offset])
+		 translate([0, 0, _Xc_firstBearing_alt + Xc_axis_dist + Xc_belt_axisXc_zdir_offset+ _Xc_belthole_size[2] -Xc_belt_tolerance[0]])
 			_beltArm();
 	}
 }
