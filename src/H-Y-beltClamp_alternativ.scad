@@ -1,6 +1,6 @@
 /* H-Y-BeltClamp_Alternativ [Ybdaa]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * Dual-licensed under 
+ * Dual-licensed under
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * and
  * LGPL v2 or later [http://www.gnu.org/licenses/].
@@ -18,7 +18,7 @@ include <roundEdges.scad>
 /*------------------------------------general---------------------------------*/
 Ybda_mode = "-";
 //Ybda_mode = "print";  $fn=24*4;   // can be print or inspect [overlays the Ybda_model with the original Ybda_model] (uncomment next line)
-//Ybda_mode = "printSet";  $fn=24*4; 
+//Ybda_mode = "printSet";  $fn=24*4;
 //Ybda_mode = "inspect";
 //Ybda_mode = "assembly";
 
@@ -53,54 +53,54 @@ _Ybda_teeth_dist = (Ybda_belt_thickness- Ybda_belt_teethDepth);
 
 module H_yBeltClam_alt(HasFoot = true) {
 	difference() {
-		union(){	
+		union(){
 			if (HasFoot)
 			for (i=[-(_Ybda_base_size[0]-Ybda_strongWallThickness)/2, (_Ybda_base_size[0]-Ybda_strongWallThickness)/2]){
-				translate([i, 0, 0]) 
+				translate([i, 0, 0])
 				cylinder(r=_Ybda_base_size[1]/2, h=_Ybda_base_size[2], center=false);
 			}
 
 			if (HasFoot)
-			translate([0, 0, _Ybda_base_size[2]/2]) 
+			translate([0, 0, _Ybda_base_size[2]/2])
 				cube(size=_Ybda_base_size- [_Ybda_base_size[1],0,0], center=true);
 
 			// outer clamp
-			translate([(_Ybda_teeth_dist/2+Ybda_belt_teethDepth+Ybda_genWallThickness/2) * 1, 0, _Ybda_clamp_heigt/2]) 
+			translate([(_Ybda_teeth_dist/2+Ybda_belt_teethDepth+Ybda_genWallThickness/2) * 1, 0, _Ybda_clamp_heigt/2])
 				cube(size=[Ybda_genWallThickness, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
-			translate([(_Ybda_teeth_dist/2+Ybda_genWallThickness/2 + Ybda_belt_teethDepth/2) * -1, 0, _Ybda_clamp_heigt/2]) 
+			translate([(_Ybda_teeth_dist/2+Ybda_genWallThickness/2 + Ybda_belt_teethDepth/2) * -1, 0, _Ybda_clamp_heigt/2])
 				cube(size=[Ybda_genWallThickness + Ybda_belt_teethDepth, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
-			
+
 			// belt teeth conector
-			for (y=[-Ybda_strongWallThickness/2+ Ybda_belt_teethDist/2:Ybda_belt_teethDist:Ybda_strongWallThickness/2- Ybda_belt_teethDepth/2]) 
+			for (y=[-Ybda_strongWallThickness/2+ Ybda_belt_teethDist/2:Ybda_belt_teethDist:Ybda_strongWallThickness/2- Ybda_belt_teethDepth/2])
 			translate([(_Ybda_teeth_dist/2 + Ybda_belt_teethDepth/2), y, _Ybda_clamp_heigt/2])
-				cube(size=[Ybda_belt_teethDepth, Ybda_belt_teethDist/2, _Ybda_clamp_heigt], center=true); 
-			
+				cube(size=[Ybda_belt_teethDepth, Ybda_belt_teethDist/2, _Ybda_clamp_heigt], center=true);
+
 
 			if (HasFoot)
-			for (i=[[-1,90],[1,0]]) 
-			translate([(Ybda_belt_thickness/2+Ybda_genWallThickness)*i[0],_Ybda_base_size[1]/2, _Ybda_base_size[2]]) 
-			rotate(a=90,v=X) 
+			for (i=[[-1,90],[1,0]])
+			translate([(Ybda_belt_thickness/2+Ybda_genWallThickness)*i[0],_Ybda_base_size[1]/2, _Ybda_base_size[2]])
+			rotate(a=90,v=X)
 			 roundEdge(_a=i[1],_r=Ybda_reinforcement_r,_l=_Ybda_base_size[1],_fn=48*2);
 		}
 		union(){
-			if (HasFoot)	
+			if (HasFoot)
 			for (i=[-(_Ybda_base_size[0]-Ybda_strongWallThickness)/2, (_Ybda_base_size[0]-Ybda_strongWallThickness)/2])
 			translate([i, 0, 0]) {
-				translate([0, 0, -OS]) 
+				translate([0, 0, -OS])
 					cylinder(r=m3_diameter/2, h=_Ybda_base_size[2]+2*OS, center=false);
 
-				translate([0, 0, _Ybda_base_size[2]-m3_nut_heigth+OS]) 
+				translate([0, 0, _Ybda_base_size[2]-m3_nut_heigth+OS])
 					cylinder(r=m3_nut_diameter/2, h=_Ybda_clamp_heigt, center=false,$fn=6);
 			}
 
 			//zip tie coutout
 			translate([0, 0, _Ybda_clamp_heigt- Ybda_thinWallThickness - Ybda_zipTies_width*0.75]) {
 				rotate_extrude(convexity = 10)
-				translate([ distance1D(Ybda_strongWallThickness/2,Ybda_belt_thickness+Ybda_genWallThickness)- Ybda_zipTies_thickness/2,0, 0]) 
-				rotate(a=-90,v=Z)  
+				translate([ distance1D(Ybda_strongWallThickness/2,Ybda_belt_thickness+Ybda_genWallThickness)- Ybda_zipTies_thickness/2,0, 0])
+				rotate(a=-90,v=Z)
 				polygon(points=[[-Ybda_zipTies_width/2,0],[Ybda_zipTies_width/2,0],[Ybda_zipTies_width,Ybda_zipTies_thickness],[-Ybda_zipTies_width,Ybda_zipTies_thickness],[-Ybda_zipTies_width/2,0]]);
 				*difference() {
-					
+
 
 					cylinder(r=Ybda_strongWallThickness, h=Ybda_zipTies_thickness+2*OS, center=true);
 					cylinder(r=distance1D(Ybda_strongWallThickness/2,Ybda_belt_thickness+Ybda_genWallThickness)- Ybda_zipTies_thickness/2, h=Ybda_zipTies_width, center=true);
@@ -117,8 +117,8 @@ if (Ybda_mode == "inspect") {
 }
 
 module H_yBeltClam_alt_prinSet() {
-	for (i=[-Ybda_strongWallThickness/2-0.5,+Ybda_strongWallThickness/2+0.5]) 
-	translate([0, i, 0]) 
+	for (i=[-Ybda_strongWallThickness/2-0.5,+Ybda_strongWallThickness/2+0.5])
+	translate([0, i, 0])
 	H_yBeltClam_alt();
 }
 if (Ybda_mode == "printSet") {
