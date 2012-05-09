@@ -298,7 +298,7 @@ module H_x_End_idle_assembly() {
 		rotate(a=-90,v=Y)
 			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false,info = "x end idler bearing holder rod");
 
-		translate([Xe_X_RodHoles_pos[1][0]+c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])
+		translate([Xe_X_RodHoles_pos[1][0]+c_xAxis_beltCenter_xAxisDist - bear_608ZZ_height/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])
 		rotate(a=90,v=Y)
 			H_BearingGuid_ass();
 	}
