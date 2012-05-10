@@ -36,7 +36,7 @@ a_act_pos = [0,0,50]; // relative to the center of the axis exept z is relative 
 
 
 /*------------------------------------heated bed------------------------------*/
-a_heatedBed_size = [300,300,1.6];
+a_heatedBed_size = [210,210,1.6];
 a_heatedBed_tabelOffset = 5;
 
 /*------------------------------------tabel-----------------------------------*/
