@@ -178,7 +178,7 @@ motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
 
 m8_clearance_hole=8.8;
-hole_for_608=22.6;
+hole_for_608=bear_608ZZ_diam+0.2;
 608_diameter=22;
 
 block_top_right=[wade_block_width,wade_block_height];
@@ -495,7 +495,7 @@ module block_holes(legacy_mount=false){
 				cylinder(r=idler_mounting_hole_diameter/2,h=wade_block_depth+6,$fn=6);
 
 				// nut traps
-				#translate([0,0,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
+				translate([0,0,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
 //				cylinder(r=m4_nut_diameter/2,h=idler_nut_thickness,$fn=6);
 				nut_trap(m3_wrench,m3_nut_heigth*2); // for selbs fix nut
 			}
