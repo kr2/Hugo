@@ -45,7 +45,7 @@ Ze_zEnd_heigt          = 50;
 Ze_zEnd_nuttrap_offset = 17;
 
 /*------------------------------------bearing---------------------------------*/
-Ze_bear_diam           = bear_608ZZ_diam+ 0.6;
+Ze_bear_diam           = bear_608ZZ_diam+ 0.2;
 Ze_bear_heigth         = bear_608ZZ_height;
 
 /*------------------------------------endstop holder--------------------------*/
