@@ -17,7 +17,7 @@ Xe_mode = "-";
 //Xe_mode = "printSet"; $fn=24*4;  // can be print or inspect [overlays the Xe_model with the original Xe_model] (uncomment next line)
 //Xe_mode = "print Left"; $fn=24*4;
 //Xe_mode = "print Right"; $fn=24*4;
-//Xe_mode = "inspect";
+Xe_mode = "inspect";
 
 
 /*------------------------------------general---------------------------------*/
@@ -160,7 +160,7 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 					// suport cylinder
 					for (y=[Xe_motor_xdirBar_size[0]/2,Xe_outline[1]-Xe_motor_xdirBar_size[0]/2])
 					translate([Xe_outline[0]-Xe_motor_plate_thick, y,0])
-						cylinder(r=Xe_motor_xdirBar_size[0]/2, h=Xe_outline[1], center=false, $fn=24);
+						cylinder(r=Xe_motor_xdirBar_size[0]/2, h=Xe_outline[2], center=false, $fn=24);
 				}
 
 				if (!bottomRounded) {
