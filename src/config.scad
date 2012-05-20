@@ -39,6 +39,6 @@ Changes:
 Changes:
 - HTD 3M belt
 - 3M/12 Pulley
-- x Axis rod dist increased (from 25.38 mm to 30)
+- x Axis rod dist increased (from 25.38 mm to 32)
 */
 include <config\Hugo_improved.scad>

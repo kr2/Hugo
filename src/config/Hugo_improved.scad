@@ -14,7 +14,7 @@
 c_x_axis_length = 225; // usable lenth. If you use an extruder which is longer then the H-Xtruder-Mount.scad you have to add this overcut here.
 c_x_axis_smoothRod_diam = 8.1 +0.1;
 
-c_x_axis_dist = 30;
+c_x_axis_dist = 32;
 
 /*-----------------------------------y axis-----------------------------------*/
 c_y_axis_length = 225; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
