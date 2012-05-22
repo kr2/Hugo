@@ -178,7 +178,7 @@ motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
 
 m8_clearance_hole=8.8;
-hole_for_608=bear_608ZZ_diam+0.2;
+hole_for_608= bear_608ZZ_diam+0.2;
 608_diameter=22;
 
 block_top_right=[wade_block_width,wade_block_height];
