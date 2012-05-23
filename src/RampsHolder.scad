@@ -104,12 +104,14 @@ module ramps_holder(hole_offset=0,endstop_width=10,with_foot=false, addLength = 
 
 module rh_rampsholder_print(addLength = 8, isMirrored = false)
 {
-	ramps_holder(hole_offset=0,endstop_width=10,with_foot=true,addLength=addLength);
-	translate([0,18,0])
 	if (isMirrored) {
-		ramps_holder(hole_offset=-6.35,endstop_width=15,with_foot=true,addLength=addLength);
+		translate([0,18,0])
+			ramps_holder(hole_offset=-6.35,endstop_width=15,with_foot=true,addLength=addLength);
+		ramps_holder(hole_offset=1.3,endstop_width=10,with_foot=true,addLength=addLength);
 	} else {
-		ramps_holder(hole_offset=6.35,endstop_width=14,with_foot=true,addLength=addLength);
+		translate([0,18,0])
+			ramps_holder(hole_offset=6.35,endstop_width=14,with_foot=true,addLength=addLength);
+		ramps_holder(hole_offset=-1.3,endstop_width=10,with_foot=true,addLength=addLength);
 	}
 }
 
