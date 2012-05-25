@@ -13,7 +13,7 @@ include <metric.scad>
 include <config.scad>
 
 rh_mode = "-";
-rh_mode = "print";  $fn=24*4;
+//rh_mode = "print";  $fn=24*4;
 //rh_mode = "print Long";  $fn=24*4;
 //rh_mode = "print mirrored";  $fn=24*4;
 //rh_mode = "print Long mirrored";  $fn=24*4;
