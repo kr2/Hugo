@@ -399,7 +399,7 @@ module carr_beltClamp() {
 				cylinder(r=Xc_beltClamp_depth/2, h=Xc_genWallThickness, center=false,$fn=48);
 			}
 
-			for (i=[-Xc_beltClamp_depth/2+ Xc_belt_teethDist/4 : Xc_belt_teethDist: Xc_beltClamp_depth/2])
+			for (i=[-Xc_beltClamp_depth/2+ Xc_belt_teethDist/4 : Xc_belt_teethDist: Xc_beltClamp_depth/2-  Xc_belt_teethDist/4])
 			translate([i, -Xc_beltClamp_beltHole[1]/2, Xc_genWallThickness-OS])
 				cube(size=[Xc_belt_teethDist/2, Xc_beltClamp_beltHole[1], Xc_belt_teethDepth], center=false);
 		}
