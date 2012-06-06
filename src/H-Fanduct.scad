@@ -19,6 +19,7 @@ use <teardrop.scad>
 f_mode = "-";
 //f_mode = "print";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
 //f_mode = "printSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
+f_mode = "printBigSet";  $fn=24*4;  // can be print or inspect [overlays the Ybd_model with the original Ybd_model] (uncomment next line)
 //f_mode = "inspect";
 //f_mode = "assembly";
 
@@ -323,6 +324,24 @@ module H_fan_printSet() {
 
 
 
+module H_fan_printBigSet() {
+	%cube(size=[150, 150, 1], center=true);
+	for (i=[-1,1])
+	translate([0, i*24.5, 0])
+		H_Fan_print();
+
+	for (i=[-1,1])
+	translate([0, i*60, 0])
+	for (i=[0,1])
+	rotate(a=i*180,v=[0,0,1])
+	translate([30, 0, 0])
+	rotate(a=90,v=[0,0,1])
+		H_fan_clamp();
+}
+if (f_mode == "printBigSet") {
+	H_fan_printBigSet();
+}
+
 /*------------------------------------assembly--------------------------------*/
 module H_Fan_assembly(zDirOffset = -60) {
 	translate([0, 0, zDirOffset])
@@ -340,3 +359,4 @@ module H_Fan_assembly(zDirOffset = -60) {
 if (f_mode == "assembly"){
 	H_Fan_assembly();
 }
+
