@@ -309,6 +309,10 @@ if (f_mode == "print") {
 }
 
 if (f_mode == "printSet") {
+	H_fan_printSet();
+}
+
+module H_fan_printSet() {
 	H_Fan_print();
 
 	for (i=[-42,42])
