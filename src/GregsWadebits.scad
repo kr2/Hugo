@@ -13,6 +13,10 @@ gWb_mode = "-";
 //gWb_mode = "print"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 
 if (gWb_mode == "print") {
+	gWb_printSet();
+}
+
+module gWb_printSet() {
 	translate([25,-25,0])
 	WadesL(); //this module call will make the large gear
 	translate([-5,5,0])
