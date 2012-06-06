@@ -128,6 +128,13 @@ if (rh_mode == "print Long mirrored") {
 	rh_rampsholder_print(addLength = 18, isMirrored = true);
 }
 
+module rh_rampsholder_print_set() {
+	translate([-68,13,0])
+	rotate(a=180,v=[0,0,1])
+		ramps_holder(hole_offset=6.35,endstop_width=14,with_foot=true,addLength=18);
+	ramps_holder(hole_offset=-1.3,endstop_width=10,with_foot=true,addLength=18);
+}
+
 module rh_assembly() {
 	rotate(a=90,v=Z)
 	translate([-7.5, 0, -7.5]) {
