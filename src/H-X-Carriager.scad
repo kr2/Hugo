@@ -325,16 +325,22 @@ module _beltArm() {
 			rotate(a=180,v=Z)
 			translate([-Xc_strongWallThickness/2, _Xc_ydir/2,  - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth)])
 				cube(size=[Xc_strongWallThickness, Xc_belt_axisXc_ydir_dist  + _Xc_beltcon_minWidth/2 + _Xc_beltcon_thickness/2- _Xc_ydir/2  - _Xc_connector_bend- _Xc_connector_thickness/2, _Xc_beltcon_overallHeight], center=false);
+
+			rotate(a=180,v=Z)
+			translate([-Xc_strongWallThickness/2, _Xc_ydir/2 + Xc_strongWallThickness, - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth )])
+				// #cube(size=[Xc_strongWallThickness, 10, 10], center=false);
+			rotate(a=90,v=Y)
+				roundEdge(_a=0,_r=min(Xc_belt_axisXc_ydir_dist,(_Xc_beltcon_overallHeight  )),_l=Xc_strongWallThickness,_fn=4);
+
 		}
 		union(){
 			// belt loop through hole
 			translate([0, -Xc_belt_axisXc_ydir_dist,- _Xc_belthole_size[2]/2])
 				cube(size=_Xc_belthole_size, center=true);
 		}
-	}
 
 }
-//!_beltArm();
+!_beltArm();
 
 module _beltConnrector() {
 	difference() {
