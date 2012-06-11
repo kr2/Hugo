@@ -19,7 +19,8 @@ include <roundEdges.scad>
 Ybda_mode = "-";
 //Ybda_mode = "print";  $fn=24*4;   // can be print or inspect [overlays the Ybda_model with the original Ybda_model] (uncomment next line)
 //Ybda_mode = "printSet";  $fn=24*4;
-Ybda_mode = "inspect";
+//Ybda_mode = "printSetBig";  $fn=24*4;
+//Ybda_mode = "inspect";
 //Ybda_mode = "assembly";
 
 
@@ -129,6 +130,14 @@ module H_yBeltClam_alt_prinSet() {
 }
 if (Ybda_mode == "printSet") {
 	H_yBeltClam_alt_prinSet();
+}
+
+if (Ybda_mode == "printSetBig") {
+	translate([0, -1.5*Ybda_strongWallThickness, 0])
+	for (x=[-1,1])
+	for (y=[0:3])
+	translate([15*x,(Ybda_strongWallThickness+0.5)*y, 0])
+		H_yBeltClam_alt();
 }
 
 module H_yBeltClam_alt_print() {
