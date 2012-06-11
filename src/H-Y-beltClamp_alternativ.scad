@@ -19,7 +19,7 @@ include <roundEdges.scad>
 Ybda_mode = "-";
 //Ybda_mode = "print";  $fn=24*4;   // can be print or inspect [overlays the Ybda_model with the original Ybda_model] (uncomment next line)
 //Ybda_mode = "printSet";  $fn=24*4;
-//Ybda_mode = "inspect";
+Ybda_mode = "inspect";
 //Ybda_mode = "assembly";
 
 
@@ -69,6 +69,12 @@ module H_yBeltClam_alt(HasFoot = true) {
 				cube(size=[Ybda_genWallThickness, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
 			translate([(_Ybda_teeth_dist/2+Ybda_genWallThickness/2 + Ybda_belt_teethDepth/2) * -1, 0, _Ybda_clamp_heigt/2])
 				cube(size=[Ybda_genWallThickness + Ybda_belt_teethDepth, Ybda_strongWallThickness, _Ybda_clamp_heigt], center=true);
+
+			// clamp support
+			for (i=[-1,1])
+			translate([(_Ybda_teeth_dist/2+Ybda_belt_teethDepth+Ybda_genWallThickness) * i, 0, 0])
+			scale([0.33, 1, 1])
+				cylinder(r=Ybda_strongWallThickness/2, h=_Ybda_clamp_heigt, center=false);
 
 			// belt teeth conector
 			for (y=[-Ybda_strongWallThickness/2+ Ybda_belt_teethDist/2:Ybda_belt_teethDist:Ybda_strongWallThickness/2- Ybda_belt_teethDepth/2])
