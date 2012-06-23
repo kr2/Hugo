@@ -44,7 +44,7 @@ Xc_lber_coverRate            = 0.7; // percentage of plasic cover vs lber diam
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
 Xc_notch_width               = 5.4 + 0.5;
-Xc_notch_depth               = 1.2;
+Xc_notch_depth               = 1.7;
 Xc_notch_lengt               = 24 + 2.5 + 1.5;
 
 /*------------------------------------xtruder carriag holes-------------------*/
