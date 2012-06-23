@@ -37,7 +37,7 @@ Xc_axis_dist                 = c_x_axis_dist;
 /*------------------------------------linear bearings-------------------------*/
 Xc_lber_length               = c_xAxis_lber_length + 0.2; //+ 0.2 to conteract print errors
 Xc_lber_diam                 = c_xAxis_lber_diam;
-
+Xc_lber_alignNotch_depth     = 0.6; //alignment notch depth
 
 Xc_lber_coverRate            = 0.7; // percentage of plasic cover vs lber diam
 
@@ -130,17 +130,24 @@ module H_x_Carriage(hasSupport = false) {
 		}
 		union(){
 			// bearing holes
-			translate([-Xc_lber_length/2, 0, _Xc_firstBearing_alt])
-			rotate(a=180,v=X)
-				teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
+			translate([-Xc_lber_length/2, 0, _Xc_firstBearing_alt])	{
+				rotate(a=180,v=X)
+					teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
+				rotate(a=90,v=Y)
+				scale([1, 0.8, 1])
+					cylinder(r=Xc_lber_diam/2+Xc_lber_alignNotch_depth, h=Xc_lber_length, center=false,$fn=4);
+			}
 
 			for (i=[0,1])
 			rotate(a=180 * i,v=Z)
 			translate([_Xc_xdir/2 - Xc_genWallThickness, 0, _Xc_firstBearing_alt+Xc_axis_dist])
-			rotate(a=180,v=Z)
-			rotate(a=180,v=X)
-				teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
-
+			rotate(a=180,v=Z){
+				rotate(a=180,v=X)
+					teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
+				rotate(a=90,v=Y)
+				scale([1, 0.8, 1])
+					cylinder(r=Xc_lber_diam/2+Xc_lber_alignNotch_depth, h=Xc_lber_length, center=false,$fn=4);
+			}
 			//ziptie cutout
 			for (i=[[0,0,_Xc_firstBearing_alt],
 				    [Xc_thinWallThickness/2 + Xc_lber_length/2, 0, _Xc_firstBearing_alt + Xc_axis_dist],
