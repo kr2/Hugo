@@ -338,9 +338,9 @@ module _beltArm() {
 			translate([0, -Xc_belt_axisXc_ydir_dist,- _Xc_belthole_size[2]/2])
 				cube(size=_Xc_belthole_size, center=true);
 		}
-
+	}
 }
-!_beltArm();
+//!_beltArm();
 
 module _beltConnrector() {
 	difference() {
