@@ -216,7 +216,7 @@ idler_short_side=wade_block_depth-2;
 idler_hinge_r=m3_diameter/2+3.5;
 idler_hinge_width=6.5;
 idler_end_length=(idler_height-2)+5;
-idler_mounting_hole_diameter=m4_diameter+0.25;
+idler_mounting_hole_diameter=m3_diameter+0.25;
 idler_mounting_hole_elongation=0.9;
 idler_long_top=idler_mounting_hole_up+idler_mounting_hole_diameter/2+idler_mounting_hole_elongation+2.5;
 idler_long_bottom=idler_fulcrum_offset;
@@ -501,7 +501,7 @@ module block_holes(legacy_mount=false){
 			}
 			// nut slots
 			translate([0,10/2,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
-				cube([m3_wrench+0.4,10,m3_nut_heigth*2],center=true);
+				cube([m3_wrench,10,m3_nut_heigth*2],center=true);
 
 			// screw holes 30°
 			for(tilt=[1:6]){
