@@ -251,7 +251,7 @@ module H_x_Carriage(hasSupport = false) {
 /******************************************************************************/
 _Xc_beltarm_elongetatedHole_len = c_x_axis_dist * 0.4;
 
-_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_genWallThickness*2, Xc_strongWallThickness,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
+_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_strongWallThickness*2, Xc_strongWallThickness*1.1,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
 module _beltArm() {
 
 	translate([0, -_Xc_beltarm_connPlat_size[1]/2 - _Xc_ydir/2, -(_Xc_beltarm_elongetatedHole_len )])
