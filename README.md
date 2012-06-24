@@ -55,5 +55,8 @@ Printrbot:
 THE Printrbot by abdrumm
 http://www.thingiverse.com/thing:16990
 
+Stoffel15:
+for Wade goes Fishing (Herringbone Gears)
+
 Thanks to all of them.
 (If I missed someone I am sorry, plz contact me.)
