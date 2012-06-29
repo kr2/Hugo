@@ -83,13 +83,20 @@ module H_endstop_holder(rod_diam=8,isPerpendicular= 1, holeOffset = [-7,14,5], n
 
 			// nuttrap outline
 			if (nuttraps[1]!= 0) {
-				for (i=[0:m2d5_nut_diameter/2:eh_end_elongetatedHole_length])
-				translate([holeOffset[0]+i*holeOffset[0]/abs(holeOffset[0]), holeOffset[1], eh_end_height/2])
+				translate([holeOffset[0], holeOffset[1], eh_end_height/2])
 				rotate(a=90*isPerpendicular,v=Z)
 				rotate(a=-90,v=Y)
-				translate([0, 0, eh_end_wallWidth/2*nuttraps[1]])
-				rotate(a=30,v=Z)
+				translate([0, 0, eh_end_wallWidth/2*nuttraps[1]]) {
+					for (i=[0:m2d5_nut_diameter/2:eh_end_elongetatedHole_length]) {
+						translate([0, -i*sign(holeOffset[0]), 0])
+						rotate(a=30,v=Z)
+						cylinder(r=(eh_end_height/2)/cos(30), h=m2d5_nut_heigth+OS, center=true,$fn=6);
+					}
+					// Explicitly execute end value which will (in most cases) not be reached by the for loop
+					translate([0, -eh_end_elongetatedHole_length*sign(holeOffset[0]), 0])
+					rotate(a=30,v=Z)
 					cylinder(r=(eh_end_height/2)/cos(30), h=m2d5_nut_heigth+OS, center=true,$fn=6);
+				}
 			}
 
 			//rounded edge
@@ -111,19 +118,19 @@ module H_endstop_holder(rod_diam=8,isPerpendicular= 1, holeOffset = [-7,14,5], n
 			rotate(a=-90,v=Y){
 				difference() {
 					union() {
-						for (i=[0,eh_end_elongetatedHole_length])
-						translate([0, -i*holeOffset[0]/abs(holeOffset[0]), 0 ])
-							cylinder(r=m2d5_diameter/2, h=eh_end_wallWidth+2*(md2d5_nut_height+OS), center=true,$fn=24);
-						translate([0, eh_end_elongetatedHole_length/2 * holeOffset[0]/abs(holeOffset[0])*-1 -OS,0])
-							cube(size=[  m2d5_diameter, eh_end_elongetatedHole_length, eh_end_wallWidth+2*OS], center=true);
+						cylinder(r=m2d5_diameter/2, h=eh_end_wallWidth+2*OS, center=true,$fn=24);
+						translate([0, eh_end_elongetatedHole_length*sign(holeOffset[0])*-1, 0 ])
+								cylinder(r=m2d5_diameter/2, h=eh_end_wallWidth+2*OS, center=true,$fn=24);
+						translate([0, eh_end_elongetatedHole_length/2 * sign(holeOffset[0])*-1 -OS,0])
+							cube(size=[  m2d5_diameter, eh_end_elongetatedHole_length , eh_end_wallWidth+2*OS], center=true);
 					}
 					union(){
-						translate([0, eh_end_elongetatedHole_length/2 * holeOffset[0]/abs(holeOffset[0])*-1, -OS])
+						translate([0, eh_end_elongetatedHole_length/2 * sign(holeOffset[0])*-1, -OS])
+						// The end values do not have to be reached in this case (for each distance greater than)
 						for (i=[m2d5_diameter:m2d5_diameter*2:eh_end_elongetatedHole_length/2]) {
-							translate([0, i * holeOffset[0]/abs(holeOffset[0])*-1, 0])
+							translate([0, (eh_end_elongetatedHole_length/2 - i) * sign(holeOffset[0])*-1, 0])
 								cube(size=[  m2d5_diameter, eh_end_holeSeperator_width, eh_end_wallWidth+2*OS], center=true);
-
-							translate([0, -i * holeOffset[0]/abs(holeOffset[0])*-1, 0])
+							translate([0, (i - eh_end_elongetatedHole_length/2) * sign(holeOffset[0])*-1, 0])
 								cube(size=[  m2d5_diameter, eh_end_holeSeperator_width, eh_end_wallWidth+2*OS], center=true);
 						}
 					}
@@ -131,9 +138,13 @@ module H_endstop_holder(rod_diam=8,isPerpendicular= 1, holeOffset = [-7,14,5], n
 
 				if (nuttraps[1]!= 0) {
 					for (i=[0:m2d5_nut_diameter/2:eh_end_elongetatedHole_length])
-					translate([0, -i*holeOffset[0]/abs(holeOffset[0]), (eh_end_wallWidth/2+OS)*nuttraps[1] ])
-					rotate(a=30,v=Z)
-						cylinder(r=m2d5_nut_diameter/2, h=m2d5_nut_heigth+OS, center=true,$fn=6);
+						translate([0, -i*sign(holeOffset[0]), (eh_end_wallWidth/2+OS)*nuttraps[1] ])
+							rotate(a=30,v=Z)
+								cylinder(r=m2d5_nut_diameter/2, h=m2d5_nut_heigth+OS, center=true,$fn=6);
+					// Explicitly execute end value which will (in most cases) not be reached by the for loop
+					translate([0, -1*eh_end_elongetatedHole_length*sign(holeOffset[0]), (eh_end_wallWidth/2+OS)*nuttraps[1] ])
+						rotate(a=30,v=Z)
+							cylinder(r=m2d5_nut_diameter/2, h=m2d5_nut_heigth+OS, center=true,$fn=6);
 				}
 			}
 
@@ -170,8 +181,8 @@ module _clamp(holeOffset,nuttrap,rod_diam) {
 				translate([0, eh_end_clampHole_offset, eh_end_height/2]) { // center screw hole
 					translate([nuttrap * ((end_slotWidth)/2+eh_end_wallWidth), 0, 0])
 					rotate(a=90,v=Y)
-					rotate(a=30,v=Z)
-						cylinder(r=(eh_end_height/2)/cos(30), h=m2d5_nut_heigth, center=true,$fn=6);
+					rotate(a=30,v=Z) // make the trap hexagon align with top and bottom
+						cylinder(r=(eh_end_height/2)/cos(30), h=m3_nut_heigth, center=true,$fn=6);
 				}
 			}
 
@@ -194,13 +205,13 @@ module _clamp(holeOffset,nuttrap,rod_diam) {
 			translate([0, eh_end_clampHole_offset, eh_end_height/2]) { // center screw hole
 				// clamp hole
 				rotate(a=90,v=Y)
-					cylinder(r=m2d5_diameter/2, h=end_slotWidth+2*eh_end_wallWidth+2*OS, center=true,$fn=24);
+					cylinder(r=m3_diameter/2, h=end_slotWidth+2*eh_end_wallWidth+2*OS, center=true,$fn=24);
 				if (nuttrap != 0) {
 					// nuttrap
 					translate([nuttrap * ((end_slotWidth)/2+eh_end_wallWidth), 0, 0])
 					rotate(a=90,v=Y)
-					rotate(a=30,v=Z)
-						cylinder(r=m2d5_nut_diameter/2, h=m2d5_nut_heigth+2*OS, center=true,$fn=6);
+					rotate(a=30,v=Z) // align the trap hexagon with top and bottom lines
+						cylinder(r=m3_nut_diameter/2, h=m3_nut_heigth+2*OS, center=true,$fn=6);
 				}
 			}
 		}
