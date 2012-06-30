@@ -24,10 +24,13 @@ if (gWg_mode == "printLarg")
 	WadeL_double_helix();
 
 
-if (gWg_mode == "printSet") {
+module gWg_printSet() {
 	translate([46, 0, 0])
 	WadesS_double_helix();
 	WadeL_double_helix();
+}
+if (gWg_mode == "printSet") {
+	gWg_printSet();
 }
 
 

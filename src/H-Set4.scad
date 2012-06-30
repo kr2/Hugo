@@ -7,16 +7,16 @@
 include <units.scad>
 
 include <GregsWade_v4.scad>
-include <GregsWadebits.scad>
+include <GregWadeGears.scad>
 
 
 //$fn= 24 * 4;
 
 %cube(size=[150, 150, 1], center=true);
 
-translate([-20, 0, 0])
+translate([-25, 5, 0])
   gegsWade_print();
 
-translate([-20, -15, 0])
-rotate(a=10,v=[0,0,1])
-  gWb_printSet();
+translate([-15, -33, 0])
+rotate(a=30,v=[0,0,1])
+  gWg_printSet();
