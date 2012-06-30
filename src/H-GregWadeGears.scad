@@ -14,7 +14,7 @@ use <parametric_involute_gear_v5.0.scad>
 /*------------------------------------general---------------------------------*/
 gWg_mode = "-";
 // gWg_mode = "printSmal"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
-// gWg_mode = "printLarg"; //$fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+// gWg_mode = "printLarg"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 // gWg_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 // gWg_mode = "inspectLarg";
 
