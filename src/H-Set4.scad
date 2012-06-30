@@ -10,7 +10,7 @@ include <GregsWade_v4.scad>
 include <GregWadeGears.scad>
 
 
-//$fn= 24 * 4;
+$fn= 24 * 4;
 
 %cube(size=[150, 150, 1], center=true);
 
