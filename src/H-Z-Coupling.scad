@@ -16,7 +16,7 @@ include <utilities.scad>
 Zc_mode = "-";
 //Zc_mode = "printSet";  $fn=24*4;    // can be print or inspect [overlays the Zc_model with the original Zc_model] (uncomment next line)
 //Zc_mode = "print";  $fn=24*4;
-Zc_mode = "inspect";
+// Zc_mode = "inspect";
 //Zc_mode = "assembly";
 
 Zc_thinWallThickness         = 1;
