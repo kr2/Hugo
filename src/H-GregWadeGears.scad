@@ -181,7 +181,7 @@ module largGear() {
     }
     union(){
       // nuttrap
-      #translate([0, 0, gWg_g_height-gWg_hs_nut_heigth + gWg_hs_nut_offset +OS])
+      translate([0, 0, gWg_g_height-gWg_hs_nut_heigth + gWg_hs_nut_offset +OS])
         cylinder(r=gWg_hs_nut_diameter/2, h=gWg_hs_nut_heigth, center=false,$fn=6);
 
       // screwhole
