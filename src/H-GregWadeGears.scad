@@ -25,7 +25,7 @@ gWg_strongWallThickness       = 9;
 
 
 /*------------------------------------gear------------------------------------*/
-gWg_g_height          = 11;
+gWg_g_height          = 10;
 gWg_g_pitch           = 268;
 gWg_g_twist           = 200;
 gWg_g_pressureAngle   = 30;
