@@ -7,7 +7,7 @@
 include <units.scad>
 
 include <GregsWade_v4.scad>
-include <GregWadeGears.scad>
+include <H-GregWadeGears.scad>
 
 
 $fn= 24 * 4;
@@ -18,5 +18,4 @@ translate([-25, 5, 0])
   gegsWade_print();
 
 translate([-15, -33, 0])
-rotate(a=30,v=[0,0,1])
   gWg_printSet();
