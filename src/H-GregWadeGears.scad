@@ -25,7 +25,7 @@ gWg_strongWallThickness       = 9;
 
 
 /*------------------------------------gear------------------------------------*/
-gWg_g_height          = 10;
+gWg_g_height          = 11;
 gWg_g_pitch           = 268;
 gWg_g_twist           = 200;
 gWg_g_pressureAngle   = 30;
@@ -46,6 +46,8 @@ gWg_hs_diameter       = m8_diameter;
 gWg_hs_nut_diameter   = m8_nut_diameter;
 gWg_hs_nut_heigth     = m8_nut_heigth;
 
+gWg_hs_nut_offset     = 1.5;   // offset of the nut head over the edge of the gear (gWg_g_height + this = total height)
+
 gWg_hs_hub_diameter   = 25;
 
 
@@ -64,7 +66,7 @@ gWg_motorScrew_nut_wallDist = m3_nut_wallDist;
 /******************************************************************************/
 /*                                  INTERNAL                                  */
 /******************************************************************************/
-_gWg_zdirTopCloseOf_scale = (gWg_genWallThickness)/(gWg_hs_hub_diameter/2);
+_gWg_zdirTopCloseOf_scale = (gWg_genWallThickness+ gWg_hs_nut_offset)/(gWg_hs_hub_diameter/2);
 
 
 
@@ -179,7 +181,7 @@ module largGear() {
     }
     union(){
       // nuttrap
-      translate([0, 0, gWg_g_height-gWg_hs_nut_heigth+OS])
+      #translate([0, 0, gWg_g_height-gWg_hs_nut_heigth + gWg_hs_nut_offset +OS])
         cylinder(r=gWg_hs_nut_diameter/2, h=gWg_hs_nut_heigth, center=false,$fn=6);
 
       // screwhole
@@ -265,4 +267,8 @@ module gWg_printSet() {
 }
 if (gWg_mode == "printSet") {
   gWg_printSet();
+}
+
+if (gWg_mode == "inspectLarg") {
+  largGear();
 }
