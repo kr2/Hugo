@@ -46,7 +46,7 @@ gWg_hs_diameter       = m8_diameter;
 gWg_hs_nut_diameter   = m8_nut_diameter;
 gWg_hs_nut_heigth     = m8_nut_heigth;
 
-gWg_hs_nut_offset     = 1.5;   // offset of the nut head over the edge of the gear (gWg_g_height + this = total height)
+gWg_hs_nut_offset     = 0.5;   // offset of the nut head over the edge of the gear (gWg_g_height + this = total height)
 
 gWg_hs_hub_diameter   = 25;
 
