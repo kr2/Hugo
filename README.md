@@ -37,9 +37,8 @@ In general if you print H-set1.stl and H-set2.stl you should have all mandatory 
 
 Credits
 =======
-JSturm for everything especially for the Testing
-
-Thimo for the patches
+-   JSturm for everything especially for the Testing
+-   Thimo for the patches
 
 Sources
 =======
