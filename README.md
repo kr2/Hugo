@@ -35,6 +35,11 @@ So there are several prebuilt stl files to discover and to put your own assembly
 In general if you print H-set1.stl and H-set2.stl you should have all mandatory parts to build the Printer. If you also print H-set3.stl you should be able to setup the entire printer similar to the one shown in H-assembly.scad. It is recommend to use LMXXUU or igus linear Bearings but the H-set7_PLA.scad contains printable linear bearings. This bearings should be printed in PLA because it is harder then ABS.
 
 
+Credits
+=======
+JSturm for everything especially for the Testing
+Thimo for the patches
+
 Sources
 =======
 Bar clamp:
@@ -54,9 +59,6 @@ http://www.thingiverse.com/thing:18379
 Printrbot:
 THE Printrbot by abdrumm
 http://www.thingiverse.com/thing:16990
-
-Stoffel15:
-for Wade goes Fishing (Herringbone Gears)
 
 Thanks to all of them.
 (If I missed someone I am sorry, plz contact me.)
