@@ -206,8 +206,11 @@ module smalGear() {
 
   _screwCenter_zdir = gWg_g_height+gWg_sg_hub_heigth - (gWg_thinWallThickness + gWg_motorScrew_nut_diameter/2);
 
+  translate([0, 0, gWg_sg_hub_heigth+ gWg_g_height])
+  rotate(a=180,v=Y)
   difference() {
     union(){
+      render()
       double_helix(
         teeth=gWg_sg_teeth,
         pitch=gWg_g_pitch,
@@ -237,7 +240,7 @@ module smalGear() {
     }
     union(){
       //motor axis
-      translate([0, 0, gWg_horizontalSuportThickness])
+      translate([0, 0, -OS])
         cylinder(r=gWg_motor_shaftDiameter/2, h=gWg_g_height+ gWg_sg_hub_heigth +2*OS, center=false);
 
       // fix screw
