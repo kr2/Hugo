@@ -23,6 +23,8 @@ gWg_thinWallThickness         = 1;
 gWg_genWallThickness          = 3;
 gWg_strongWallThickness       = 9;
 
+gWg_horizontalSuportThickness = 0.35;
+
 
 /*------------------------------------gear------------------------------------*/
 gWg_g_height          = 10;
@@ -229,7 +231,7 @@ module smalGear() {
     }
     union(){
       //motor axis
-      translate([0, 0, -OS])
+      translate([0, 0, gWg_horizontalSuportThickness])
         cylinder(r=gWg_motor_shaftDiameter/2, h=gWg_g_height+ gWg_sg_hub_heigth +2*OS, center=false);
 
       // fix screw
