@@ -240,7 +240,7 @@ module smalGear() {
         translate([0, 0, gWg_motor_shaftDiameter/2+ gWg_thinWallThickness])
           cylinder(r=gWg_motorScrew_nut_diameter/2, h=gWg_motorScrew_nut_heigth, center=false,$fn=6);
       }
-      translate([gWg_thinWallThickness+gWg_motor_shaftDiameter/2+gWg_motorScrew_nut_heigth/2, 0, _screwCenter_zdir])
+      translate([gWg_thinWallThickness+gWg_motor_shaftDiameter/2+gWg_motorScrew_nut_heigth/2, 0, _screwCenter_zdir + gWg_sg_hub_heigth/2])
         cube(size=[gWg_motorScrew_nut_heigth, gWg_motorScrew_nut_wallDist, gWg_sg_hub_heigth], center=true);
 
 
@@ -248,7 +248,7 @@ module smalGear() {
   }
 
 }
-// smalGear();
+//smalGear();
 
 
 
