@@ -15,6 +15,7 @@ use <parametric_involute_gear_v5.0.scad>
 gWg_mode = "-";
 // gWg_mode = "printSmal"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 // gWg_mode = "printLarg"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
+// gWg_mode = "printSpacerSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 // gWg_mode = "printSet"; $fn=24*4; // can be print or inspect [overlays the Xc_model with the original Xc_model] (uncomment next line)
 // gWg_mode = "inspectLarg";
 
@@ -62,6 +63,11 @@ gWg_motorScrew_nut_heigth = m3_nut_heigth;
 gWg_motorScrew_nut_wallDist = m3_nut_wallDist;
 
 
+/*------------------------------------spacer----------------------------------*/
+gWg_s_holeDiam = m8_diameter;
+gWg_s_r1 = gWg_s_holeDiam/2+ 2*gWg_thinWallThickness;
+gWg_s_r2 = gWg_s_holeDiam/2+ 1*gWg_thinWallThickness;
+gWg_s_heights =  [5.5,6,6.5];
 
 
 
@@ -253,6 +259,29 @@ module smalGear() {
 //smalGear();
 
 
+module gWg_spacer(h,r1,r2,rHole) {
+  difference() {
+    union(){
+      cylinder(r1=r1, r2=r2, h=h, center=false);
+    }
+    union(){
+      translate([0, 0, -OS])
+        cylinder(r=rHole, h=h+2*OS, center=false);
+    }
+  }
+}
+//gWg_spacer(h=5,r1=10,r2=9,rHole=8);
+
+module gWg_spacerSet() {
+  for (i=[0: len(gWg_s_heights)-1 ] )
+    translate([(gWg_s_r1*2+0.5)*i, 0, 0])
+      gWg_spacer(h=gWg_s_heights[i],r1=gWg_s_r1,r2=gWg_s_r2,rHole=gWg_s_holeDiam/2);
+}
+
+
+if (gWg_mode == "printSpacerSet")
+  gWg_spacerSet();
+
 
 if (gWg_mode == "printSmal")
   smalGear();
@@ -266,6 +295,10 @@ module gWg_printSet() {
   translate([46, 0, 0])
   smalGear();
   largGear();
+
+  translate([43, -15, 0])
+  rotate(a=-120,v=Z)
+    gWg_spacerSet();
 }
 if (gWg_mode == "printSet") {
   gWg_printSet();
