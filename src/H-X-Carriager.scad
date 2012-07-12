@@ -5,7 +5,7 @@
  * derivative of the original design by abdrumm for the PrintrBot
  */
 include <config.scad>
-include <units.scad>;
+include <units.scad>
 include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
@@ -460,7 +460,7 @@ module H_x_Carriage_print() {
 		_beltArm();
 
 	for (i=[1,-1])
-	translate([i*_Xc_xdir*0.4, 0, 0])
+	translate([i*_Xc_xdir*0.4+Xc_belt_width/2, 0, 0])
 	rotate(a=-90,v=Y)
 		yBeltClamp_beltProtector();
 
