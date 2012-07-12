@@ -14,8 +14,8 @@ $fn= 24 * 4;
 
 %cube(size=[150, 150, 1], center=true);
 
-translate([-25, 5, 0])
+translate([-25, 8, 0])
   gegsWade_print();
 
-translate([-15, -33, 0])
+translate([-15, -30, 0])
   gWg_printSet();
