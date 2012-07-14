@@ -37,14 +37,14 @@ Xc_axis_dist                 = c_x_axis_dist;
 /*------------------------------------linear bearings-------------------------*/
 Xc_lber_length               = c_xAxis_lber_length + 0.2; //+ 0.2 to conteract print errors
 Xc_lber_diam                 = c_xAxis_lber_diam;
-
+Xc_lber_alignNotch_depth     = 0.6; //alignment notch depth
 
 Xc_lber_coverRate            = 0.7; // percentage of plasic cover vs lber diam
 
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
 Xc_notch_width               = 5.4 + 0.5;
-Xc_notch_depth               = 1.2;
+Xc_notch_depth               = 1.7;
 Xc_notch_lengt               = 24 + 2.5 + 1.5;
 
 /*------------------------------------xtruder carriag holes-------------------*/
@@ -130,17 +130,24 @@ module H_x_Carriage(hasSupport = false) {
 		}
 		union(){
 			// bearing holes
-			translate([-Xc_lber_length/2, 0, _Xc_firstBearing_alt])
-			rotate(a=180,v=X)
-				teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
+			translate([-Xc_lber_length/2, 0, _Xc_firstBearing_alt])	{
+				rotate(a=180,v=X)
+					teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
+				rotate(a=90,v=Y)
+				scale([1, 0.8, 1])
+					cylinder(r=Xc_lber_diam/2+Xc_lber_alignNotch_depth, h=Xc_lber_length, center=false,$fn=4);
+			}
 
 			for (i=[0,1])
 			rotate(a=180 * i,v=Z)
 			translate([_Xc_xdir/2 - Xc_genWallThickness, 0, _Xc_firstBearing_alt+Xc_axis_dist])
-			rotate(a=180,v=Z)
-			rotate(a=180,v=X)
-				teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
-
+			rotate(a=180,v=Z){
+				rotate(a=180,v=X)
+					teardrop (r=Xc_lber_diam/2,h=Xc_lber_length,top_and_bottom=true);
+				rotate(a=90,v=Y)
+				scale([1, 0.8, 1])
+					cylinder(r=Xc_lber_diam/2+Xc_lber_alignNotch_depth, h=Xc_lber_length, center=false,$fn=4);
+			}
 			//ziptie cutout
 			for (i=[[0,0,_Xc_firstBearing_alt],
 				    [Xc_thinWallThickness/2 + Xc_lber_length/2, 0, _Xc_firstBearing_alt + Xc_axis_dist],
@@ -211,9 +218,9 @@ module H_x_Carriage(hasSupport = false) {
 /******************************************************************************/
 /*                                  belt                                      */
 /******************************************************************************/
-_Xc_beltarm_elongetatedHole_len = c_x_axis_dist * 0.4;
+_Xc_beltarm_elongetatedHole_len = c_x_axis_dist * 0.39;
 
-_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_genWallThickness*2, Xc_strongWallThickness,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
+_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_strongWallThickness*2, Xc_strongWallThickness*1.1,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
 module _beltArm() {
 
 	translate([0, -_Xc_beltarm_connPlat_size[1]/2 - _Xc_ydir/2, -(_Xc_beltarm_elongetatedHole_len )])
@@ -287,6 +294,13 @@ module _beltArm() {
 			rotate(a=180,v=Z)
 			translate([-Xc_strongWallThickness/2, _Xc_ydir/2,  - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth)])
 				cube(size=[Xc_strongWallThickness, Xc_belt_axisXc_ydir_dist  + _Xc_beltcon_minWidth/2 + _Xc_beltcon_thickness/2- _Xc_ydir/2  - _Xc_connector_bend- _Xc_connector_thickness/2, _Xc_beltcon_overallHeight], center=false);
+
+			rotate(a=180,v=Z)
+			translate([-Xc_strongWallThickness/2, _Xc_ydir/2 + Xc_strongWallThickness, - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth )])
+				// #cube(size=[Xc_strongWallThickness, 10, 10], center=false);
+			rotate(a=90,v=Y)
+				roundEdge(_a=0,_r=min(Xc_belt_axisXc_ydir_dist,(_Xc_beltcon_overallHeight  )),_l=Xc_strongWallThickness,_fn=4);
+
 		}
 		union(){
 			// belt loop through hole
@@ -298,6 +312,8 @@ module _beltArm() {
 
 }
 //!_beltArm();
+
+
 
 module _beltConnrector() {
 	difference() {
@@ -374,7 +390,7 @@ module carr_beltClamp() {
 					cylinder(r=_Xc_beltcon_thickness/2, h=Xc_genWallThickness, center=false,$fn=48);
 				}
 
-				for (i=[-_Xc_beltcon_thickness/2 + Xc_belt_teethDist/4 : Xc_belt_teethDist: _Xc_beltcon_thickness/2])
+				for (i=[-_Xc_beltcon_thickness/2 + Xc_belt_teethDist/4 : Xc_belt_teethDist: _Xc_beltcon_thickness/2 -  Xc_belt_teethDist/4])
 				translate([i, -(Xc_belt_width+Xc_belt_tolerance[1])/2, Xc_genWallThickness-OS])
 					cube(size=[Xc_belt_teethDist/2, Xc_belt_width+Xc_belt_tolerance[1], Xc_belt_teethDepth], center=false);
 			}

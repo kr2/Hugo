@@ -1,6 +1,6 @@
 /* H-BearingGuid [Hbg]
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
- * Dual-licensed under 
+ * Dual-licensed under
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
  * and
  * LGPL v2 or later [http://www.gnu.org/licenses/].
@@ -37,10 +37,10 @@ Hbg_diam                     = Hbg_bear_diam + 5;
 Hbg_outer_height             = 0.5;
 Hbg_inner_height             = 2;
 
-Hbg_washer_height            = Hbg_horizontalSuportThickness;
+Hbg_washer_height            = 0.5;
 Hbg_washer_diam              = Hbg_rod_diam + 4;
 
-/******************************************************************************/ 
+/******************************************************************************/
 /*                                  INTERNAL                                  */
 /******************************************************************************/
 module H_BearingGuid() {
@@ -48,14 +48,14 @@ module H_BearingGuid() {
 		union(){
 			cylinder(r=Hbg_diam/2, h=Hbg_outer_height, center=false);
 
-			translate([0, 0, Hbg_outer_height]) 
+			translate([0, 0, Hbg_outer_height])
 			cylinder(r1=Hbg_diam/2,r2 = Hbg_bear_diam/2, h=Hbg_inner_height- Hbg_outer_height, center=false);
 
-			translate([0, 0, Hbg_inner_height]) 
+			translate([0, 0, Hbg_inner_height])
 				cylinder(r=Hbg_washer_diam/2, h=Hbg_washer_height, center=false);
 		}
 		union(){
-			translate([0, 0, -OS]) 
+			translate([0, 0, -OS])
 				cylinder(r=Hbg_rod_diam/2, h=Hbg_inner_height+Hbg_washer_height + 2*OS, center=false);
 		}
 	}
@@ -68,13 +68,13 @@ if (Hbg_mode == "inspect") {
 	H_BearingGuid();
 }
 module H_BearingGuid_print() {
-	for (i=[-1,1]) 
-	translate([i*(Hbg_diam/2 +0.5), 0, 0]) 
+	for (i=[-1,1])
+	translate([i*(Hbg_diam/2 +0.5), 0, 0])
 		H_BearingGuid();
 }
 module H_BearingGuid_printSet() {
-	for (i=[-1:1]) 
-	translate([(Hbg_diam/2+0.5)*i , i*(Hbg_diam*0.85+1), 0]) 
+	for (i=[-1:1])
+	translate([(Hbg_diam/2+0.5)*i , i*(Hbg_diam*0.85+1), 0])
 	H_BearingGuid_print();
 }
 if (Hbg_mode == "printSet") {
@@ -90,12 +90,12 @@ if (Hbg_mode == "print") {
 include <basicMetalParts.scad>
 
 module H_BearingGuid_ass() {
-	translate([0, 0, -Hbg_washer_height- Hbg_outer_height]) 
+	translate([0, 0, -Hbg_washer_height- Hbg_inner_height])
 		H_BearingGuid();
-	translate([0, 0, bear_608ZZ_height + Hbg_outer_height + Hbg_washer_height ]) 
-	rotate(a=180,v=X) 
+	translate([0, 0, bear_608ZZ_height + Hbg_inner_height + Hbg_washer_height ])
+	rotate(a=180,v=X)
 		H_BearingGuid();
-	
+
 	bear608ZZ(info="bearing guid");
 
 }

@@ -178,7 +178,7 @@ motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
 
 m8_clearance_hole=8.8;
-hole_for_608=22.6;
+hole_for_608= bear_608ZZ_diam+0.2;
 608_diameter=22;
 
 block_top_right=[wade_block_width,wade_block_height];
@@ -216,7 +216,7 @@ idler_short_side=wade_block_depth-2;
 idler_hinge_r=m3_diameter/2+3.5;
 idler_hinge_width=6.5;
 idler_end_length=(idler_height-2)+5;
-idler_mounting_hole_diameter=m4_diameter+0.25;
+idler_mounting_hole_diameter=m3_diameter+0.25;
 idler_mounting_hole_elongation=0.9;
 idler_long_top=idler_mounting_hole_up+idler_mounting_hole_diameter/2+idler_mounting_hole_elongation+2.5;
 idler_long_bottom=idler_fulcrum_offset;
@@ -495,13 +495,13 @@ module block_holes(legacy_mount=false){
 				cylinder(r=idler_mounting_hole_diameter/2,h=wade_block_depth+6,$fn=6);
 
 				// nut traps
-				#translate([0,0,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
+				translate([0,0,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
 //				cylinder(r=m4_nut_diameter/2,h=idler_nut_thickness,$fn=6);
 				nut_trap(m3_wrench,m3_nut_heigth*2); // for selbs fix nut
 			}
 			// nut slots
 			translate([0,10/2,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
-				cube([m3_wrench+0.4,10,m3_nut_heigth*2],center=true);
+				cube([m3_wrench,10,m3_nut_heigth*2],center=true);
 
 			// screw holes 30°
 			for(tilt=[1:6]){

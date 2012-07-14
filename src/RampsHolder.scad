@@ -25,6 +25,8 @@ module ramps_holder(hole_offset=0,endstop_width=10,with_foot=false, addLength = 
 	screw_hole_spacing=48.26;
 	opening_size = m8_diameter-1.5; //openingsize
 
+	distHolder_height = 2.5;
+
 	xdirRodAltitude = c_xDirSupp_thredRod_altitude[0];
 	foot_height=xdirRodAltitude - outer_diameter/2 ;
 	difference()
@@ -59,7 +61,7 @@ module ramps_holder(hole_offset=0,endstop_width=10,with_foot=false, addLength = 
 				translate([-4-screw_hole_spacing/2-screw_hole_spacing/2*hole,
 					4,endstop_width/2+hole*hole_offset/2])
 				rotate([-90, 0, 0])
-				cylinder(h=1.7, r = m3_diameter/2+1, $fn = 10);
+				cylinder(h=distHolder_height, r = m3_diameter/2+1, $fn = 10);
 
 				for(hole=[-1,1])
 				translate([-4-screw_hole_spacing/2-screw_hole_spacing/2*hole,
@@ -68,9 +70,9 @@ module ramps_holder(hole_offset=0,endstop_width=10,with_foot=false, addLength = 
 				render()
 				intersection()
 				{
-				cylinder(h=1.7, r2 = m3_diameter/2+1,r1 = m3_diameter/2+2.7, $fn = 10);
+				cylinder(h=distHolder_height, r2 = m3_diameter/2+1,r1 = m3_diameter/2+2.7, $fn = 10);
 				translate([-m3_diameter/2-1,0,0])
-				cube([m3_diameter+2,endstop_width/2-hole_offset/2,1.7]);
+				cube([m3_diameter+2,endstop_width/2-hole_offset/2,distHolder_height]);
 				}
 			}
 		}
@@ -85,7 +87,7 @@ module ramps_holder(hole_offset=0,endstop_width=10,with_foot=false, addLength = 
 		rotate([-90, 0, 0])
 		{
 			cylinder(h=outer_diameter+2, r = m3_diameter/2, $fn = 10);
-			cylinder(h=3, r = m3_nut_diameter/2, $fn = 6);
+			cylinder(h=3.5, r = m3_nut_diameter*0.6);
 		}
 
 		translate([-addLength + 8, 0, 0])
@@ -95,19 +97,21 @@ module ramps_holder(hole_offset=0,endstop_width=10,with_foot=false, addLength = 
 		rotate([-90, 0, 0])
 		{
 			cylinder(h=outer_diameter+2, r = m3_diameter/2, $fn = 10);
-			cylinder(h=3, r = m3_nut_diameter/2, $fn = 6);
+			cylinder(h=3.5, r = m3_nut_diameter*0.6);
 		}
 	}
 }
 
 module rh_rampsholder_print(addLength = 8, isMirrored = false)
 {
-	ramps_holder(hole_offset=0,endstop_width=10,with_foot=true,addLength=addLength);
-	translate([0,18,0])
 	if (isMirrored) {
-		ramps_holder(hole_offset=-6.35,endstop_width=15,with_foot=true,addLength=addLength);
+		translate([0,18,0])
+			ramps_holder(hole_offset=-6.35,endstop_width=15,with_foot=true,addLength=addLength);
+		ramps_holder(hole_offset=1.3,endstop_width=10,with_foot=true,addLength=addLength);
 	} else {
-		ramps_holder(hole_offset=6.35,endstop_width=14,with_foot=true,addLength=addLength);
+		translate([0,18,0])
+			ramps_holder(hole_offset=6.35,endstop_width=14,with_foot=true,addLength=addLength);
+		ramps_holder(hole_offset=-1.3,endstop_width=10,with_foot=true,addLength=addLength);
 	}
 }
 
@@ -122,6 +126,13 @@ if (rh_mode == "print mirrored") {
 }
 if (rh_mode == "print Long mirrored") {
 	rh_rampsholder_print(addLength = 18, isMirrored = true);
+}
+
+module rh_rampsholder_print_set() {
+	translate([-68,13,0])
+	rotate(a=180,v=[0,0,1])
+		ramps_holder(hole_offset=6.35,endstop_width=14,with_foot=true,addLength=18);
+	ramps_holder(hole_offset=-1.3,endstop_width=10,with_foot=true,addLength=18);
 }
 
 module rh_assembly() {

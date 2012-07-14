@@ -14,7 +14,7 @@
 c_x_axis_length = 225; // usable lenth. If you use an extruder which is longer then the H-Xtruder-Mount.scad you have to add this overcut here.
 c_x_axis_smoothRod_diam = 8.1 +0.1;
 
-c_x_axis_dist = 25.38;
+c_x_axis_dist = 32;
 
 /*-----------------------------------y axis-----------------------------------*/
 c_y_axis_length = 225; // usable lenth. If your extruder nozzel exit is not center to the H-Xtruder-Mount.scad you have to add the offset here.
@@ -47,16 +47,22 @@ c_zAxis_lber_diam = c_lber_diam;
 /*                                    BELT                                    */
 /******************************************************************************/
 //T2.5
-//c_belt_thickness = 1.3;
-//c_belt_width = 6;
-//c_belt_teethDist = 2.5;
-//c_belt_teethDepth = 0.7;
+// c_belt_thickness  = 1.3;
+// c_belt_width      = 6;
+// c_belt_teethDist  = 2.5;
+// c_belt_teethDepth = 0.7;
 
 // T 5 Belt
-c_belt_thickness = 2.2;
-c_belt_width = 5;
-c_belt_teethDist = 5;
-c_belt_teethDepth = 1.2;
+//c_belt_thickness   = 2.2;
+//c_belt_width       = 5;
+//c_belt_teethDist   = 5;
+//c_belt_teethDepth  = 1.2;
+
+//HTD 3M
+c_belt_thickness     = 2.4;
+c_belt_width         = 7.5;
+c_belt_teethDist     = 3.0;
+c_belt_teethDepth    = 1.3;
 
 /*-----------------------------------x axis-----------------------------------*/
 //belt
@@ -66,7 +72,7 @@ c_xAxis_belt_teethDist = c_belt_teethDist;
 c_xAxis_belt_teethDepth = c_belt_teethDepth;
 
 // pully
-c_xAxis_pully_diam = 15.2 - c_xAxis_belt_thickness*2; // innermost (in the teeth molde) diameter of the pully
+c_xAxis_pully_diam = 10.70 - c_xAxis_belt_thickness*2; // innermost (in the teeth molde) diameter of the pully
 
 // diviater
 c_xAxis_bearingDiviater_diam = bear_608ZZ_diam; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt)

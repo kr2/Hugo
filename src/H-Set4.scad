@@ -1,4 +1,4 @@
-/* H-Set1
+/* H-Set4
  * Copyright (c) 2012 by Krallinger Sebastian [s.krallinger+cc@gmail.com]
  *
  * Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA) [http://creativecommons.org/licenses/by-sa/3.0/]
@@ -6,24 +6,16 @@
  */
 include <units.scad>
 
-include <H-Xtruder-Mount.scad>
-include <H-X-End.scad>
-include <H-X-Carriager_alternativ2.scad>
+include <GregsWade_v4.scad>
+include <H-GregWadeGears.scad>
+
 
 $fn= 24 * 4;
 
 %cube(size=[150, 150, 1], center=true);
 
+translate([-25, 8, 0])
+  gegsWade_print();
 
-rotate(a=90,v=Z) {
-	translate([25,0, 0])
-	H_x_End_print();
-
-	translate([-30, 29, 0])
-	rotate(a=-90,v=Z)
-	H_x_Carriage_print();
-
-	translate([-2, -36, 0])
-	rotate(a=90,v=Z)
-	H_Xtruder_mount_print();
-}
+translate([-15, -30, 0])
+  gWg_printSet();

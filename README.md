@@ -11,7 +11,7 @@ Brief
 =====
 This is Hugo. Named after Hugo de Vries who introduced the term "mutation".
 
-First of I would like to thank Achim (jsturm) who started this project in the first place and did almost the entire testing of the parts. The entire design is done in OpenSCAD and all files are hosted on https://github.com/kr2/Hugo.
+First of I would like to thank Joachim (jsturm) who started this project in the first place and did almost the entire testing of the parts. The entire design is done in OpenSCAD and all files are hosted on https://github.com/kr2/Hugo.
 
 It is a derivative of the original Printrbot by abdrumm, but all parts are redesigned and improved.
 
@@ -34,6 +34,11 @@ So there are several prebuilt stl files to discover and to put your own assembly
 
 In general if you print H-set1.stl and H-set2.stl you should have all mandatory parts to build the Printer. If you also print H-set3.stl you should be able to setup the entire printer similar to the one shown in H-assembly.scad. It is recommend to use LMXXUU or igus linear Bearings but the H-set7_PLA.scad contains printable linear bearings. This bearings should be printed in PLA because it is harder then ABS.
 
+
+Credits
+=======
+-   JSturm for everything especially for the Testing
+-   Thimo for the patches
 
 Sources
 =======

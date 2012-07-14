@@ -65,6 +65,9 @@ Xe_motor_cutout_diameter  = c_xAxis_motorPilot_diam; // diameter of the coutout 
 Xe_motor_holes_centerDist = c_xAxis_motorScrewHoles_centerDist; // distace of the motor holes from the motor axis center
 Xe_motor_holes_diameter   = c_xAxis_motorScrewHole_diam; // motor hole diameter
 
+Xe_motor_holes_support_minThickness = 5.5; // min support thickness at the motor holes
+Xe_motor_holes_support_diameter = 6; // min support dimeter at the motor holes
+
 
 /*------------------------------------elongated hole--------------------------*/
 // lower hole could be elongeteded to compensate inaccuracies, which ouccour by the fact that the carriage beearing holes are printed in the other direction
@@ -157,13 +160,25 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 					// suport cylinder
 					for (y=[Xe_motor_xdirBar_size[0]/2,Xe_outline[1]-Xe_motor_xdirBar_size[0]/2])
 					translate([Xe_outline[0]-Xe_motor_plate_thick, y,0])
-						cylinder(r=Xe_motor_xdirBar_size[0]/2, h=Xe_outline[1], center=false, $fn=24);
+						cylinder(r=Xe_motor_xdirBar_size[0]/2, h=Xe_outline[2], center=false, $fn=24);
 				}
 
 				if (!bottomRounded) {
 					cube(size=[Xe_X_RodHoles_pos[0][0], Xe_outline[1], Xe_X_RodHoles_pos[0][1]], center=false);
 
 				}
+
+				if (isMotor) {
+				// motor holes support Xe_motor_holes_minThickness Xe_motor_plate_thick Xe_motor_holes_support_diameter
+				for (a=[45:90:350]) {
+					translate(Xe_outline/2+[Xe_outline[0]/2-Xe_motor_plate_thick,0,0])
+					rotate(a=a,v=X)
+					translate([0, Xe_motor_holes_centerDist, 0])
+					rotate(a=-90,v=Y)
+						cylinder(r1 = Xe_motor_holes_support_diameter/2 + ( Xe_motor_holes_support_minThickness - Xe_motor_plate_thick),  r2=Xe_motor_holes_support_diameter/2, h= Xe_motor_holes_support_minThickness - Xe_motor_plate_thick, center=false);
+				}
+
+			}
 
 			}
 
@@ -238,11 +253,11 @@ module H_x_End(isIdle = false, isMotor = false,bottomRounded=false,adjustable_z_
 
 				// motor holes
 				for (a=[45:90:350]) {
-					translate(Xe_outline/2+[Xe_outline[0]/2-Xe_motor_plate_thick-OS,0,0])
+					translate(Xe_outline/2+[Xe_outline[0]/2  -Xe_motor_holes_support_minThickness -OS,0,0])
 					rotate(a=a,v=X)
 					translate([0, Xe_motor_holes_centerDist, 0])
 					rotate(a=90,v=Y)
-						cylinder(r=Xe_motor_holes_diameter/2, h=Xe_motor_plate_thick+2, center=false, $fn=12);
+						cylinder(r=Xe_motor_holes_diameter/2, h=Xe_motor_holes_support_minThickness + 2*OS, center=false, $fn=12);
 				}
 
 			}
@@ -298,7 +313,7 @@ module H_x_End_idle_assembly() {
 		rotate(a=-90,v=Y)
 			threadedRod(r=4, h=Xe_idle_hole_depth + 2 + 7 + 2 + m8_nut_heigth, center=false,info = "x end idler bearing holder rod");
 
-		translate([Xe_X_RodHoles_pos[1][0]+c_xAxis_beltCenter_xAxisDist - c_xAxis_belt_width/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])
+		translate([Xe_X_RodHoles_pos[1][0]+c_xAxis_beltCenter_xAxisDist - bear_608ZZ_height/2, Xe_idle_hole_pos[0], Xe_idle_hole_pos[1]])
 		rotate(a=90,v=Y)
 			H_BearingGuid_ass();
 	}

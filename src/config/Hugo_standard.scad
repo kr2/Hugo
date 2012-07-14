@@ -25,7 +25,7 @@ c_y_axis_tabel_zDirOffset = 14.321; // offset of the center of the y axis to the
 c_z_axis_length = 235; // usable lenth. If the nozzel of the extruder exids the lower edge of the H-X-Carriage.scad than you have to add the overcut here.
 c_z_axis_smoothRod_diam = 8.2 +0.1;
 
-c_z_axis_rodsDist = ((45.45+30.56)/2+1)-(9.69+1); // distance between threded rod and smooth rod
+c_z_axis_rodsDist = 28.315; // distance between threded rod and smooth rod
 
 /******************************************************************************/
 /*                                  linear Bearings                           */
@@ -66,10 +66,10 @@ c_xAxis_belt_teethDist = c_belt_teethDist;
 c_xAxis_belt_teethDepth = c_belt_teethDepth;
 
 // pully
-c_xAxis_pully_diam = 15.2 - c_xAxis_belt_thickness*2; // innes (in the teeth molde) diameter of the pully
+c_xAxis_pully_diam = 15.2 - c_xAxis_belt_thickness*2; // innermost (in the teeth molde) diameter of the pully
 
 // diviater
-c_xAxis_bearingDiviater_diam = 26; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt)
+c_xAxis_bearingDiviater_diam = bear_608ZZ_diam; // diameter of the diviater (so the diameter of the centerpoint to the teeth top of the belt)
 
 // distances
 c_xAxis_beltCenter_xAxisDist = 32;

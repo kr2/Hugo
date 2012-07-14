@@ -5,7 +5,7 @@
  * derivative of the original design by abdrumm for the PrintrBot
  */
 include <config.scad>
-include <units.scad>;
+include <units.scad>
 include <metric.scad>
 include <roundEdges.scad>
 include <utilities.scad>
@@ -44,7 +44,7 @@ Xc_lber_addiCover_len        = Xc_genWallThickness; // aditional length for each
 /*------------------------------------notch-----------------------------------*/
 // connecot notch to the xtruder holder
 Xc_notch_width               = 5.4 + 0.5;
-Xc_notch_depth               = 1.2;
+Xc_notch_depth               = 1.7;
 Xc_notch_lengt               = 24 + 2.5 + 1.5;
 
 /*------------------------------------xtruder carriag holes-------------------*/
@@ -153,6 +153,7 @@ module H_x_Carriage(hasSupport = false) {
 			}
 		}
 
+		if (Xc_mode != "inspect" && Xc_mode != "assembly")
 		mirror([1, 0, 0])
 		translate([0,0,-OS]){
 			translate([-5*1.5-1, 0, 0])
@@ -235,7 +236,7 @@ module H_x_Carriage(hasSupport = false) {
 			cylinder(r=_Xc_coutout_r, h=_Xc_ydir+2*OS, center=true);
 
 
-		if (Xc_mode != "inspect") {
+		if (Xc_mode != "inspect" && Xc_mode != "assembly") {
 			//logo
 			rotate(a=180,v=Z)
 			translate([0, 0, _Xc_zdir-txt_z + OS])
@@ -250,7 +251,7 @@ module H_x_Carriage(hasSupport = false) {
 /******************************************************************************/
 _Xc_beltarm_elongetatedHole_len = c_x_axis_dist * 0.4;
 
-_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_genWallThickness*2, Xc_strongWallThickness,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
+_Xc_beltarm_connPlat_size = [Xc_holes_dist + Xc_nut_diam + Xc_strongWallThickness*2, Xc_strongWallThickness*1.1,  _Xc_beltarm_elongetatedHole_len + _Xc_beltcon_heigth + 1.5*Xc_genWallThickness];
 module _beltArm() {
 
 	translate([0, -_Xc_beltarm_connPlat_size[1]/2 - _Xc_ydir/2, -(_Xc_beltarm_elongetatedHole_len )])
@@ -324,6 +325,13 @@ module _beltArm() {
 			rotate(a=180,v=Z)
 			translate([-Xc_strongWallThickness/2, _Xc_ydir/2,  - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth)])
 				cube(size=[Xc_strongWallThickness, Xc_belt_axisXc_ydir_dist  + _Xc_beltcon_minWidth/2 + _Xc_beltcon_thickness/2- _Xc_ydir/2  - _Xc_connector_bend- _Xc_connector_thickness/2, _Xc_beltcon_overallHeight], center=false);
+
+			rotate(a=180,v=Z)
+			translate([-Xc_strongWallThickness/2, _Xc_ydir/2 + Xc_strongWallThickness, - (_Xc_beltcon_overallHeight - _Xc_beltcon_heigth )])
+				// #cube(size=[Xc_strongWallThickness, 10, 10], center=false);
+			rotate(a=90,v=Y)
+				roundEdge(_a=0,_r=min(Xc_belt_axisXc_ydir_dist,(_Xc_beltcon_overallHeight  )),_l=Xc_strongWallThickness,_fn=4);
+
 		}
 		union(){
 			// belt loop through hole
@@ -331,7 +339,6 @@ module _beltArm() {
 				cube(size=_Xc_belthole_size, center=true);
 		}
 	}
-
 }
 //!_beltArm();
 
@@ -410,7 +417,7 @@ module carr_beltClamp() {
 					cylinder(r=_Xc_beltcon_thickness/2, h=Xc_genWallThickness, center=false,$fn=48);
 				}
 
-				for (i=[-_Xc_beltcon_thickness/2 + Xc_belt_teethDist/4 : Xc_belt_teethDist: _Xc_beltcon_thickness/2])
+				for (i=[-_Xc_beltcon_thickness/2 + Xc_belt_teethDist/4 : Xc_belt_teethDist: _Xc_beltcon_thickness/2-  Xc_belt_teethDist/4])
 				translate([i, -(Xc_belt_width+Xc_belt_tolerance[1])/2, Xc_genWallThickness-OS])
 					cube(size=[Xc_belt_teethDist/2, Xc_belt_width+Xc_belt_tolerance[1], Xc_belt_teethDepth], center=false);
 			}
@@ -453,7 +460,7 @@ module H_x_Carriage_print() {
 		_beltArm();
 
 	for (i=[1,-1])
-	translate([i*_Xc_xdir*0.4, 0, 0])
+	translate([i*_Xc_xdir*0.4+Xc_belt_width/2, 0, 0])
 	rotate(a=-90,v=Y)
 		yBeltClamp_beltProtector();
 
@@ -493,7 +500,7 @@ module H_x_Carriage_assembly() {
 	rotate(a=180,v=Z)
 	translate([0, 0, -_Xc_firstBearing_alt- Xc_axis_dist]) {
 		 H_x_Carriage();
-		 translate([0, 0, _Xc_firstBearing_alt + Xc_axis_dist + Xc_belt_axisXc_zdir_offset])
+		 translate([0, 0, _Xc_firstBearing_alt + Xc_axis_dist + Xc_belt_axisXc_zdir_offset+ _Xc_belthole_size[2] -Xc_belt_tolerance[0]])
 			_beltArm();
 	}
 }

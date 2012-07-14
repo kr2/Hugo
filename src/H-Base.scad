@@ -422,12 +422,12 @@ if (b_mode == "inspect") {
 /*------------------------------------print-----------------------------------*/
 
 module H_base_print() {
-	translate([-b_zdir_motorHoles_centerDist*1, b_zdir_motorHoles_centerDist/3, 0])
+	translate([-b_zdir_motorHoles_centerDist*0.85, b_zdir_motorHoles_centerDist/3, 0])
 	rotate(a=180,v=Y)
 	translate([0, 0, -b_zDirWall_size[2]])
 		H_base(hasYMotorMount = true,hasEnstopHolder = true);
 
-	translate([b_zdir_motorHoles_centerDist * 1, -b_zdir_motorHoles_centerDist/3, 0])
+	translate([b_zdir_motorHoles_centerDist * 0.85, -b_zdir_motorHoles_centerDist/3, 0])
 	rotate(a=180,v=Z)
 	rotate(a=180,v=Y)
 	translate([0, 0, -b_zDirWall_size[2]])
